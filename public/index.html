@@ -25,8 +25,11 @@
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+      // do something with the reponse
+      return response.json()
+    })
+    .then(function (json){
+      console.log(json)
     })
 
     return false
