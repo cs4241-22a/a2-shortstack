@@ -18,18 +18,19 @@ const submit = function (e) {
     body,
   })
     .then((response) => response.json())
-    .then((data) => updateTableWithData(data));
+    .then((data) => {
+      $("#resultsTable").find("tr:gt(0)").remove();
+      updateTableWithData(data);
+    });
 
   return false;
 };
 
 const updateTableWithData = function (currentData) {
-  // Taken from https://stackoverflow.com/a/16270116
-  $("#resultsTable:not(:first)").remove();
   const table = document.querySelector("#resultsTable");
   console.log(currentData);
-  currentData.forEach((element, index) => {
-    const row = table.insertRow(index);
+  currentData.forEach((element) => {
+    const row = table.insertRow();
     for (const value of Object.values(element)) {
       const cell = row.insertCell();
       cell.innerHTML = value;
