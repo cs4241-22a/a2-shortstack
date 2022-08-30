@@ -14,6 +14,10 @@ const server = http.createServer(function (request, response) {
     handleGet(request, response);
   } else if (request.method === "POST") {
     handlePost(request, response);
+  } else if (request.method === "PUT") {
+    handlePut(request, response);
+  } else if (request.method === "DELETE") {
+    handleDelete(request, response);
   }
 });
 
@@ -40,19 +44,51 @@ const handlePost = function (request, response) {
   request.on("end", function () {
     const json = JSON.parse(dataString);
     console.log(json);
-    const { type, rowIndex, rowData } = json;
+    const { rowData } = json;
 
-    if (json["type"] === "ADD") {
-      const transformedData = utility.addDerivedField(currentData, rowData);
-      currentData.push(transformedData);
-    } else if (type === "MODIFY") {
-      // Delete the element we are modifying and add new element to the back of the array
-      currentData.splice(rowIndex, 1);
-      const transformedData = utility.addDerivedField(currentData, rowData);
-      currentData.push(transformedData);
-    } else if (type === "DELETE") {
-      currentData.splice(rowIndex, 1);
-    }
+    const transformedData = utility.addDerivedField(currentData, rowData);
+    currentData.push(transformedData);
+
+    response.writeHead(200, "OK", { "Content-Type": mime.getType("json") });
+    response.end(JSON.stringify(currentData));
+  });
+};
+
+const handlePut = function (request, response) {
+  let dataString = "";
+
+  request.on("data", function (data) {
+    dataString += data;
+  });
+
+  request.on("end", function () {
+    const json = JSON.parse(dataString);
+    console.log(json);
+    const { rowData, rowIndex } = json;
+
+    // Delete the element we are modifying and add new element to the back of the array
+    currentData.splice(rowIndex, 1);
+    const transformedData = utility.addDerivedField(currentData, rowData);
+    currentData.push(transformedData);
+
+    response.writeHead(200, "OK", { "Content-Type": mime.getType("json") });
+    response.end(JSON.stringify(currentData));
+  });
+};
+
+const handleDelete = function (request, response) {
+  let dataString = "";
+
+  request.on("data", function (data) {
+    dataString += data;
+  });
+
+  request.on("end", function () {
+    const json = JSON.parse(dataString);
+    console.log(json);
+    const { rowIndex } = json;
+
+    currentData.splice(rowIndex, 1);
 
     response.writeHead(200, "OK", { "Content-Type": mime.getType("json") });
     response.end(JSON.stringify(currentData));
