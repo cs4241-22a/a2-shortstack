@@ -1,1 +1,51 @@
-/*Style your own assignment! This is fun! */
+table{
+    border-collapse: collapse;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: auto;
+}
+thead {
+    font-weight: bold;
+}
+
+td{
+    padding: .5rem;
+    text-align: center;
+    border: 2px solid black;
+}
+
+#resultsTable{
+    margin: 1rem;
+}
+
+#submissionForm{
+    margin:1rem;
+}
+
+#container{
+    margin: auto;
+    width: 50%;
+}
+
+.inputField{
+    margin-bottom: .5rem;
+}
+
+button {
+    padding-top: .25rem;
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+}
+
+
+
+form{
+    display: flex;
+    flex-direction: column;
+
+}
+
+

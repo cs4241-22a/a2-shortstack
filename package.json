@@ -4,9 +4,13 @@
   "description": "",
   "author": "",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.improved.js",
+    "dev": "nodemon server.improved.js"
   },
   "dependencies": {
     "mime": "^2.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
