@@ -1,1 +1,27 @@
 /*Style your own assignment! This is fun! */
+body {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/63/Star%2A.svg");
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+header {
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+
+#addmovie {
+    display:flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.moviefield {
+    height: 50px;
+}
+#submitbutton {
+    max-width: 70px;
+}
