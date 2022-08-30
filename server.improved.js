@@ -63,7 +63,6 @@ const handlePut = function (request, response) {
 
   request.on("end", function () {
     const json = JSON.parse(dataString);
-    console.log(json);
     const { rowData, rowIndex } = json;
 
     // Delete the element we are modifying and add new element to the back of the array
@@ -85,7 +84,6 @@ const handleDelete = function (request, response) {
 
   request.on("end", function () {
     const json = JSON.parse(dataString);
-    console.log(json);
     const { rowIndex } = json;
 
     currentData.splice(rowIndex, 1);
