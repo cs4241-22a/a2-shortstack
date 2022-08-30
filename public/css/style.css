@@ -1,1 +1,21 @@
-/*Style your own assignment! This is fun! */
+body {
+
+}
+
+table, th, td {
+    border: 1px solid;
+    width: 50%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.deleteNote {
+    background-color: firebrick;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    border-radius: 50%;
+}
