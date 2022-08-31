@@ -16,7 +16,7 @@ h1{color: #E87C31;}
 }
 
 div {
-    display:block;
+    display:grid;
     width:500px;
     margin:30px;
 }
