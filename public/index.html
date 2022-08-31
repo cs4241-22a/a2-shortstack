@@ -4,15 +4,27 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
     <script src="./js/scripts.js"></script>
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<form id="addNote" action="">
-    <label for="task">Task:</label><input type="text" id="task" placeholder="Write your task here"/>
-    <br/>
-    <label for="due-date">Due Date:</label><input type="datetime-local" id="due-date">
-    <button id="todoSubmit" disabled="disabled">Submit</button>
-</form>
+<header>
+    <img id="logo" src="./resources/logo.png" alt="Todo website logo"/>
+    <h1>Todo List</h1>
+</header>
+<section id="submission">
+    <form id="addNote" action="">
+        <fieldset>
+            <legend>Add a TODO</legend>
+            <label for="task">Task:</label><textarea id="task" placeholder="Write your task here"></textarea>
+            <label for="due-date">Due Date:</label><input type="datetime-local" id="due-date">
+            <button id="todoSubmit" disabled="disabled">Submit</button>
+        </fieldset>
+    </form>
+</section>
+<button>Hi there</button>
 <section id="todolist"></section>
 </body>
 </html>

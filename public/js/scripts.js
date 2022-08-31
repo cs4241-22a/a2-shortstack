@@ -12,7 +12,7 @@ const submit = function (e) {
     fetch('/submit', {
         method: 'POST',
         body
-    }).then(response => {
+    }).then(() => {
         showTable()
     })
 
@@ -57,8 +57,8 @@ window.onload = function () {
     todoSubmit.onclick = submit
 
     // Only enable submit button if fields are filled out
-    const addNote = document.getElementById('addNote')
+    const addNote = document.getElementById('addNote')[0]
     addNote.oninput = () => {
-        addNote[2].disabled = addNote[0].value.trim() === '' || addNote[1].value.trim() === '';
+        document.getElementById('todoSubmit').disabled = document.getElementById('task').value.trim() === '' || document.getElementById('due-date').value.trim() === ''
     }
 }

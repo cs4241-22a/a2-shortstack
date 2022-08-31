@@ -8,9 +8,9 @@ const http = require('http'),
 
 // All times are in EST
 const appdata = [
-    {'task': 'finish this project!', 'creation_date': '2022-09-02T12:06', 'due_date': '2022-09-08T11:59', 'priority': 'medium'},
-    {'task': 'go grocery shopping', 'creation_date': '2022-08-29T18:31', 'due_date': '2022-08-31T23:59', 'priority': 'high'},
-    {'task': 'email professor', 'creation_date': '2022-08-27T17:25', 'due_date': '2022-10-31T23:59', 'priority': 'low'}
+    {'task': 'finish this project!', 'creation_date': '2022-09-02T12:06', 'due_date': '2022-09-08T11:59', 'priority': 'Medium'},
+    {'task': 'go grocery shopping', 'creation_date': '2022-08-29T18:31', 'due_date': '2022-08-31T23:59', 'priority': 'High'},
+    {'task': 'email professor', 'creation_date': '2022-08-27T17:25', 'due_date': '2022-10-31T23:59', 'priority': 'Low'}
 ]
 
 const server = http.createServer((request, response) => {
@@ -86,14 +86,17 @@ const sendFile = function (response, filename) {
 }
 
 const sendList = function (response) {
-    let html = '<table><tr><th>Task</th><th>Creation Date</th><th>Due Date</th><th>Priority</th><th>Delete</th></tr>'
+    let html = '<table><strong><tr><th><strong>Task</strong></th><th><strong>Creation Date</strong></th><th><strong>Due Date</strong></th><th><strong>Priority</strong></th><th><strong>Delete</strong></th></tr>'
     let idx = 0
     for (let todo of appdata) {
         html += '<tr>'
         html += '<th>' + todo.task + '</th>'
-        html += '<th>' + todo.creation_date + '</th>'
-        html += '<th>' + todo.due_date + '</th>'
-        html += '<th>' + todo.priority + '</th>'
+        html += '<th>' + new Date(todo.creation_date).toString() + '</th>'
+        html += '<th>' + new Date(todo.due_date).toString() + '</th>'
+        if (todo.priority === 'Late')
+            html+= '<th style="background-color: red; color: white">' + todo.priority + '</th>'
+        else
+            html += '<th>' + todo.priority + '</th>'
         html += '<th><button class="deleteNote">X</button></th>'
         html += '</tr>'
         idx++
@@ -108,14 +111,17 @@ const determinePriority = function (creation_date, due_date) {
     const start = new Date(creation_date)
     const end = new Date(due_date)
 
+    const now = Date.now();
     const timeDifference = (end - start) / 1000;
 
-    if (timeDifference < seconds_in_day * 3) // Less than 2 days
-        return 'high'
+    if (end < now) // If already past due date, then mark as late
+        return 'Late'
+    else if (timeDifference < seconds_in_day * 3) // Less than 2 days
+        return 'High'
     else if (timeDifference < seconds_in_day * 7) // Less than 7 days
-        return 'medium'
+        return 'Medium'
     else
-        return 'low'
+        return 'Low'
 }
 
 server.listen(process.env.PORT || port)
