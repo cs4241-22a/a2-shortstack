@@ -75,10 +75,27 @@ export const updateGameInTable = (gameObject) => {
     
     for(let i = 0; i<tableRows.length; i++){
         const row = tableRows.item(i);
-        const rowGameID = row.children.item(0);
-        if(rowGameID.innerHTML == gameObject.id) {
+        const rowGameID = row.children.item(0).innerHTML;
+        if(rowGameID == gameObject.id) {
             row.outerHTML = generateRow(gameObject);
             document.querySelector(`#game_${gameObject.id}`).addEventListener("click", sendGameToModify);
         }
     }
+}
+
+/**
+ * Given a game id finds the corresponding table row and removes it from the table
+ * @param {String} gameID 
+ */
+export const removeGameFromTable = (gameID) => {
+    const tableRows = getRowsInTable();
+
+    for(let i = 0; i<tableRows.length; i++){
+        const row = tableRows.item(i);
+        const rowGameID = row.children.item(0).innerHTML;
+        if(rowGameID == gameID){
+            row.remove()
+        }
+    }
+
 }

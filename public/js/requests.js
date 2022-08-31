@@ -1,4 +1,4 @@
-import { addGameToTable, switchForm, updateGameInTable } from "./table.js";
+import { addGameToTable, switchForm, updateGameInTable, removeGameFromTable } from "./table.js";
 import { getFormValues } from "./util.js";
 
 /**
@@ -57,4 +57,32 @@ export const modifyGame = async (evt) => {
     }
 
     switchForm()
+}
+
+/**
+ * Click event listener for the delete game button. Tells server to delete the game from memory and removes from table
+ * @param {Event} evt 
+ */
+export const deleteGame = async (evt) => {
+    evt.preventDefault();
+
+    const selectedGameData = getFormValues("#modifyForm");
+
+    const deleteRequestResponse = await fetch("/games", {
+        method: "DELETE",
+        body: JSON.stringify({
+            id: selectedGameData.id
+        })
+    })
+
+
+    if(deleteRequestResponse.status === 200){
+        removeGameFromTable(selectedGameData.id);
+    }else{
+        console.error("DELETE request to server failed")
+    }
+
+    switchForm();
+
+
 }

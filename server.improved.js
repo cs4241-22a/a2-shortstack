@@ -17,6 +17,8 @@ const server = http.createServer(function (request, response) {
     handlePost(request, response);
   }else if(request.method === "PUT"){
     handlePut(request, response);
+  }else if(request.method === "DELETE"){
+    handleDelete(request, response);
   }
 })
 
@@ -87,6 +89,25 @@ const handlePut = function (request, response) {
   }
 }
 
+const handleDelete = function (request, response) {
+  let dataString = ''
+
+  if (request.url === "/games") {
+
+    request.on('data', function (data) {
+      dataString += data
+    })
+
+    request.on('end', function () {
+      const requestData = JSON.parse(dataString);
+
+      statsData = statsData.filter((value) => value.id != requestData.id)
+
+      response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+      response.end("DELETED")
+    })
+  }
+}
 
 const sendFile = function (response, filename) {
   const type = mime.getType(filename)

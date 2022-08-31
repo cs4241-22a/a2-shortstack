@@ -1,5 +1,5 @@
 import { populateTable } from "./table.js";
-import {modifyGame, submitNewGame} from "./requests.js";
+import {deleteGame, modifyGame, submitNewGame} from "./requests.js";
 
 /**
  * onload function to initialize functionality
@@ -13,6 +13,7 @@ window.onload = async function () {
 
     submitButton.addEventListener("click", submitNewGame);
     modifyButton.addEventListener("click", modifyGame);
+    deleteButton.addEventListener("click", deleteGame);
 }
 
 

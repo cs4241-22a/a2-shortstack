@@ -37,6 +37,7 @@ button {
     font-weight: bolder;
     border: none;
     border-radius: 5px;
+    cursor:pointer;
 }
 
 .btnSubmit{
@@ -63,6 +64,11 @@ button {
 
 .hidden {
     display: none;
+}
+
+tr:hover {
+    background-color: azure;
+    cursor:pointer;
 }
 
 
