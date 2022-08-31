@@ -90,6 +90,7 @@ const updateTask = function (e) {
 
 // DELETE request
 const deleteTask = function (e) {
+    cancel(e) // When canceling, clear fields
     fetch('/' + e.target.id.substring(6), {
         method: 'DELETE'
     }).then(async response => {

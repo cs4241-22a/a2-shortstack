@@ -21,8 +21,8 @@
             <legend id="legend">Add a TODO</legend>
             <label for="task">Task:</label><textarea id="task" placeholder="Write your task here"></textarea>
             <label for="due-date">Due Date:</label><input type="datetime-local" id="due-date">
-            <button id="cancel">Cancel</button>
-            <button id="todoSubmit" disabled="disabled">Submit</button>
+            <button id="cancel" type="button">Cancel</button>
+            <button id="todoSubmit" disabled="disabled" type="submit">Submit</button>
         </fieldset>
     </form>
 </div>
@@ -30,3 +30,9 @@
 </div>
 </body>
 </html>
+
+<!--
+TODO:
+-fix hitting modify on top row, deleting, hit submit to modify new top row
+-fix priority not updating upon modification
+-->
