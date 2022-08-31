@@ -8,9 +8,9 @@ const http = require('http'),
 
 // All times are in EST
 const appdata = [
-    {'task': 'finish this project!', 'creation_date': '2022-09-02T12:06', 'due_date': '2022-09-08T11:59', 'priority': 'Medium'},
-    {'task': 'go grocery shopping', 'creation_date': '2022-08-29T18:31', 'due_date': '2022-08-31T23:59', 'priority': 'High'},
-    {'task': 'email professor', 'creation_date': '2022-08-27T17:25', 'due_date': '2022-10-31T23:59', 'priority': 'Low'}
+    {'task': 'Finish this project!', 'creation_date': '2022-09-02T12:06', 'due_date': '2022-09-08T11:59', 'priority': 'Medium'},
+    {'task': 'Go grocery shopping', 'creation_date': '2022-08-29T18:31', 'due_date': '2022-08-31T23:59', 'priority': 'High'},
+    {'task': 'Email professor', 'creation_date': '2022-08-27T17:25', 'due_date': '2022-10-31T23:59', 'priority': 'Low'}
 ]
 
 const server = http.createServer((request, response) => {
@@ -46,7 +46,6 @@ const handlePost = function (request, response) {
     request.on('end', () => {
         // Add task to list
         let newTask = JSON.parse(dataString)
-        newTask.creation_date = newTask.creation_date.substring(0, 16) // Makes it up to minute only
         newTask.priority = determinePriority(newTask.creation_date, newTask.due_date)
         appdata[appdata.length] = newTask
 
@@ -91,8 +90,8 @@ const sendList = function (response) {
     for (let todo of appdata) {
         html += '<tr>'
         html += '<th>' + todo.task + '</th>'
-        html += '<th>' + new Date(todo.creation_date).toString() + '</th>'
-        html += '<th>' + new Date(todo.due_date).toString() + '</th>'
+        html += '<th>' + new Date(todo.creation_date).toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + '</th>'
+        html += '<th>' + new Date(todo.due_date).toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + '</th>'
         if (todo.priority === 'Late')
             html+= '<th style="background-color: red; color: white">' + todo.priority + '</th>'
         else

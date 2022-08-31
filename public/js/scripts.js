@@ -16,6 +16,11 @@ const submit = function (e) {
         showTable()
     })
 
+    // Reset fields when submitted
+    input_task.value = ''
+    input_date.value = ''
+    document.getElementById('todoSubmit').disabled = true
+
     return false
 }
 
