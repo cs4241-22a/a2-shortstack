@@ -66,7 +66,7 @@ button {
     display: none;
 }
 
-tr:hover {
+tbody tr:hover {
     background-color: azure;
     cursor:pointer;
 }
@@ -78,4 +78,10 @@ form{
 
 }
 
+body {
+    font-family: "Roboto", sans-serif;
+}
 
+header {
+    text-align: center;
+}
