@@ -1,9 +1,8 @@
 /*Style your own assignment! This is fun! */
+body 
+{background-color: #FFAD42;}
 
-  body 
-{background-color: blue;}
-
-h1{color: green;}
+h1{color: #E87C31;}
 
 .container {
     width:980px;
