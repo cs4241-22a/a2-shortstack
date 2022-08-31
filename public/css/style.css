@@ -8,9 +8,15 @@ h1{color: #E87C31;}
     width:980px;
     float:center;
 }
-.logo-box {
+.Alfie_Image {
     width:245px;
     float:left;
     height:150px;
     background-color: orange;
+}
+
+div {
+    display:block;
+    width:500px;
+    margin:30px;
 }
