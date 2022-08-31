@@ -4,20 +4,21 @@ body
 
 h1{color: #E87C31;}
 
-.container {
-    width:980px;
-    float:center;
+div{
+    display:grid;
+    width:500px;
+    margin:30px;
 }
+
 .Alfie_Image {
     width:245px;
     float:center;
     margin: 30px;
     height:150px;
-    background-color: orange;
+    background-color: #FFD430;
 }
 
-div {
-    display:grid;
-    width:500px;
-    margin:30px;
+img {
+    float:center;
+    padding:10px;
 }
