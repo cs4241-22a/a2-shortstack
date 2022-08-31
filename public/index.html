@@ -3,21 +3,37 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <h1>Shopping List! Create a list!</h1>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <input type='text' type="submit" id='shoppingitem' value="Enter item here...">
       <button>submit</button>
     </form>
+    <h2>Shopping List</h2>
+    <table> 
+      <tr>
+        <td> Item </td>
+        <td> Quantity </td>
+        <td> Price </td>
+        </tr>
+      <tr>
+        <td><div document.getElementById("shoppingitem").value;</div></td>
+        <td><div id="shoppingitem"></div></td>
+      </tr>
+  </table>
+
+  <h3> Total Price: </h3>
+  <p>$Idk how im gonna add prices yet lol</p>
   </body>
   <script>
-
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input = document.querySelector( '#shoppingitem' ),
+          json = { item: input.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
