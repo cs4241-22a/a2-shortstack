@@ -4,19 +4,19 @@ const http = require('http'),
   dir = 'public/',
   port = 3000
 
-
-
-const statsData = [
-  { "id": 0, "date": "2022-08-27", "hits": 2, "atBats": 3, "avg": 2 / 3 },
-  { "id": 1, "date": "2022-08-28", "hits": 3, "atBats": 3, "avg": 1 },
-  { "id": 2, "date": "2022-08-29", "hits": 1, "atBats": 3, "avg": 1 / 3 }
+let statsData = [
+  { "id": "0", "date": "2022-08-27", "hits": "2", "atBats": "3", "avg": 2 / 3 },
+  { "id": "1", "date": "2022-08-28", "hits": "3", "atBats": "3", "avg": 1 },
+  { "id": "2", "date": "2022-08-29", "hits": "1", "atBats": "3", "avg": 1 / 3 }
 ]
 
 const server = http.createServer(function (request, response) {
   if (request.method === 'GET') {
-    handleGet(request, response)
+    handleGet(request, response);
   } else if (request.method === 'POST') {
-    handlePost(request, response)
+    handlePost(request, response);
+  }else if(request.method === "PUT"){
+    handlePut(request, response);
   }
 })
 
@@ -46,10 +46,10 @@ const handlePost = function (request, response) {
       const requestData = JSON.parse(dataString);
       const requestGameObject = {
         id: statsData.length,
-        date: requestData.dateValue,
-        hits: requestData.hitsValue,
-        atBats: requestData.atBatsValue,
-        avg: requestData.hitsValue/requestData.atBatsValue
+        date: requestData.date,
+        hits: requestData.hits,
+        atBats: requestData.atBats,
+        avg: requestData.hits/requestData.atBats
       }
       
 
@@ -60,6 +60,33 @@ const handlePost = function (request, response) {
     })
   }
 }
+
+const handlePut = function (request, response) {
+  let dataString = ''
+
+  if (request.url === "/games") {
+
+    request.on('data', function (data) {
+      dataString += data
+    })
+
+    request.on('end', function () {
+      const requestData = JSON.parse(dataString);
+      const requestGameObject = {
+        id: requestData.id,
+        date: requestData.date,
+        hits: requestData.hits,
+        atBats: requestData.atBats,
+        avg: requestData.hits/requestData.atBats
+      }
+      statsData = statsData.map((value) => value.id == requestGameObject.id ? requestGameObject : value)
+
+      response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(requestGameObject))
+    })
+  }
+}
+
 
 const sendFile = function (response, filename) {
   const type = mime.getType(filename)

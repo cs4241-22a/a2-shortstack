@@ -4,7 +4,10 @@
 <head>
   <title>CS4241 Assignment 2</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/scripts.js"></script>
+  <script type="module" src="js/util.js"></script>
+  <script type="module" src="js/table.js"></script>
+  <script type="module" src="js/requests.js"></script>
+  <script type="module" src="js/scripts.js"></script>
   <meta charset="utf-8">
 </head>
 
@@ -16,6 +19,8 @@
 
   <main id="container">
     <section id="resultsTable">
+      <h2>Game Log</h2>
+
       <table>
         <thead>
           <tr>
@@ -31,23 +36,46 @@
       </table>
     </section>
 
-    <section id="submissionForm">
-
+    <section id="submissionForm" class="visible">
       <h2>
         Add a game report
       </h2>
 
-      <form action="">
-        <label for="datePicker">Date:</label>
-        <input class="inputField" id="datePicker" type="date">
+      <form>
+        <label for="submitDatePicker">Date:</label>
+        <input class="inputField" id="submitDatePicker" type="date">
 
-        <label for="hitsField">Hits:</label>
-        <input class="inputField"id="hitsField" type="text">
+        <label for="submitHitsField">Hits:</label>
+        <input class="inputField" id="submitHitsField" type="text">
 
-        <label for="atBatsField">At Bats:</label>
-        <input class="inputField"id="atBatsField" type="text">
+        <label for="submitAtBatsField">At Bats:</label>
+        <input class="inputField" id="submitAtBatsField" type="text">
 
-        <button id="btnSubmit">Add Game</button>
+        <button id="submitBtnSubmit" class="btnSubmit">Add Game</button>
+      </form>
+    </section>
+    <section id="modifyForm" class="hidden">
+      <h2>
+        Modify a game report
+      </h2>
+
+      <form>
+        <label for="idField">ID:</label>
+        <input class="inputField" id="idField" type="text" disabled>
+
+        <label for="modifyDatePicker">Date:</label>
+        <input class="inputField" id="modifyDatePicker" type="date">
+
+        <label for="modifyHitsField">Hits:</label>
+        <input class="inputField" id="modifyHitsField" type="text">
+
+        <label for="modifyAtBatsField">At Bats:</label>
+        <input class="inputField" id="modifyAtBatsField" type="text">
+
+        <div class="btnContainer">
+          <button id="modifyBtnDelete" class="btnDelete">Delete</button>
+          <button id="modifyBtnSubmit" class="btnSubmit">Modify Game</button>
+        </div>
       </form>
     </section>
   </main>

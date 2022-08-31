@@ -18,7 +18,7 @@ td{
     margin: 1rem;
 }
 
-#submissionForm{
+section{
     margin:1rem;
 }
 
@@ -33,13 +33,37 @@ td{
 
 button {
     padding-top: .25rem;
-    background-color: blue;
     color: white;
     font-weight: bolder;
     border: none;
     border-radius: 5px;
 }
 
+.btnSubmit{
+    background-color: blue;
+}
+
+.btnDelete{
+    background-color: red;
+}
+
+.btnContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnContainer > button{
+    flex-grow: 1;
+    margin: 0 .25rem;
+}
+
+.visible {
+    display:block;
+}
+
+.hidden {
+    display: none;
+}
 
 
 form{
