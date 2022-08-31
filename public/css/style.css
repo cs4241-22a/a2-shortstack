@@ -5,8 +5,9 @@ body
 h1{color: #E87C31;}
 
 div{
-    margin:30px;
-    background-color:#FF7042;
+	width: 500x
+	margin:30px;
+	background-color:#FF7042;
 	display: grid;
 	place-items: center;
 }
