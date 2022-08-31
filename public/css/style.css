@@ -2,5 +2,13 @@
 
 body {
     background-color: #6082B6;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+#testing {
+    border-radius: 25px;
+    background-color: rgb(37, 59, 145);
+    padding: 20px;
+    width: 200px;
 }

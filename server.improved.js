@@ -6,6 +6,10 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+const appdata2 = [
+  { 'testing': 'testing' }
+]
+
 const appdata = [
   { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   { 'model': 'honda', 'year': 2004, 'mpg': 30 },
@@ -13,6 +17,8 @@ const appdata = [
 ]
 
 const server = http.createServer( function( request,response ) {
+  console.log(process.env.REACT_APP_KEY)
+
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
@@ -23,7 +29,7 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 )
   
-  console.log(filename)
+  //console.log(filename)
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
