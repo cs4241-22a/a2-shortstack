@@ -5,11 +5,10 @@ body
 h1{color: #E87C31;}
 
 div{
-    float: center;
-    display:table-cell;
-    width:800px;
-    height:800px;
     margin:30px;
+    background-color:#FF7042;
+	display: grid;
+	place-items: center;
 }
 
 .Alfie_Image {
