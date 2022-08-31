@@ -1,1 +1,20 @@
 /*Style your own assignment! This is fun! */
+h1 {
+    font-family: 'Plus Jakarta Sans';
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
+body {
+    font-family: 'Anek Telugu';
+    margin: 0 auto;
+    max-width: 50em;
+}
+
+
+/*
+Change input to start as gray until edited
+input {
+    color: gray;
+}
+*/ 
