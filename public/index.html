@@ -6,19 +6,53 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-    <h2>My Homework Assignments</h2>
-    <p>Add, remove, modify, or delete data in the table.</p>
+    <br>
+    <br>
+    <h2 class="header">My Homework Assignments</h2>
+    <p>Add, remove, modify, or delete assignments from the table.</p>
     <table style="width:100%">
       <tr>
         <th>Assignment</th>
         <th>Course</th>
         <th>Due Date</th>
+        <th>Time Until Due</th>
       </tr>
+  
+      <tr>
+        <td><b>Example Assignment #1</b></td>
+        <td><b>Software Engineering</b></td>
+        <td><b>09/24/2022</b></td>
+      </tr>
+
     </table>
+    <br><br><br><br><br>
+
+    <form action="">
+      <h3 class="header"><b>Add Assignment:</b></h3>
+      <label for="assignment">Assignment:</label>
+      <input type="text" id="assignment" name="assignment" size ="15" value="assignment">
+      <label for="course">Course:</label>
+      <input type="text" id="course" name="assignment" size ="15" value="course">
+      <label for="date">Date:</label>
+      <input type="text" id="date" name="date" size ="15" value="DD/MM/YYYY">
+     <button>submit</button>
+     </form>
+     <br>
+
+      <form action="">
+      <h3 class="header"><b>Remove Assignment:</b></h3>
+      <label for="remove_assignment">Assignment:</label>
+      <input type="text" id="remove_assignment" name="remove_assignment" size ="15" value="assignment">
+      <button>submit</button>
+      </form>
+      <br>
+      
+      <form action="">
+      <h3 class="header"><b>Modify Assignment??:</b></h3>
+      <label for="modify_assignment">Assignment:</label>
+      <input type="text" id="modify_assignment" name="modify_assignment" size ="15" value="assignment">
+      <button>submit</button>
+      </form>
 
   </body>
   <script>
