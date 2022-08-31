@@ -8,9 +8,9 @@ div{
 	width: 500x
 	margin:30px;
 	background-color:#FF7042;
-	display: grid;
-	place-items: center;
-}
+	display: flex;
+	justify-content: center;
+	align-items: center;}
 
 .Alfie_Image {
     width:245px;
