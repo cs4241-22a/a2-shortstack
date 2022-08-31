@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "cs4241-assignment2--todo-list",
+  "version": "0.1.0",
+  "description": "WPI CS 4241 second assignment: A todo list highlighter that prioritizes tasks.",
+  "author": "Jonathan Metcalf",
   "scripts": {
     "start": "node server.improved.js"
   },
