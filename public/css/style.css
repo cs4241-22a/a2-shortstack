@@ -10,7 +10,8 @@ h1{color: #E87C31;}
 }
 .Alfie_Image {
     width:245px;
-    float:left;
+    float:center;
+    margin: 30px;
     height:150px;
     background-color: orange;
 }
