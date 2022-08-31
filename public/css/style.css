@@ -5,8 +5,10 @@ body
 h1{color: #E87C31;}
 
 div{
-    display:block;
-    width:500px;
+    float: center;
+    display:table-cell;
+    width:800px;
+    height:800px;
     margin:30px;
 }
 
