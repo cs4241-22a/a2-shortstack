@@ -87,6 +87,7 @@ const handlePatch = function (request, response) {
         const num = request.url.substring(1)
         appdata[num].task = obj.task
         appdata[num].due_date = obj.due_date
+        appdata[num].priority = determinePriority(obj.creation_date, obj.due_date)
         sendListData(response)
     })
 }
@@ -120,11 +121,10 @@ const sendListData = function (response) {
 
 const determinePriority = function (creation_date, due_date) {
     const seconds_in_day = 86400
-    const start = new Date(creation_date)
     const end = new Date(due_date)
 
     const now = Date.now();
-    const timeDifference = (end - start) / 1000;
+    const timeDifference = (end - now) / 1000;
 
     if (end < now) // If already past due date, then mark as late
         return 'Late'
