@@ -16,15 +16,17 @@
     <a href="https://github.com/JMetcalf01" target="_blank">by Jonathan Metcalf</a>
 </header>
 <div id="submission">
-    <form id="addNote">
+    <form id="addTask">
         <fieldset>
-            <legend>Add a TODO</legend>
+            <legend id="legend">Add a TODO</legend>
             <label for="task">Task:</label><textarea id="task" placeholder="Write your task here"></textarea>
             <label for="due-date">Due Date:</label><input type="datetime-local" id="due-date">
+            <button id="cancel">Cancel</button>
             <button id="todoSubmit" disabled="disabled">Submit</button>
         </fieldset>
     </form>
 </div>
-<div id="todolist"></div>
+<div id="todolist">
+</div>
 </body>
 </html>

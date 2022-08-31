@@ -8,9 +8,24 @@ const http = require('http'),
 
 // All times are in EST
 const appdata = [
-    {'task': 'Finish this project!', 'creation_date': '2022-09-02T12:06', 'due_date': '2022-09-08T11:59', 'priority': 'Medium'},
-    {'task': 'Go grocery shopping', 'creation_date': '2022-08-29T18:31', 'due_date': '2022-08-31T23:59', 'priority': 'High'},
-    {'task': 'Email professor', 'creation_date': '2022-08-27T17:25', 'due_date': '2022-10-31T23:59', 'priority': 'Low'}
+    {
+        'task': 'Finish this project!',
+        'creation_date': '2022-09-02T12:06',
+        'due_date': '2022-09-08T11:59',
+        'priority': 'Medium'
+    },
+    {
+        'task': 'Go grocery shopping',
+        'creation_date': '2022-08-29T18:31',
+        'due_date': '2022-08-31T23:59',
+        'priority': 'High'
+    },
+    {
+        'task': 'Email professor',
+        'creation_date': '2022-08-27T17:25',
+        'due_date': '2022-10-31T23:59',
+        'priority': 'Low'
+    }
 ]
 
 const server = http.createServer((request, response) => {
@@ -20,23 +35,24 @@ const server = http.createServer((request, response) => {
         handlePost(request, response)
     } else if (request.method === 'DELETE') {
         handleDelete(request, response)
+    } else if (request.method === 'PATCH') {
+        handlePatch(request, response)
     }
 })
 
-// GET: Get the web page, file, or the list of notes
+// GET: Get the web page, file, or the list of tasks
 const handleGet = function (request, response) {
     const filename = dir + request.url.slice(1)
-
     if (request.url === '/') {
         sendFile(response, 'public/index.html')
     } else if (request.url === '/list') {
-        sendList(response)
+        sendListData(response)
     } else {
         sendFile(response, filename)
     }
 }
 
-// POST: add a note
+// POST: add a task
 const handlePost = function (request, response) {
     let dataString = ''
     request.on('data', (data) => {
@@ -48,18 +64,31 @@ const handlePost = function (request, response) {
         let newTask = JSON.parse(dataString)
         newTask.priority = determinePriority(newTask.creation_date, newTask.due_date)
         appdata[appdata.length] = newTask
-
-        response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-        response.end()
+        sendListData(response)
     })
 }
 
-// DELETE: Delete a note
+// DELETE: Delete a task
 const handleDelete = function (request, response) {
     // Remove from list, and resend table
-    let num = request.url.substring(1)
+    const num = request.url.substring(1)
     appdata.splice(parseInt(num), 1)
-    sendList(response)
+    sendListData(response)
+}
+
+// PATCH: Update a task
+const handlePatch = function (request, response) {
+    let dataString = ''
+    request.on('data', (data) => {
+        dataString += data
+    })
+    request.on('end', () => {
+        const obj = JSON.parse(dataString)
+        const num = request.url.substring(1)
+        appdata[num].task = obj.task
+        appdata[num].due_date = obj.due_date
+        sendListData(response)
+    })
 }
 
 const sendFile = function (response, filename) {
@@ -84,25 +113,9 @@ const sendFile = function (response, filename) {
     })
 }
 
-const sendList = function (response) {
-    let html = '<table><strong><tr><th><strong>Task</strong></th><th><strong>Creation Date</strong></th><th><strong>Due Date</strong></th><th><strong>Priority</strong></th><th><strong>Delete</strong></th></tr>'
-    let idx = 0
-    for (let todo of appdata) {
-        html += '<tr>'
-        html += '<th>' + todo.task + '</th>'
-        html += '<th>' + new Date(todo.creation_date).toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + '</th>'
-        html += '<th>' + new Date(todo.due_date).toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + '</th>'
-        if (todo.priority === 'Late')
-            html+= '<th style="background-color: red; color: white">' + todo.priority + '</th>'
-        else
-            html += '<th>' + todo.priority + '</th>'
-        html += '<th><button class="deleteNote">X</button></th>'
-        html += '</tr>'
-        idx++
-    }
-    html += '</table>'
-    response.writeHeader(200, {'Content-Type': 'text/html'})
-    response.end(html)
+const sendListData = function (response) {
+    response.writeHeader(200, {'Content-Type': 'application/json'})
+    response.end(JSON.stringify(appdata))
 }
 
 const determinePriority = function (creation_date, due_date) {
