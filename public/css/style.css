@@ -1,4 +1,17 @@
 /*Style your own assignment! This is fun! */
-body{background-color: #FFAD42;}
 
-h1{color: #E87C31;}
+  body 
+{background-color: blue;}
+
+h1{color: green;}
+
+.container {
+    width:980px;
+    float:center;
+}
+.logo-box {
+    width:245px;
+    float:left;
+    height:150px;
+    background-color: orange;
+}
