@@ -1,7 +1,7 @@
 /**
- * 
+ * Takes in a tr element from the table and parses it into a GameObject
  * @param {HTMLElement} trElement 
- * @returns 
+ * @returns {import("./scripts").GameObject}
  */
 export const parseRowToGameObject = (trElement) => {
     return {
@@ -14,9 +14,9 @@ export const parseRowToGameObject = (trElement) => {
 }
 
 /**
- * 
+ * Using the #id of the form section get the corresponding field values
  * @param {String} sectionID 
- * @returns {GameObject}
+ * @returns {import("./scripts").GameObject}
  */
 export const getFormValues = (sectionID) => {
     const section = document.querySelector(sectionID);
@@ -29,7 +29,6 @@ export const getFormValues = (sectionID) => {
         atBats: inputValues.item(3).value,
         avg: null
     }
-
 }
 
 /**
@@ -49,7 +48,7 @@ export const generateRow = (statsData) => {
 }
 
 /**
- * 
+ * Toggles the visibility class of an element
  * @param {HTMLElement} element 
  */
 export const toggleVisibility = (element) => {

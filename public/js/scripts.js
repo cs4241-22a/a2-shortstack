@@ -1,9 +1,11 @@
-import { updateTable } from "./table.js";
+import { populateTable } from "./table.js";
 import {modifyGame, submitNewGame} from "./requests.js";
 
-
+/**
+ * onload function to initialize functionality
+ */
 window.onload = async function () {
-    await updateTable();
+    await populateTable();
 
     const submitButton = document.querySelector('#submitBtnSubmit');
     const modifyButton = document.querySelector("#modifyBtnSubmit");

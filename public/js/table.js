@@ -2,9 +2,9 @@ import { fetchGames, modifyGame } from "./requests.js";
 import { generateRow, parseRowToGameObject, toggleVisibility } from "./util.js";
 
 /**
- * 
+ * Populates the table with all of the most recent game data
  */
-export const updateTable = async () => {
+export const populateTable = async () => {
     const gamesData = await fetchGames();
     gamesData.forEach(game => {
         addGameToTable(game)
@@ -12,7 +12,7 @@ export const updateTable = async () => {
 }
 
 /**
- * 
+ * Takes in a game object and adds it as a row to the game table
  * @param {GameObject} gameObj 
  */
 export const addGameToTable = (gameObj) => {
@@ -25,6 +25,9 @@ export const addGameToTable = (gameObj) => {
     }
 }
 
+/**
+ * Switches the form that is displayed
+ */
 export const switchForm = () => {
     const submitSection = document.querySelector("#submissionForm")
     const modifySection = document.querySelector("#modifyForm")
@@ -34,7 +37,7 @@ export const switchForm = () => {
 }
 
 /**
- * 
+ * Click event listener for the table rows. Sends the row data to the modify field and shows the modify field
  * @param {Event} event 
  */
 const sendGameToModify = (event) => {
@@ -54,13 +57,17 @@ const sendGameToModify = (event) => {
     modifyAtBatsField.value = selectedGame.atBats;
 }
 
+/**
+ * Gets all the tr elements in the table body
+ * @returns {HTMLCollection} Collection of tr elements in the tbody
+ */
 const getRowsInTable = () => {
     const table = document.querySelector("tbody");
     return table.children;
 }
 
 /**
- * 
+ * Given a game object, finds the correct row in the table to modify and updates it with the new, correct data
  * @param {GameObject} gameObject 
  */
 export const updateGameInTable = (gameObject) => {
