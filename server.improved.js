@@ -7,11 +7,11 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {'title': 'Office Space', 'year': 1999, 'rank': 5},
-  {'title': 'Casablanca', 'year': 1942, 'rank': 5},
-  {'title': 'Catch Me If You Can', 'year': 2002, 'rank': 4},
-  {'title': 'Sharknado', 'year': 2013, 'rank': 3},
-  {'title': 'The 36 Chambers of Shaolin', 'year': 1978, 'rank': 5} 
+  {'title': 'Office Space', 'year': 1999, 'rank': 5, 'date_watched': 'MAY 24 2008', 'years_between': 9},
+  {'title': 'Casablanca', 'year': 1942, 'rank': 5, 'date_watched': 'OCT 09 1992', 'years_between': 50},
+  {'title': 'Catch Me If You Can', 'year': 2002, 'rank': 4, 'date_watched': 'JAN 13 2010', 'years_between': 8},
+  {'title': 'Sharknado', 'year': 2013, 'rank': 3, 'date_watched': 'MAR 02 2014', 'years_between': 1},
+  {'title': 'The 36 Chambers of Shaolin', 'year': 1978, 'rank': 5, 'date_watched': 'DEC 16 1978', 'years_between': 0} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -27,6 +27,10 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }else if(request.url === '/appdata'){
+    response.writeHead(200, "OK", {'Content-Type': 'text/plain' });
+    response.write(JSON.stringify(appdata));
+    response.end();
   }else{
     sendFile( response, filename )
   }
@@ -46,8 +50,11 @@ const handlePost = function( request, response ) {
     let receivedJSON = JSON.parse(dataString);
     receivedJSON.year = parseInt(receivedJSON.year);
     receivedJSON.rank = parseInt(receivedJSON.rank);
+    const currDate = new Date();
+    receivedJSON.date_watched = `${currDate.toString().substring(4,15)}`
+    receivedJSON.years_between = `${currDate.getFullYear() - receivedJSON.year}`
+    console.log(receivedJSON);
     appdata.push(receivedJSON)
-    console.log(appdata);
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
@@ -75,5 +82,7 @@ const sendFile = function( response, filename ) {
      }
    })
 }
+
+
 
 server.listen( process.env.PORT || port )

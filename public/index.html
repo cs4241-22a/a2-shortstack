@@ -24,7 +24,16 @@
       </section>
       <button id="submitbutton">submit</button>
     </form>
-    <button id="reloadbutton">reload results</button>
+    <!--<button id="resultsbutton">reload results</button>-->
+    <p>Rank Key</p>
+    <section id="rankkey">
+      <p class="colorbox red">&nbsp&nbsp&nbsp1</p> 
+      <p class="colorbox orange">&nbsp&nbsp&nbsp2</p>      
+      <p class="colorbox yellow">&nbsp&nbsp&nbsp3</p>      
+      <p class="colorbox blue">&nbsp&nbsp&nbsp4</p>      
+      <p class="colorbox green">&nbsp&nbsp&nbsp5</p>      
+    </section>
+    <section id="results"></section>
   </body>
   <script>
 
@@ -42,20 +51,78 @@
       method:'POST',
       body 
     })
-    .then( function( response ) {
-      // do something with the reponse 
-      return response.json();
-    })
-    .then(function(json) {
-      console.log(json);
-    })
+
+    results();
 
     return false
   }
 
+  /**
+   * Fetch current list of movies
+   */
+  function results() {
+    fetch( '/appdata', 
+    {
+      method:'GET'
+    })
+    .then(function(response) 
+    {
+      return response.json()
+    })
+    .then( function(response) 
+    {
+      showMovies(response);
+    })
+
+    return false
+  }
+  /**
+   * Enter movie information into grid cells
+   */
+  function showMovies(jsonmovies) 
+  {
+    jsonmovies.sort((movie1, movie2) => compareAlphabetical(movie1.title, movie2.title));
+    const resultsSection = document.getElementById('results');
+    resultsSection.innerHTML = "";
+    for(let movie of jsonmovies)
+    {
+      let rankColor;
+      if(movie.rank === 1)
+      {
+        rankColor = "red"
+      }
+      else if(movie.rank === 2)
+      {
+        rankColor = "orange"
+      }
+      else if(movie.rank === 3)
+      {
+        rankColor = "#ffe100"
+      }
+      else if(movie.rank === 4)
+      {
+        rankColor = "blue"
+      }
+      else if(movie.rank === 5)
+      {
+        rankColor = "green"
+      }
+      resultsSection.innerHTML += `<div class="resultscell" style="border-color: ${rankColor};"><p id="movietitledisplay">${movie.title}</p><p>${movie.year}</p><br><p>Rank: ${movie.rank}</p><p>Date Watched: ${movie.date_watched}</p><p>Release vs Watch date: ${movie.years_between} years</p></div>`;
+    }
+  }
+  /**
+   * Compare method to sort strings alphabetically 
+   */
+  function compareAlphabetical(str1, str2)
+  {
+    return str1.toLowerCase() > str2.toLowerCase() ? 1 : -1;
+  }
+
   window.onload = function() {
-    const button = document.getElementById('submitbutton')
-    button.onclick = submit
+    const submitbutton = document.getElementById('submitbutton')
+    submitbutton.onclick = submit
+    //preload movie data from server
+    results();
   }
 
   </script>

@@ -1,8 +1,12 @@
 /*Style your own assignment! This is fun! */
 body {
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/63/Star%2A.svg");
-    font-family: 'Dancing Script', cursive;
-    font-weight: bold;
+    /*background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/63/Star%2A.svg");*/
+    background-color:blanchedalmond;
+    background-size: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -14,14 +18,77 @@ header {
     padding-bottom: 10px;
 }
 
+h1,header,#addmovie {
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+}
+
 #addmovie {
     display:flex;
     justify-content: space-between;
     flex-direction: column;
+    align-items: center;
 }
 .moviefield {
     height: 50px;
 }
 #submitbutton {
     max-width: 70px;
+    margin-bottom: 10px;
+}
+
+#rankkey {
+    /* display: grid;
+    grid-template-columns: repeat(5, 20%); */
+    display: flex;
+    justify-content: space-between;
+}
+
+.colorbox {
+  height: 33px;
+  width: 33px;
+  margin-right: 10px;
+  color: white;
+}
+.red {
+    background-color: red;
+}
+.orange {
+    background-color: orange;
+}
+.yellow {
+    background-color: #ffe100;
+}
+.blue {
+    background-color: blue;
+}
+.green {
+    background-color: green;
+}
+
+#results {
+    display: grid;
+    grid-template: auto / 1fr 1fr 1fr;
+    margin-top: 20px;
+}
+.resultscell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-height: 200px;
+    width: 220px;
+    border: 5px solid;
+}
+#movietitledisplay {
+    overflow-wrap: break-word;
+}
+#resultscell, #movietitledisplay {
+    max-width: 200px;
+}
+
+p {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    line-height: 2;
 }
