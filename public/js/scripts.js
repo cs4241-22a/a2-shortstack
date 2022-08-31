@@ -29,6 +29,18 @@ const submit = function (e) {
     return false
 }
 
+const cancel = function (e) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+
+    document.getElementById('task').value = ''
+    document.getElementById('due-date').value = ''
+    document.getElementById('legend').textContent = 'Add a TODO'
+    document.getElementById('todoSubmit').onclick = submit
+
+    return false
+}
+
 const editTask = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
@@ -61,7 +73,7 @@ const updateTask = function (e) {
         body = JSON.stringify(json)
     fetch('/' + current_row, {
         method: 'PATCH',
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body
     }).then(async response => {
         document.getElementById('task').value = ''
@@ -167,6 +179,9 @@ window.onload = function () {
     // Add submit functionality
     const todoSubmit = document.getElementById('todoSubmit')
     todoSubmit.onclick = submit
+
+    const cancelButton = document.getElementById('cancel')
+    cancelButton.onclick = cancel
 
     // Only enable submit button if fields are filled out
     const addTask = document.getElementById('addTask')[0]

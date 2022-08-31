@@ -108,6 +108,29 @@ input[type="datetime-local"] {
     }
 }
 
+#cancel {
+    background: #C70000;
+    color: white;
+    border-style: outset;
+    width: 7em;
+    height: 4em;
+    border-color: #C70000;
+    border-radius: 10px;
+    text-shadow: none;
+    float: right;
+    margin-left: 25px;
+}
+
+#cancel:hover {
+    background-color: #7a0909;
+}
+
+#cancel:active {
+    background-color: #7a0909;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 #todoSubmit {
     background: #0066A2;
     color: white;
@@ -158,8 +181,4 @@ table {
     text-align: center;
     font-size: 16px;
     border-radius: 50%;
-}
-
-.editTask {
-    /* TODO */
 }
