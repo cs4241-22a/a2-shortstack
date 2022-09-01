@@ -5,11 +5,11 @@
  */
 export const parseRowToGameObject = (trElement) => {
     return {
-        id: parseInt(trElement.children[0].innerHTML),
+        id: trElement.children[0].innerHTML,
         date: trElement.children[1].innerHTML,
-        hits: parseInt(trElement.children[2].innerHTML),
-        atBats: parseInt(trElement.children[3].innerHTML),
-        avg: parseInt(trElement.children[4].innerHTML),
+        hits: trElement.children[2].innerHTML,
+        atBats: trElement.children[3].innerHTML,
+        avg: trElement.children[4].innerHTML,
     }
 }
 

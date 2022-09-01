@@ -76,7 +76,7 @@ export const updateGameInTable = (gameObject) => {
     for(let i = 0; i<tableRows.length; i++){
         const row = tableRows.item(i);
         const rowGameID = row.children.item(0).innerHTML;
-        if(rowGameID == gameObject.id) {
+        if(rowGameID === gameObject.id) {
             row.outerHTML = generateRow(gameObject);
             document.querySelector(`#game_${gameObject.id}`).addEventListener("click", sendGameToModify);
         }
@@ -93,7 +93,7 @@ export const removeGameFromTable = (gameID) => {
     for(let i = 0; i<tableRows.length; i++){
         const row = tableRows.item(i);
         const rowGameID = row.children.item(0).innerHTML;
-        if(rowGameID == gameID){
+        if(rowGameID === gameID){
             row.remove()
         }
     }
