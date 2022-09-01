@@ -6,15 +6,8 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  {
-    title: '',
-    notes: '',
-    url: '',
-    date: '',
-    time: '',
-    location: ''
-  }
+const reminders = [
+
 ]
 
 /*const appdata = [
@@ -51,8 +44,8 @@ const handleGet = (request, response) => {
       break
     case '/api/deletereminder':
       console.log('sending data back to client')
-      console.log(appdata)
-      sendData(response, appdata)
+      console.log(reminders)
+      sendData(response, reminders)
       break
     default:
       sendFile(response, filename)
@@ -73,7 +66,8 @@ const handlePost = (request, response ) => {
     switch (request.url) {
       case '/api/newreminder':
         console.log('new data incoming')
-        console.log(data)
+        reminders.push(data)
+        console.log(reminders)
         response.writeHead(200, "OK", {'Content-Type': 'text/plain' })
         response.end()
         break
