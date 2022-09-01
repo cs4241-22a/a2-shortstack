@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'task': 'toyota', 'status': 0, 'other': 0 },
-  { 'task': 'honda', 'status': 0, 'other': 0 },
-  { 'task': 'ford', 'status': 1, 'other': 0}
+  { 'task': 'Add your tasks here!', 'status': 0, 'other': 0 },
+  { 'task': 'Mark them as complete when you are finished!', 'status': 1, 'other': 0 },
+  { 'task': "And delete them when you don't need them anymore", 'status': 1, 'other': 0}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -46,6 +46,9 @@ const handlePost = function( request, response ) {
     if (parsedDataString['type'] === 'new') {
       appdata.push({ 'task': parsedDataString['yourname'], 'status': 0, 'other': 0})
     }
+
+    console.warn("current appdata:")
+    console.warn(appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end( JSON.stringify(appdata))

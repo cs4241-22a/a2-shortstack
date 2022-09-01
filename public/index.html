@@ -5,13 +5,9 @@
     <meta charset="utf-8">
   </head>
   <body>
-  <form action="">
-    <input type='text' id='yourname' value="your name here">
-    <button>submit</button>
-  </form>
   <h1>Simple Todo App</h1>
   <form action="">
-    <input type="text" id="create-todo-item-input">
+    <input type='text' id='newtask-input' value="your task here">
     <button>submit</button>
   </form>
 
@@ -24,11 +20,20 @@
   </body>
   <script>
 
-  const submit = function( e ) {
+    function buildListing(json) {
+      document.getElementById("todo-listing").innerText = ""; // reset text
+      json.forEach(item =>{ // rebuild text
+        const p = document.createElement('p')
+        p.innerText = item["task"]
+        document.getElementById("todo-listing").appendChild(p)
+      })
+    }
+
+    const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
+    const input = document.querySelector( '#newtask-input' ),
           json = { type: "new", yourname: input.value },
           body = JSON.stringify( json )
 
@@ -39,12 +44,7 @@
     .then(response => response.json())
     .then(json => {
       console.log(json)
-      document.getElementById("todo-listing").innerText = ""; // reset text
-      json.forEach(item =>{ // rebuild text
-        const p = document.createElement('p')
-        p.innerText = item["task"]
-        document.getElementById("todo-listing").appendChild(p)
-      })
+      buildListing(json)
     })
 
     return false
@@ -53,6 +53,14 @@
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
+
+    const appdata = [
+      { 'task': 'Add your tasks here!', 'status': 0, 'other': 0 },
+      { 'task': 'Mark them as complete when you are finished!', 'status': 1, 'other': 0 },
+      { 'task': "And delete them when you don't need them anymore", 'status': 1, 'other': 0}
+    ]
+
+    buildListing(appdata)
   }
 
   </script>
