@@ -17,7 +17,7 @@
     e.preventDefault()
 
     const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+          json = { type: "new", yourname: input.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
