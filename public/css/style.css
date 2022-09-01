@@ -15,6 +15,7 @@ h1{color: #E87C31;}
   }
 
   .container {
+    float: center;
     display: grid;
     grid-template-columns: 300px 300px 300px;
     grid-template-rows: auto;
