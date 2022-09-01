@@ -19,7 +19,7 @@ h1{color:#FFD430;
   .container {
     width: 1000px;
     border: 5px #E8AE31;
-    justify-content: center;
+    margin: auto;
     display: grid;
     grid-template-columns: 280px 280px 280px;
     grid-template-rows: 280px 280px 280px;
@@ -31,7 +31,7 @@ h1{color:#FFD430;
 
 .Alfie_Image {
     width:245px;
-    float: center
+    float: center;
     height:150px;
     background-color: #E87C31;
 }
