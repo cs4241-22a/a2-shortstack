@@ -5,9 +5,11 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <h1> Name this rat!</h1>
+    <img src="./assets/Rat-PNG-File.png" />
+    <form action=''>
+      <input type='text' id='ratname' placeholder="Rat name here">
+      <button>Submit</button>
     </form>
   </body>
   <script>
@@ -16,18 +18,21 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input = document.querySelector( '#ratname' ),
+          json = { ratname: input.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      body:input
     })
-    .then( function( response ) {
+    .then( response => response.json() )
+    .then( json => console.log( json ) )
+    
+    //function( response ) {
       // do something with the reponse 
-      console.log( response )
-    })
+      //console.log( response )
+    //})
 
     return false
   }
