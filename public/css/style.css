@@ -16,10 +16,23 @@ h1{color: #E87C31;}
 
   .container {
     display: grid;
-    grid-template-columns: 50px 50px 50px;
+    grid-template-columns: 300px 300px 300px;
     grid-template-rows: auto;
     grid-template-areas: 
       "header header header "
       "main main main"
       "footer footer footer";
   }
+
+.Alfie_Image {
+    width:245px;
+    float:center;
+    margin: 30px;
+    height:150px;
+    background-color: #FFD430;
+}
+
+img {
+    float:center;
+    padding:10px;
+}
