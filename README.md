@@ -24,8 +24,5 @@ I asked both users to try using out the website, and specifically to add tasks, 
     - He had several issues with the design, mostly relating to small quality of life features. Specifically, pressing enter should submit within the form.
     - One comment that he made that surprised me was that he wasn't sure that the delete button in each row was clickable.
     - I would change (and did) two things: one, making the submit button respond to enter, and two, change the buttons so when hovered over, the cursor changes to the hand.
-  - Someone else: // TODO
+  - Someone else:
     - Here
-
-    UI test with someone else  
-    Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
