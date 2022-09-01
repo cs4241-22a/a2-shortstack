@@ -88,11 +88,22 @@ You'll need to use sometype of collaborative software that will enable you both 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+## Simple Baseball Batting Average Tracker
+This application tracks the batting average for a baseball player for each game that they play. You can add a game with the add game form and also modify or delete the game by clicking on the row in the table and modifying the data with the modify form. Layout was mainly done using flexbox to center and align all of the elements on the page.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Single Page Application**: The app implements the single page application design having the results table and the form on the same page. Also having the table update in real time upon form submission without needing a page reload.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design/UX Testing**: 
+    - Task: 
+        1. Add a new game for today's date, with 2 hits and 3 at bats.
+        2. Modify the newly added game to have 1 hit instead of 2
+        3. Delete the game with game ID 0
+        4. Delete the game that you added previously
+
+    - Testers:
+        - Metcalf:
+            - **Problems**: You can add decimals into the hits and at bats input forms. 
+            - **Surprises**: User wanted a clear button to clear out the entire form.
+            - **Changes to make**: Add the clear form button. Increase error checking and error reporting to the user.
