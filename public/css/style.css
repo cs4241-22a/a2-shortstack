@@ -22,7 +22,7 @@ h1{color:#FFD430;
     justify-content: center;
     display: grid;
     grid-template-columns: 280px 280px 280px;
-    grid-template-rows: 200px 200px 200px;
+    grid-template-rows: 280px 280px 280px;
     grid-template-areas: 
       "header header header "
       "main main main"
