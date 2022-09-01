@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'task': 'toyota', 'status': 0, 'other': 0 },
+  { 'task': 'honda', 'status': 0, 'other': 0 },
+  { 'task': 'ford', 'status': 1, 'other': 0}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -44,7 +44,7 @@ const handlePost = function( request, response ) {
     const parsedDataString = JSON.parse( dataString )
 
     if (parsedDataString['type'] === 'new') {
-      appdata.push({ 'model': parsedDataString['yourname'], 'year': 1957, 'mpg': 8})
+      appdata.push({ 'task': parsedDataString['yourname'], 'status': 0, 'other': 0})
     }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
