@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "cr-4241-shortstack",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "WPI CS 4241 second assignment",
+  "author": "Kaelin Panneton",
   "scripts": {
     "start": "node server.improved.js"
   },
