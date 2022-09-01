@@ -4,18 +4,22 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./js/scripts.js"></script>
   </head>
   <body>
-    <form action="">
+    <form id="inputForm" action="">
       <input type="text" id="playerName" />
       <label for="playerName"> Player Name</label><br />
       <input type="number" id="playerScore" />
       <label for="playerScore"> Player Score</label><br />
       <input type="checkbox" id="winResult" />
       <label for="winResult"> Did player win?</label><br />
-      <button id="submit">Add entry</button>
+      <button id="addEntry">Add entry</button>
     </form>
     <table id="resultsTable">
       <tr>

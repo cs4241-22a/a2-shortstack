@@ -1,7 +1,28 @@
+/* Element selectors */
+body {
+  background-color: grey;
+  color: white;
+  font-family: "Roboto", "serif";
+}
+
+/* Class selectors */
 .modifyCell {
   background-color: yellow;
 }
 
 .deleteCell {
   background-color: red;
+}
+
+/* ID selectors */
+#inputForm {
+}
+
+#resultsTable {
+}
+
+#addEntry {
+  color: white;
+  background-color: green;
+  border: 1px solid;
 }
