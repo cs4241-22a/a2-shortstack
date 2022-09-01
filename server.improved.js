@@ -41,9 +41,14 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    const parsedDataString = JSON.parse( dataString )
+
+    if (parsedDataString['type'] === 'new') {
+      appdata.push({ 'model': parsedDataString['yourname'], 'year': 1957, 'mpg': 8})
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end( JSON.stringify({ test:'a' }))
+    response.end( JSON.stringify(appdata))
   })
 }
 
