@@ -37,7 +37,15 @@
       body 
     })
     .then(response => response.json())
-    .then(json => console.log(json))
+    .then(json => {
+      console.log(json)
+      document.getElementById("todo-listing").innerText = ""; // reset text
+      json.forEach(item =>{ // rebuild text
+        const p = document.createElement('p')
+        p.innerText = item["task"]
+        document.getElementById("todo-listing").appendChild(p)
+      })
+    })
 
     return false
   }
