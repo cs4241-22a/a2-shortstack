@@ -5,27 +5,56 @@
     <meta charset="utf-8">
   </head>
   <body>
+
   <h1>Simple Todo App</h1>
   <form action="">
     <input type='text' id='newtask-input' value="your task here">
     <button>submit</button>
   </form>
 
-  <div id="todo-listing">
-    <p>sample todo element</p>
-    <p>button above should add more</p>
-    <p>some sorta data persistence i think... array on server</p>
-    <p>Should be some code here to fetch data from server</p>
-  </div>
+  <table id="my-table">
+    <tbody id="todo-listing">
+    <tr>
+      <td>The table body</td>
+      <td>with two columns</td>
+    </tr>
+    </tbody>
+  </table>
+
   </body>
   <script>
 
     function buildListing(json) {
-      document.getElementById("todo-listing").innerText = ""; // reset text
-      json.forEach(item =>{ // rebuild text
-        const p = document.createElement('p')
-        p.innerText = item["task"]
-        document.getElementById("todo-listing").appendChild(p)
+
+      // Get a reference to the table
+      let tableRef = document.getElementById("my-table");
+
+      document.getElementById("todo-listing").innerHTML = ""; // reset table
+
+      json.forEach(item =>{ // fill table
+        // Insert a row at the end of the table
+        let newRow = tableRef.insertRow(-1);
+
+        // Insert a cell in the row at index 0
+        let newCell = newRow.insertCell(0);
+
+        // Append a text node to the cell
+        let newText = document.createTextNode(item["task"]);
+        newCell.appendChild(newText);
+
+
+        // Insert a cell in the row at index 1
+        let statusCell = newRow.insertCell(1);
+
+        // Append a checkbox node to the cell
+        const checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "name";
+        checkbox.value = "value";
+        checkbox.id = "id";
+        checkbox.checked = item["status"] === 1;
+        statusCell.appendChild(checkbox);
+
       })
     }
 
