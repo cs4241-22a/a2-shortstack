@@ -6,18 +6,29 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata2 = [
-  { 'testing': 'testing' }
+const appdata = [
+  {
+    title: '',
+    notes: '',
+    url: '',
+    date: '',
+    time: '',
+    location: ''
+  }
 ]
 
-const appdata = [
+/*const appdata = [
   { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+]*/
 
-const server = http.createServer( function( request,response ) {
-  console.log(process.env.REACT_APP_KEY)
+const server = http.createServer( function( request, response ) {
+  //console.log(process.env.REACT_APP_KEY)
+  /*
+    setInterval(() => {
+      console.log("testing")
+    }, 1000)*/
 
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -26,36 +37,54 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
-const handleGet = function( request, response ) {
+const handleGet = (request, response) => {
   const filename = dir + request.url.slice( 1 )
   
-  //console.log(filename)
-
-  if( request.url === '/' ) {
+  /*if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   } else {
     sendFile( response, filename )
+  }*/
+  switch (request.url) {
+    case '/':
+      sendFile(response, 'public/index.html')
+      break
+    case '/api/deletereminder':
+      console.log('sending data back to client')
+      console.log(appdata)
+      sendData(response, appdata)
+      break
+    default:
+      sendFile(response, filename)
+      break
   }
 }
 
-const handlePost = function( request, response ) {
+const handlePost = (request, response ) => {
   let dataString = ''
 
-  request.on( 'data', function( data ) {
+  request.on('data', function( data ) {
       dataString += data 
   })
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+  request.on('end', function() {
+    let data = JSON.parse(dataString)
 
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    switch (request.url) {
+      case '/api/newreminder':
+        console.log('new data incoming')
+        console.log(data)
+        response.writeHead(200, "OK", {'Content-Type': 'text/plain' })
+        response.end()
+        break
+      default:
+        console.log("ERROR")
+        break
+    }
   })
 }
 
-const sendFile = function( response, filename ) {
+const sendFile = (response, filename) => {
    const type = mime.getType( filename ) 
 
    fs.readFile( filename, function( err, content ) {
@@ -67,7 +96,7 @@ const sendFile = function( response, filename ) {
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
 
-     }else{
+     } else {
 
        // file not found, error code 404
        response.writeHeader( 404 )
@@ -75,6 +104,11 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+const sendData = (response, data) => {
+  response.writeHeader(200, {'Content-Type': 'application/json'})
+  response.end(JSON.stringify(data))
 }
 
 server.listen( process.env.PORT || port )

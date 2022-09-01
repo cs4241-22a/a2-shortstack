@@ -1,14 +1,30 @@
 /*Style your own assignment! This is fun! */
 
 body {
-    background-color: #6082B6;
-    display: flex;
-    justify-content: center;
+    background-color: white;
+    font-family: 'Sora', sans-serif;
 }
 
-#testing {
+#mainform {
     border-radius: 25px;
     background-color: rgb(37, 59, 145);
     padding: 20px;
-    width: 200px;
+    width: 250px;
+}
+
+label {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    text-align: right;
+    line-height: 26px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: blue;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    color: white;
 }
