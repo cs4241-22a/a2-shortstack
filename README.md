@@ -2,7 +2,7 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 ===
 
 ## Todo List
-
+https://a2-jmetcalf01.glitch.me/  
 My project is a todo list website that has a list of tasks, along with their creation date, due date, and priority. The priority is automatically calculated based on the current time and the due date. If the due date has already passed, it is marked as late. Otherwise, if it's in 2 days or less, it's high, 7 days or less, medium, and anything further is low priority.
 
 I used a flexbox for positioning as columns.
