@@ -128,7 +128,7 @@ const determinePriority = function (creation_date, due_date) {
 
     if (end < now) // If already past due date, then mark as late
         return 'Late'
-    else if (timeDifference < seconds_in_day * 3) // Less than 2 days
+    else if (timeDifference < seconds_in_day * 3) // Less than 3 days
         return 'High'
     else if (timeDifference < seconds_in_day * 7) // Less than 7 days
         return 'Medium'
