@@ -32,11 +32,6 @@ h1{color:#FFD430;
 .Alfie_Image {
     width:245px;
     float: center;
-    height:150px;
+    height:245px;
     background-color: #E87C31;
-}
-
-img {
-    float:center;
-    padding:10px;
 }
