@@ -24,5 +24,8 @@ I asked both users to try using out the website, and specifically to add tasks, 
     - He had several issues with the design, mostly relating to small quality of life features. Specifically, pressing enter should submit within the form.
     - One comment that he made that surprised me was that he wasn't sure that the delete button in each row was clickable.
     - I would change (and did) two things: one, making the submit button respond to enter, and two, change the buttons so when hovered over, the cursor changes to the hand.
-  - Someone else:
-    - Here
+  - Yue:
+    - When it came to using the tool, she had no issues using it. However, the priority was slightly confusing, since it's based off the current time and not the creation date, which can be confusing.
+      - She also used the touch screen (which worked correctly) which was a good test.
+    - One comment that surprised me was that she wasn't expecting a due date time to be required, just a date.
+    - One change I would consider is making the time optional (and for calculating priority, probably use 11:59pm).
