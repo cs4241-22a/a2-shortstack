@@ -5,12 +5,15 @@ body
 h1{color: #E87C31;}
 
 div{
-	width: 500x
+	width: 300px;
+	height: 400px;
 	margin:30px;
-	background-color:#FF7042;
-	display: flex;
-	justify-content: center;
-	align-items: center;}
+	background-color:#FF7042;}
+
+.container {
+	display: grid;
+	place-items: center;
+}
 
 .Alfie_Image {
     width:245px;
