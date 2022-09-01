@@ -7,9 +7,9 @@ const addTask = function( e ) {
     e.preventDefault()
 
     // Define variables
-    var task = document.getElementById("task").value;
-    var points = document.getElementById("points").value;
-    var date = document.getElementById("dueDate").value;
+    let task = document.getElementById("task").value;
+    let points = document.getElementById("points").value;
+    let date = document.getElementById('input[type="date"]').value;
 
     const input = document.querySelector( '#add' ),
           json = { task: task, points: points, date: date },
@@ -19,11 +19,15 @@ const addTask = function( e ) {
       method:'POST',
       body 
     })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-      return true;
+    .then( response => response.json() )
+    .then( json => {
+      json.forEach(item => {
+        const td = document.createElement('td')
+        td.innerText = item.toString()
+        document.body.appendChild(td)
+      })
     })
+
 
     return false
   }
