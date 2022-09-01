@@ -20,7 +20,7 @@ h1{color: #E87C31;}
     margin: auto;
     display: grid;
     grid-template-columns: 300px 300px 300px;
-    grid-template-rows: auto;
+    grid-template-rows: 300px 300px 300px;
     grid-template-areas: 
       "header header header "
       "main main main"
