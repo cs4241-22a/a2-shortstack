@@ -2,7 +2,7 @@
 body 
 {background-color: #FFAD42;}
 
-h1{color: #E87C31;
+h1{color:#FFD430;
     text-align: center;
 }
 
@@ -31,10 +31,9 @@ h1{color: #E87C31;
 
 .Alfie_Image {
     width:245px;
-    float:center;
-    margin: 30px;
+    float: center
     height:150px;
-    background-color: #FFD430;
+    background-color: #E87C31;
 }
 
 img {
