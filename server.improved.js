@@ -39,8 +39,19 @@ const handlePost = function( request, response ) {
     // ... do something with the data here!!!
     const parsedDataString = JSON.parse( dataString )
 
-    if (parsedDataString['type'] === 'new') {
-      appdata.push({ 'task': parsedDataString['task'], 'status': 0, 'other': 0})
+    if (parsedDataString["action"] === "new") {
+      console.log("[server]: NEW REQ")
+      function guidGenerator() {
+        const S4 = function () {
+          return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+      }
+      appdata.push({ 'task': parsedDataString['task'], 'status': 0, 'other': new Date(), 'guid': guidGenerator()})
+    } else if (parsedDataString["action"] === "modify") {
+      console.log("[server]: MODIFY REQ")
+    } else {
+      console.error("[server]: Unknown action type")
     }
 
     console.warn("current appdata:")
