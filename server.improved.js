@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'task': 'Add your tasks here!', 'status': 0, 'other': 0 },
-  { 'task': 'Mark them as complete when you are finished!', 'status': 1, 'other': 0 },
-  { 'task': "And delete them when you don't need them anymore", 'status': 1, 'other': 0}
-]
+const appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
