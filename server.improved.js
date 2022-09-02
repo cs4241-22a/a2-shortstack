@@ -48,8 +48,13 @@ const handlePost = function( request, response ) {
         return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
       }
       appdata.push({ 'task': parsedDataString['task'], 'status': 0, 'other': new Date(), 'guid': guidGenerator()})
-    } else if (parsedDataString["action"] === "modify") {
+
+    } else if (parsedDataString["action"] === "edit") { // swap status for this GUID
       console.log("[server]: MODIFY REQ")
+      const isSameGUID = (element) => element['guid'] === parsedDataString['task'];
+      const foundTaskIndex = appdata.findIndex(isSameGUID) // find appdata with same guid
+      appdata[foundTaskIndex]['status'] = 1 - appdata[foundTaskIndex]['status'] // flip status
+
     } else {
       console.error("[server]: Unknown action type")
     }

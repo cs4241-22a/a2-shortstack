@@ -80,6 +80,24 @@
     return false
   }
 
+    // requests a change to a task of the given GUID
+    const submitChange = function (guid) {
+      const json = {action: "edit", task: guid},
+              body = JSON.stringify( json )
+
+      fetch( '/edit', {
+        method:'POST',
+        body
+      })
+              .then(response => response.json())
+              .then(json => {
+                console.log(json)
+                buildListing(json) // todo, kinda unnecessary?
+              })
+
+      return false
+    }
+
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
@@ -91,6 +109,15 @@
     ]
 
     buildListing(appdata)
+
+    // notify server when any checkbox is touched
+    document.querySelector('#my-table').onclick = function(ev) {
+      if (ev.target.type === "checkbox") {
+        if(ev.target.value) {
+          submitChange(ev.target.parentElement.parentElement.id)
+        }
+      }
+    }
   }
 
   </script>
