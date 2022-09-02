@@ -123,6 +123,17 @@
     const button = document.querySelector( 'button' )
     button.onclick = submitTask
 
+    const body = JSON.stringify({action: 'fetch'})
+    fetch( '/edit', {
+      method:'POST',
+      body
+    }).then(
+            response => response.json()
+    ).then(
+            json => {buildListing(json)}
+    )
+
+
     // notify server when any checkbox is touched
     document.querySelector('#my-table').onclick = function(ev) {
       if (ev.target.type === "checkbox") {
