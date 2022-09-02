@@ -95,14 +95,20 @@ const addRow = (data) => {
         let deleteButton = document.createElement("input")
 
         deleteButton.type = "button"
-        deleteButton.name = btnName
+        deleteButton.id = (rowCount + 1)
+        deleteButton.className = btnName
         deleteButton.setAttribute('value', btnName)
         //deleteButton.setAttribute('onClick', removeRow(this))
         /*deleteButton.onclick = () => {
-            let savedName = btnName
-            removeRow(savedName)
+            //let savedName = btnName
+            //removeRow(savedName)
+            console.log(this.id)
         }*/
-        deleteButton.setAttribute('onclick', 'removeRow(this)')
+        // delete row
+        deleteButton.addEventListener('click', (event) => {
+            removeRow(event)
+        })
+        //deleteButton.setAttribute('onclick', 'removeRow(this)')
 
         deleteCell.appendChild(deleteButton)
 
@@ -113,42 +119,40 @@ const addRow = (data) => {
     }
 }
 
-const removeRow = (button) => {
-    //console.log(button)
-    //let table = document.getElementById('dataTable')
+const removeRow = (event) => {
+    console.log("Target Id: ", parseInt(event.target.id))
+    let table = document.getElementById('dataTable')
 
-    console.log(button)
+    let left = 0
+    let right = table.rows.length-1
 
-    let myTab = document.getElementById('dataTable');
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2)
+        let cells = table.rows[mid].cells
+        let pos = cells[0].children[0].id
+        let pos_num = parseInt(pos)
 
-    // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
-    for (i = 1; i < myTab.rows.length; i++) {
+        console.log(pos)
 
-        // GET THE CELLS COLLECTION OF THE CURRENT ROW.
-        let cells = myTab.rows.item(i).cells;
-
-        // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
-        for (let j = 0; j < cells.length; j++) {
-            console.log(cells.item(j).innerHTML)
-            //console.log(objCells.item(j).innerHTML)
-            //info.innerHTML = info.innerHTML + ' ' + objCells.item(j).innerHTML;
+        if (pos === event.target.id) {
+            console.log('made it!: ', pos)
+            break
+        } else if (pos_num < parseInt(event.target.id)) {
+            left = mid + 1
+        } else {
+            right = mid - 1
         }
-        //info.innerHTML = info.innerHTML + '<br />';     // ADD A BREAK (TAG).
     }
 
+    console.log("out of loop")
 
-    /*for (let i = 0; i < table.rows.length; i++) {
-        //console.log(table.rows[i])
-        let firstCell = table.rows.item(i).cells
-        console.log(firstCell)
-
-        //console.log(firstCell[0].name)
+    /*for (let i = 1; i < table.rows.length; i++) {
+        let cells = table.rows[i].cells
+        if (cells[0].children[0].id === event.target.id) {
+            console.log('made it!: ', deleteButton)
+            for (let j = 1; j < cells.length; j++) {
+                console.log(cells[j].innerHTML)
+            }
+        }
     }*/
-    //console.log(table)
-
-    //table.deleteRow(button.parentNode.parentNode.rowIndex)
-
-    // don't delete the row. send data back to the server on which one to delete
-
-    //console.log(button.parentNode.parentNode.stringify())
 }
