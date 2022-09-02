@@ -3,15 +3,11 @@ const http = require( 'http' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
-      dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
-
+const appdata = []
+// app data is {"task":"Task Name",   "dueDate": "When the task is due", "taskType":"Work or personal"}
+// self generated: {"taskID" : "Unique ID for a task", "taskCreationDate": "Based on when the request was made", "taskUrgency": "How urgent the Task is, based on (dueDate - taskCreationDate)"}
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -21,11 +17,14 @@ const server = http.createServer( function( request,response ) {
 })
 
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
+  const filename = request.url.slice( 1 ) 
+  console.log("GET REQUEST FOR: " + filename);
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if ( request.url === '/tasks' ){
+    sendTasks(response)
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -38,16 +37,26 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
+    const incomingData = JSON.parse(dataString);
+    console.log(incomingData.dueDate);
+    // TODO: need to convert dueDate to epoch time
+    var dataRow = incomingData;
+    dataRow.taskCreationDate = Date.now();
+    //dataRow.taskUrgency = getTaskUrgency(dataRow.dueDate, dataRow.taskCreationDate);
+    // need some sort of check before adding it
+    appdata.push(incomingData);
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
   })
 }
 
-const sendFile = function( response, filename ) {
+
+const sendTasks = function(response) {
+  response.writeHeader( 200, { 'Content-Type': 'application/json' })
+  response.end( JSON.stringify(appdata) )
+}
+
+const sendFile = function(response, filename) {
    const type = mime.getType( filename ) 
 
    fs.readFile( filename, function( err, content ) {

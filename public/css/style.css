@@ -1,1 +1,30 @@
 /*Style your own assignment! This is fun! */
+body{
+    margin:0;
+}
+
+
+#particles-js{
+    background: black;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+canvas {
+    display: block;
+}
+
+#form-container{
+    position: fixed;
+}
+
+#name-form{
+    position: fixed;
+}
+
+#task-list{
+    color:white;
+    display: flex;
+    flex-direction: column;
+}
