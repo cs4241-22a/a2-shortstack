@@ -58,7 +58,7 @@
       })
     }
 
-    const submitTask = function(e ) {
+    const submitTask = function(e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
@@ -79,8 +79,8 @@
     return false
   }
 
-    // requests a change to a task of the given GUID
-    const submitChange = function (guid) {
+  // requests a change to a task of the given GUID
+  const submitChange = function (guid) {
       const json = {action: "edit", task: guid},
               body = JSON.stringify( json )
 
@@ -107,7 +107,22 @@
       { 'task': "And delete them when you don't need them anymore", 'status': 1, 'other': 0, 'guid': '9d0f6fad-50a6-4d70-9b42-0981689c1fa5'}
     ]
 
-    buildListing(appdata)
+    // properly create new tasks
+    appdata.forEach( task => {
+      const json = { action: "new", task: task.task },
+              body = JSON.stringify( json )
+
+      fetch( '/submit', {
+        method:'POST',
+        body
+      })
+              .then(response => response.json())
+              .then(json => {
+                console.log(json)
+                buildListing(json)
+              })
+    })
+
 
     // notify server when any checkbox is touched
     document.querySelector('#my-table').onclick = function(ev) {
