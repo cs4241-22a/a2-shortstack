@@ -10,25 +10,25 @@
 <body>
   <h1>Todo</h1>
   <details>
-    <summary>
-      <img src="drop-down-icon.jpg" class="dropdown">
+    <summary class="high">
+      <img src="drop-down-icon.jpg" class="dropdown high closed">
       <div class="priority high"></div>
     </summary>
-    <div class="container high"></div>
+    <div class="container high closed"></div>
   </details>
   <details>
-    <summary>
-      <img src="drop-down-icon.jpg" class="dropdown">
+    <summary class="medium">
+      <img src="drop-down-icon.jpg" class="dropdown medium closed">
       <div class="priority medium"></div>
     </summary>
-    <div class="container medium"></div>
+    <div class="container medium closed"></div>
   </details>
   <details>
-    <summary>
-      <img src="drop-down-icon.jpg" class="dropdown">
+    <summary class="low">
+      <img src="drop-down-icon.jpg" class="dropdown low closed">
       <div class="priority low"></div>
     </summary>
-    <div class="container low"></div>
+    <div class="container low closed"></div>
   </details>
   <form action="">
     <input type='text' id='task' placeholder="task name">
@@ -37,7 +37,6 @@
   </form>
 </body>
 <script>
-
   const submit = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
@@ -53,20 +52,39 @@
     })
       .then(response => response.json())
       .then((json) => {
-        // console.log(json)
         Array.from(document.body.getElementsByClassName(`container`)).forEach(e => e.innerHTML = '')
         Array.from(json).forEach(element => {
           let container = document.body.getElementsByClassName(`container ${element.priority}`) 
           container[0].innerHTML += element.html      
         })
       })
-
+      let form = document.querySelector('form')
+      form.reset()
     return false
+  }
+
+  const open = function (priority) {
+    let dropdown = document.getElementsByClassName(`dropdown ${priority}`)
+    if (dropdown[0].className.includes("closed")){
+      dropdown[0].className = `dropdown ${priority} open`
+      let container = document.getElementsByClassName(`container ${priority}`)
+      container[0].className = `container ${priority} open`
+    } else {
+      dropdown[0].className = `dropdown ${priority} closed`
+      let container = document.getElementsByClassName(`container ${priority}`)
+      container[0].className = `container ${priority} closed`
+    }
   }
 
   window.onload = function () {
     const button = document.querySelector('button')
+    const summaries = document.getElementsByTagName('summary')
     button.onclick = submit
+    Array.from(summaries).forEach(summary => {
+      summary.onclick = () => {
+        open(summary.className)
+      }
+    })
   }
 
 </script>

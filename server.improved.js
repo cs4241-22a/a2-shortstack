@@ -39,7 +39,7 @@ const handlePost = function( request, response ) {
     data.dateCreated = date
     let dayMS = 24*60*60*1000
     let priority = 'low'
-    let parts =data.dueDate.split('-');
+    let parts = data.dueDate.split('-');
     let dueDate = new Date(parts[0], parts[1] - 1, parts[2]); 
     let timeDiff = dueDate.getTime() - today.getTime()//1-3 high 3-5 medium 6+ low
     let dayDiff = timeDiff/dayMS
@@ -59,7 +59,8 @@ const handlePost = function( request, response ) {
 }
 
 const render = function (data){
-  return tasks.map( element => {return {html:`<h1>${element.taskname}</h1>`,
+  return tasks.map( element => {return {html:`<h2>${element.taskname}</h2>
+                                              <p>Due: ${element.dueDate}<p>`,
                                         priority:element.priority}})
 }
 
