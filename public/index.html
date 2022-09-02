@@ -59,7 +59,7 @@
       })
     }
 
-    const submit = function( e ) {
+    const submitTask = function(e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
@@ -100,7 +100,7 @@
 
   window.onload = function() {
     const button = document.querySelector( 'button' )
-    button.onclick = submit
+    button.onclick = submitTask
 
     const appdata = [
       { 'task': 'Add your tasks here!', 'status': 0, 'other': 0, 'guid': 'ed0ebe31-2d23-4c89-bab4-9c98597c83ae' },
