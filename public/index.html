@@ -63,7 +63,7 @@
     e.preventDefault()
 
     const input = document.querySelector( '#newtask-input' ),
-          json = { type: "new", yourname: input.value },
+          json = { type: "new", task: input.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {

@@ -40,7 +40,7 @@ const handlePost = function( request, response ) {
     const parsedDataString = JSON.parse( dataString )
 
     if (parsedDataString['type'] === 'new') {
-      appdata.push({ 'task': parsedDataString['yourname'], 'status': 0, 'other': 0})
+      appdata.push({ 'task': parsedDataString['task'], 'status': 0, 'other': 0})
     }
 
     console.warn("current appdata:")
