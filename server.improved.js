@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const tasks = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -32,19 +28,39 @@ const handleGet = function( request, response ) {
 
 const handlePost = function( request, response ) {
   let dataString = ''
-
   request.on( 'data', function( data ) {
-      dataString += data 
+      dataString += data
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    data = JSON.parse(dataString)
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    data.dateCreated = date
+    let dayMS = 24*60*60*1000
+    let priority = 'low'
+    let parts =data.dueDate.split('-');
+    let dueDate = new Date(parts[0], parts[1] - 1, parts[2]); 
+    let timeDiff = dueDate.getTime() - today.getTime()//1-3 high 3-5 medium 6+ low
+    let dayDiff = timeDiff/dayMS
+    if (dayDiff <= 5){
+      priority = 'medium'
+    }
+    if (dayDiff <= 3){
+      priority = 'high'
+    }
+    data.priority = priority
+    // console.log(data)
+    tasks.push( data )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(render(tasks)))
   })
+}
+
+const render = function (data){
+  return tasks.map( element => {return {html:`<h1>${element.taskname}</h1>`,
+                                        priority:element.priority}})
 }
 
 const sendFile = function( response, filename ) {

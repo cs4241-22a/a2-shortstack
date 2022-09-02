@@ -1,1 +1,108 @@
 /*Style your own assignment! This is fun! */
+
+:root {
+    --bg: #121212;
+    --grey : #1d1d1d;
+    --text: #e1e1e1;
+    --white: #FFFFFF;
+}
+
+html {
+    height: 100%;
+}
+
+h1 {
+    color: var(--white);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    background-color: var(--bg);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: 25px;
+    background-color: var(--grey);
+    padding: 50px;
+    border-radius: 1rem;
+}
+
+form button{
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    align-self: center;
+    border-radius: 1rem;
+    border: none;
+    background-color: var(--text);
+    color: var(--bg);
+}
+
+form input {
+    width: 250px;
+    height: 50px;
+    margin-top: 10px;
+    border-color: gray;
+    border-radius: 1rem;
+    background-color: var(--text);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: none;
+}
+
+::placeholder {
+    text-align: center;
+    color: var(--bg);
+}
+
+details {
+    background-color: var(--grey);
+    padding: 50px;
+    border-radius: 1rem;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+summary {
+    list-style: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.priority {
+    width: 500px;
+    height: 50px;
+    border-radius: 1rem;
+}
+
+.priority.high{
+    background-color: red;
+}
+
+.priority.medium{
+    background-color: yellow;
+}
+
+.priority.low{
+    background-color: green;
+}
+
+.dropdown {
+    height: 50px;
+    margin-right: 10px;
+    filter: invert(88%);
+}
