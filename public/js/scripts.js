@@ -1,6 +1,6 @@
-const submit = function (e) {
+const submit = async function (e) {
     e.preventDefault()
-    const inputs = e.target.elements
+    const inputs = e.target.elements;
     const json = {
         timeSleep: inputs['sleep-time'].value,
         timeWakeUp: inputs['wake-time'].value,
@@ -8,23 +8,30 @@ const submit = function (e) {
         hadDream: inputs['did-dream'].checked,
         dreamDescription: inputs['dream-description'].value,
     }
-    console.log(json)
-    const body = JSON.stringify(json)
+    console.log(json);
+    const body = JSON.stringify(json);
 
-    fetch('/submit', {
-        method: 'POST', body
-    })
-        .then(function (response) {
-            // do something with the reponse
-            console.log(response)
-        })
+    const rawRes = await fetch('/submit', {method: 'POST', body});
+    const updatedSummary = await rawRes.json();
 
-    return false
+    await updateData(updatedSummary)
+
+    return false;
+}
+
+const updateData = async function (summary) {
+    const averageHours = document.getElementById('average-hours-stat');
+    const dreamPercentage = document.getElementById('dream-percentage-stat');
+    const averageRating = document.getElementById('average-rating-stat');
+    averageHours.innerText = summary['averageTimeAsleep'];
+    dreamPercentage.innerText = `${summary['dreamPercentage'].toFixed(2)*100}%`;
+    averageRating.innerText = `${Math.round(summary['averageSleepRating']*100)/100}/5`;
 }
 
 window.onload = function () {
-    // const button = document.querySelector('button')
-    const form = document.getElementById('sleep-form')
-    form.onsubmit = submit
-    // button.onclick = submit
+    const form = document.getElementById('sleep-form');
+    form.onsubmit = submit;
+    fetch('/getData')
+        .then(res => res.json())
+        .then(json => updateData(json['summary']))
 }

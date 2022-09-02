@@ -4,18 +4,9 @@ const http = require('http'),
     dir = 'public/',
     port = 3000
 
-const sampleSleepData = {
-    timeSleep: '23:04',
-    timeWakeUp: '9:30',
-    sleepRating: 3, // Out of 5
-    hadDream: true,
-    dreamDescription: 'Three men and a balloon went on a walk but discovered they were bad at walking as none of them had legs',
-}
-
 const appdata = {
     summary: {
-        averageSleepTime: '',
-        averageWakeTime: '',
+        averageTimeAsleep: 0,
         averageSleepRating: 0,
         dreamPercentage: 0,
         numberOfRecords: 0
@@ -39,7 +30,6 @@ const handleGet = function (request, response) {
             sendFile(response, 'public/index.html');
             break;
         case '/getdata':
-            console.log('here')
             sendData(response);
             break;
         default:
@@ -58,15 +48,22 @@ const handlePost = function (request, response) {
         const data = JSON.parse(dataString);
         const summary = appdata.summary;
 
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        yesterday.setHours(...data.timeSleep.split(':'));
+        today.setHours(...data.timeWakeUp.split(':'));
+        const hoursSlept = getHoursDiff(today, yesterday);
+
         summary.numberOfRecords++;
+        summary.averageTimeAsleep += (hoursSlept - summary.averageTimeAsleep) / summary.numberOfRecords;
         summary.averageSleepRating += (data.sleepRating - summary.averageSleepRating) / summary.numberOfRecords;
         summary.dreamPercentage += (data.hadDream - summary.dreamPercentage) / summary.numberOfRecords;
         console.log(summary)
         appdata.sleepData.push(data);
 
-
         response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-        response.end()
+        response.end(JSON.stringify(summary))
     })
 }
 
@@ -95,6 +92,12 @@ const sendFile = function (response, filename) {
 
         }
     })
+}
+
+
+const getHoursDiff = function (startDate, endDate) {
+    const msInHour = 1000 * 60 * 60;
+    return (Math.abs(endDate - startDate) / msInHour).toFixed(2);
 }
 
 server.listen(process.env.PORT || port)
