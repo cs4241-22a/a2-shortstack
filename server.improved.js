@@ -6,7 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = []
+let appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -55,9 +55,11 @@ const handlePost = function( request, response ) {
       const foundTaskIndex = appdata.findIndex(isSameGUID) // find appdata with same guid
       appdata[foundTaskIndex]['status'] = 1 - appdata[foundTaskIndex]['status'] // flip status
 
-    } else {
-      console.error("[server]: Unknown action type")
-    }
+    } else if (parsedDataString["action"] === "delete") {
+      console.log("[server] DEL REQ")
+      appdata = appdata.filter(item => item['guid'] !== parsedDataString['task']) // todo rename 'task' to 'task_guid'
+
+    } else console.error("[server]: Unknown action type")
 
     console.warn("current appdata:")
     console.warn(appdata)

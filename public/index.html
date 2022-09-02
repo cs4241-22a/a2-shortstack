@@ -36,6 +36,9 @@
         let newRow = tableRef.insertRow(-1);
         newRow.id = item["guid"];
 
+        // ---------------------
+        // --- TASK NAME CELL ---
+        // ----------------------
         // Insert a cell in the row at index 0
         let newCell = newRow.insertCell(0);
 
@@ -43,7 +46,9 @@
         let newText = document.createTextNode(item["task"]);
         newCell.appendChild(newText);
 
-
+        // ---------------------
+        // --- CHECKBOX CELL ---
+        // ---------------------
         // Insert a cell in the row at index 1
         let statusCell = newRow.insertCell(1);
 
@@ -54,6 +59,17 @@
         checkbox.value = "value";
         checkbox.checked = item["status"] === 1;
         statusCell.appendChild(checkbox);
+
+        // --------------------------
+        // --- DELETE BUTTON CELL ---
+        // --------------------------
+        // Insert a cell in the row at index 2
+        let deleteButtonCell = newRow.insertCell(2);
+        // Append a text node to the cell
+        let buttonElement = document.createElement('button');
+        buttonElement.textContent = 'X'
+        buttonElement.classList.add('delete-button')
+        deleteButtonCell.appendChild(buttonElement);
 
       })
     }
@@ -80,8 +96,14 @@
   }
 
   // requests a change to a task of the given GUID
-  const submitChange = function (guid) {
-      const json = {action: "edit", task: guid},
+  const submitChange = function (guid, deletion = false) {
+    function getAction() {
+      if (deletion) {
+        return 'delete'
+      } else return 'edit'
+    }
+
+    const json = {action: getAction(), task: guid},
               body = JSON.stringify( json )
 
       fetch( '/edit', {
@@ -130,6 +152,8 @@
         if(ev.target.value) {
           submitChange(ev.target.parentElement.parentElement.id)
         }
+      } else if (ev.target.classList.contains('delete-button')) {
+        submitChange(ev.target.parentElement.parentElement.id, true)
       }
     }
   }
