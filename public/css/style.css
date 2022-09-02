@@ -1,1 +1,25 @@
 /* Style your own assignment! This is fun! */
+
+/* Class selector */
+.flex-container {
+    display:flex;
+    border:3px solid black;
+}
+
+table, tr, td, th {
+    background-color:lightblue;
+    padding: 10px;
+    border-collapse:collapse;
+    border-radius:25px;
+    -webkit-border-radius:25px;
+}
+
+/* Pseudo selector */
+button:hover {
+    background-color:rgb(125, 125, 188);
+}
+
+/* Element selector */
+form, fieldset {
+    border:none;
+}

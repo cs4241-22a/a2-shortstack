@@ -1,7 +1,5 @@
 const http = require("http"),
     fs = require("fs"),
-    // IMPORTANT: you must run `npm install` in the directory for this assignment
-    // to install the mime library used in the following line of code
     mime = require("mime"),
     dir = "public/",
     port = 3000;
@@ -16,7 +14,7 @@ let appdata = [
     },
     {
         show: "House of the Dragon",
-        seaons: 1,
+        seasons: 1,
         episodes: 10,
         duration: 60,
         totalTime: 10.0,
@@ -57,7 +55,6 @@ const handlePost = function (request, response) {
 
     request.on("end", function () {
         json = JSON.parse(dataString);
-
         // parse the appropriate fields to ints for data storage purposes
         json.seasons = parseInt(json.seasons);
         json.eps = parseInt(json.eps);
@@ -71,14 +68,14 @@ const handlePost = function (request, response) {
         json.totalTime = parseFloat(totalTime); // add the derived attribute to the JSON
 
         appdata = [...appdata, json]; // update the application's global "database"
-        console.log("Updated app data:");
-        console.log(appdata);
 
-        response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-        response.end();
+        response.writeHead(200, "OK", {
+            "Content-Type": "text/plain",
+        });
+
+        response.end(JSON.stringify(appdata));
     });
 };
-
 
 const sendFile = function (response, filename) {
     const type = mime.getType(filename);
