@@ -34,6 +34,7 @@
       json.forEach(item =>{ // fill table
         // Insert a row at the end of the table
         let newRow = tableRef.insertRow(-1);
+        newRow.id = item["guid"];
 
         // Insert a cell in the row at index 0
         let newCell = newRow.insertCell(0);
@@ -63,7 +64,7 @@
     e.preventDefault()
 
     const input = document.querySelector( '#newtask-input' ),
-          json = { type: "new", task: input.value },
+          json = { action: "new", task: input.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -84,9 +85,9 @@
     button.onclick = submit
 
     const appdata = [
-      { 'task': 'Add your tasks here!', 'status': 0, 'other': 0 },
-      { 'task': 'Mark them as complete when you are finished!', 'status': 1, 'other': 0 },
-      { 'task': "And delete them when you don't need them anymore", 'status': 1, 'other': 0}
+      { 'task': 'Add your tasks here!', 'status': 0, 'other': 0, 'guid': 'ed0ebe31-2d23-4c89-bab4-9c98597c83ae' },
+      { 'task': 'Mark them as complete when you are finished!', 'status': 1, 'other': 0, 'guid': '5c4ccf92-22b3-4854-a7b8-d36e2712dea5' },
+      { 'task': "And delete them when you don't need them anymore", 'status': 1, 'other': 0, 'guid': '9d0f6fad-50a6-4d70-9b42-0981689c1fa5'}
     ]
 
     buildListing(appdata)
