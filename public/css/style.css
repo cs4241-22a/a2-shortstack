@@ -33,3 +33,10 @@ input {
     border-radius: 5px;
     border: white;
 }
+
+table, th, td {
+    text-align: center;
+    padding: 0.5vh 0.5vw;
+    border-collapse: collapse;
+    border: 2px solid blue;
+}

@@ -16,12 +16,12 @@ const submit = function( e ) {
     //const input = document.querySelector('#yourname'),
           //body = JSON.stringify( json )
 
-    var myForm = document.getElementById('mainform')
+    let myForm = document.getElementById('mainform')
 
     const json_sender = {}
 
-    for (var i = 0; i < myForm.elements.length; i++) {
-        var element = myForm.elements[i]
+    for (let i = 0; i < myForm.elements.length; i++) {
+        let element = myForm.elements[i]
         //console.log(element)
         if (element.nodeName === 'INPUT') {
             /*if (element.value.length === 0) {
@@ -42,13 +42,6 @@ const submit = function( e ) {
             // empty fields
 
             // update lists
-            //getRows()
-            /*getRequest('/api/deletereminder', {}, (data) => {
-                console.log("Incoming data from server!")
-                for (let info of data) {
-                    console.log(info)
-                }
-            })*/
             fetch('/api/deletereminder', {
                 method:'GET'
             })
@@ -61,7 +54,7 @@ const submit = function( e ) {
                 addRow(data)
                 // this is where we get the request back from the server
 
-                console.log("right here mate")
+                console.log("adding row")
             })
         } else {
             alert('')
@@ -90,34 +83,72 @@ const addRow = (data) => {
     const table = document.getElementById("dataTable")
     table.innerHTML = "<tr><th>Delete</th><th>Title</th><th>Notes</th><th>URL</th><th>Date</th><th>Time</th><th>Location</th></tr>"
     for (let information of data) {
-        var rowCount = table.rows.length
-        var row = table.insertRow(rowCount)
+        let rowCount = table.rows.length
+        let row = table.insertRow(rowCount)
+
+        //row.setAttribute("id", (rowCount + 1).stringify())
+
         console.log("Row Count", rowCount)
-        //Column 1
-        var btnName = "button" + (rowCount + 1)
-        var deleteCell = row.insertCell(0)
-        var deleteButton = document.createElement("input")
+
+        let btnName = "button" + (rowCount + 1)
+        let deleteCell = row.insertCell(0)
+        let deleteButton = document.createElement("input")
+
         deleteButton.type = "button"
         deleteButton.name = btnName
         deleteButton.setAttribute('value', btnName)
         //deleteButton.setAttribute('onClick', removeRow(this))
         /*deleteButton.onclick = () => {
-            var savedName = btnName
+            let savedName = btnName
             removeRow(savedName)
         }*/
-        deleteButton.setAttribute('onclick', 'removeRow(this)');
+        deleteButton.setAttribute('onclick', 'removeRow(this)')
 
         deleteCell.appendChild(deleteButton)
 
-        for (var i = 1; i < Object.keys(information).length; i++) {
-            var cell = row.insertCell(i)
+        for (let i = 0; i < Object.keys(information).length; i++) {
+            let cell = row.insertCell(i+1)
             cell.innerHTML = information[Object.keys(information)[i]]
         }
     }
 }
 
-const removeRow = (oButton) => {
-    //console.log(btnName)
-    let empTab = document.getElementById('dataTable');
-    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
+const removeRow = (button) => {
+    //console.log(button)
+    //let table = document.getElementById('dataTable')
+
+    console.log(button)
+
+    let myTab = document.getElementById('dataTable');
+
+    // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+    for (i = 1; i < myTab.rows.length; i++) {
+
+        // GET THE CELLS COLLECTION OF THE CURRENT ROW.
+        let cells = myTab.rows.item(i).cells;
+
+        // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
+        for (let j = 0; j < cells.length; j++) {
+            console.log(cells.item(j).innerHTML)
+            //console.log(objCells.item(j).innerHTML)
+            //info.innerHTML = info.innerHTML + ' ' + objCells.item(j).innerHTML;
+        }
+        //info.innerHTML = info.innerHTML + '<br />';     // ADD A BREAK (TAG).
+    }
+
+
+    /*for (let i = 0; i < table.rows.length; i++) {
+        //console.log(table.rows[i])
+        let firstCell = table.rows.item(i).cells
+        console.log(firstCell)
+
+        //console.log(firstCell[0].name)
+    }*/
+    //console.log(table)
+
+    //table.deleteRow(button.parentNode.parentNode.rowIndex)
+
+    // don't delete the row. send data back to the server on which one to delete
+
+    //console.log(button.parentNode.parentNode.stringify())
 }
