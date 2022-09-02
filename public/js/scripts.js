@@ -38,7 +38,7 @@ window.onload = () => {
 }
 
 const updateTable = () => {  
-    fetch('/api/deletereminder', {
+    fetch('/api/getdata', {
         method:'GET'
     })
     .then(response => response.json())

@@ -23,7 +23,7 @@ const handleGet = (request, response) => {
     case '/':
       sendFile(response, 'public/index.html')
       break
-    case '/api/deletereminder':
+    case '/api/getdata':
       console.log('sending data back to client')
       console.log(reminders)
       sendData(response, reminders)
@@ -34,7 +34,7 @@ const handleGet = (request, response) => {
   }
 }
 
-const handlePost = (request, response ) => {
+const handlePost = (request, response) => {
   let dataString = ''
 
   request.on('data', function( data ) {
