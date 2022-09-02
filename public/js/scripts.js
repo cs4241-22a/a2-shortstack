@@ -1,158 +1,111 @@
-// Add some Javascript code here, to run on the front end.
-
-const getRows = () => {
-    fetch('/api/deletereminder', {
-        method: 'GET'
-    }).then(data => {
-        console.log("Getting data back from server!")
-        console.log(data)
-    })
-}
-
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
-
-    //const input = document.querySelector('#yourname'),
-          //body = JSON.stringify( json )
-
+    
     let myForm = document.getElementById('mainform')
-
-    const json_sender = {}
+    const output = {}
 
     for (let i = 0; i < myForm.elements.length; i++) {
         let element = myForm.elements[i]
-        //console.log(element)
         if (element.nodeName === 'INPUT') {
-            /*if (element.value.length === 0) {
+            if (element.value.length === 0) {
                 alert('Empty input on', element.id)
                 return
-            }*/
-            json_sender[element.id] = element.value
+            }
+            output[element.id] = element.value
         }
     }
 
-    const output = JSON.stringify(json_sender)
-
     fetch('/api/newreminder', {
         method: 'POST',
-        body: output
+        body: JSON.stringify(output)
     }).then((response) => {
+        // sucessfully posted new data to server
         if (response.status === 200) {
-            // empty fields
-
-            // update lists
-            fetch('/api/deletereminder', {
-                method:'GET'
-            })
-            .then(response => response.json())
-            .then(data => {
-                /*for (let info of data) {
-                    console.log(info)
-                }*/
-
-                addRow(data)
-                // this is where we get the request back from the server
-
-                console.log("adding row")
-            })
+            // now update the table on html side
+            updateTable()
         } else {
             alert('')
         }
-        //console.log(response)
     })
-
-    /*fetch( '/submit', {
-      method:'POST',
-      body
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })*/
 
     return false
 }
 
 window.onload = () => {
-    const button = document.querySelector( 'button' )
+    const button = document.querySelector('button')
     button.onclick = submit
 }
 
-const addRow = (data) => {  
-    const table = document.getElementById("dataTable")
-    table.innerHTML = "<tr><th>Delete</th><th>Title</th><th>Notes</th><th>URL</th><th>Date</th><th>Time</th><th>Location</th></tr>"
-    for (let information of data) {
-        let rowCount = table.rows.length
-        let row = table.insertRow(rowCount)
+const updateTable = () => {  
+    fetch('/api/deletereminder', {
+        method:'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        const table = document.getElementById('dataTable')
+        table.innerHTML = '<tr><th>Delete</th><th>Title</th><th>Notes</th><th>URL</th><th>Date</th><th>Time</th><th>Location</th></tr>'
+        for (let information of data) {
+            let rowLength = table.rows.length
+            let row = table.insertRow(rowLength)
+            let deleteButton = document.createElement('input')
+            let btnName = 'Delete'
+            
+            deleteButton.type = 'button'
+            deleteButton.id = rowLength + 1
+            deleteButton.className = btnName
+            deleteButton.style.background =  'rgba(255, 0, 0, 1)'
+            deleteButton.setAttribute('value', btnName)
+            deleteButton.onclick = (event) => {
+                removeRow(event)
+            }
+            row.insertCell(0).appendChild(deleteButton)
 
-        //row.setAttribute("id", (rowCount + 1).stringify())
-
-        console.log("Row Count", rowCount)
-
-        let btnName = "button" + (rowCount + 1)
-        let deleteCell = row.insertCell(0)
-        let deleteButton = document.createElement("input")
-
-        deleteButton.type = "button"
-        deleteButton.id = (rowCount + 1)
-        deleteButton.className = btnName
-        deleteButton.setAttribute('value', btnName)
-        //deleteButton.setAttribute('onClick', removeRow(this))
-        /*deleteButton.onclick = () => {
-            //let savedName = btnName
-            //removeRow(savedName)
-            console.log(this.id)
-        }*/
-        // delete row
-        deleteButton.addEventListener('click', (event) => {
-            removeRow(event)
-        })
-        //deleteButton.setAttribute('onclick', 'removeRow(this)')
-
-        deleteCell.appendChild(deleteButton)
-
-        for (let i = 0; i < Object.keys(information).length; i++) {
-            let cell = row.insertCell(i+1)
-            cell.innerHTML = information[Object.keys(information)[i]]
+            for (let i = 0; i < Object.keys(information).length; i++) {
+                let cell = row.insertCell(i+1)
+                cell.id = Object.keys(information)[i]
+                cell.innerHTML = information[Object.keys(information)[i]]
+            }
         }
-    }
+    })  
 }
 
 const removeRow = (event) => {
-    console.log("Target Id: ", parseInt(event.target.id))
     let table = document.getElementById('dataTable')
-
-    let left = 0
+    let left = 1
     let right = table.rows.length-1
 
     while (left <= right) {
         let mid = Math.floor((left + right) / 2)
+        console.log(mid)
         let cells = table.rows[mid].cells
         let pos = cells[0].children[0].id
-        let pos_num = parseInt(pos)
-
-        console.log(pos)
 
         if (pos === event.target.id) {
-            console.log('made it!: ', pos)
+            let output = {}
+            for (let j = 1; j < cells.length; j++) {
+                output[cells[j].id] = cells[j].innerHTML
+            }
+            deleteReminder(output)
+            console.log('deleteing reminder')
             break
-        } else if (pos_num < parseInt(event.target.id)) {
+        } else if (parseInt(pos) < parseInt(event.target.id)) {
             left = mid + 1
         } else {
             right = mid - 1
         }
     }
+}
 
-    console.log("out of loop")
-
-    /*for (let i = 1; i < table.rows.length; i++) {
-        let cells = table.rows[i].cells
-        if (cells[0].children[0].id === event.target.id) {
-            console.log('made it!: ', deleteButton)
-            for (let j = 1; j < cells.length; j++) {
-                console.log(cells[j].innerHTML)
-            }
+const deleteReminder = (output) => {
+    fetch('/api/deletereminder', {
+        method: 'POST',
+        body: JSON.stringify(output)
+    }).then((response) => {
+        console.log('HERE')
+        if (response.status === 200) {
+            console.log('succesfully posted delete')
+            updateTable()
         }
-    }*/
+    })
 }

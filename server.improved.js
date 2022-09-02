@@ -6,23 +6,9 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const reminders = [
-
-]
-
-/*const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]*/
+let reminders = []
 
 const server = http.createServer( function( request, response ) {
-  //console.log(process.env.REACT_APP_KEY)
-  /*
-    setInterval(() => {
-      console.log("testing")
-    }, 1000)*/
-
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
@@ -33,11 +19,6 @@ const server = http.createServer( function( request, response ) {
 const handleGet = (request, response) => {
   const filename = dir + request.url.slice( 1 )
   
-  /*if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  } else {
-    sendFile( response, filename )
-  }*/
   switch (request.url) {
     case '/':
       sendFile(response, 'public/index.html')
@@ -71,6 +52,15 @@ const handlePost = (request, response ) => {
         response.writeHead(200, "OK", {'Content-Type': 'text/plain' })
         response.end()
         break
+      case '/api/deletereminder':
+        console.log('new delete data incoming')
+        reminders = reminders.filter((element) => {
+          return JSON.stringify(element) != JSON.stringify(data) //element.title !== data.title
+        })
+        console.log(reminders)
+        response.writeHead(200, "OK", {'Content-Type': 'text/plain' })
+        response.end()
+        break
       default:
         console.log("ERROR")
         break
@@ -81,21 +71,16 @@ const handlePost = (request, response ) => {
 const sendFile = (response, filename) => {
    const type = mime.getType( filename ) 
 
-   fs.readFile( filename, function( err, content ) {
-
+   fs.readFile(filename, (err, content) => {
      // if the error = null, then we've loaded the file successfully
-     if( err === null ) {
-
+     if(err === null) {
        // status code: https://httpstatuses.com
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
-
      } else {
-
        // file not found, error code 404
        response.writeHeader( 404 )
        response.end( '404 Error: File Not Found' )
-
      }
    })
 }
