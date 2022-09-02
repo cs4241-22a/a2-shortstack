@@ -1,0 +1,25 @@
+for (var i=0; i<5; i++){
+    const btn = document.createElement('button')
+    btn.innerText = i
+    btn.onclick= ()=> console.log('btn press: ',i)
+    document.body.appendChild(btn)
+}
+<button>
+</button>
+        
+
+// render page on server instea
+// ignore submit function
+<form action="/test">
+</form>
+
+const html = `
+            <html>
+            <body>
+             ${ appdata.map( item => JSON.stringify(item) ) {
+
+             }) }
+            <body>
+            <html>
+            `
+            response.end(html)

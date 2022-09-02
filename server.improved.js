@@ -12,7 +12,7 @@ const appdata = [
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
-const server = http.createServer( function( request,response ) {
+const server = http.createServer( function( request,response ) {      //deals with handle GET or handle POST requests
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
@@ -43,7 +43,7 @@ const handlePost = function( request, response ) {
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end( JSON.stringify (appdata))//APP DATA
   })
 }
 

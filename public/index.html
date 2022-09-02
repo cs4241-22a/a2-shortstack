@@ -10,7 +10,7 @@
     <br>
     <h2 class="header">My Homework Assignments</h2>
     <p>Add, remove, modify, or delete assignments from the table.</p>
-    <table style="width:100%">
+    <table style="width:100%" id="table">
       <tr>
         <th>Assignment</th>
         <th>Course</th>
@@ -56,26 +56,39 @@
 
   </body>
   <script>
+    
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input = document.querySelector( '#assignment','#course','date' ),
+          json = { assignment: input.value, course: input.value, date: date.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
       body 
     })
-    .then( function( response ) {
-      // do something with the reponse
-      return response.json()
+    .then( response => response.json() )
+
+    .then( json => {
+      json.forEach( item=> {
+        const table = document.getElementById('table')
+        var row = table.insertRow(2);
+        var cell1 = row.insertCell(0);
+        //var cell2 = row.insertCell(0);
+        //item['model']
+        cell1.innerHTML = item.toString();
+        //cell2.innerHTML = "NEW CELL2";
+        
+        //p.innerText = item.toString()
+        //document.body.appendChild(row)
+      })
     })
-    .then(function (json){
-      console.log(json)
-    })
+
+   // .then( json => console.log (json))    //.json actually returns promise itself (chaining multiple promises together)
+  
 
     return false
   }
@@ -83,7 +96,20 @@
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
+    //button.onclick = remove
   }
 
   </script>
 </html>
+
+
+
+<!-- .then( function( response ) { response.json()
+  // do something with the reponse
+  return response.json()
+}) -->
+
+<!-- 
+.then(function (json){       
+  console.log(json)
+}) -->
