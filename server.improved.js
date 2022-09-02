@@ -51,13 +51,13 @@ const handlePost = function( request, response ) {
 
     } else if (parsedDataString["action"] === "edit") { // swap status for this GUID
       console.log("[server]: MODIFY REQ")
-      const isSameGUID = (element) => element['guid'] === parsedDataString['task'];
+      const isSameGUID = (element) => element['guid'] === parsedDataString['task_guid'];
       const foundTaskIndex = appdata.findIndex(isSameGUID) // find appdata with same guid
       appdata[foundTaskIndex]['status'] = 1 - appdata[foundTaskIndex]['status'] // flip status
 
     } else if (parsedDataString["action"] === "delete") {
       console.log("[server] DEL REQ")
-      appdata = appdata.filter(item => item['guid'] !== parsedDataString['task']) // todo rename 'task' to 'task_guid'
+      appdata = appdata.filter(item => item['guid'] !== parsedDataString['task_guid']) // todo rename 'task' to 'task_guid'
 
     } else console.error("[server]: Unknown action type")
 
