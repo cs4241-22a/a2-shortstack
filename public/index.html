@@ -123,29 +123,6 @@
     const button = document.querySelector( 'button' )
     button.onclick = submitTask
 
-    const appdata = [
-      { 'task': 'Add your tasks here!', 'status': 0, 'other': 0, 'guid': 'ed0ebe31-2d23-4c89-bab4-9c98597c83ae' },
-      { 'task': 'Mark them as complete when you are finished!', 'status': 1, 'other': 0, 'guid': '5c4ccf92-22b3-4854-a7b8-d36e2712dea5' },
-      { 'task': "And delete them when you don't need them anymore", 'status': 1, 'other': 0, 'guid': '9d0f6fad-50a6-4d70-9b42-0981689c1fa5'}
-    ]
-
-    // properly create new tasks
-    appdata.forEach( task => {
-      const json = { action: "new", task: task.task },
-              body = JSON.stringify( json )
-
-      fetch( '/submit', {
-        method:'POST',
-        body
-      })
-              .then(response => response.json())
-              .then(json => {
-                console.log(json)
-                buildListing(json)
-              })
-    })
-
-
     // notify server when any checkbox is touched
     document.querySelector('#my-table').onclick = function(ev) {
       if (ev.target.type === "checkbox") {
