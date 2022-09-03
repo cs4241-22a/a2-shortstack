@@ -26,7 +26,7 @@ const handleGet = (request, response) => {
     case '/api/getdata':
       console.log('sending data back to client')
       console.log(reminders)
-      response.writeHeader(200, {'Content-Type': 'application/json'})
+      response.writeHeader(200, {'Content-Type': 'text/plain'})
       response.end(JSON.stringify(reminders))
       break
     default:
