@@ -1,25 +1,89 @@
-/* Style your own assignment! This is fun! */
-
 /* Class selector */
 .flex-container {
-    display:flex;
-    border:3px solid black;
+    display: flex;
+    font-family: 'Rubik', 'Calibri', sans-serif;
+    flex-direction: column;
 }
 
-table, tr, td, th {
-    background-color:lightblue;
+h1 {
+    color: rgb(95, 14, 202);
+}
+
+table {
+    text-align: center;
     padding: 10px;
     border-collapse:collapse;
-    border-radius:25px;
-    -webkit-border-radius:25px;
+    margin: 0 auto;
+    max-width:80%;
+}
+
+tr, td, th {
+    border: 5px dotted rgba(69, 42, 218, 0.4);
+    padding: 10px;
+    margin: 0 auto;
+}
+
+#formLabel {
+    color: rgb(95, 14, 202);
+    padding: 10px;
+    display: block;
+    float: left;
+    font-family: 'Rubik', 'Georgia', 'Times New Roman', sans-serif;
+    width: 300px;
+}
+
+button {
+    margin: 0 auto;
+    border-radius:8px;
+    font-family: 'Rubik', 'Calibri', sans-serif;
+    border:2px solid rgba(19, 19, 201, 0.591);
 }
 
 /* Pseudo selector */
 button:hover {
-    background-color:rgb(125, 125, 188);
+    background-color: rgba(154, 154, 230, 0.45);
+}
+
+button:focus {
+    background-color: rgba(154, 154, 230, 0.95);
 }
 
 /* Element selector */
-form, fieldset {
-    border:none;
+form {
+    box-sizing: border-box;
+}
+
+fieldset {
+    margin: 10px auto 20px auto;
+    width: 50%;
+    padding: 10px 10px 10px 10px;
+    border: none;
+    background-color: rgba(108, 108, 233, 0.203);
+    border-radius:10px;
+}
+
+input[type=text] {
+    padding: 10px;
+    border: 2px solid rgb(178, 172, 172);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px 0px;
+    border-radius: 10px;
+}
+
+input[type=text]:focus {
+    border: 3px solid rgb(143, 113, 217);
+    box-shadow: 0px 0px 10px 5px rgba(194, 12, 245, 0.2);
+}
+
+input[type=number] {
+    padding: 10px;
+    border: 2px solid rgb(178, 172, 172);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px 0px;
+    border-radius: 10px;
+}
+
+input[type=number]:focus {
+    border: 3px solid rgb(143, 113, 217);
+    box-shadow: 0px 0px 10px 5px rgba(194, 12, 245, 0.2);
 }

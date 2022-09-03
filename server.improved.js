@@ -20,11 +20,11 @@ let appdata = [
         totalTime: 10.0,
     },
     {
-        show: "Once Upon a Time",
-        seasons: 7,
-        episodes: 24,
+        show: "Better Call Saul",
+        seasons: 6,
+        episodes: 10,
         duration: 45,
-        totalTime: 126.0,
+        totalTime: 45.0,
     },
 ];
 
@@ -54,26 +54,49 @@ const handlePost = function (request, response) {
     });
 
     request.on("end", function () {
-        json = JSON.parse(dataString);
-        // parse the appropriate fields to ints for data storage purposes
-        json.seasons = parseInt(json.seasons);
-        json.eps = parseInt(json.eps);
-        json.duration = parseInt(json.duration);
+        let url = request.url;
 
-        // compute a derived attribute, total time required to watch the entire show
-        let totalTime = (
-            (json.seasons * json.eps * json.duration) /
-            60
-        ).toFixed(2);
-        json.totalTime = parseFloat(totalTime); // add the derived attribute to the JSON
+        if (url === "/submit") {
+            json = JSON.parse(dataString);
+            // parse the appropriate fields to ints for data storage purposes
+            json.seasons = parseInt(json.seasons);
+            json.eps = parseInt(json.eps);
+            json.duration = parseInt(json.duration);
 
-        appdata = [...appdata, json]; // update the application's global "database"
+            // compute a derived attribute, total time required to watch the entire show
+            let totalTime = ( (json.seasons * json.eps * json.duration) / 60 ).toFixed(2);
+            json.totalTime = parseFloat(totalTime); // add the derived attribute to the JSON
 
-        response.writeHead(200, "OK", {
-            "Content-Type": "text/plain",
-        });
+            appdata = [...appdata, json]; // update the application's global "database"
 
-        response.end(JSON.stringify(appdata));
+            response.writeHead(200, "OK", {
+                "Content-Type": "text/plain",
+            });
+            response.end(JSON.stringify(appdata));
+
+        } else if (url === '/remove') {
+            
+            json = JSON.parse(dataString);
+            // parse the appropriate fields to ints for data storage purposes
+            json.seasons = parseInt(json.seasons);
+            json.eps = parseInt(json.eps);
+            json.duration = parseInt(json.duration);
+
+            // assuming the name works as a unique key...
+            let index = -1;
+            for(let i=0; i<appdata.length; i++) {
+                if(String(appdata[i].show) === String(json.show)) {
+                    index = i;
+                }
+            }
+            appdata.splice(index, 1);
+            response.writeHead(200, "OK", {
+                "Content-Type": "text/plain",
+            });
+            response.end(JSON.stringify(appdata));
+
+        }
+        
     });
 };
 
