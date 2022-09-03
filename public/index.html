@@ -9,12 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
   </head>
   <body>
     <header>
     <div id="backImg">
       <div id="strip">
-        <h1>Game Statistics</h1>
+        <div id="gamestats">Game Statistics</div>
         <img class="logo" src="../resources/LoL_icon.svg.png">
         <img class="logo" src="../resources/Valorant_icon.jpg">
         <img class="logo" src="../resources/CSGO_icon.png">
@@ -23,19 +24,31 @@
     </header>
     <form id="addData">
       <fieldset>
-        <legend id="description">Add Game Stats</legend>
-        <label for="game">Game:</label>
-        <input type='text' id="game" placeholder="Name of the game"><br><br>
-        <label for="char">Character:</label>
-        <input type='text' id="char" placeholder="Character name"><br><br>
-        <label for="kills">Kills:</label>
-        <input type='text' id="kills" placeholder="Number of kills"><br><br>
-        <label for="assists">Assists:</label>
-        <input type='text' id="assists" placeholder="Number of assists"><br><br>
-        <label for="deaths">Deaths:</label>
-        <input type='text' id="deaths" placeholder="Number of deaths"><br><br>
-        <button id="submitB" disabled="disabled" type="submit">Submit</button>
-        <button id="resetB" type="button">Reset</button>
+        <h2 id="description">Add Game Stats</h2>
+        <label for="game" class="col1">Game:</label>
+        <input type='text' id="game" placeholder="Game name..." class="col2"><br><br>
+        <label for="character" class="col1">Character:</label>
+        <input type='text' id="character" placeholder="Character name..." class="col2"><br><br>
+        <label for="kills" class="col1">Kills:</label>
+        <input type='text' id="kills" placeholder="Number of kills..." class="col2"><br><br>
+        <label for="assists" class="col1">Assists:</label>
+        <input type='text' id="assists" placeholder="Number of assists..." class="col2"><br><br>
+        <label for="deaths" class="col1">Deaths:</label>
+        <input type='text' id="deaths" placeholder="Number of deaths..." class="col2"><br><br>
+        <button id="resetB" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Reset
+        </button>
+        <button id="submitB" disabled="disabled" type="submit">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Submit
+        </button>
       </fieldset>
     </form>
     <div id="table"></div>

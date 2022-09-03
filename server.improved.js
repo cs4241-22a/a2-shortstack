@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'game': 'League of Legends', 'char': 'Morgana', 'kills': '5', 'assists': '10', 'deaths': '3', 'kda': '5'},
-  { 'game': 'CS:GO', 'char': 'Orange', 'kills': '2', 'assists': '1', 'deaths': '7', 'kda': '0.43'},
-  { 'game': 'Valorant', 'char': 'Killjoy', 'kills': '4', 'assists': '3', 'deaths': '4', 'kda': '1.75'}]
+  { 'game': 'League of Legends', 'character': 'Morgana', 'kills': '5', 'assists': '10', 'deaths': '3', 'kda': '5.00'},
+  { 'game': 'CS:GO', 'character': 'Orange', 'kills': '2', 'assists': '1', 'deaths': '7', 'kda': '0.43'},
+  { 'game': 'Valorant', 'character': 'Killjoy', 'kills': '4', 'assists': '3', 'deaths': '4', 'kda': '1.75'}]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -67,7 +67,7 @@ const handlePatch = function(request, response) {
 
   request.on( 'end', function() {
     appdata[request.url.substring(1)].game = JSON.parse(dataString).game
-    appdata[request.url.substring(1)].char = JSON.parse(dataString).char
+    appdata[request.url.substring(1)].character = JSON.parse(dataString).character
     appdata[request.url.substring(1)].kills = JSON.parse(dataString).kills
     appdata[request.url.substring(1)].assists = JSON.parse(dataString).assists
     appdata[request.url.substring(1)].deaths = JSON.parse(dataString).deaths
@@ -78,7 +78,7 @@ const handlePatch = function(request, response) {
 }
 
 const calcKDA = function (kills, assists, deaths) {
-  return ((parseInt(kills) + parseInt(assists)) / parseInt(deaths)).toPrecision(4).toString()
+  return ((parseInt(kills) + parseInt(assists)) / parseInt(deaths)).toPrecision(3).toString()
 }
 
 const sendListData = function (response) {
