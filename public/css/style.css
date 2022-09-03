@@ -32,6 +32,10 @@ tr, td, th {
     width: 300px;
 }
 
+#error {
+    color:red;
+}
+
 button {
     margin: 0 auto;
     border-radius:8px;
