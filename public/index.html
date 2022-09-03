@@ -18,30 +18,19 @@
                 <form action="">
                     <center><h1>TV Show Tracker</h1></center>
                     <fieldset>
-                        <span id="formLabel">TV show name</span>
-                        <input type="text" id="show" value="My TV show" /><br />
-                        <span id="formLabel">Number of seasons</span>
-                        <input
-                            type="number"
-                            id="seasons"
-                            value="4"
-                            min="1"
-                        /><br />
-                        <span id="formLabel">Episodes per season</span
-                        ><input
-                            type="number"
-                            id="eps"
-                            value="13"
-                            min="1"
-                        /><br />
-                        <span id="formLabel">Duration of an episode (minutes)</span>
-                            <input
-                            type="number"
-                            id="duration"
-                            value="45"
-                            min="1"
-                        /><br />
-                        <center><span id="error"></span></center><br />
+                        <span class="formLabel">TV show name</span>
+                        <input type="text" id="show" value="My TV show" />
+                        <br />
+                        <span class="formLabel">Number of seasons</span>
+                        <input type="number" id="seasons" value="4" min="1" />
+                        <br />
+                        <span class="formLabel">Episodes per season</span>
+                        <input type="number" id="eps" value="13" min="1" />
+                        <br />
+                        <span class="formLabel">Duration of an episode (minutes)</span>
+                        <input type="number" id="duration" value="45" min="1" /><br />
+                        <center><span id="error"></span></center>
+                        <br />
                         <center><button id="submit">Submit</button></center>
                     </fieldset>
                 </form>
@@ -94,11 +83,17 @@
             };
             const body = JSON.stringify(json);
 
-            if (show.value === "" || seasons.value === null || eps.value === null || duration.value === null) {
-                document.getElementById("error").innerText = "Invalid form values";
+            if (
+                show.value === "" ||
+                seasons.value === null ||
+                eps.value === null ||
+                duration.value === null
+            ) {
+                document.getElementById("error").innerText =
+                    "Invalid form values";
                 return;
             }
-            
+
             // clear the form on submit
             document.getElementById("show").value = "";
             document.getElementById("seasons").value = "";

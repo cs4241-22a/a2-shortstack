@@ -23,7 +23,7 @@ tr, td, th {
     margin: 0 auto;
 }
 
-#formLabel {
+.formLabel {
     color: rgb(95, 14, 202);
     padding: 10px;
     display: block;
