@@ -5,7 +5,7 @@ Miles Gregg: https://a2-milesgregg.glitch.me/
 
 ### Reminders Web Application Summary
 
-The Reminders web application allows you to fill out a form of information for each reminder you want to keep track of. Once you fill out the form reminder you can press the create button to submit data to the server to keep track of all reminders. You can then delete a specific reminder based off of the row in the table.
+The Reminders web application allows you to fill out a form of information for each reminder you want to keep track of. Once you fill out the form reminder you can press the create button to submit data to the server to keep track of all reminders. Everytime you submit data to the server all of the inputs will reset to empty strings for the next reminder. You can then delete a specific reminder based off of the row in the table.
 
 ### Reminders Web Application Layout
 
