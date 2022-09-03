@@ -48,16 +48,14 @@ const handlePost = function( request, response ) {
     newStat.kda = calcKDA(newStat.kills, newStat.assists, newStat.deaths)
     appdata[appdata.length] = newStat
 
-    response.writeHeader( 200, {'Content-Type': 'application/json' })
-    response.end(JSON.stringify(appdata))
+    sendListData(response)
   })
 }
 
 const handleDelete = function(request, response) {
   appdata.splice(parseInt(request.url.substring(1)),1)
 
-  response.writeHeader( 200, {'Content-Type': 'application/json' })
-  response.end(JSON.stringify(appdata))
+  sendListData(response)
 }
 
 const handlePatch = function(request, response) {
@@ -66,7 +64,7 @@ const handlePatch = function(request, response) {
   request.on( 'data', function( data ) {
     dataString += data 
   })
-  
+
   request.on( 'end', function() {
     appdata[request.url.substring(1)].game = JSON.parse(dataString).game
     appdata[request.url.substring(1)].char = JSON.parse(dataString).char
@@ -75,13 +73,17 @@ const handlePatch = function(request, response) {
     appdata[request.url.substring(1)].deaths = JSON.parse(dataString).deaths
     appdata[request.url.substring(1)].kda = calcKDA(JSON.parse(dataString).kills, JSON.parse(dataString).assists, JSON.parse(dataString).deaths)
 
-    response.writeHeader( 200, {'Content-Type': 'application/json' })
-    response.end(JSON.stringify(appdata))
+    sendListData(response)
   })
 }
 
 const calcKDA = function (kills, assists, deaths) {
   return (kills + assists) / deaths
+}
+
+const sendListData = function (response) {
+  response.writeHeader(200, {'Content-Type': 'application/json'})
+  response.end(JSON.stringify(appdata))
 }
 
 const sendFile = function( response, filename ) {

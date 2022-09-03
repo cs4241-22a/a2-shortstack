@@ -80,7 +80,7 @@ const updateTask = function (e) {
         get_kills = document.getElementById('kills'),
         get_assists = document.getElementById('assists'),
         get_deaths = document.getElementById('deaths'),
-        json = {game: get_game.value, character: get_char.value, kills: get_kills.value, assists: get_assists.value, deaths: get_deaths.value},
+        json = {game: get_game.value, char: get_char.value, kills: get_kills.value, assists: get_assists.value, deaths: get_deaths.value},
         body = JSON.stringify(json)
     fetch('/' + current_row, {
         method: 'PATCH',
@@ -148,7 +148,7 @@ const displayStats = function (json) {
     html += '</table>'
     document.getElementById('table').innerHTML = html
 
-    const editButtons = document.getElementsById('editB')
+    const editButtons = document.getElementById('editB')
     idx = 0
     for (let button of editButtons) {
         button.onclick = editTask
@@ -156,7 +156,7 @@ const displayStats = function (json) {
         idx++
     }
 
-    const deleteButtons = document.getElementsByClassName('deleteB')
+    const deleteButtons = document.getElementById('deleteB')
     idx = 0
     for (let button of deleteButtons) {
         button.onclick = deleteTask
@@ -174,11 +174,11 @@ window.onload = function () {
         console.log(reason)
     })
 
-    const submitB = document.getElementById('submitB')
-    submitB.onclick = submit
+    const submitButton = document.getElementById('submitB')
+    submitButton.onclick = submit
 
-    const resetB = document.getElementById('resetB')
-    resetB.onclick = cancel
+    const resetButton = document.getElementById('resetB')
+    resetButton.onclick = cancel
 
     const addData = document.getElementById('addData')[0]
     addData.oninput = () => {
