@@ -1,7 +1,7 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js
 ===
 
-Miles Gregg: Link insert here
+Miles Gregg: https://a2-milesgregg.glitch.me/
 
 ### Reminders Web Application Summary
 
