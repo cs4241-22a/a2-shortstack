@@ -7,6 +7,12 @@
 
 h1 {
     color: rgb(95, 14, 202);
+    text-align: center;
+}
+
+#submit {
+    display: block;
+    margin: 0 auto;
 }
 
 table {
