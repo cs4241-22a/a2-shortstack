@@ -1,37 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <h1>Simple Todo App</h1>
+    <form action="#">
+      <input type="text" id="newtask-input" value="your task here" />
+      <button id="add-task-button">submit</button>
+    </form>
 
-  <h1>Simple Todo App</h1>
-  <form action="#">
-    <input type='text' id='newtask-input' value="your task here">
-    <button id="add-task-button">submit</button>
-  </form>
-
-  <table id="my-table">
-    <tbody id="todo-listing">
-    </tbody>
-  </table>
-
+    <table id="my-table">
+      <tbody id="todo-listing"></tbody>
+    </table>
   </body>
   <script>
-
     function buildListing(json) {
-
       // Get a reference to the table
       let tableRef = document.getElementById("my-table");
 
       document.getElementById("todo-listing").innerHTML = ""; // reset table
 
-      json.forEach(item =>{ // fill table
+      json.forEach((item) => {
+        // fill table
         // Insert a row at the end of the table
         let newRow = tableRef.insertRow(-1);
         newRow.id = item["guid"];
@@ -43,7 +42,7 @@
         let statusCell = newRow.insertCell(0);
 
         // Append a checkbox node to the cell
-        const checkbox = document.createElement('input');
+        const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.name = "name";
         checkbox.value = "value";
@@ -60,93 +59,88 @@
         let newText = document.createTextNode(item["task"]);
         newCell.appendChild(newText);
 
-
-
         // --------------------------
         // --- DELETE BUTTON CELL ---
         // --------------------------
         // Insert a cell in the row at index 2
         let deleteButtonCell = newRow.insertCell(2);
         // Append a text node to the cell
-        let buttonElement = document.createElement('button');
-        buttonElement.textContent = 'X'
-        buttonElement.classList.add('delete-button')
+        let buttonElement = document.createElement("button");
+        buttonElement.textContent = "X";
+        buttonElement.classList.add("delete-button");
         deleteButtonCell.appendChild(buttonElement);
+      });
+    }
 
+    const submitTask = function (e) {
+      // prevent default form action from being carried out
+      e.preventDefault();
+
+      const input = document.querySelector("#newtask-input"),
+        json = { action: "new", task: input.value },
+        body = JSON.stringify(json);
+
+      fetch("/submit", {
+        method: "POST",
+        body,
       })
-    }
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          buildListing(json);
+        });
 
-    const submitTask = function(e) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+      return false;
+    };
 
-    const input = document.querySelector( '#newtask-input' ),
-          json = { action: "new", task: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then(response => response.json())
-    .then(json => {
-      console.log(json)
-      buildListing(json)
-    })
-
-    return false
-  }
-
-  // requests a change to a task of the given GUID
-  const submitChange = function (guid, deletion = false) {
-    function getAction() {
-      if (deletion) {
-        return 'delete'
-      } else return 'edit'
-    }
-
-    const json = {action: getAction(), task_guid: guid},
-              body = JSON.stringify( json )
-
-      fetch( '/edit', {
-        method:'POST',
-        body
-      })
-              .then(response => response.json())
-              .then(json => {
-                console.log(json)
-                buildListing(json) // todo, kinda unnecessary?
-              })
-
-      return false
-    }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submitTask
-
-    const body = JSON.stringify({action: 'fetch'})
-    fetch( '/edit', {
-      method:'POST',
-      body
-    }).then(
-            response => response.json()
-    ).then(
-            json => {buildListing(json)}
-    )
-
-
-    // notify server when any checkbox is touched
-    document.querySelector('#my-table').onclick = function(ev) {
-      if (ev.target.type === "checkbox") {
-        if(ev.target.value) {
-          submitChange(ev.target.parentElement.parentElement.id)
-        }
-      } else if (ev.target.classList.contains('delete-button')) {
-        submitChange(ev.target.parentElement.parentElement.id, true)
+    // requests a change to a task of the given GUID
+    const submitChange = function (guid, deletion = false) {
+      function getAction() {
+        if (deletion) {
+          return "delete";
+        } else return "edit";
       }
-    }
-  }
 
+      const json = { action: getAction(), task_guid: guid },
+        body = JSON.stringify(json);
+
+      fetch("/edit", {
+        method: "POST",
+        body,
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          buildListing(json); // todo, kinda unnecessary?
+        });
+
+      return false;
+    };
+
+    window.onload = function () {
+      const button = document.querySelector("button");
+      button.onclick = submitTask;
+
+      const body = JSON.stringify({ action: "fetch" });
+      fetch("/edit", {
+        method: "POST",
+        body,
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          buildListing(json);
+        });
+
+      // notify server when any checkbox is touched
+      document.querySelector("#my-table").onclick = function (ev) {
+        if (ev.target.type === "checkbox") {
+          if (ev.target.value) {
+            submitChange(ev.target.parentElement.parentElement.id);
+          }
+        } else if (ev.target.classList.contains("delete-button")) {
+          submitChange(ev.target.parentElement.parentElement.id, true);
+        }
+      };
+    };
   </script>
 </html>
