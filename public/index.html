@@ -5,29 +5,61 @@
     <meta charset="utf-8">
     <link href="css/style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   </head>
   <body>
     <h1>Movie Ranker</h1>
-    <header id="addmovieheader">Add Movie</header>
-    <form id="addmovie" action="">
-      <section class="moviefield">
-        <label for="movietitle">Title:</label>
-        <input type='text' id='movietitle' placeholder="Enter Movie Title">
-      </section>
-      <section class="moviefield">
-        <label for="movieyear">Year:</label>
-        <input type='text' id='movieyear' placeholder="Enter Movie Year">
-      </section>
-      <section class="moviefield">
-        <label for="movierank">Rank(1-5):</label>
-        <input type='text' id='movierank' placeholder="Enter Movie Rank">
-      </section>
-      <button id="submitbutton">submit</button>
-    </form>
-    <!--<button id="resultsbutton">reload results</button>-->
+    <section id="formsection">
+      <form id="addform" class="movieform" action="">
+        <header id="addmovieheader">Add Movie</header>
+        <section class="moviefield">
+          <label for="movietitle">Title:</label>
+          <input type='text' id='movietitletoadd' placeholder="Enter Movie Title">
+        </section>
+        <section class="moviefield">
+          <label for="movieyear">Year:</label>
+          <input type='text' id='movieyear' placeholder="Enter Movie Year">
+        </section>
+        <section class="moviefield">
+          <label for="movierank">Rank(1-5):</label>
+          <input type='text' id='movierank' placeholder="Enter Movie Rank">
+        </section>
+        <button id="additionbutton">submit</button>
+      </form>
+      <form id="deleteform" class="movieform">
+        <header id="deletemovieheader">Delete Movie</header>
+        <section class="moviefield">
+          <label for="movietitle">Title:</label>
+          <input type='text' id='movietitletodelete' placeholder="Enter Movie Title">
+        </section>
+        <button id="deletionbutton">delete</button>
+        <p id="moviedne" style="color: red;"></p>
+      </form>
+      <!--<form id="updateform" class="movieform" action="">
+        <header id="updatemovieheader">Update Movie</header>
+        <section class="moviefield">
+          <label for="movietitleold">Old Title:</label>
+          <input type='text' id='movietitleold' placeholder="Enter Old Movie Title">
+        </section>
+        <section class="moviefield">
+          <label for="movietitlenew">New Title:</label>
+          <input type='text' id='movietitlenew' placeholder="Enter New Movie Title">
+        </section>
+        <section class="moviefield">
+          <label for="movieyear">Year:</label>
+          <input type='text' id='movieyear' placeholder="Enter Movie Year">
+        </section>
+        <section class="moviefield">
+          <label for="movierank">Rank(1-5):</label>
+          <input type='text' id='movierank' placeholder="Enter Movie Rank">
+        </section>
+        <button id="additionbutton">submit</button>
+      </form>-->
+    </section>
+    <header>Movies:</header>
     <p>Rank Key</p>
     <section id="rankkey">
-      <p class="colorbox red">&nbsp&nbsp&nbsp1</p> 
+      <p class="colorbox red">&nbsp&nbsp&nbsp&nbsp1</p> 
       <p class="colorbox orange">&nbsp&nbsp&nbsp2</p>      
       <p class="colorbox yellow">&nbsp&nbsp&nbsp3</p>      
       <p class="colorbox blue">&nbsp&nbsp&nbsp4</p>      
@@ -37,21 +69,51 @@
   </body>
   <script>
 
-  const submit = function( e ) {
+  /**
+   * Send json string to server with info of movie to add
+   */
+  const addMovie = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const inputTitle = document.getElementById('movietitle'),
+    const inputTitle = document.getElementById('movietitletoadd'),
           inputYear = document.getElementById('movieyear'),
           inputRank = document.getElementById('movierank'),
           json = { title: inputTitle.value, year: inputYear.value, rank: inputRank.value },
           body = JSON.stringify( json )
 
-    fetch( '/submit', {
+    fetch( '/addmovie', {
       method:'POST',
       body 
     })
 
+    // refresh movies on client side
+    results();
+
+    return false
+  }
+  /**
+   * Send json string to server with info of movie to add
+   */
+   const deleteMovie = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+
+    json = {title: document.getElementById('movietitletodelete').value};
+    body = JSON.stringify(json);
+
+    fetch( '/deletemovie', {
+      method:'POST',
+      body 
+    })
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(text) {
+      document.getElementById("moviedne").innerHTML = text;
+    })
+
+    // refresh movies on client side
     results();
 
     return false
@@ -69,9 +131,9 @@
     {
       return response.json()
     })
-    .then( function(response) 
+    .then( function(json) 
     {
-      showMovies(response);
+      showMovies(json);
     })
 
     return false
@@ -119,10 +181,13 @@
   }
 
   window.onload = function() {
-    const submitbutton = document.getElementById('submitbutton')
-    submitbutton.onclick = submit
     //preload movie data from server
     results();
+
+    const additionbutton = document.getElementById('additionbutton')
+    additionbutton.onclick = addMovie
+    const deletionbutton = document.getElementById('deletionbutton');
+    deletionbutton.onclick = deleteMovie;
   }
 
   </script>

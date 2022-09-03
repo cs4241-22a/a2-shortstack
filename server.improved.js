@@ -29,8 +29,7 @@ const handleGet = function( request, response ) {
     sendFile( response, 'public/index.html' )
   }else if(request.url === '/appdata'){
     response.writeHead(200, "OK", {'Content-Type': 'text/plain' });
-    response.write(JSON.stringify(appdata));
-    response.end();
+    response.end(JSON.stringify(appdata));
   }else{
     sendFile( response, filename )
   }
@@ -44,20 +43,38 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    if(request.url === '/deletemovie')
+    {
+      let receivedJSON = JSON.parse(dataString);
+      const movieToDelete = appdata.findIndex((entry) => entry.title === receivedJSON.title);
+      if(movieToDelete !== -1)
+      {
+        appdata.splice(movieToDelete, 1);
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end("");
+      } else {
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end("This movie does not already exist!");
+      }
+    }
+    else {
+      // console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
-    let receivedJSON = JSON.parse(dataString);
-    receivedJSON.year = parseInt(receivedJSON.year);
-    receivedJSON.rank = parseInt(receivedJSON.rank);
-    const currDate = new Date();
-    receivedJSON.date_watched = `${currDate.toString().substring(4,15)}`
-    receivedJSON.years_between = `${currDate.getFullYear() - receivedJSON.year}`
-    console.log(receivedJSON);
-    appdata.push(receivedJSON)
+      // ... do something with the data here!!!
+      let receivedJSON = JSON.parse(dataString);
+      receivedJSON.year = parseInt(receivedJSON.year);
+      receivedJSON.rank = parseInt(receivedJSON.rank);
+      const currDate = new Date();
+      //add date watched to data
+      receivedJSON.date_watched = `${currDate.toString().substring(4,15)}`
+      //calculate years between release date and watch date, and add to data
+      receivedJSON.years_between = `${currDate.getFullYear() - receivedJSON.year}`
+      console.log(receivedJSON);
+      appdata.push(receivedJSON)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end()
+    }
   })
 }
 

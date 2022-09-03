@@ -1,12 +1,15 @@
 /*Style your own assignment! This is fun! */
 body {
-    /*background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/63/Star%2A.svg");*/
+    /* background-image: url("../assets/filmstrip_cropped.jpg"); */
     background-color:blanchedalmond;
     background-size: 100%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
 }
 
 h1 {
@@ -23,30 +26,38 @@ h1,header,#addmovie {
     font-weight: bold;
 }
 
-#addmovie {
-    display:flex;
+#formsection {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.movieform {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
+    border: solid;
+    padding: 20px;
 }
 .moviefield {
     height: 50px;
 }
-#submitbutton {
+#additionbutton {
     max-width: 70px;
     margin-bottom: 10px;
 }
 
 #rankkey {
-    /* display: grid;
-    grid-template-columns: repeat(5, 20%); */
     display: flex;
     justify-content: space-between;
 }
 
 .colorbox {
-  height: 33px;
-  width: 33px;
+  height: 31px;
+  width: 31px;
   margin-right: 10px;
   color: white;
 }
