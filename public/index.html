@@ -33,20 +33,10 @@
         newRow.id = item["guid"];
 
         // ---------------------
-        // --- TASK NAME CELL ---
-        // ----------------------
-        // Insert a cell in the row at index 0
-        let newCell = newRow.insertCell(0);
-
-        // Append a text node to the cell
-        let newText = document.createTextNode(item["task"]);
-        newCell.appendChild(newText);
-
-        // ---------------------
         // --- CHECKBOX CELL ---
         // ---------------------
-        // Insert a cell in the row at index 1
-        let statusCell = newRow.insertCell(1);
+        // Insert a cell in the row at index 0
+        let statusCell = newRow.insertCell(0);
 
         // Append a checkbox node to the cell
         const checkbox = document.createElement('input');
@@ -55,6 +45,18 @@
         checkbox.value = "value";
         checkbox.checked = item["status"] === 1;
         statusCell.appendChild(checkbox);
+
+        // ---------------------
+        // --- TASK NAME CELL ---
+        // ----------------------
+        // Insert a cell in the row at index 1
+        let newCell = newRow.insertCell(1);
+
+        // Append a text node to the cell
+        let newText = document.createTextNode(item["task"]);
+        newCell.appendChild(newText);
+
+
 
         // --------------------------
         // --- DELETE BUTTON CELL ---
