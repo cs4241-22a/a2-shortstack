@@ -4,7 +4,7 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 ## Reminders Web Application
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 
-
+The Reminders web application allows you to fill out a form of information for each reminder you want to keep track of. Once you fill out the form reminder you can press the create button to 
 
 ## Technical Achievements
 - **Technical Achievement 1**: 
