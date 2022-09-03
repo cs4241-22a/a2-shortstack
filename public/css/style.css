@@ -1,1 +1,19 @@
 /*Style your own assignment! This is fun! */
+
+body {
+    margin: 0 auto;
+    max-width: 50em;
+    font-family: 'Source Sans Pro', sans-serif;
+
+    line-height: 1.5;
+
+}
+
+table {
+    color: #555;
+}
+
+.delete-button {
+    color: #e81c4f;
+    background-color: transparent;
+}
