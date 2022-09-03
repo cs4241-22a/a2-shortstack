@@ -7,16 +7,19 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+  { 'game': 'League of Legends', 'char': 'Morgana', 'kills': '5', 'assists': '10', 'deaths': '3', 'kda': '5'},
+  { 'game': 'CS:GO', 'char': 'Orange', 'kills': '2', 'assists': '1', 'deaths': '7', 'kda': '0.43'},
+  { 'game': 'Valorant', 'char': 'Killjoy', 'kills': '4', 'assists': '1', 'deaths': '4', 'kda': '1.25'}]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  }else if( request.method === 'DELETE' ){
+    handleDelete( request, response ) 
+  }else if( request.method === 'PATCH' ){
+    handlePatch( request, response ) 
   }
 })
 
@@ -25,7 +28,9 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/list') {
+    sendListData(response)
+  } else {
     sendFile( response, filename )
   }
 }
@@ -38,13 +43,45 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let newStat = JSON.parse( dataString )
 
-    // ... do something with the data here!!!
+    newStat.kda = calcKDA(newStat.kills, newStat.assists, newStat.deaths)
+    appdata[appdata.length] = newStat
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.writeHeader( 200, {'Content-Type': 'application/json' })
+    response.end(JSON.stringify(appdata))
   })
+}
+
+const handleDelete = function(request, response) {
+  appdata.splice(parseInt(request.url.substring(1)),1)
+
+  response.writeHeader( 200, {'Content-Type': 'application/json' })
+  response.end(JSON.stringify(appdata))
+}
+
+const handlePatch = function(request, response) {
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+    dataString += data 
+  })
+  
+  request.on( 'end', function() {
+    appdata[request.url.substring(1)].game = JSON.parse(dataString).game
+    appdata[request.url.substring(1)].char = JSON.parse(dataString).char
+    appdata[request.url.substring(1)].kills = JSON.parse(dataString).kills
+    appdata[request.url.substring(1)].assists = JSON.parse(dataString).assists
+    appdata[request.url.substring(1)].deaths = JSON.parse(dataString).deaths
+    appdata[request.url.substring(1)].kda = calcKDA(JSON.parse(dataString).kills, JSON.parse(dataString).assists, JSON.parse(dataString).deaths)
+
+    response.writeHeader( 200, {'Content-Type': 'application/json' })
+    response.end(JSON.stringify(appdata))
+  })
+}
+
+const calcKDA = function (kills, assists, deaths) {
+  return (kills + assists) / deaths
 }
 
 const sendFile = function( response, filename ) {
@@ -69,4 +106,4 @@ const sendFile = function( response, filename ) {
    })
 }
 
-server.listen( process.env.PORT || port )
+server.listen(process.env.PORT || port)
