@@ -143,6 +143,7 @@ summary {
     filter: invert(88%);
     transition: 0.5s;
     transform: rotate(-90deg);
+    user-select: none;
 }
 
 .dropdown.open{
@@ -151,4 +152,5 @@ summary {
     margin-right: 10px;
     filter: invert(88%);
     transition: 0.5s;
+    user-select: none;
 }
