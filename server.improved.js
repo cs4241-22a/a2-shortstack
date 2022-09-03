@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = []
 
 const server = http.createServer( function( request,response ) {      //deals with handle GET or handle POST requests
   if( request.method === 'GET' ) {
@@ -24,8 +20,13 @@ const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
   if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
+      sendFile( response, 'public/index.html' )
+  }
+  else if(request.url === '/getrequest'){
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end( JSON.stringify (appdata))//APP DATA\
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -38,12 +39,11 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
-
+    appdata.push(JSON.parse(dataString))
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end( JSON.stringify (appdata))//APP DATA
+    response.end( JSON.stringify (appdata))//APP DATA\
   })
 }
 
