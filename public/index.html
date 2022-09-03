@@ -13,24 +13,26 @@
   <body>
     <header>
     <div id="backImg">
+      <div id="strip">
         <h1>Game Statistics</h1>
         <img class="logo" src="../resources/LoL_icon.svg.png">
         <img class="logo" src="../resources/Valorant_icon.jpg">
         <img class="logo" src="../resources/CSGO_icon.png">
       </div>
+    </div>
     </header>
     <form id="addData">
       <fieldset>
         <legend id="description">Add Game Stats</legend>
         <label for="game">Game:</label>
         <input type='text' id="game" placeholder="Name of the game"><br><br>
-        <label for="game">Character:</label>
+        <label for="char">Character:</label>
         <input type='text' id="char" placeholder="Character name"><br><br>
-        <label for="game">Kills:</label>
+        <label for="kills">Kills:</label>
         <input type='text' id="kills" placeholder="Number of kills"><br><br>
-        <label for="game">Assists:</label>
+        <label for="assists">Assists:</label>
         <input type='text' id="assists" placeholder="Number of assists"><br><br>
-        <label for="game">Deaths:</label>
+        <label for="deaths">Deaths:</label>
         <input type='text' id="deaths" placeholder="Number of deaths"><br><br>
         <button id="submitB" disabled="disabled" type="submit">Submit</button>
         <button id="resetB" type="button">Reset</button>

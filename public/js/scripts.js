@@ -134,12 +134,12 @@ const displayStats = function (json) {
         html += '<th>' + stat.kills + '</th>'
         html += '<th>' + stat.assists + '</th>'
         html += '<th>' + stat.deaths + '</th>'
-        if (Number(stat.kda) <= Number(1.8))
+        if (Number(stat.kda) <= Number(1.5))
             html += '<th style="background-color: red; color: white">' + stat.kda + '</th>'
-        if (Number(stat.kda) >= Number(2.5))
-            html += '<th style="background-color: orange; color: white">' + stat.kda + '</th>'
-        else
+        else if (Number(stat.kda) >= Number(2.5))
             html += '<th style="background-color: green; color: white">' + stat.kda + '</th>'
+        else
+            html += '<th style="background-color: orange; color: white">' + stat.kda + '</th>'
         html += '<th><button id="editB">Edit</button></th>'
         html += '<th><button id="deleteB">Delete</button></th>'
         html += '</tr>'

@@ -9,7 +9,7 @@ const http = require( 'http' ),
 const appdata = [
   { 'game': 'League of Legends', 'char': 'Morgana', 'kills': '5', 'assists': '10', 'deaths': '3', 'kda': '5'},
   { 'game': 'CS:GO', 'char': 'Orange', 'kills': '2', 'assists': '1', 'deaths': '7', 'kda': '0.43'},
-  { 'game': 'Valorant', 'char': 'Killjoy', 'kills': '4', 'assists': '1', 'deaths': '4', 'kda': '1.25'}]
+  { 'game': 'Valorant', 'char': 'Killjoy', 'kills': '4', 'assists': '3', 'deaths': '4', 'kda': '1.75'}]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -78,7 +78,7 @@ const handlePatch = function(request, response) {
 }
 
 const calcKDA = function (kills, assists, deaths) {
-  return (kills + assists) / deaths
+  return ((parseInt(kills) + parseInt(assists)) / parseInt(deaths)).toPrecision(4).toString()
 }
 
 const sendListData = function (response) {
