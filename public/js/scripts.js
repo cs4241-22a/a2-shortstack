@@ -1,4 +1,4 @@
-const submit = function( e ) {
+const submit = function(e) {
     // prevent default form action from being carried out
     e.preventDefault()
     
@@ -14,6 +14,10 @@ const submit = function( e ) {
             }
             output[element.id] = element.value
         }
+    }
+
+    for (let i = 0; i < myForm.elements.length; i++) {
+        myForm.elements[i].value = ""
     }
 
     fetch('/api/newreminder', {
@@ -33,6 +37,7 @@ const submit = function( e ) {
 }
 
 window.onload = () => {
+    updateTable()
     const button = document.querySelector('button')
     button.onclick = submit
 }

@@ -27,6 +27,7 @@ input {
 }
 
 table, th, td {
+    max-width: 500px;
     text-align: center;
     padding: 0.5vh 0.5vw;
     border-collapse: collapse;

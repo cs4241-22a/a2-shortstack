@@ -26,7 +26,8 @@ const handleGet = (request, response) => {
     case '/api/getdata':
       console.log('sending data back to client')
       console.log(reminders)
-      sendData(response, reminders)
+      response.writeHeader(200, {'Content-Type': 'application/json'})
+      response.end(JSON.stringify(reminders))
       break
     default:
       sendFile(response, filename)
@@ -83,11 +84,6 @@ const sendFile = (response, filename) => {
        response.end( '404 Error: File Not Found' )
      }
    })
-}
-
-const sendData = (response, data) => {
-  response.writeHeader(200, {'Content-Type': 'application/json'})
-  response.end(JSON.stringify(data))
 }
 
 server.listen( process.env.PORT || port )

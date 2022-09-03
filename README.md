@@ -35,4 +35,12 @@ The Reminders web application allows you to fill out a form of information for e
 
 ## Design/Evaluation Achievements
 - **Design Achievement 1**:
-    -  
+    -  Last Name: Chlebowski:
+        - Suggested to have a cleaner layout with grid type webpage. Which I was able to impliment easily. 
+        - The alert on the page when you leave an input blank is a good idea so you don't send blank data to the server.
+        - The webpage is layedout very nice and styling looks very nice. They recommended the grid change to make the layout nicer but other than that the design looked very nice.
+    - Last Name: Humpyhrey:
+        - Suggested to clear the input data once you submit data to the server. This was very easy to implement and I believe it added a lot better user experience to the webpage.
+        - Suggested to make the webpage load data in from the server when loading up the webpage for the first time. 
+        - Asked for a delete functionality to get rid of the reminder once you complete a specific reminder. 
+
