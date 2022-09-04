@@ -132,7 +132,7 @@ const handleSubmit = function (request, response) {
 const render = function (data) {
   return tasks.map(element => {
     return {
-      html: `<div class="task-card">
+      html: `<div class="task-card" id="${element.taskname}">
                 <div class="task-block">
                   <img class="pencil" src="pencil.png"/>
                   <div class="task-info">

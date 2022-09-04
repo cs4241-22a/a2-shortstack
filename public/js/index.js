@@ -40,14 +40,14 @@ const updateData = function(tasks) {
         let imgs = container[0].getElementsByClassName('check')
         let img = imgs[imgs.length - 1]
         img.onclick = () => markCompleted(task.taskname)
-        debugger
         let pencils = container[0].getElementsByClassName('pencil')
         let pencil = pencils[pencils.length - 1]
-        pencil.onclick = () => edit(container[0].lastChild)//this is passed dynamically, causing the edit bug
+        pencil.onclick = () => edit(task.taskname)//this is passed dynamically, causing the edit bug
     })
 }
 
-const edit = function(taskHTML) {
+const edit = function(id) {
+    let taskHTML = document.getElementById(id)
     let taskblock = taskHTML.getElementsByClassName('task-block')[0]
     let h2 = taskHTML.getElementsByTagName('h2')[0]
     let p = taskHTML.getElementsByTagName('p')[0]
@@ -62,14 +62,14 @@ const edit = function(taskHTML) {
     date.type = 'date'
     date.id = 'due'
     date.placeholder = duedate
-    taskHTML.appendChild(text)
-    taskHTML.appendChild(date)
-    taskHTML.appendChild(createElementFromHTML(`
+    taskHTML.prepend(createElementFromHTML(`
     <div class="edit-imgs">
-        <img src="cancel.png" alt="cancel button"/>
-        <img src="check.png" alt="confirm button"/>
+    <img src="cancel.png" alt="cancel button"/>
+    <img src="check.png" alt="confirm button"/>
     </div>
     `))
+    taskHTML.prepend(date)
+    taskHTML.prepend(text)
     let imgs = taskHTML.getElementsByClassName('edit-imgs')[0].children
     let confirm = imgs[1]
     let cancel = imgs[0]
