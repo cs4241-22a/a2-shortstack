@@ -99,7 +99,7 @@ const handleSubmit = function (request, response) {
 
   request.on('end', function () {
     data = JSON.parse(dataString)
-    if(!tasks.find(n => n.taskname === data.taskname)){
+    if(data.taskname.length > 0 && data.dueDate.length > 0 && !tasks.find(n => n.taskname === data.taskname)){
       let today = new Date();
       let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       data.dateCreated = date
@@ -123,8 +123,8 @@ const handleSubmit = function (request, response) {
       response.end(JSON.stringify(render(tasks)))
     }
     else{
-      response.writeHead(400, "Bad Input", { 'Content-Type': 'text/plain' })
-      response.end("Already exists")
+      response.writeHead(200, "Bad Input", { 'Content-Type': 'text/plain' })
+      response.end(JSON.stringify({message: data.taskname.length === 0?'A name for the task must be provided':data.dueDate.length > 0?'A task with this name already exists':'A date for the task must be provided'}))
     }
   })
 }

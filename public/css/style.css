@@ -47,6 +47,13 @@ form button{
     font-family: 'Playfair Display', serif;
 }
 
+form button:hover {
+    border: solid;
+    border-color: var(--white);
+    color: var(--white);
+    background-color: var(--grey);
+}
+
 form input {
     width: 250px;
     height: 50px;
@@ -64,6 +71,14 @@ form input {
     margin: 10px;
     user-select: none;
     cursor: pointer;
+}
+
+img {
+    user-select: none;
+}
+
+img:hover{
+    filter: invert(100%);
 }
 
 .container input {

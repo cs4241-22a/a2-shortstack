@@ -12,8 +12,14 @@ const submit = function (e) {
         body
     })
         .then(response => response.json())
-        .then(tasks => updateData(tasks))
-        .catch(error => console.log('bad input'))
+        .then(tasks => {
+            if(tasks.message){
+                alert(tasks.message)
+            }
+            else{
+                updateData(tasks)
+            }
+        })
     let form = document.querySelector('form')
     form.reset()
     return false
@@ -57,11 +63,11 @@ const edit = function(id) {
     let text = document.createElement('input')
     text.type = 'text'
     text.id = 'task'
-    text.placeholder = taskname
+    text.value = taskname
     let date = document.createElement('input')
     date.type = 'date'
     date.id = 'due'
-    date.placeholder = duedate
+    date.value = duedate.slice(5)
     taskHTML.prepend(createElementFromHTML(`
     <div class="edit-imgs">
     <img src="cancel.png" alt="cancel button"/>
@@ -126,5 +132,9 @@ window.onload = function () {
         summary.onclick = () => {
             open(summary.className)
         }
+        let div = document.createElement('div')
+        div.className = `priority ${summary.className}`
+        summary.appendChild(div)
     })
+    fetch('/gettasks').then(response => response.json()).then(tasks => updateData(tasks))
 }
