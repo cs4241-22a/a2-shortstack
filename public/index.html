@@ -39,57 +39,5 @@
     <button>submit</button>
   </form>
 </body>
-<script>
-  const submit = function (e) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const task = document.querySelector('#task'),
-      due = document.querySelector('#due'),
-      json = { taskname: task.value, dueDate: due.value },
-      body = JSON.stringify(json)
-
-    fetch('/submit', {
-      method: 'POST',
-      body
-    })
-      .then(response => response.json())
-      .then((json) => {
-        Array.from(document.body.getElementsByClassName(`container`)).forEach(e => e.innerHTML = '')
-        Array.from(json).forEach(element => {
-          let container = document.body.getElementsByClassName(`container ${element.priority}`) 
-          container[0].innerHTML += element.html      
-        })
-      })
-      let form = document.querySelector('form')
-      form.reset()
-    return false
-  }
-
-  const open = function (priority) {
-    let dropdown = document.getElementsByClassName(`dropdown ${priority}`)
-    if (dropdown[0].className.includes("closed")){
-      dropdown[0].className = `dropdown ${priority} open`
-      let container = document.getElementsByClassName(`container ${priority}`)
-      container[0].className = `container ${priority} open`
-    } else {
-      dropdown[0].className = `dropdown ${priority} closed`
-      let container = document.getElementsByClassName(`container ${priority}`)
-      container[0].className = `container ${priority} closed`
-    }
-  }
-
-  window.onload = function () {
-    const button = document.querySelector('button')
-    const summaries = document.getElementsByTagName('summary')
-    button.onclick = submit
-    Array.from(summaries).forEach(summary => {
-      summary.onclick = () => {
-        open(summary.className)
-      }
-    })
-  }
-
-</script>
-
+<script src="js/index.js"></script>
 </html>

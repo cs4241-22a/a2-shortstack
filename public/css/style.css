@@ -60,6 +60,25 @@ form input {
     font-family: 'Playfair Display', serif;
 }
 
+.edit-imgs {
+    margin: 10px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.container input {
+    width: 250px;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 1rem;
+    background-color: var(--white);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-width: 0.5rem;
+    border: none;
+    font-family: 'Playfair Display', serif;
+}
+
 ::placeholder {
     text-align: center;
     color: var(--bg);
@@ -90,6 +109,45 @@ summary {
 100% { opacity: 0; }
 }
 
+.task-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.task-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.check {
+    width: 48px;
+    height: 48px;
+    margin-right: 15px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.pencil {
+    width: 48px;
+    height: 48px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.task-card hr {
+    width: 80%;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+}
 
 .container.open{
     background-color: var(--text);
@@ -106,6 +164,10 @@ summary {
     height: 0px;
     transition: 2s;
     animation: fadeOut 2s;
+}
+
+.container :last-child hr{
+    visibility: hidden;
 }
 
 .container h2 {
