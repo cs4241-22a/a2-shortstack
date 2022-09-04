@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name': 'joe', 'score': 3, 'most played': 23 },
+  { 'name': 'ben', 'score': 8, 'most played': 30 },
+  { 'name': 'peter', 'score': 5, 'most played': 14} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -26,7 +26,15 @@ const handleGet = function( request, response ) {
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
-    sendFile( response, filename )
+	const html = `
+	<html>
+	<body>
+		${ appdata.map( item => JSON.stringify(item) ) }
+	</body>
+	</html>
+	`
+	response.end( html )
+    //sendFile( response, filename )
   }
 }
 
@@ -43,7 +51,7 @@ const handlePost = function( request, response ) {
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify( appdata ) )
   })
 }
 
