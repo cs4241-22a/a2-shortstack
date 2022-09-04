@@ -13,11 +13,13 @@
     <script src="js/scripts.js"></script>
   </head>
   <body>
-    <h1>Simple Todo App</h1>
-    <form action="#">
-      <input type="text" id="newtask-input" value="your task here" />
-      <button id="add-task-button">submit</button>
-    </form>
+    <div class="header-container">
+      <h1>Simple Todo App</h1>
+      <form action="#">
+        <input type="text" id="newtask-input" value="your task here" onClick="this.select();" />
+        <button id="add-task-button">submit</button>
+      </form>
+    </div>
 
     <table id="my-table">
       <tbody id="todo-listing"></tbody>
