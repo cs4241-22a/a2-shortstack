@@ -1,0 +1,14 @@
+have a banner on top of screen that displays current stock prices and looks cool 
+
+main game is historical stock data and you have to get the most amount of money
+
+high score recorded with firebase
+
+local high score recorded on server
+
+derived fields can be time, profit
+
+pitch it as a way to practice trading stocks
+
+
+

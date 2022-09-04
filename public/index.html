@@ -4,7 +4,11 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/style.css">
-    <script type="text/javascript" src="./js/scripts.js"></script>
+    <script type="text/javascript" src="./js/scripts.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.1/dist/chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
+		<script src="./js/chartjs-chart-financial.js" type="text/javascript"></script>
   </head>
   <body>
     <h1>CS4241 Assignment 2</h1>
@@ -12,6 +16,8 @@
       <input type='text' id='stockinput' placeholder="Example: AMZN">
       <button class="buy" id="buybutton">BUY</button>
       <button class="sell" id="sellbutton">SELL</button>
+
+      <canvas id="chart" width="400" height="400"></canvas>
 
     </form>
   </body>

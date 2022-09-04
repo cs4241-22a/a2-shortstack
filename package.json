@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "bent": "^7.3.12",
+    "chart.js": "^3.9.1",
+    "chartjs-chart-financial": "^0.1.1",
     "mime": "^2.4.4"
   }
 }
