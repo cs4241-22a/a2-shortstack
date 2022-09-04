@@ -3,13 +3,36 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href = "/public/css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <h1> To Do List</h1>
+      <!--
+      <div>
+      <label for="task1">Task 1:</label>
+      <input type='text' id='task1' value="sample task" >
+      <button>delete</button>
+      <button>completed</button>
       <button>submit</button>
-    </form>
-  </body>
+    </div>
+-->
+    <div>
+      <label for="newTask">New Task:</label>
+      <input type='text' id='newTask' placeholder="sample task"> <button id="taskNewButton">+</button>
+      
+      <div class="toDoList" id="toDoList">  
+      
+    </div> 
+
+
+
+    </div>
+  
+    </form>  
+    <script src="/public/js/scripts.js"></script>
+    
+    </script>
+    </body>
   <script>
 
   const submit = function( e ) {
