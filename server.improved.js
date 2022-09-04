@@ -7,9 +7,24 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {
+    'assignment': 'Webware Assignment 2',
+    'subject': 'CS',
+    'dead_line': '2022-09-08',
+    'priority': 'High'
+  },
+  {
+    'assignment': 'ENV 1110 Presentation',
+    'subject': 'ENV',
+    'dead_line': '2022-09-08',
+    'priority': 'Low'
+  },
+  {
+    'assignment': 'MQP Research',
+    'subject': 'CS',
+    'dead_line': '2022-12-12',
+    'priority': 'High'
+  }
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -17,6 +32,8 @@ const server = http.createServer( function( request,response ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  } else if (request.method === 'DELETE') {
+    handleDelete(request, response)
   }
 })
 
@@ -25,8 +42,10 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+  } else if (request.url === '/list') {
+    sendListData(response)
+  } else {
+    sendFile(response, filename)
   }
 }
 
@@ -37,13 +56,12 @@ const handlePost = function( request, response ) {
       dataString += data 
   })
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+  request.on('end', () => {
 
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    let newTask = JSON.parse(dataString)
+    newTask.priority = isCS(newTask.subject)
+    appdata[appdata.length] = newTask
+    sendListData(response)
   })
 }
 
@@ -67,6 +85,26 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+const handleDelete = function (request, response) {
+  const num = request.url.substring(1)
+  appdata.splice(parseInt(num), 1)
+  sendListData(response)
+}
+
+const sendListData = function (response) {
+  response.writeHeader(200, {'Content-Type': 'application/json'})
+  response.end(JSON.stringify(appdata))
+}
+
+const isCS = function (subject) {
+
+  if (subject === "CS" || subject === "cs" || subject === "Computer Science ")
+    return 'High'
+  else
+    return 'Low'
+
 }
 
 server.listen( process.env.PORT || port )
