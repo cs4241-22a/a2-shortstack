@@ -7,6 +7,7 @@
     "start": "node server.improved.js"
   },
   "dependencies": {
+    "bent": "^7.3.12",
     "mime": "^2.4.4"
   }
 }
