@@ -81,7 +81,7 @@ const handlePost = function (request, response) {
       console.log("[server] DEL REQ");
       appdata = appdata.filter(
         (item) => item["guid"] !== parsedDataString["task_guid"]
-      ); // todo rename 'task' to 'task_guid'
+      );
     } else console.error("[server]: Unknown action type");
 
     console.warn("current appdata:");
