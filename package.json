@@ -4,9 +4,14 @@
   "description": "",
   "author": "",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.improved.ts"
   },
   "dependencies": {
     "mime": "^2.4.4"
+  },
+  "devDependencies": {
+    "@types/filesystem": "^0.0.32",
+    "@types/node": "^18.7.14",
+    "typescript": "^4.8.2"
   }
 }
