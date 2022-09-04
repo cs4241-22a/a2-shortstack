@@ -1,18 +1,39 @@
 /*Style your own assignment! This is fun! */
+/*TODO:
+   - VALIDATE pages
+   - Do something with calculated field... show date created on guid on hover?
+        Eh well GUID alone kinda already kits this criteria
+   - Design feedback stuff
+*/
+
+html {
+    height: 100vh;
+}
 
 body {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     max-width: 50em;
     font-family: 'Source Sans Pro', sans-serif;
 
     line-height: 1.5;
 
+    /*background: content-box radial-gradient(white, antiquewhite);*/
+    /*background: radial-gradient(circle at 100%, #333, #333 50%, #eee 75%, #333 75%);*/
+    /*background: radial-gradient(ellipse at top, #e66465, transparent),*/
+    /*radial-gradient(ellipse at bottom, #4d9f0c, transparent);*/
+
+}
+
+.header-container {
+    text-align: center;
 }
 
 table {
     color: #555;
     border-collapse: collapse;
-    width: 50vw;
+    width: 100%;
     margin-top: 2rem;
     margin-bottom: 3em;
 }
@@ -24,6 +45,13 @@ tr:nth-child(even) {
 td:nth-child(3){
     background-color: white;
     border: none;
+    text-align: right;
+    width: 1%;
+}
+
+td:nth-child(1){
+    width: 1%;
+    /*padding-right: 10%;*/
 }
 
 td, th {
