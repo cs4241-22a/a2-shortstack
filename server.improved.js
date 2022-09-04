@@ -62,10 +62,12 @@ const handlePost = function (request, response) {
           S4()
         );
       }
+      const due_date = new Date();
+      due_date.setDate(due_date.getDate() + parseInt(parsedDataString["days_to_complete"]))
       appdata.push({
         task: parsedDataString["task"],
         status: 0,
-        other: new Date(),
+        other: due_date,
         guid: guidGenerator(),
       });
     } else if (parsedDataString["action"] === "edit") {

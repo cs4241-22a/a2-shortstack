@@ -16,7 +16,12 @@
     <div class="header-container">
       <h1>Simple Todo App</h1>
       <form action="#">
-        <input type="text" id="newtask-input" value="your task here" onClick="this.select();" />
+        <label for="newtask-input">Task: </label><input type="text" id="newtask-input" value="your task here" onClick="this.select();" />
+        <select id="priority" name="priority">
+          <option value="30">!</option>
+          <option value="7">!!</option>
+          <option value="1">!!!</option>
+        </select>
         <button id="add-task-button">submit</button>
       </form>
     </div>

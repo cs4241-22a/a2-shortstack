@@ -39,10 +39,20 @@ function buildListing(json) {
         newCell.appendChild(newText);
 
         // --------------------------
-        // --- DELETE BUTTON CELL ---
+        // --- DAYS TILL DUE CELL ---
         // --------------------------
         // Insert a cell in the row at index 2
-        let deleteButtonCell = newRow.insertCell(2);
+        let dueCell = newRow.insertCell(2);
+
+        // Append a text node to the cell
+        let dueNode = document.createTextNode(new Date(item["other"]).toLocaleDateString());
+        dueCell.appendChild(dueNode);
+
+        // --------------------------
+        // --- DELETE BUTTON CELL ---
+        // --------------------------
+        // Insert a cell in the row at index 3
+        let deleteButtonCell = newRow.insertCell(3);
         // Append a text node to the cell
         let buttonElement = document.createElement("button");
         buttonElement.textContent = "X";
@@ -56,7 +66,8 @@ const submitTask = function (e) {
     e.preventDefault();
 
     const input = document.querySelector("#newtask-input"),
-        json = { action: "new", task: input.value },
+        input_days = document.querySelector("#priority"),
+        json = { action: "new", task: input.value, days_to_complete: input_days.value },
         body = JSON.stringify(json);
 
     fetch("/submit", {
