@@ -3,22 +3,62 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <h1>To Do List Generator</h1>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+      <label>Item:</label>
+      <input type="text" id="item" value="">
+      <label>Date Created:</label>
+      <input type="date" id="date" value="date">
+      <label>Priority?</label>
+      <input type="checkbox" id="priority" name="priority">
+      <button id="submitButton">submit</button>
     </form>
+    <button id="viewButton" hidden>View List</button>
+    <table id="listTable" border="1" hidden>
+      <tr>
+        <th>Item</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <th>Completed?</th>
+      </tr>
+      <tr>
+        <td>Test</td>
+        <td><input type="checkbox" TEST></td>
+      </tr>
+    </table>
   </body>
+
   <script>
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const input = document.querySelector( '#item' ),
+          json = { item: item.value }
+
+    const input2 = document.querySelector( '#date' ),
+          json2 = { date: date.value }
+
+    const input3 = document.querySelector( '#priority' ),
+          json3 = { priority: priority.checked }
+
+    let bool = document.querySelector( '#priority' ).checked
+    let str = ""
+    if (bool) {
+      str = "1 day"
+    } else {
+      str = "2 days"
+    }
+
+    const json4 = { due_date: str}
+
+    const json5 = { completed: false }
+
+    body = JSON.stringify( [json, json2, json3, json4, json5] )
 
     fetch( '/submit', {
       method:'POST',
@@ -26,15 +66,24 @@
     })
     .then( function( response ) {
       // do something with the reponse 
+      document.getElementById( 'viewButton' ).hidden = false
+      
       console.log( response )
     })
 
     return false
   }
 
+  const viewTable = function( e ) {
+    e.preventDefault
+    document.getElementById('listTable').hidden = false
+  }
+
   window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+    const submitButton = document.getElementById( 'submitButton' )
+    const viewButton = document.getElementById('viewButton')
+    submitButton.onclick = submit
+    viewButton.onclick = viewTable
   }
 
   </script>
