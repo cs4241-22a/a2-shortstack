@@ -6,7 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = []
+let appdata = []
 
 const server = http.createServer( function( request,response ) {      //deals with handle GET or handle POST requests
   if( request.method === 'GET' ) {
@@ -24,7 +24,11 @@ const handleGet = function( request, response ) {
   }
   else if(request.url === '/getrequest'){
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end( JSON.stringify (appdata))//APP DATA\
+    response.end( JSON.stringify (appdata))//APP DATA
+  }
+  else if(request.url === '/getdelete'){
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end( JSON.stringify (appdata))//APP DATA
   }
   else{
     sendFile( response, filename )
@@ -39,11 +43,24 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-
-    // ... do something with the data here!!!
-    appdata.push(JSON.parse(dataString))
+    if(request.url === '/submit'){
+       // ... do something with the data here!!!
+       appdata.push(JSON.parse(dataString))
+    }
+    else if(request.url === '/delete'){
+      //modify our appdata by removing the assignment
+      //removeThis gets you the name of the assignment to remove
+      let removeThis = JSON.parse(dataString).remove_assignment
+      //remove the assignment by it's name here?
+      appdata.forEach((item, index, arr) =>{
+        if(item.assignment===removeThis){
+          arr.splice(index,1);
+        }
+      })
+    }
+   
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end( JSON.stringify (appdata))//APP DATA\
+    response.end( JSON.stringify (appdata))//APP DATA
   })
 }
 
