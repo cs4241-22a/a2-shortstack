@@ -6,12 +6,19 @@ const http = require("http"),
   dir = "public/",
   port = 3000;
 
+const priorityDate = {
+  urgent: 1,
+  high: 2,
+  med: 3,
+  low: 4,
+};
+
 const appdata = [
   {
     priority: "high",
     type: "mqp",
     title: "Initial Sponsor Meeting",
-    description: "[example text0]",
+    description: "[example text]",
     deadline: "2022-09-09 23:59",
     creation_time: "2022-9-2 11:01",
   },
@@ -34,6 +41,18 @@ const appdata = [
 ];
 
 /**
+ * Adds a certain number of days to a given date.
+ * @param {*} date Current date.
+ * @param {*} days Days to add.
+ * @returns New data with days added.
+ */
+const addDays = function (date, days) {
+  let result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+};
+
+/**
  * Creates an instance of Server
  */
 const server = http.createServer(function (request, response) {
@@ -45,9 +64,9 @@ const server = http.createServer(function (request, response) {
 });
 
 /**
- *
- * @param {*} request
- * @param {*} response
+ * Handles the GET request from the client.
+ * @param {*} request HTTP request object.
+ * @param {*} response HTTP response object.
  */
 const handleGet = function (request, response) {
   const filename = dir + request.url.slice(1);
@@ -60,6 +79,11 @@ const handleGet = function (request, response) {
   }
 };
 
+/**
+ * Handles the POST request from the client.
+ * @param {*} request HTTP request object.
+ * @param {*} response HTTP response object.
+ */
 const handlePost = function (request, response) {
   let dataString = "";
 
@@ -71,20 +95,15 @@ const handlePost = function (request, response) {
     const data = JSON.parse(dataString);
 
     /* Get current date and time */
-    const date = new Date();
-    const present = `${date.getFullYear()}-${
-      date.getMonth() + 1
-    }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+    data.creation_time = new Date();
 
-    data.creation_time = present;
-
-    /* Check if there is a given deadline */
-    if (data.deadline) {
-      data.deadline = data.deadline.replace("T", " ");
-      console.log(data.deadline);
-    } else {
-      // set a new deadline for the stuff
+    /* Check if there is not a given deadline */
+    if (!data.deadline) {
+      let days = priorityDate[data.priority];
+      data.deadline = addDays(data.creation_time, days);
     }
+
+    console.log(data);
 
     appdata.push(data);
 
