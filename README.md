@@ -1,4 +1,10 @@
-## Your Web Application Title
+Assignment 2 - Short Stack: Basic Two-Tier Web Application Using HTML/CSS/JS and Node.js
+===
+
+Grace Yue
+https://glitch.com/~a2-gyue20
+
+## TV Show Tracker
 Simple application for tracking TV shows & duration. Uses CSS Flexbox for positioning.
 
 ## Technical Achievements

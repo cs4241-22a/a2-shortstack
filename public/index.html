@@ -56,8 +56,7 @@
                 const body = JSON.stringify(json);
 
                 if (show.value === "" || seasons.value === "" || eps.value === "" || duration.value === "") {
-                    document.getElementById("error").innerText =
-                        "Invalid form values";
+                    document.getElementById("error").innerText = "Invalid form values";
                     return;
                 }
     
@@ -133,31 +132,34 @@
             }
         </script>
     </head>
+  
 
     <body>
         <div class="flex-container">
             <div>
                 <form>
                     <h1>TV Show Tracker</h1>
+                  
                     <fieldset>
                         <span class="formLabel">TV show name</span>
-                        <input type="text" id="show" value="My TV show" />
-                        <br />
+                        <input type="text" id="show" value="My TV show" /><br />
+                      
                         <span class="formLabel">Number of seasons</span>
-                        <input type="number" id="seasons" value="4" min="1" />
-                        <br />
+                        <input type="number" id="seasons" value="4" min="1" /><br />
+                      
                         <span class="formLabel">Episodes per season</span>
-                        <input type="number" id="eps" value="13" min="1" />
-                        <br />
+                        <input type="number" id="eps" value="13" min="1" /><br />
+                      
                         <span class="formLabel">Duration of an episode (minutes)</span>
                         <input type="number" id="duration" value="45" min="1" /><br />
-                        <span id="error"></span>
-                        <br />
+                      
+                        <span id="error"></span><br />
                         <button id="submit">Submit</button>
                     </fieldset>
                 </form>
             </div>
-            <div id="results">RESULTS</div>
+          
+            <div id="results"></div>
         </div>
     </body>
 </html>
