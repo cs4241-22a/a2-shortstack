@@ -1,9 +1,10 @@
 let current_row = 0
 
+//Submit function that uses POST and then resets all fields in the form
 const submit = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
-
+    //Define variables
     const
         get_game = document.getElementById('game'),
         get_character = document.getElementById('character'),
@@ -12,7 +13,7 @@ const submit = function (e) {
         get_deaths = document.getElementById('deaths'),
         json = {game: get_game.value, character: get_character.value, kills: get_kills.value, assists: get_assists.value, deaths: get_deaths.value},
         body = JSON.stringify(json)
-
+    //Process submit through POST
     fetch('/submit', {
         method: 'POST',
         body
@@ -21,7 +22,7 @@ const submit = function (e) {
     }).catch((reason) => {
         console.log(reason)
     })
-
+    //Clear the fields in the form
     get_game.value = ''
     get_character.value = ''
     get_kills.value = ''
@@ -32,10 +33,11 @@ const submit = function (e) {
     return false
 }
 
+//Cancel function that resets all fields in the form
 const cancel = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
-
+    //Clear the fields in the form
     document.getElementById('game').value = ''
     document.getElementById('character').value = ''
     document.getElementById('kills').value = ''
@@ -47,16 +49,20 @@ const cancel = function (e) {
     return false
 }
 
+//Edit function that allows to edit data set in the form window
+//Uses GET
 const editStats = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
     let id = parseInt(e.target.id.substring(4))
+    //Process list through GET
     fetch('/list', {
         method: 'GET'
     }).then(async response => {
         let json = await response.json()
         let data = json[id]
+        //Change variables in the data set
         document.getElementById('game').value = data.game
         document.getElementById('character').value = data.character
         document.getElementById('kills').value = data.kills
@@ -70,10 +76,11 @@ const editStats = function (e) {
     })
 }
 
+//Update function that uses PATCH
 const updateStats = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
-
+    //Define variables
     const
         get_game = document.getElementById('game'),
         get_character = document.getElementById('character'),
@@ -102,6 +109,7 @@ const updateStats = function (e) {
     return false
 }
 
+//Delete function that uses DELETE and removes data set
 const deleteStats = function (e) {
     cancel(e)
     fetch('/' + e.target.id.substring(6), {
@@ -113,7 +121,9 @@ const deleteStats = function (e) {
     })
 }
 
+//Display all of the data sets in the table + edit/delete buttons
 const displayStats = function (json) {
+    //Create table
     let html =
         '<table>\n' +
         '        <tr>\n' +
@@ -134,6 +144,7 @@ const displayStats = function (json) {
         html += '<td>' + stat.kills + '</td>'
         html += '<td>' + stat.assists + '</td>'
         html += '<td>' + stat.deaths + '</td>'
+        //Change kda background based on value
         if (Number(stat.kda) <= Number(1.5))
             html += '<td style="background-color: rgb(255, 82, 82); color: black">' + stat.kda + '</td>'
         else if (Number(stat.kda) >= Number(2.5))
@@ -165,6 +176,7 @@ const displayStats = function (json) {
     }
 }
 
+//Window onload function that starts up in the beginning
 window.onload = function () {
     fetch('/list', {
         method: 'GET'

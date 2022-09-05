@@ -6,11 +6,13 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+//Store initial data
 const appdata = [
   { 'game': 'League of Legends', 'character': 'Morgana', 'kills': '5', 'assists': '10', 'deaths': '3', 'kda': '5.00'},
   { 'game': 'CS:GO', 'character': 'Orange', 'kills': '2', 'assists': '1', 'deaths': '7', 'kda': '0.43'},
   { 'game': 'Valorant', 'character': 'Killjoy', 'kills': '4', 'assists': '3', 'deaths': '4', 'kda': '1.75'}]
 
+//Create server with GET, POST, DELETE, and PATCH
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -23,6 +25,7 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
+//GET function
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
@@ -35,6 +38,7 @@ const handleGet = function( request, response ) {
   }
 }
 
+//POST function
 const handlePost = function( request, response ) {
   let dataString = ''
 
@@ -52,12 +56,14 @@ const handlePost = function( request, response ) {
   })
 }
 
+//DELETE function
 const handleDelete = function(request, response) {
   appdata.splice(parseInt(request.url.substring(1)),1)
 
   sendListData(response)
 }
 
+//PATCH function
 const handlePatch = function(request, response) {
   let dataString = ''
 
@@ -77,10 +83,12 @@ const handlePatch = function(request, response) {
   })
 }
 
+//Calculate KDA using (kills+assists)/deaths formula
 const calcKDA = function (kills, assists, deaths) {
   return ((parseInt(kills) + parseInt(assists)) / parseInt(deaths)).toPrecision(3).toString()
 }
 
+//Manage list data
 const sendListData = function (response) {
   response.writeHeader(200, {'Content-Type': 'application/json'})
   response.end(JSON.stringify(appdata))
