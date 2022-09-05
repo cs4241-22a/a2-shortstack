@@ -1,1 +1,54 @@
 /*Style your own assignment! This is fun! */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+body {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.25rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #A5C9CA;
+}
+
+.title {
+    color: #2C3333;
+}
+
+form {
+}
+
+input {
+    border: none;
+    width: 200px;
+    height: 25px;
+    margin: 0 1rem;
+    border-radius: 2rem;
+}
+
+button {
+    border: none;
+    border-radius: 2rem;
+    height: 30px;
+    padding: 0 1rem;
+    background-color: #E7F6F2 ;
+}
+button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #395B64;
+}
+
+th {
+    border-bottom: 1px solid #ddd;
+    color: #395B64;
+}
+
+table {
+    width: 750px;
+}
+
+#tableheader th {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #2C3333;
+}
