@@ -15,3 +15,4 @@ Task list app. Create new tasks, mark as complete, and delete.
   - Users expressed that the priority (!/!!/!!!) system wasn't super clear. The higher the priority the closer the due date is set. Users expressed that it might make sense if they could set the date themselves.
   - I would probably change the priority feature to just display the priority of the item instead of turning it into a date
   - Users also stated that checking the checkbox should maybe grey out the item so it is more noticeable.
+  - One user expressed some error checking could be done on the inputs, such as preventing empty form submissions
