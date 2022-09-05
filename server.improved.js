@@ -6,8 +6,11 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-/* const appdata = [
-] */
+const appdata = [
+  { 'title': 'toyota', 'author': 1999, 'pages': 23 },
+  { 'title': 'honda', 'author': 2004, 'pages': 30 },
+  { 'title': 'ford', 'author': 1987, 'pages': 14} 
+]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -23,15 +26,7 @@ const handleGet = function( request, response ) {
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
-    const html = `
-    <html>
-    <body>
-      ${ appdata.map( item => JSON.stringify(item) ) } 
-    </body>
-    </html>
-    `
-    response.end( html )
-    //sendFile( response, filename )
+    sendFile( response, filename )
   }
 }
 

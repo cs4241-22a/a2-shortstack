@@ -1,19 +1,22 @@
-/*Style your own assignment! This is fun! */
 body {
-    background-color: #f7f7a7;
+    background-color: #d2f7f8;
 }
 
-#form label{
-    font-size:11px;
+h1 {
+    font-size: 20px;
+}
+
+#form label {
+    font-size:16px;
     font-weight:bold;
     text-align:right;
 }
 
 #form input {
     display: block;
-    font-size:11px;
+    font-size:16px;
     padding:4px 2px;
     border:solid 1px #aacfe4;
-    width:70px;
+    width:120px;
     margin:2px 0 20px 10px;
 }
