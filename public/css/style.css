@@ -17,13 +17,20 @@ h1 {
 }
 
 header {
-    font-size: 30px;
     padding-bottom: 10px;
 }
 
-h1,header,#addmovie {
+header, h2 {
+    font-size: 30px;
+}
+
+h1, h2, header,#addmovie {
     font-family: 'Dancing Script', cursive;
     font-weight: bold;
+}
+
+h3 {
+    font-weight: normal;
 }
 
 #formsection {
