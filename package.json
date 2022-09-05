@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-axbolduc",
+  "version": "1.0",
+  "description": "A Baseball batting average tracker",
+  "author": "Alex Bolduc",
   "scripts": {
     "start": "node server.improved.js",
     "dev": "nodemon server.improved.js"
