@@ -1,7 +1,8 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
-## Simple Baseball Batting Average Tracker
-This application tracks the batting average for a baseball player for each game that they play. You can add a game with the add game form and also modify or delete the game by clicking on the row in the table and modifying the data with the modify form. Layout was mainly done using flexbox to center and align all of the elements on the page.
+## [Simple Baseball Batting Average Tracker](http://a2-axbolduc.glitch.me)
+
+- This application tracks the batting average for a baseball player for each game that they play. You can add a game with the add game form and also modify or delete the game by clicking on the row in the table and modifying the data with the modify form. Layout was mainly done using flexbox to center and align all of the elements on the page.
 
 ## Technical Achievements
 ### Single Page Application
