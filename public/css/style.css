@@ -12,8 +12,8 @@
  }
 
  /*ID Selector*/
- #remove_assignment {
-   background-color:red
+ #assignment, #course, #date, #remove_assignment{
+  background-color: yellow;
  }
 
  /*Class Selector*/
