@@ -53,6 +53,11 @@
   flex-grow: 1;
 }
 
+#input-form {
+  flex: 1;
+  display: flex;
+}
+
 /* =============== TYPOGRAPHY =============== */
 
 /* =============== GENERAL STYLES =============== */
