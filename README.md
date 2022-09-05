@@ -1,5 +1,7 @@
 ## Game Statistics
 
+Kseniia Romanova https://a2-kr0man0va.glitch.me
+
 I created a webpage that is used to save game stats. It has a form that takes in game name, character name, number of kills, number of assists, and number of deaths. It then computes additional derived field called KDA, which is computed by using this formula: (kills+assists)/deaths. After submit button is pressed all of the values are added to the table, which already has some data in it. If reset button is pressed, it clears all of the fields. Data that is already in the table can also be edited or deleted by using edit and delete buttons.
 
 I used flexbox to properly layout major elements on the webpage. Specifically, I used flex-direction:column and flex-wrap:wrap.
