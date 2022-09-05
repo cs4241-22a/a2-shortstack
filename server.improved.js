@@ -25,7 +25,8 @@ const handleGet = function (request, response) {
     response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
     response.write(JSON.stringify(appdata))
     response.end()
-  } else {
+  }
+  else {
     sendFile(response, filename)
   }
 }
@@ -41,7 +42,10 @@ const handlePost = function (request, response) {
     const JSONdata = JSON.parse(dataString)
 
     // ... do something with the data here!!!
-    if (!(Object.keys(JSONdata).length === 0)) {
+    if (request.url === '/delete') {
+      console.log(JSONdata.index)
+      appdata.splice(JSONdata.index, 1)
+    } else if ((request.url === '/submit') && !(Object.keys(JSONdata).length === 0)) {
       appdata.push(JSONdata)
     }
 

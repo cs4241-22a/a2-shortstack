@@ -44,22 +44,39 @@ const generateTable = (dataJSON) => {
     const tableHeadTR = document.createElement("tr")
     tableHeadTR.setAttribute("id", "tableheader")
 
-    tableHeadTR.innerHTML = '<th>Title</th><th>Description</th><th>Location</th> '
+    tableHeadTR.innerHTML = '<th>Title</th><th>Description</th><th>Location</th><th>Delete</th> '
     tableElement.appendChild(tableHeadTR)
 
-    dataJSON.map((val) => {
+    dataJSON.map((val, index) => {
         const tableRowElement = document.createElement("tr")
         tableRowElement.innerHTML = ` <th>${val.title}</th>
                                     <th>${val.description}</th>
-                                    <th>${val.location}<th>`
+                                    <th>${val.location}<th>
+                                    <button class='btn-delete' onClick='deleteRow(${index})'>delete</button>`
+        tableRowElement.dataset.ind = index
         tableElement.appendChild(tableRowElement)
     })
 
     document.body.appendChild(tableElement)
 }
 
+const deleteRow = async (i) => {
+    body = JSON.stringify({ index: i })
+    const response = await fetch('/delete', {
+        method: 'POST',
+        body
+    })
+    const newData = await response.json()
+    generateTable(newData)
+}
+
 window.onload = function () {
-    const button = document.querySelector('button')
-    button.onclick = submit
+    const btnAddElement = document.querySelector('.btn-add')
+    btnAddElement.onclick = submit
+    if (!(document.querySelector(".btn-delete") === null)) {
+        const btnDeleteElement = document.querySelector('.btn-delete')
+        btnDeleteElement.onclick = deleteRow
+    }
+
     getData()
 }

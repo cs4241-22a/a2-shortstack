@@ -26,16 +26,26 @@ input {
 }
 
 button {
+    font-weight: 700;
+    text-transform: capitalize;
     border: none;
     border-radius: 2rem;
     height: 30px;
     padding: 0 1rem;
     background-color: #E7F6F2 ;
 }
+
 button:hover {
     cursor: pointer;
     color: white;
     background-color: #395B64;
+}
+.btn-delete {
+    background-color: rgb(222, 92, 92);
+    text-align: center;
+}
+.btn-delete:hover {
+    background-color: rgb(227, 40, 40);
 }
 
 th {
