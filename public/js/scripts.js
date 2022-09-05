@@ -37,8 +37,6 @@ const getData = async () => {
 
 const generateTable = (dataJSON) => {
 
-
-
     const tableElement = document.getElementById("dataTable")
     tableElement.innerHTML = ""
     const tableHeadTR = document.createElement("tr")
