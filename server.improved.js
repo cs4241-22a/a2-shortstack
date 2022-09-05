@@ -5,11 +5,8 @@ const http = require( 'http' ),
       mime = require( 'mime' ),
       dir  = 'public/',
       port = 3000
-
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+const crc32 = require("crc32")
+let appdata = [
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -22,11 +19,16 @@ const server = http.createServer( function( request,response ) {
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+  switch (request.url) {
+    case "/":
+      sendFile( response, 'public/index.html' )
+      break;
+    case "/getmsg":
+      response.writeHead( 200, "OK", {'Content-Type': 'text/json' })
+      response.end(JSON.stringify(appdata))
+    default:
+      sendFile( response, filename )
+      break;
   }
 }
 
@@ -38,9 +40,43 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    if (request.url == "/submit") {
+      console.log( JSON.parse( dataString ) )
+      console.log("New submission recieved!");
+      let dataobj = JSON.parse( dataString );
+      switch (dataobj.action) {
+        case "new":
+          const tempdata = {}
+          console.log("Submission type: Add")
+          tempdata.name = dataobj.name;
+          tempdata.message = dataobj.message;
+          //Additional field: a date value
+          tempdata.date = formatDate();
+          //Derived field: a message id is derived from the content of the message and the sender's name.
+          //It also uses date and a random number.
+          tempdata.mid = parseInt(crc32(dataobj.name+dataobj.message+formatDate()+(Math.random()*1000)),16);
+          appdata.push(tempdata);
+          break;
+        case "edit":
+          console.log("Submission type: Modify")
+          appdata = appdata.map(obj => {
+            if (obj.mid == dataobj.mid) {
+              return {...obj, name: dataobj.name,message:dataobj.message};
+            }
+            return obj;
+          });
+          break;
+        case "delete":
+          console.log("Submission type: Delete")
+          appdata = appdata.filter(function( obj ) {
+            return obj.mid != dataobj.mid;
+          });
+          break;
+        default:
+          console.warn("unknown action")
+          break;
+      }
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
@@ -67,6 +103,18 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date = new Date()) {
+  return [
+    date.getFullYear(),
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+  ].join('');
 }
 
 server.listen( process.env.PORT || port )
