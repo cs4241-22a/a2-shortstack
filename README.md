@@ -26,11 +26,13 @@ It contains 4 buttons: Submit, Reset, Edit, and Delete.
 
 Both users were asked to test all buttons and provide feedback after interacting with a webpage for some time.
 
+User 1
 1. Last name: Santopadre
 2. Problems: He had no problems with my design and could easily add/delete/edit game stats.
 3. Comments: I unintentionally added the wrong CS:GO logo. It should only say 'GO'. But I decided not to change it to make all CS:GO players mad.
 4. Any changes: I would only change the icon based on his feedback.
 
+User 2
 1. Last name: Winston
 2. Problems: He also had no problems with my design and could easily add/delete/edit game stats.
 3. Comments: No surprising comments, but some helpful feedback to add dropdowns for games and characters.
