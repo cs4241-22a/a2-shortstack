@@ -3,61 +3,29 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <h1>Library Book Hold System</h1>
   <body>
     <div id="form" class="myform">
-    <form id="bookReserve" onsubmit="return hold();">
+    <form id="bookReserve" onsubmit="return submit()">
       <label for="name">Name</label>
-      <input type="text" name="user_name" required/>
+      <input type="text" name="username" required/>
 
       <label for="email">Email</label>
-      <input type="email" name="user_email" required/>
+      <input type="email" name="useremail" required/>
 
       <label for="booktitle">Book Title</label>
-      <input type="text" name="book_title" required/>
+      <input type="text" name="bookTitle" required/>
 
       <label for="bookauthor">Book Author</label>
-      <input type="text" name="book_author" required/>
+      <input type="text" name="bookAuthor" required/>
 
-      <button>Place Hold</button>
+      <button id="submit">Place Hold</button>
 
     </form>
   </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#name' ),
-          json = { name: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/hold', {
-      method:'POST',
-      body:data 
-    })
-    .then( function( response ) {
-      if(response.status==200) 
-        {
-          location.href = "/received"; 
-      }
-      else { 
-        alert("Error: please try again."); }
-      })
-      .catch((err) => { 
-        alert("Error: please try again."); 
-      });
-      return false;
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
+  <script src="js/scripts.js">
   </script>
 </html>
