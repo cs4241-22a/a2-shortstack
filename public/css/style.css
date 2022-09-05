@@ -6,10 +6,11 @@ body {
 	font-family: "Open Sans", sans-serif;
 	font-size: 16px;
 	background-image: url("images/background.png");
+	color: #4e4e4e;
 }
 
 main {
-	padding: 0.5em;
+	padding: 1em;
 	height: fit-content;
 	max-width: 50em;
 	display: flex;
@@ -96,7 +97,7 @@ button {
 		position: sticky;
 		top: 0;
 		width: inherit;
-		overflow-x: scroll
+		overflow-x: scroll;
 	}
 }
 
@@ -126,4 +127,3 @@ button {
 		overflow: auto;
 	}
 }
-

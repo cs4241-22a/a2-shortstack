@@ -6,19 +6,33 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
-	
+
 	<body>
 		<main>
-			<h2>Add, Modify, Or Delete a Birthday</h2>
-			<form action="/public/index.html?results">
+			<h1>Welcome to Birthday Tracker</h1>
+			<form action="">
 				<table>
 					<tr>
 						<td><label for="firstName">First Name: </label></td>
-						<td><input type="text" id="firstName" placeholder="First Name" required /></td>
+						<td>
+							<input
+								type="text"
+								id="firstName"
+								placeholder="First Name"
+								required
+							/>
+						</td>
 					</tr>
 					<tr>
 						<td><label for="lastName">Last Name: </label></td>
-						<td><input type="text" id="lastName" placeholder="Last Name" required /></td>
+						<td>
+							<input
+								type="text"
+								id="lastName"
+								placeholder="Last Name"
+								required
+							/>
+						</td>
 					</tr>
 					<tr>
 						<td><label for="birthday">Birthday: </label></td>
@@ -26,11 +40,17 @@
 					</tr>
 					<tr>
 						<td><label for="giftIdea">Gift Idea: </label></td>
-						<td><input type="text" id="giftIdea" placeholder="Gift Idea" required /></td>
+						<td>
+							<input
+								type="text"
+								id="giftIdea"
+								placeholder="Gift Idea"
+								required
+							/>
+						</td>
 					</tr>
 				</table>
 				<button>Submit</button>
-				
 			</form>
 
 			<h2>Your List of Saved Birthdays</h2>
