@@ -4,4 +4,6 @@ table, th, td {
     border-collapse: collapse;
     border-width:2px;
     padding: 10px;
+    table-layout:fixed;
+    background-color: lightskyblue;
   }

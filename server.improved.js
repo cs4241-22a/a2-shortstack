@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -25,7 +21,13 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }else if(request.url === '/getShoppingData'){
+    console.log("------")
+    console.log(appdata)
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end( JSON.stringify( appdata ))
+  }
+  else {
     sendFile( response, filename )
   }
 }
@@ -36,22 +38,32 @@ const handlePost = function( request, response ) {
   request.on( 'data', function( data ) {
       dataString += data 
   })
-
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
+    //console.log(response.url)
+    if (request.url === '/submit' ) {
+      console.log( JSON.parse( dataString ) )
+      appdata.push((JSON.parse(dataString)))
+    }
+    else if(request.url === '/deleteData'){
+      console.log("---Delete---")
+      console.log(appdata)
+      console.log(JSON.parse(dataString))
+      data = JSON.parse(dataString)
+      i = -1
+      appdata = appdata.filter(function() {
+        i = i + 1
+        return appdata[i].shoppingitem != data.shoppingitem
+      })
+    }
     // ... do something with the data here!!!
-
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end( JSON.stringify({test:'a'}))
   })
 }
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
-
    fs.readFile( filename, function( err, content ) {
-
      // if the error = null, then we've loaded the file successfully
      if( err === null ) {
 
