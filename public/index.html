@@ -9,19 +9,20 @@
     <br>
     <br>
     <h2 class="header">My Homework Assignments</h2>
-    <p>Add, remove, modify, or delete assignments from the table.</p>
+    <p>Add or remove assignments from the table.</p>
     <table style="width:100%" id="table">
       <tr>
         <th>Assignment</th>
         <th>Course</th>
         <th>Due Date</th>
-        <th>Time Until Due</th>
+        <th>Days Until Due</th>
       </tr>
   
       <tr>
         <td><b>Example Assignment #1</b></td>
         <td><b>Software Engineering</b></td>
         <td><b>09/24/2022</b></td>
+        <td><b>19</b></td>
       </tr>
 
     </table>
@@ -47,12 +48,12 @@
       </form>
       <br>
       
-      <form action="">
+      <!-- <form action="">
       <h3 class="header"><b>Modify Assignment??:</b></h3>
       <label for="modify_assignment">Assignment:</label>
       <input type="text" id="modify_assignment" name="modify_assignment" size ="15" value="assignment">
       <button>submit</button>
-      </form>
+      </form> -->
 
   </body>
   <script>
@@ -62,8 +63,8 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#assignment','#course','#date' ),
-          json = { assignment: input.value, course: input.value, date: date.value },
+    const input = document.querySelector( '#assignment','#course','#date', '#time_until' ),
+          json = { assignment: input.value, course: course.value, date: date.value, time_until:""},
           body = JSON.stringify( json )
     
     fetch( '/submit', {
@@ -91,6 +92,8 @@
           cell1.innerHTML = item.assignment;
           cell2.innerHTML = item.course;
           cell3.innerHTML = item.date;
+          cell4.innerHTML = item.time_until;
+
         }
         index = index+1;
         
@@ -135,6 +138,7 @@
           cell1.innerHTML = item.assignment;
           cell2.innerHTML = item.course;
           cell3.innerHTML = item.date;
+          cell4.innerHTML = item.time_until;
         }
         index = index+1;
         
@@ -164,6 +168,7 @@
         cell1.innerHTML = item.assignment;
         cell2.innerHTML = item.course;
         cell3.innerHTML = item.date;
+        cell4.innerHTML = item.time_until;
       })
     })
 
@@ -184,9 +189,9 @@
           cell1.innerHTML = item.assignment;
           cell2.innerHTML = item.course;
           cell3.innerHTML = item.date;
+          cell4.innerHTML = item.time_until;
         }
         index = index+1;
-        
       })
     })
 

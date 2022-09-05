@@ -44,8 +44,27 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     if(request.url === '/submit'){
-       // ... do something with the data here!!!
-       appdata.push(JSON.parse(dataString))
+       //date submitted
+       let date_submitted = JSON.parse(dataString).date
+       //current date
+       var date = new Date();
+       var current_date = (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear()
+
+      //  console.log("date NOW")
+      //  console.log(current_date)
+      //  console.log("DUE DATE")
+      //  console.log(date_submitted)
+      //  console.log("date stringified:")
+       var date1 = new Date(JSON.stringify(current_date))
+       var date2 = new Date(JSON.stringify(date_submitted))
+       var Difference_In_Time = date2.getTime() - date1.getTime();
+       var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+       let newString = JSON.parse(dataString)
+      //  console.log(newString)
+      //  console.log(newString.time_until + "hi")
+       newString.time_until = Difference_In_Days
+
+       appdata.push(newString)
     }
     else if(request.url === '/delete'){
       //modify our appdata by removing the assignment
