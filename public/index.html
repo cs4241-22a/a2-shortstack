@@ -3,12 +3,27 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <div id="form" class="myform">
+    <form id="bookReserve" onsubmit="return hold();">
+      <label for="name">Name</label>
+      <input type="text" name="name" required/>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" required/>
+
+      <label for="booktitle">Book Title</label>
+      <input type="text" name="booktitle" required/>
+
+      <label for="bookauthor">Book Author</label>
+      <input type="text" name="bookauthor" required/>
+
+      <button>Place Hold</button>
+
     </form>
+  </div>
   </body>
   <script>
 
@@ -16,20 +31,26 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input = document.querySelector( '#name' ),
+          json = { name: input.value },
           body = JSON.stringify( json )
 
-    fetch( '/submit', {
+    fetch( '/hold', {
       method:'POST',
-      body 
+      body:data 
     })
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
+      if(response.status==200) 
+        {
+          location.href = "/received"; 
+      }
+      else { 
+        alert("Error: please try again."); }
+      })
+      .catch((err) => { 
+        alert("Error: please try again."); 
+      });
+      return false;
   }
 
   window.onload = function() {
