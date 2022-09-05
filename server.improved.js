@@ -6,11 +6,22 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = []
+
+//Function to calculate the number of days until next birthday
+function daysUntilCalc(string) {
+  let currentDay = new Date();
+  let birthArray = string.split("-");
+  let birthday = new Date(birthArray[0], birthArray[1]-1, birthArray[2]); //Month is subtracted by 1 since JS counts months 0-11
+  //Set current year or the next year if you already had birthday this year
+  birthday.setFullYear(currentDay.getFullYear());
+  if (currentDay > birthday) {
+  birthday.setFullYear(currentDay.getFullYear() + 1);
+  }
+  //Calculate difference between days
+  let daysUntil = Math.floor((birthday - currentDay) / (1000*60*60*24))
+  return daysUntil
+};
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -25,7 +36,13 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  
+  }
+  else if (request.url === '/birthdays') {
+    response.writeHeader(200, {'Content-Type': 'text/plain'})
+    response.end(JSON.stringify(appdata))
+  }
+  else {
     sendFile( response, filename )
   }
 }
@@ -38,12 +55,22 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    console.log( JSON.parse( dataString ) );
 
-    // ... do something with the data here!!!
+    //Convert data string back to object to add calculated field
+    var submission = JSON.parse(dataString);
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    //Calculated field 
+    var calcField = {
+      daysUntil: `${daysUntilCalc(submission.birthday)}`
+    }
+
+    var newEntry = Object.assign(submission, calcField);
+
+    appdata.push(newEntry);
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+    response.end(JSON.stringify(appdata));
   })
 }
 
