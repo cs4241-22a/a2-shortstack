@@ -3,9 +3,6 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 
 Cole Manning http://a2-rvrx.glitch.me/
 
-## Simple Todo App
-Task list app. Create new tasks, mark as complete, and delete.
-
 ## Technical Achievements
 - **Tech Achievement 1**: Single page app. Submit button **creates** new tasks. Delete button **deletes** tasks. Checkbox **edits** tasks (marks as complete)
   - Used CSS Flexbox.
