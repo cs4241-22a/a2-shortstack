@@ -5,8 +5,8 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	background: #082c6c;
-	color: #fff;
+	background: #3c3b47;
+	color: rgb(255, 255, 255);
 }
 /* To center everything in game */
 .game{
@@ -22,17 +22,18 @@
 .title{
 	position: absolute;
 	top: 0;
-	font-size: 4rem;
+	font-size: 3rem;
 	z-index: 2;
+	margin-top: 3rem;
 }
 
 /* Score Board */
 .score{
 	display: flex;
-	width: 30vw;
+	width: 50vw;
 	justify-content: space-evenly;
 	position: absolute;
-	top: 70px;
+	top: 170px;
 	z-index: 1;
 }
 
@@ -48,7 +49,7 @@
 	display: flex;
 	width: 50vw;
 	justify-content: space-evenly;
-	margin-top: 2rem;
+	margin-top: 8rem;
 }
 
 /* Styling on all three buttons */
@@ -56,9 +57,9 @@
 	padding: 0.8rem;
 	width: 100px;
 	border-radius: 10px;
-	background: green;
+	background: #F0B151;
 	outline: none;
-	border-color: green;
+	border-color: #F0B151;
 	border: none;
 	cursor: pointer;
 }
@@ -66,6 +67,7 @@
 .move{
 	font-size: 2rem;
 	font-weight: bold;
+	margin-top: 15rem;
 }
 
 /* Reload button style */
@@ -73,7 +75,7 @@
 	display: none;
 	margin-top: 2rem;
 	padding: 1rem;
-	background: green;
+	background: #301e06;
 	outline: none;
 	border: none;
 	border-radius: 10px;

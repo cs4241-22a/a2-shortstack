@@ -7,9 +7,7 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { "playerName": "Oliver", "wins": 0, "loss": 0 }
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -34,7 +32,7 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
+     dataString += data   
   })
 
   request.on( 'end', function() {

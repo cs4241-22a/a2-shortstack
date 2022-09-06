@@ -2,76 +2,63 @@
 <html lang="en">
   <head>
     <title>Hao Chen Assignment 2</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
     <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
     <meta charset="utf-8">
-    <meta name="viewport"
-    content="width=device-width,
-             initial-scale=1.0">
+    <style>
+      body {
+          font-family: 'Abel';font-size: 18px;
+      }
+      </style>
   </head>
-  <body>
-    <section class="game">
-      <!--Title -->
-      <div class="title">Rock Paper Scissor</div>
-       
-        <!--Display Score of player and computer -->
-      <div class="score"> 
-          <div class="playerScore">
-              <h2>Player</h2>
-              <p class="p-count count">0</p>
+  <body class="center">
+    <div class="coloredBorder">
+      <h1>A Simple Game of Rock Paper Scissors</h1>
+    </div>
+    <h3>
+      <b>Game Introduction: </b>
+    </h3>
+    <p>A classic two-person game. Players start each round by selecting one of the three following options</p>
+    <ul>
+      <li>Rock</li>
+      <li>Paper</li>
+      <li>Scissors</li>
+    </ul>
+    <p style="text-align: center; font-size:x-large; color: #F0463E;" >Counter Relations: Rock crushes scissors, scissors cut paper, and paper covers rock. See who wins each round!</p>
+    <p>Player:</p>
+    <p id="username"></p>
+    <p>Player Accmulated Wins:</p>
+    <p>Player Accmulated loss:</p>
 
-          </div>      
-          <div class="computerScore">
-              <h2>Computer</h2>
-              <p class="c-count count">0</p>
+    <div class="videoWrapper">
+      <iframe src="game.html" style="border:none;" title="Game"></iframe>
+    </div>
 
-          </div>
-      </div>
-     
-      <div class="move">Choose your move</div>
-       
-        <!--Number of moves left before game ends -->
-      <div class="movesleft">Moves Left: 10 </div>
-       
-        <!--Options available to player to play game -->
-      <div class="options">
-          <button class="rock">Rock</button>
-          <button class="paper">Paper</button>
-          <button class="scissor">Scissors</button>   
-      </div>
-       
-        <!--Final result of game -->
-      <div class="result"></div>
-       
-        <!--Reload the game -->
-      <button class="reload"></button>
-
-  </section>
-
-  <script src="js/scripts.js"></script>
-
-    <!-- <form action="">
-      <input type='text' id='yourname' value="your name here">
+    <form action="">
+      <input type='text' id='newUsername' value="new username" required>
       <button>submit</button>
-    </form> -->
+    </form>
   </body>
-  <!-- <script>
+  <script>
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input = document.querySelector( '#newUsername' ),
+          json = { username: input.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      body
     })
     .then( function( response ) {
       // do something with the reponse 
       console.log( response )
+      // data = JSON.stringify(response.json())
+      // const currentUser = document.querySelector('#username');
+      // currentUser.textContent = data
     })
 
     return false
@@ -82,5 +69,5 @@
     button.onclick = submit
   }
 
-  </script> -->
+  </script>
 </html>

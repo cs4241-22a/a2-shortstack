@@ -2,7 +2,7 @@
 
 console.log("Welcome to assignment 2!")
 
-// Complete logic of game inside this function
+// Complete logic of game
 const game = () => {
     let playerScore = 0;
     let computerScore = 0;
@@ -23,7 +23,7 @@ const game = () => {
  
                 const movesLeft = document.querySelector('.movesleft');
                 moves++;
-                movesLeft.innerText = `Moves Left: ${10-moves}`;
+                movesLeft.innerText = `Moves Left: ${5-moves}`;
                  
  
                 const choiceNumber = Math.floor(Math.random()*3);
@@ -32,8 +32,8 @@ const game = () => {
                 // Function to check who wins
                 winner(this.innerText,computerChoice)
                  
-                // Calling gameOver function after 10 moves
-                if(moves == 10){
+                // Calling gameOver function after 5 moves
+                if(moves == 5){
                     gameOver(playerOptions,movesLeft);
                 }
             })
@@ -50,6 +50,11 @@ const game = () => {
         computer = computer.toLowerCase();
         if(player === computer){
             result.textContent = 'Tie'
+            // increment both scores when a tie occurs
+            computerScore++;
+            computerScoreBoard.textContent = computerScore;
+            playerScore++;
+            playerScoreBoard.textContent = playerScore;
         }
         else if(player == 'rock'){
             if(computer == 'paper'){
@@ -118,7 +123,7 @@ const game = () => {
             result.style.color = 'grey'
         }
         reloadBtn.innerText = 'Restart';
-        reloadBtn.style.display = 'flex'
+        reloadBtn.style.display = 'flex';
         reloadBtn.addEventListener('click',() => {
             window.location.reload();
         })
