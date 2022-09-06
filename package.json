@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Shopping List Creator",
+  "version": "1.0",
+  "description": "Create your own shopping list!",
+  "author": "Zaq Humphrey",
   "scripts": {
     "start": "node server.improved.js"
   },
