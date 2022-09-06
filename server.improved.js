@@ -1,3 +1,6 @@
+const { debug } = require("console");
+const { PassThrough } = require("stream");
+
 const http = require("http"),
   fs = require("fs"),
   // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -7,9 +10,20 @@ const http = require("http"),
   port = 3000;
 
 const appdata = [
-  { model: "toyota", year: 1999, mpg: 23 },
-  { model: "honda", year: 2004, mpg: 30 },
-  { model: "ford", year: 1987, mpg: 14 },
+  { Quest: "Do laudary", Category: "Life", Done: false },
+  { Quest: "Make a fully working website", Category: "School", Done: false },
+  { Quest: "Break a world record", Category: "Challenge", Done: false },
+  {
+    Quest: "Beat Kurry in a basketball game",
+    Category: "Challenge",
+    Done: false,
+  },
+  { Quest: "Win the championship in FIFA", Category: "Challenge", Done: false },
+  {
+    Quest: "Create a world top 500 company in one day",
+    Category: "Challenge",
+    Done: false,
+  },
 ];
 
 const server = http.createServer(function (request, response) {
@@ -45,14 +59,33 @@ const handlePost = function (request, response) {
   request.on("data", function (data) {
     dataString += data;
   });
-
   request.on("end", function () {
-    console.log(JSON.parse(dataString));
+    if (dataString === "GetAllData") {
+      response.end(JSON.stringify(appdata));
+    } else {
+      const input = JSON.parse(dataString);
+      const keyword = input.yourname;
 
-    // ... do something with the data here!!!
+      // ... do something with the data here!!!
+      const count = appdata.length;
+      const Out_lst = [];
+      for (let i = 0; i < count; i++) {
+        if (appdata[i].Category === keyword) {
+          Out_lst.push(appdata[i]);
+        }
+      }
+      const count_lst = Out_lst.length;
+      const rdm_k = function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      };
+      const rdm_key = rdm_k(0, count_lst - 1);
+      const Output_val = Out_lst[rdm_key];
 
-    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-    response.end(JSON.stringify(appdata));
+      response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+      response.end(JSON.stringify(Output_val));
+    }
   });
 };
 
