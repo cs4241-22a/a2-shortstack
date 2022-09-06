@@ -22,8 +22,6 @@ const handleGet = function( request, response ) {
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else if(request.url === '/getShoppingData'){
-    console.log("------")
-    console.log(appdata)
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end( JSON.stringify( appdata ))
   }
@@ -39,15 +37,10 @@ const handlePost = function( request, response ) {
       dataString += data 
   })
   request.on( 'end', function() {
-    //console.log(response.url)
     if (request.url === '/submit' ) {
-      console.log( JSON.parse( dataString ) )
       appdata.push((JSON.parse(dataString)))
     }
     else if(request.url === '/deleteData'){
-      console.log("---Delete---")
-      console.log(appdata)
-      console.log(JSON.parse(dataString))
       data = JSON.parse(dataString)
       i = -1
       appdata = appdata.filter(function() {

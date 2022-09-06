@@ -4,22 +4,25 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
   </head>
-  <body>
-    <h1>Shopping List! Create a list!</h1>
+  <body class="container">
+    <h1 class="item">Shopping List! Create a list!</h1>
     <form action="" id="testForm">
-      <input type='text' type="submit" id='shoppingitem' value="Enter shopping item here..." maxlength="50" size="50">
+      <input type='text' type="submit" id='shoppingitem' placeholder="Enter shopping item here..." maxlength="50" size="50">
       <br>
-      <input type='text' type="submit" id='quantity' value="Enter quantity here..." maxlength="50" size="50">
+      <input type='text' type="submit" id='quantity' placeholder="Enter quantity here..." maxlength="50" size="50">
       <br>
-      <input type='text' type="submit" id='price' value="Enter price (per singular item) here..." maxlength="50" size="50">
+      <input type='text' type="submit" id='price' placeholder="Enter price (per singular item) here..." maxlength="50" size="50">
       <br>
       <!-- <input type="button" value="Submit:" id="submitButton"> -->
       <button id="submitButton">submit</button>
     </form>
 
-    <h2>Shopping List</h2>
-    <table WIDTH="50%" id="tableShop"> 
+    <h2 class="item">Shopping List</h2>
+    <table WIDTH="50%" id="tableShop" class="item"> 
       <thead>
         <tr>
           <td align="center"> Delete </td>
@@ -32,8 +35,8 @@
       </tbody>
     </table>
 
-  <h3> Total Price: </h3>
-  <p>$Idk how im gonna add prices yet lol</p>
+  <h3 class="item"> Total Price: </h3>
+  <p id="totalInsert" class="color large item">$</p>
   </body>
 
   <script>
@@ -102,6 +105,7 @@
     })
     .then(response => response.json())
     .then(json => {
+      totalPrice = 0
       let shoppingList = json
       shoppingList.forEach( item => {
         skip = false
@@ -123,11 +127,15 @@
             shoppingCell1.innerHTML = item.shoppingitem
             shoppingCell2.innerHTML = item.quantity
             shoppingCell3.innerHTML = item.price
+            totalPrice = totalPrice + (parseFloat(item.price) * parseFloat(item.quantity))
           }
       })
+      let insertPrice = document.getElementById("totalInsert")
+      insertPrice.innerHTML = "$" + Math.round(totalPrice * 100)/100
       if (shoppingList.length === 0) {
         let shoppingTable = document.getElementById("insertInfo")
         shoppingTable.innerHTML = ""
+        insertPrice.innerHTML = "$0"
       }
     })
   }
@@ -138,7 +146,6 @@
     })
     .then(response => response.json())
     .then(json => {
-
       let shoppingList = json
       let index = 0
       shoppingList.forEach( item => {
@@ -162,6 +169,9 @@
             shoppingCell1.innerHTML = item.shoppingitem
             shoppingCell2.innerHTML = item.quantity
             shoppingCell3.innerHTML = item.price
+            let insertPrice = document.getElementById("totalInsert")
+            totalPrice = (parseFloat(item.price) * parseFloat(item.quantity)) + totalPrice
+            insertPrice.innerHTML = "$" + Math.round(totalPrice * 100)/100
           }
         }
         index = index + 1
