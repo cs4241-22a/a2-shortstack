@@ -88,11 +88,15 @@ You'll need to use sometype of collaborative software that will enable you both 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+## Movie Ranker
+A single-page application for ranking and tracking watched movies. 
+
+Using the "Add Movie" form will add a movie to the server and display that movie at the bottom of the page. Using the Delete Movie form will remove a movie from the server and from the movies displayed on the page. 
+
+A grid layout was used for the "Movies" section and a flex layout was used for the forms, the rank key, the grid cells, and the general page layout.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- Single-page app: When data is submitted to the server, the server automatically responds and displays the results of the submission to the bottom of the page.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
