@@ -1,14 +1,43 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>Movie List</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Work+Sans:wght@500&display=swap" rel="stylesheet"> 
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <header>
+      <h1 id="page-title">
+        Movie List
+      </h1>
+    </header>  
+
+    <div id="content">
+      <div id="movie-list">
+        <div id="list-empty">
+          Your list is empty, add movies below, and start watching!
+        </div>
+
+        <div id="entries">
+
+        </div>
+      </div>
+
+      <div id="create-entry">
+        <button type="button" id="new-movie" class="collapsible">+ New Movie</button>
+        <div id="new-entry" class="collapsible-content">
+          Search for a movie:
+          <input type="text" class="search-bar"/>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Ted Clifford (c) 2022
+    </footer>
   </body>
   <script>
 
@@ -32,9 +61,22 @@
     return false
   }
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+  const collapse = function() {
+    this.classList.toggle("active");
+    let content = this.nextElementSibling;
+
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  };
+
+  window.onload = function() {    
+    const add_btn = document.querySelector('#new-movie')
+    add_btn.addEventListener('click', collapse);
+    // const button = document.querySelector( 'button' )
+    // button.onclick = submit
   }
 
   </script>

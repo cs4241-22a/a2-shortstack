@@ -1,1 +1,68 @@
-/*Style your own assignment! This is fun! */
+body {
+    margin: 0;
+}
+
+header {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #FF4000;
+}
+
+h1#page-title {
+    margin: 0;
+    padding: 5px 15px;
+    font-family: 'Work Sans', sans-serif;
+    color: #201E1F;
+}
+
+div#content {
+    margin: 50px;
+    font-family: 'Nunito', sans-serif;
+    color: #201E1F;
+}
+
+.collapsible {
+    background-color: #FAAA8D;
+    color: #201E1F;
+    cursor: pointer;
+    padding: 18px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #FF4000;
+}
+
+.collapsible-content {
+    padding: 0px 18px;
+    background-color: #FAAA8D;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.search-bar {
+    height: 20px;
+    position: relative;
+    border: none;
+    outline: none;
+    background-color: #FAAA8D;
+    font-size: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Nunito', sans-serif;
+    color: #201E1F;
+    background-color: #FF4000;
+}
