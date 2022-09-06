@@ -1,7 +1,7 @@
 Mason Powell https://a2-finalhalation.glitch.me/
 
 This project shows ...
-Technical Achievements
+## Technical Achievements
 
     #1 Single Page web application that can add an assigment with a subject and deadline, with a derived field of 
     priority (high or low) based on if the assignment is CS or not and the name of the assigment being "MQP". The
@@ -11,7 +11,7 @@ Technical Achievements
 
 
 
-Design Achievements
+## Design Achievements
 
     Evaluation #1
     #1 Manning
