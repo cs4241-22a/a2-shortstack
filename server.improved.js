@@ -6,29 +6,61 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let appdata = [
+  { 'name': 'yogurt', 'quantity': 10, 'price': 23, 'total': 230},
+  { 'name': 'mayo', 'quantity': 10, 'price': 23, 'total': 230}
 ]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
-  }else if( request.method === 'POST' ){
+  } else if( request.method === 'POST' ){
+    //Add data to database
     handlePost( request, response ) 
-  }
+  } else if( request.method === 'DELETE' ){
+    //Remove data from database
+    handleDelete(request, response)
+  } 
 })
+
+//remove an item from the appdata by name
+const removeItemByName = function(name) {
+  const compareName = name.toLowerCase()
+  appdata = appdata.filter(item => item.name.toLowerCase() !== compareName)
+}
+
+const handleDelete = function(request, response) {
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+      dataString += data 
+  })
+
+  request.on( 'end', function() {
+    //parse new data to json
+    let entryToRemove = JSON.parse(dataString).name
+    removeItemByName(entryToRemove)
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(appdata))
+  })
+}
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }
+  else if(request.url === '/data') {
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(appdata))
   }else{
     sendFile( response, filename )
   }
 }
+
+
 
 const handlePost = function( request, response ) {
   let dataString = ''
@@ -38,12 +70,15 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    //parse new data to json
+    let newData = JSON.parse(dataString)
+    newData['total'] = newData.price * newData.quantity
 
-    // ... do something with the data here!!!
+    //add to our list
+    appdata.push(newData)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
