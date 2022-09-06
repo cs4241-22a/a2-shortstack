@@ -1,4 +1,22 @@
 /*Style your own assignment! This is fun! */
 body {
-    background-color: gray;
+    background-color: #E0FFFF;
+}
+h1, label, button, input {
+    font-family: "Montserrat", serif;
+}
+td {
+    text-align: center;
+    font-size: 90%;
+}
+table {
+    width: 50%;
+    margin-top: 10px;
+    font-family: "Montserrat", serif;
+}
+.bold {
+    font-weight: bold;
+}
+#view_button {
+    margin-top: 10px;
 }

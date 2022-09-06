@@ -19,6 +19,8 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
+  response.data = appdata
+
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
@@ -33,6 +35,8 @@ const handlePost = function( request, response ) {
       dataString += data 
   })
 
+  //dataString = calculateDueDate(dataString)
+
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
@@ -42,6 +46,20 @@ const handlePost = function( request, response ) {
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
   })
+}
+
+const calculateDueDate = function (dataString) {
+  let obj = JSON.parse(dataString)
+
+  obj.push({test: "test"})
+
+  // if (obj[2].includes("true")) {
+  //   obj.push({ due_date: "1 day"})
+  // } else {
+  //   obj.push({ due_date: "2 days"})
+  // }
+
+  return JSON.stringify(obj)
 }
 
 const sendFile = function( response, filename ) {
