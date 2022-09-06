@@ -12,6 +12,7 @@ My web application is a to do list generator that lets users input a task, a cre
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
+
 Student 1
 1. Last Name: Gora
 2. The user found the due date aspect of my application to be a little confusing because you can set the creation date in advance but the due date will still stay due in 1 day or 2 days.
