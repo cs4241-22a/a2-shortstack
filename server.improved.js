@@ -19,8 +19,6 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  response.data = appdata
-
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
@@ -35,29 +33,52 @@ const handlePost = function( request, response ) {
       dataString += data 
   })
 
-  //dataString = calculateDueDate(dataString)
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
-    appdata.push( JSON.parse( dataString ) )
+    // let updatedDataset = calculateDueDate(dataString)
+    
+    // let newItem = JSON.parse( updatedDataset ) 
+    // console.log(updatedDataset)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    // // ... do something with the data here!!!
+    // appdata.push( newItem )
+    // response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    // response.end(JSON.stringify(newItem))
+
+    if (request.url === "/submit") {
+      let updatedDataset = calculateDueDate(dataString)
+    
+      let newItem = JSON.parse( updatedDataset ) 
+      console.log(updatedDataset)
+  
+      // ... do something with the data here!!!
+      appdata.push( newItem )
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(newItem))
+    } else if (request.url === '/delete') {
+      let deletedItem = ''
+      appdata.forEach( item => {
+        if (item == JSON.parse(dataString)) {
+          const index = appdata.indexOf(JSON.parse(dataString))
+          deletedItem = array.splice(index, 1)
+        }
+      })
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(deletedItem))
+    }
+
   })
 }
 
-const calculateDueDate = function (dataString) {
+function calculateDueDate (dataString) {
   let obj = JSON.parse(dataString)
 
-  obj.push({test: "test"})
-
-  // if (obj[2].includes("true")) {
-  //   obj.push({ due_date: "1 day"})
-  // } else {
-  //   obj.push({ due_date: "2 days"})
-  // }
+   if (obj.priority == 'Yes') {
+    obj.dueDate = '1 day'
+  } else {
+    obj.dueDate = '2 days'
+  }
 
   return JSON.stringify(obj)
 }
