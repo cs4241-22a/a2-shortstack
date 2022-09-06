@@ -43,7 +43,6 @@ const handlePost = function (request, response) {
 
   request.on("end", function () {
     const json = JSON.parse(dataString);
-    console.log(json);
     const { rowData } = json;
 
     const transformedData = utility.addDerivedField(currentData, rowData);

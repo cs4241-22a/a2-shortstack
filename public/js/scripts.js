@@ -65,7 +65,6 @@ const modifyEntry = function (rowIndex) {
 
 const updateTableWithData = function (currentData) {
   const table = document.querySelector("#resultsTable");
-  console.log(currentData);
   currentData.forEach((element, index) => {
     const row = table.insertRow();
     for (const value of Object.values(element)) {
