@@ -11,9 +11,24 @@ const submit = function( e ) {
       body 
     })
     .then( function( response ) {
-      document.body.style.backgroundColor = "red";
-
       console.log( response )
+    })
+
+    fetch( './server.js', {
+        method:'GET',
+        body
+    })
+    .then( function( response ) {
+        var table = document.getElementById("nonTextSection");
+        var row = table.insertRow(0);
+        
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(3);
+
+        cell1.innerHTML = response[0];
+        cell2.innerHTML = response[1];
+        cell3.innerHTML = response[2];
     })
 
     return false
