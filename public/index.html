@@ -6,7 +6,9 @@
     <link rel="stylesheet" href = "/public/css/style.css">
   </head>
   <body>
-      <h1> To Do List</h1>
+    <!-- `action` specifies where to send the form-data-->
+    <form action = "/server.improved.js" method= "post">
+      <h1> To Do  List</h1>
       <!--
       <div>
       <label for="task1">Task 1:</label>
@@ -20,7 +22,8 @@
       <label for="newTask">New Task:</label>
       <input type='text' id='newTask' placeholder="sample task"> <button id="taskNewButton">+</button>
       
-      <div class="toDoList" id="toDoList">  
+      <div class="toDoList" id="toDoList">
+      <button>submit</button>  
       
     </div> 
 
@@ -36,17 +39,23 @@
   <script>
 
   const submit = function( e ) {
-    // prevent default form action from being carried out
+    // prevent default from trying to go to another page
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
+// references element that is in parenthesis ( ~ to getElementById but more general )
+    const input = document.querySelector( '#yourname' ), 
+    // creating json object from our input     //why use json here?
           json = { yourname: input.value },
+
+// stringify will convert this object into a string
           body = JSON.stringify( json )
 
-    fetch( '/submit', {
+    // fetch will do an ansynchronous network request ( ones used in server)
+    fetch( '/submit', { // fetch is where you specify the url><
       method:'POST',
       body 
     })
+    // javascript promise: value that is unknown now, it is called when it is received by the server?
     .then( function( response ) {
       // do something with the reponse 
       console.log( response )
@@ -54,7 +63,7 @@
 
     return false
   }
-
+ // makes sure nothing has run until everything on the page has loaded
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit

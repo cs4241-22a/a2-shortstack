@@ -19,9 +19,13 @@ addToDoButton.addEventListener('click', function(){
 
     // this clears our newTask input field so that we can add a new task
     newTask.value = "";
+
+    // crosses out item if you click
     paragraph.addEventListener('click',function(){
         paragraph.style.textDecoration = "line-through";
     })
+
+    // removes item if you double click
     paragraph.addEventListener('dblclick',function(){
         toDoList.removeChild(paragraph);
     })
