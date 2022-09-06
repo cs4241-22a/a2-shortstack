@@ -1,22 +1,40 @@
-/*Style your own assignment! This is fun! */
 body {
     background-color: #E0FFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.child {
+    order: 1;
 }
 h1, label, button, input {
     font-family: "Montserrat", serif;
+}
+button {
+    background-color: #686868;
+    border: none;
+    color: white;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration:blue;
 }
 td {
     text-align: center;
     font-size: 90%;
 }
 table {
+    border-collapse: collapse;
     width: 50%;
-    margin-top: 10px;
+    margin-top: 25px;
     font-family: "Montserrat", serif;
 }
 .bold {
     font-weight: bold;
 }
-#view_button {
-    margin-top: 10px;
+#submit_button {
+    background-color: darkgreen;
+}
+.tableButtons{
+    background-color: darkred;
+    width: 100%;
 }

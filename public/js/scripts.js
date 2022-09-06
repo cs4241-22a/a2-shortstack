@@ -1,7 +1,8 @@
-let items = []
 let rowIndex = 0
 let i = 0
 let originalHTML = ''
+let id = 0
+
 
 const submit = function( e ) {
     // prevent default form action from being carried out
@@ -24,6 +25,10 @@ const submit = function( e ) {
         json.priority = 'No'
     }
 
+    json.id = id
+    
+    id++
+
     body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -31,52 +36,18 @@ const submit = function( e ) {
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
-        // document.getElementById( 'view_button' ).hidden = false
-        return response.json()
+      return response.json()
     })
     .then ( function ( json ) {
-      items.push(json)
       renderTable(json)
       document.getElementById('list_table').hidden = false
     })
 
-    // .then (function ( response ) {
-    //   document.getElementById( 'view_button' ).hidden = false
-
-    //   items.push(JSON.parse())
-    //   renderList()
-    //   console.log( response )
-    // })
-
-
     return false
   }
 
-  // const view_table = function( e ) {
-  //   e.preventDefault
-  //   update_table
-  //   document.getElementById('list_table').hidden = false
-  // }
-
-  const update_table = function ( e ) {
-    e.preventDefault
-
-    // fetch( '/', {
-    //   method:'GET', 
-    // })
-    // .then( function( response ) {
-    //     items = JSON.parse(response.data)
-
-    //     renderList()
-      
-    //   console.log( response )
-    // })
-
-  }
-
-  function deleteRow ( element ) {
-    body = JSON.stringify(element)
+  function deleteRow ( json ) {
+    body = JSON.stringify(json)
     fetch( '/delete', {
       method:'POST',
       body 
@@ -85,15 +56,11 @@ const submit = function( e ) {
       return response.json()
     })
     .then ( function ( json ) {
-      const index = items.indexOf(JSON.parse(json))
-      items.splice(index, 1)
-      items.pop(json)
-      renderTable()
+      renderTable(json)
     })
   }
 
-  function renderTable() {
-    //console.log(json)
+  function renderTable(items) {
     tbl = document.getElementById( 'list_table' )
 
     if (i == 0) {
@@ -121,13 +88,13 @@ const submit = function( e ) {
       dueDate.innerText = json.dueDate
   
       const actions = document.createElement('td')
-      const editButton = document.createElement('button')
-      editButton.innerText = 'Edit'
       const deleteButton = document.createElement('button')
-      //deleteButton.onclick = deleteRow
+      deleteButton.className = 'tableButtons'
+      deleteButton.onclick = function ( e ) {
+        deleteRow(json)
+      }
       deleteButton.innerText = 'Delete'
   
-      actions.appendChild(editButton)
       actions.appendChild(deleteButton)
   
       newRow.appendChild(item)
@@ -138,11 +105,15 @@ const submit = function( e ) {
   
       tbl.appendChild(newRow)
     })    
+
+    if (tbl.rows.length == 1) {
+      tbl.hidden = true
+    } else {
+      tbl.hidden = false
+    }
   }
 
   window.onload = function() {
     const submit_button = document.getElementById( 'submit_button' )
-    const view_button = document.getElementById('view_button')
     submit_button.onclick = submit
-    //view_button.onclick = view_table
   }

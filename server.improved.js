@@ -55,17 +55,16 @@ const handlePost = function( request, response ) {
       // ... do something with the data here!!!
       appdata.push( newItem )
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(newItem))
+      response.end(JSON.stringify(appdata))
     } else if (request.url === '/delete') {
-      let deletedItem = ''
-      appdata.forEach( item => {
-        if (item == JSON.parse(dataString)) {
-          const index = appdata.indexOf(JSON.parse(dataString))
-          deletedItem = array.splice(index, 1)
+      appdata.forEach( (item, i) => {
+        if (JSON.stringify(item) == dataString) {
+          //const index = appdata.indexOf(JSON.parse(dataString))
+          appdata.splice(i, 1)
         }
       })
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(deletedItem))
+      response.end(JSON.stringify(appdata))
     }
 
   })
