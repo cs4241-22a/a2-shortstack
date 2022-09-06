@@ -82,6 +82,6 @@ const updateTableWithData = function (currentData) {
 };
 
 window.onload = function () {
-  const button = document.querySelector("#submit");
+  const button = document.querySelector("#addEntry");
   button.onclick = addEntry;
 };
