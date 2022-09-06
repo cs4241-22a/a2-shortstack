@@ -3,39 +3,65 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href = "/public/css/style.css">
+    <link rel="stylesheet"  href = "/public/css/style.css">
+    
   </head>
   <body>
     <!-- `action` specifies where to send the form-data 
      <form action = "/server.improved.js" method= "post"> -->
     <form >
       <h1> To Do  List</h1>
-      <!--
-      <div>
-      <button>delete</button>
-      <button>completed</button>
-      <button>submit</button>
-    </div>
--->
+
+
     <div>
       <label for="newTask">New Task:</label>
       <input type='text' id='newTask' placeholder="sample task"> 
+
+      <div id = "dropDowns"> 
+        <select id="ToDoType" >
+          <option value="School">School </option>
+          <option value="Work">Work </option>
+          <option value="Other">Other </option>
+        </select>
+
+        <select id="Difficulty" >
+          <option value="Easy">Easy </option>
+          <option value="Medium">Medium </option>
+          <option value="Hard">Hard </option>
+        </select>
+
+        <select id="Semester" >
+          <option value="Fall">Fall </option>
+          <option value="Spring">Spring </option>
+          <option value="Summer">Summer </option>
+        </select>
+
+        <select id="Year" >
+          <option value="2022">2022 </option>
+          <option value="2023">2023 </option>
+          <option value="2024">2024 </option>
+          <option value="2025">2025 </option>
+        </select>
+    </div>
+
+      <br>
+      <button id = "submitButton">submit</button>
       <button id="taskNewButton">+</button>
       
+ 
       <div class="toDoList" id="toDoList">
-      <button>submit</button>  
-      
+       <h2> <u>Tasks to Complete</u></h2>
+      <br>
     </div> 
-
-
-
+   
     </div>
   
     </form>  
-    <!-- <script src="/public/js/scripts.js"></script> -->
     
-    </script>
+  
+    <script src="/public/js/scripts.js"></script>
     </body>
+
   <script>
 
   const submit = function( e ) {
@@ -43,9 +69,14 @@
     e.preventDefault()
 
 // references first with attribute inside parenthesis ( ~ to getElementById but more general )
-    const input = document.querySelector( '#newTask' ), 
+    const input = document.querySelector( '#newTask' ) 
+    const field1 = document.querySelector( '#ToDoType')
+    const field2 = document.querySelector('#Difficulty')
+    const field3= document.querySelector("#Semester")
+    const Year = document.querySelector("#Year"),
     // creating json object from our input     
-          json = { yourname: input.value}, //why use json here?
+          json  = { Task: input.value, ToDoType: field1.value, Difficulty: field2.value, Year: field3.value},
+            //json is used since it makes data easy to manipulate
 // stringify will convert this object into a string
           body = JSON.stringify( json )
           
@@ -56,7 +87,7 @@
     })
     // javascript promise: value that is unknown now, it is called when it is received by the server?
     .then( 
-      function( response ) {
+      function(  response ) {
       // do something with the reponse 
       //  console.log( response.json() )
         return response.json()
@@ -71,6 +102,7 @@
   }
  // makes sure nothing has run until everything on the page has loaded
   window.onload = function() {
+    // const button = document.querySelector( 'button' )
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }

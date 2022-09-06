@@ -51,12 +51,19 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
    // console.log( JSON.parse( dataString ) )
-
+    
     // ... do something with the data here!!!
     dataJson = JSON.parse(dataString)
-    dataJson.note = "completed"
-    console.log(dataJson)
 
+
+     let field2 = dataJson.Difficulty;
+     let field3 = dataJson.Year;
+     dataJson.DerivedSemester = field2 + '/' + field3
+
+
+    // dataJson.note = "completed"
+    console.log(dataJson)
+    
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(dataJson)) 
   })
