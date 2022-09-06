@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href ="./css/style.css" />
+    <link rel="stylesheet" href="https://fonts.google.com/specimen/Antonio">
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
   </head>
@@ -10,22 +11,22 @@
     <br>
     <div class="wrapper">
     <div id="header">
-    <h2 class="header" style="font-family:'Courier New'">My Homework Assignments</h2>
-    <p style="font-family:'Courier New'">Add or remove assignments from the table.</p>
+    <h2 class="header">My Homework Assignments</h2>
+    <p>Add or remove assignments from the table.</p>
   </div>
     <table style="width:100%" id="table" >
       <tr>
-        <th style="font-family:'Courier New'"><b>Assignment</b></th>
-        <th style="font-family:'Courier New'"><b>Course</b></th>
-        <th style="font-family:'Courier New'"><b>Due Date</b></th>
-        <th style="font-family:'Courier New'"><b>Days Until Due</b></th>
+        <th><b>Assignment</b></th>
+        <th><b>Course</b></th>
+        <th><b>Due Date</b></th>
+        <th><b>Days Until Due</b></th>
       </tr>
   
       <tr>
-        <td style="font-family:'Courier New'"><b><b>Example Assignment #1</b></td>
-        <td style="font-family:'Courier New'"><b>Software Engineering</b></td>
-        <td style="font-family:'Courier New'"><b>09/24/2022</b></td>
-        <td style="font-family:'Courier New'"><b>19 (example)</b></td>
+        <td><b><b>Example Assignment #1</b></td>
+        <td><b>Software Engineering</b></td>
+        <td><b>09/24/2022</b></td>
+        <td><b>19 (example)</b></td>
       </tr>
 
     </table>
@@ -33,22 +34,22 @@
 
     <div id="forms">
     <form action="">
-      <h3 class="header" style="font-family:'Courier New'"><b>Add Assignment:</b></h3>
-      <label for="assignment" style="font-family:'Courier New'">Assignment:</label>
-      <input type="text" id="assignment" name="assignment" size ="15"  style="font-family:'Courier New'"placeholder="assignment">
-      <label for="course" style="font-family:'Courier New'">Course:</label>
-      <input type="text" id="course" name="assignment" size ="15" style="font-family:'Courier New'" placeholder="course">
-      <label for="date" style="font-family:'Courier New'">Date:</label>
-      <input type="text" id="date" name="date" size ="15" style="font-family:'Courier New'" placeholder="DD/MM/YYYY">
-     <button id="add_button" style="font-family:'Courier New'">submit</button>
+      <h3 class="header"><b>Add Assignment:</b></h3>
+      <label for="assignment">Assignment:</label>
+      <input type="text" id="assignment" name="assignment" size ="15" placeholder="assignment">
+      <label for="course">Course:</label>
+      <input type="text" id="course" name="assignment" size ="15" placeholder="course">
+      <label for="date">Date:</label>
+      <input type="text" id="date" name="date" size ="15" placeholder="DD/MM/YYYY">
+     <button id="add_button">submit</button>
      </form>
      <br>
 
-      <form action="" style="font-family:'Courier New'">
+      <form action="">
       <h3 class="header"><b>Remove Assignment:</b></h3>
       <label for="remove_assignment">Assignment:</label>
       <input type="text" id="remove_assignment" name="remove_assignment" size ="15" style="font-family:'Courier New'" placeholder="assignment">
-      <button id="remove_button" style="font-family:'Courier New'">submit</button>
+      <button id="remove_button">submit</button>
       </form>
       <br>
     </div>
@@ -56,151 +57,5 @@
       
   </div>
   </body>
-  <script>
-    
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#assignment','#course','#date', '#time_until' ),
-          json = { assignment: input.value, course: course.value, date: date.value, time_until:""},
-          body = JSON.stringify( json )
-    
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( response => response.json() )
-    .then( json => {
-      fetch( '/getrequest', {
-      method:'GET'
-    })
-
-    .then(response => response.json())
-    .then(json => {
-      let index = 1
-      json.forEach(item=>{
-        
-        if(index >= table.rows.length-1){
-          const table = document.getElementById('table')
-          var row = table.insertRow(table.rows.length);
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          var cell3 = row.insertCell(2);
-          var cell4 = row.insertCell(3);
-          cell1.innerHTML = item.assignment;
-          cell2.innerHTML = item.course;
-          cell3.innerHTML = item.date;
-          cell4.innerHTML = item.time_until;
-
-        }
-        index = index+1;
-        
-      })
-    })
-    })
-    return false
-  }
-
-
-
-  const remove = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-
-    const input = document.querySelector( '#remove_assignment'),
-          json = { remove_assignment: input.value},
-          body = JSON.stringify( json )
-
-    fetch( '/delete', {
-      method:'POST',
-      body 
-    })
-    .then( response => response.json() )
-    .then( json => {
-      fetch( '/getdelete', {
-      method:'GET'
-    })
-
-    .then(response => response.json())
-    .then(json => {
-      let index = 1
-      json.forEach(item=>{
-        if(index >= table.rows.length-1){
-          const table = document.getElementById('table')
-          var row = table.insertRow(table.rows.length);
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          var cell3 = row.insertCell(2);
-          var cell4 = row.insertCell(3);
-          cell1.innerHTML = item.assignment;
-          cell2.innerHTML = item.course;
-          cell3.innerHTML = item.date;
-          cell4.innerHTML = item.time_until;
-        }
-        index = index+1;
-        
-      })
-    })
-    })
-    location.reload()
-    return false
-  }
-
-
-
-
-  window.onload = function() {
-    fetch( '/getrequest', {
-      method:'GET'
-    })
-    .then(response => response.json())
-    .then(json => {
-      json.forEach(item=>{
-        const table = document.getElementById('table')
-        var row = table.insertRow(table.rows.length);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        cell1.innerHTML = item.assignment;
-        cell2.innerHTML = item.course;
-        cell3.innerHTML = item.date;
-        cell4.innerHTML = item.time_until;
-      })
-    })
-
-    fetch( '/getdelete', {
-      method:'GET'
-    })
-    .then(response => response.json())
-    .then(json => {
-      let index = 1
-      json.forEach(item=>{
-        if(index >= table.rows.length-1){
-          const table = document.getElementById('table')
-          var row = table.insertRow(table.rows.length);
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          var cell3 = row.insertCell(2);
-          var cell4 = row.insertCell(3);
-          cell1.innerHTML = item.assignment;
-          cell2.innerHTML = item.course;
-          cell3.innerHTML = item.date;
-          cell4.innerHTML = item.time_until;
-        }
-        index = index+1;
-      })
-    })
-
-    //const button = document.querySelector( 'button' )
-    const add_button = document.getElementById('add_button')
-    const remove_button = document.getElementById('remove_button')
-    add_button.onclick = submit
-    remove_button.onclick = remove
-  }
-
-  </script>
+  <script src="./js/scripts.js"></script>
 </html>
