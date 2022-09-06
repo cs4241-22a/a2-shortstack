@@ -1,11 +1,13 @@
 /*Style your own assignment! This is fun! */
 
+ /*Element Selector*/
  table, th, td {
     border: 1px solid black;
         border-collapse: collapse;
         background-color: #96D4D4;
  }
 
+ /*Element Selector WITH GOOGLE FONT -- "ANTONIO"*/
  body {
    font-family: "Antonio",sans-serif;
    text-align: center;

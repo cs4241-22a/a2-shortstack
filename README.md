@@ -1,7 +1,7 @@
 ## Assignment 2 - Homework Assignment List
 
 <b>Jacob Chlebowski - jachlebowski@wpi.edu</b> <br>
-Glitch---> link <br>
+Glitch---> https://a2-jacobchlebowski.glitch.me/ <br>
 
 Welcome to my WebWare assignment 2 project. I took advantage of a CSS grid layout to properly include the header, content, and sidebar. The side bar is where assignments can be added or removed. The header is the title of the webpage. The content is the table which assignments are added or removed from. 
 
