@@ -88,11 +88,31 @@ You'll need to use sometype of collaborative software that will enable you both 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+## Baseline Requirements
+The web application allows a user to add and remove songs to a playlist.
+General Notes:
+- The add/remove form does work, but a refresh is required by clicking "Show Playlist"
+- The remove button will remove all instances of an entry to the playlist matching both song and artist name.  This is case sensitive and the exact strings must match, so be sure there is no "space" character after when adding or removing or you will not have the desired outcome
+- Server Logic: the derived field that the server makes is the text field for the album in the table.  A user enters the album name and the server concatenates the previous form values to compute the the full string with album name, song and artist
+
+HTML:
+- HTML form for data entry
+- Results page using table
+- Single page
+
+CSS:
+- External styling sheet of all elements
+- CSS Selectors:
+    - Element selectors - body, header, table, p, etc
+    - ID selectors - #showPlaylist, #add, #remove
+    - Class selector - .form
+- Google font "Roboto" used
+- CSS grid layout
+
+## Banana Music+
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: The entire application is contained within a single page.  There is a form for a user to add data to the server and remove data to the server, and when this is submitted, the server responds with the updated data.  Once the user updates by clicking the "Show Playlist" button, the screen in changed with the updated server data
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
