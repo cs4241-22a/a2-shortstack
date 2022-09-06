@@ -70,9 +70,11 @@ const handlePost = function( request, response ) {
   })
 }
 
+//server logic
 function calculateDueDate (dataString) {
   let obj = JSON.parse(dataString)
 
+   //creation of derived data field
    if (obj.priority == 'Yes') {
     obj.dueDate = '1 day'
   } else {

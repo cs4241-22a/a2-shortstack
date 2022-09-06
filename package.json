@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "cs-4241-simple-stack",
+  "version": "0.1.0",
+  "description": "CS 4241 Assignment 2",
+  "author": "Frank McShan",
   "scripts": {
     "start": "node server.improved.js"
   },

@@ -88,11 +88,18 @@ You'll need to use sometype of collaborative software that will enable you both 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+Frank McShan
+http://a2-fmcshan.glitch.me
+
+## To Do List Generator
+My web application is a to do list generator that lets users input a task, a creation date, and whether or not the task is a priority. After submitting, users can view all of their to dos in a convenient table. A new derived field called "due date" is created based off the priority field inputted by the user. The CSS positioning technique used within the application was a flexbox.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: Using a combination of submit and delete requests, a user is able to submit new to-do items to the server, and then the server sends the updated data back (with the new derived field added) to the client. The client then uses this data to render the table that conveniently displays all of the app's data to the end user. Additionally, the user can click the delete button on the row of the table they'd like to delete, which sends a delete request to the server. The server removes the data field from the app's data and then sends the updated data back to the client, which then renders the table to display the updated data list to the user. This application lives on a single page, utilizes a form for users to submit data to the server, and always shows the current state of the server-side via a table.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
+Student 1
+
+1. Last Name: Lin
+2. 
