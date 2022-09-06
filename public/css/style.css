@@ -1,11 +1,25 @@
+* {
+  font-family: "Roboto", "serif";
+  color: white;
+}
+
 /* Element selectors */
 body {
   background-color: grey;
-  color: white;
-  font-family: "Roboto", "serif";
+}
+
+input {
+  margin-bottom: 5px;
+  color: black;
 }
 
 /* Class selectors */
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  row-gap: 10px;
+}
 .modifyCell {
   background-color: yellow;
 }
@@ -15,14 +29,13 @@ body {
 }
 
 /* ID selectors */
-#inputForm {
-}
-
-#resultsTable {
+#resultsTable th {
+  border: 1px solid black;
 }
 
 #addEntry {
-  color: white;
   background-color: green;
-  border: 1px solid;
+  border: 1px solid black;
+  display: block;
+  margin: 0 auto;
 }
