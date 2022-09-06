@@ -7,7 +7,7 @@ const http = require( 'http' ),
       port = 3000
 
 let appdata = [
-  { 'eventname': 'Lunch', 'location': 'Subway', 'day': "mtwrfsu", 'time': 12, 'timeend': 2, 'duration': 2, 'color': "#FFA500", 'deatils': "yummy"}//,
+  { 'eventname': 'Lunch', 'location': 'Subway', 'day': "mtwrfsu", 'time': 12, 'timeend': 14, 'duration': 2, 'color': "#FFA500", 'deatils': "yummy"}//,
   //{ 'eventname': '', 'location': '', 'day': , 'time': 2004, 'timeend': 30, 'duration': , 'deatils': },
   //{ 'eventname': '', 'location': '', 'day': , 'time': 1987, 'timeend': 14, 'duration': , 'deatils': } 
 ]
