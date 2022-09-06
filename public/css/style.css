@@ -1,1 +1,59 @@
-/*Style your own assignment! This is fun! */
+@font-face {
+    font-family: "RobotoMono";
+    src: url(RobotoMono-VariableFont_wght.woff);
+}
+
+table, td, th{
+    border: 2px solid;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+#textSection {
+    color: blue;
+}
+
+#nonTextSection {
+    align-items: center;
+    color: red;
+}
+
+
+.box1 {
+    grid-area: header;
+}
+
+.box2 {
+    grid-area: text;
+}
+
+.box3 {
+    grid-area: submission;
+}
+
+.box4 {
+    grid-area: table;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 
+    'header header'
+    'text text'
+    'submission table';
+    gap: 10px;
+    padding: 10px;
+}
+
+.grid-container > div {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 20px;
+  }
