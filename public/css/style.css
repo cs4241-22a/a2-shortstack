@@ -1,1 +1,14 @@
-/*Style your own assignment! This is fun! */
+.game {
+    visibility: hidden;
+    text-align: center;
+  }
+  
+  #choices {
+    visibility: hidden;
+    text-align: center;
+  }
+  
+  #scoreSubmit {
+    visibility: hidden;
+  }
+  

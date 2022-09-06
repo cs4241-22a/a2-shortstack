@@ -1,22 +1,33 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>CS4241 Assignment 2</title>        
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/scripts.js"></script>
   </head>
   <body>
     <form action="">
-      <input type='text' id='yourname' value="Your Name Here">
-      <button id = 'nameSubmit'>Submit</button>
+      <input type="text" id="yourname" value="Your Name Here">
+      <button id = "nameSubmit">Submit Name</button>
     </form>
 
-    <div class = "choices">
-      <button id = "rock">Rock</button>
-      <button id = "paper">Paper</button>
-      <button id = "scissors">Scissors</button>
+    <p class = "game" id = "score">Score: 0</p>
+    <p class = "game" id = "player">Player Chose: </p>
+    <p class = "game" id = "computer">Computer Chose: </p>
+    <p class = "game" id = "status">Choose an Option</p>
+    
+    <div id = "choices">
+      <button id = "rock" onclick="rps_game(0)">Rock</button>
+      <button id = "paper" onclick="rps_game(1)">Paper</button>
+      <button id = "scissors" onclick="rps_game(2)">Scissors</button>
     </div>
+    
+    <button id = "scoreSubmit" onclick="submit">Submit</button>
+    
   </body>
   <script>
+
 
   const submit = function( e ) {
     // prevent default form action from being carried out
@@ -39,14 +50,60 @@
 		  })
 	  })
 	  // console.log( response )
-
+    
+    document.getElementById("choices").style.visibility = "visible"
+    document.getElementById("score").style.visibility = "visible"
+    document.getElementById("computer").style.visibility = "visible"
+    document.getElementById("player").style.visibility = "visible"
+    document.getElementById("status").style.visibility = "visible"
+    
     return false
   }
 
+/*
+  const submit = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+
+    let name = document.querySelector( "#yourname" )
+    let score = document.querySelector( "#score" )
+    let rock = document.querySelector( "#rock" )
+    let paper = document.querySelector( "#paper" )
+    let scissors = document.querySelector( "#scissors" )
+    
+    let json = {
+      name: name.value,
+      score: score.value,
+      rock: rock.value,
+      paper: paper.value,
+      scissors: scissors.value,
+    }
+    let body = JSON.stringify(json)
+
+    fetch( '/submit', {
+      method:'POST',
+      body 
+    })
+    .then( async function ( response ) {
+      let data = await response.json()
+      //refresh(data)
+      console.log(data)
+    })
+	  
+    return false
+  }
+  
+  //function refresh(data) {
+    
+  //}
+    */
+  
   window.onload = function() {
     const button = document.querySelector( '#nameSubmit' )
     button.onclick = submit
   }
 
   </script>
+  
+  
 </html>

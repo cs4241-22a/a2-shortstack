@@ -6,10 +6,11 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+
 const appdata = [
-  { 'name': 'joe', 'score': 3, 'most played': 23 },
-  { 'name': 'ben', 'score': 8, 'most played': 30 },
-  { 'name': 'peter', 'score': 5, 'most played': 14} 
+  { 'name': 'May', 'score': '3', 'rock': '2', 'paper': '1', 'scissors': '0' },
+  { 'name': 'Ben', 'score': '8', 'rock': '1', 'paper': '4', 'scissors': '3'},
+  { 'name': 'Peter', 'score': '5', 'rock': '1', 'paper': '2', 'scissors': '5'} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -23,17 +24,22 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
+  
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
-	const html = `
-	<html>
-	<body>
-		${ appdata.map( item => JSON.stringify(item) ) }
-	</body>
-	</html>
-	`
-	response.end( html )
+    sendFile( response, filename)
+    
+    /*
+    const html = `
+    <html>
+    <body>
+      ${ appdata.map( item => JSON.stringify(item) ) }
+    </body>
+    </html>
+    `
+    response.end( html )
+    */
     //sendFile( response, filename )
   }
 }
@@ -46,9 +52,12 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
+    //let newData = JSON.parse( dataString ) 
+    console.log( JSON.parse( dataString )  )
     // ... do something with the data here!!!
+    //const mostPlayed = getMostPlayed(newData.rock, newData.paper, newData.scissors)
+    
+    //appdata.push( newData )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify( appdata ) )
@@ -76,5 +85,30 @@ const sendFile = function( response, filename ) {
      }
    })
 }
+
+/*
+function getMostPlayed(totalRock, totalPaper, totalScissors) {
+  const vals = [totalRock, totalPaper, totalScissors]
+  
+  // j stores the highest value within the array
+  let j = 1
+  for( let i = 0; i < vals.length; i++ ) {
+    if( vals[i] > vals[j]) {
+      j = i
+    }
+  }
+  
+  let mostPlayed = ""
+  switch (j) {
+    case 0:
+      return mostPlayed = "Rock"
+    break
+    case 1:
+      return mostPlayed = "Paper"
+    case 2:
+      return mostPlayed = "Scissors"
+    }
+}
+*/
 
 server.listen( process.env.PORT || port )
