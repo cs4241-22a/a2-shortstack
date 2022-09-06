@@ -3,11 +3,11 @@ let i = 0
 let originalHTML = ''
 let id = 0
 
-
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
+    //construct json string
     const input = document.querySelector( '#item' ),
           json = { item: item.value }
 
@@ -18,7 +18,6 @@ const submit = function( e ) {
     const input3 = document.querySelector( '#priority' ),
           checked = priority.checked
     
-    //let json3 = ''
     if (checked) {
         json.priority = 'Yes'
     } else {
@@ -26,7 +25,6 @@ const submit = function( e ) {
     }
 
     json.id = id
-    
     id++
 
     body = JSON.stringify( json )
@@ -70,8 +68,7 @@ const submit = function( e ) {
       tbl.innerHTML = originalHTML
     }
 
-    console.log(tbl.innerHTML)
-
+    //iterate over each item and add it to table
     items.forEach( json => {
       const newRow = document.createElement('tr')
 

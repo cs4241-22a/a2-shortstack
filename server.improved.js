@@ -1,7 +1,5 @@
 const http = require( 'http' ),
       fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
       mime = require( 'mime' ),
       dir  = 'public/',
       port = 3000
@@ -36,30 +34,15 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
 
-    // let updatedDataset = calculateDueDate(dataString)
-    
-    // let newItem = JSON.parse( updatedDataset ) 
-    // console.log(updatedDataset)
-
-    // // ... do something with the data here!!!
-    // appdata.push( newItem )
-    // response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    // response.end(JSON.stringify(newItem))
-
     if (request.url === "/submit") {
       let updatedDataset = calculateDueDate(dataString)
-    
       let newItem = JSON.parse( updatedDataset ) 
-      console.log(updatedDataset)
-  
-      // ... do something with the data here!!!
       appdata.push( newItem )
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
       response.end(JSON.stringify(appdata))
     } else if (request.url === '/delete') {
       appdata.forEach( (item, i) => {
         if (JSON.stringify(item) == dataString) {
-          //const index = appdata.indexOf(JSON.parse(dataString))
           appdata.splice(i, 1)
         }
       })
