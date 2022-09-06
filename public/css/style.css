@@ -1,1 +1,64 @@
-/*Style your own assignment! This is fun! */
+.reaction_test {
+  background-color: blue;
+  width: 100%;
+  height: 50vh;
+  border-radius: 2.5%;
+  font-size: 2em;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 50em;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  max-width: 50em;
+}
+
+form, body {
+  display: flex;
+  justify-content: center;
+}
+
+form{
+  margin-bottom: 1%;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.glitch.global/9aaa1825-860d-4fa3-a2b5-cb866fbaa1ce/RobotoMono-VariableFont_wght.ttf?v=1662411749644) format("truetype");
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  font-size: 2em;
+}
+
+#rankings {
+  border: none;
+  font-size: 1em;
+  background-color: white;
+}
+#rankings:hover{
+  color: red;
+}
+
+h1, p {
+  display: flex;
+  justify-content: center;
+  font-size: 2.5em;
+}
+
+p {
+  font-size: 1.5em;
+}
+
+input {
+  display: flex;
+  align-content: center;
+  font-size: 1.5em;
+}
