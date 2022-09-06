@@ -72,7 +72,7 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     //parse new data to json
     let newData = JSON.parse(dataString)
-    newData['total'] = newData.price * newData.quantity
+    newData['total'] = (newData.price * newData.quantity).toFixed(2)
 
     //add to our list
     appdata.push(newData)
