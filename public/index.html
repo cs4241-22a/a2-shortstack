@@ -8,53 +8,53 @@
   <body>
     <br>
     <br>
-    <h2 class="header">My Homework Assignments</h2>
-    <p>Add or remove assignments from the table.</p>
-    <table style="width:100%" id="table">
+    <div class="wrapper">
+    <div id="header">
+    <h2 class="header" style="font-family:'Courier New'">My Homework Assignments</h2>
+    <p style="font-family:'Courier New'">Add or remove assignments from the table.</p>
+  </div>
+    <table style="width:100%" id="table" >
       <tr>
-        <th>Assignment</th>
-        <th>Course</th>
-        <th>Due Date</th>
-        <th>Days Until Due</th>
+        <th style="font-family:'Courier New'"><b>Assignment</b></th>
+        <th style="font-family:'Courier New'"><b>Course</b></th>
+        <th style="font-family:'Courier New'"><b>Due Date</b></th>
+        <th style="font-family:'Courier New'"><b>Days Until Due</b></th>
       </tr>
   
       <tr>
-        <td><b>Example Assignment #1</b></td>
-        <td><b>Software Engineering</b></td>
-        <td><b>09/24/2022</b></td>
-        <td><b>19</b></td>
+        <td style="font-family:'Courier New'"><b><b>Example Assignment #1</b></td>
+        <td style="font-family:'Courier New'"><b>Software Engineering</b></td>
+        <td style="font-family:'Courier New'"><b>09/24/2022</b></td>
+        <td style="font-family:'Courier New'"><b>19 (example)</b></td>
       </tr>
 
     </table>
     <br><br><br><br>
 
+    <div id="forms">
     <form action="">
-      <h3 class="header"><b>Add Assignment:</b></h3>
-      <label for="assignment">Assignment:</label>
-      <input type="text" id="assignment" name="assignment" size ="15" placeholder="assignment">
-      <label for="course">Course:</label>
-      <input type="text" id="course" name="assignment" size ="15" placeholder="course">
-      <label for="date">Date:</label>
-      <input type="text" id="date" name="date" size ="15" placeholder="DD/MM/YYYY">
-     <button id="add_button">submit</button>
+      <h3 class="header" style="font-family:'Courier New'"><b>Add Assignment:</b></h3>
+      <label for="assignment" style="font-family:'Courier New'">Assignment:</label>
+      <input type="text" id="assignment" name="assignment" size ="15"  style="font-family:'Courier New'"placeholder="assignment">
+      <label for="course" style="font-family:'Courier New'">Course:</label>
+      <input type="text" id="course" name="assignment" size ="15" style="font-family:'Courier New'" placeholder="course">
+      <label for="date" style="font-family:'Courier New'">Date:</label>
+      <input type="text" id="date" name="date" size ="15" style="font-family:'Courier New'" placeholder="DD/MM/YYYY">
+     <button id="add_button" style="font-family:'Courier New'">submit</button>
      </form>
      <br>
 
-      <form action="">
+      <form action="" style="font-family:'Courier New'">
       <h3 class="header"><b>Remove Assignment:</b></h3>
       <label for="remove_assignment">Assignment:</label>
-      <input type="text" id="remove_assignment" name="remove_assignment" size ="15" placeholder="assignment">
-      <button id="remove_button">submit</button>
+      <input type="text" id="remove_assignment" name="remove_assignment" size ="15" style="font-family:'Courier New'" placeholder="assignment">
+      <button id="remove_button" style="font-family:'Courier New'">submit</button>
       </form>
       <br>
+    </div>
       
-      <!-- <form action="">
-      <h3 class="header"><b>Modify Assignment??:</b></h3>
-      <label for="modify_assignment">Assignment:</label>
-      <input type="text" id="modify_assignment" name="modify_assignment" size ="15" value="assignment">
-      <button>submit</button>
-      </form> -->
-
+      
+  </div>
   </body>
   <script>
     
