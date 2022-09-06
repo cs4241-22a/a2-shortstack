@@ -18,11 +18,15 @@ Below are the **Technical and Design Achievements**.
 
 (5 pts)<b>Last Name: Gregg:</b>
 2) Had a problem with inputting date values. Helped me use the type="date" instead of text box. This makes it easier for users to enter dates.
+
 3) I was surprised when they mentioned that they placed a delete button next to all of their added items to their lists. Its different because mine has one single remove button that uses a keyword as opposed to clicking delete ON the actual item.
+
 4) Based on their feedback, I already changed the form for inputting a date. Origianlly, I had the user type it into the text box, but they helped me changed it so it's easier to select a date that's valid as well.
 
 
 (5 pts)<b>Last Name: Humphrey:</b>
 2) Had a problem with the design (UI) of the app. Mentions the header and content (table) isn't centered enough (which I agree with).
+
 3) I was surprised when they told me they liked the ability to duplicate assignments, even though it isn't entirely necessary. The reason they liked it was because if an assignment happened to change a due date, they could make another one and delete the first one respectively the way it works with my application.
+
 4) Based on their feedback, I changed the location of my sidebar (now on the left) and have my content and header lined up with one-another.
