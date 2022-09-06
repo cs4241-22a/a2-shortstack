@@ -6,7 +6,7 @@ This project shows ...
     #1 Single Page web application that can add an assigment with a subject and deadline, with a derived field of 
     priority (high or low) based on if the assignment is CS or not and the name of the assigment being "MQP". The
     current assignments are always dislayed on the websites table and is updated when new ones are added or old ones are
-    deleted. Uses a CSS grid and Ubunti Google Font while using Element selectors, ID selectors, Class selectors
+    deleted. Uses a CSS grid and Ubuntu Google Font while using Element selectors, ID selectors, Class selectors
 
 
 
