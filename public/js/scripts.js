@@ -9,7 +9,7 @@ const submitForm = function(e)  {
         itemPrice = document.getElementById( 'itemPrice' ),
         json = {name: itemName.value,
                 quantity: parseInt(itemQuantity.value),
-                price: parseInt(itemPrice.value)},
+                price: parseFloat(itemPrice.value)},
         body = JSON.stringify( json )
 
   fetch( '/submit', {
