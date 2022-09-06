@@ -1,6 +1,6 @@
 // Add some Javascript code here, to run on the front end.
 console.log("Welcome to assignment 2!")
-
+alert("hello")
 // getElementbyID: gets element from our HTML based on it's ID
 let addToDoButton = document.getElementById("taskNewButton");
 let toDoList = document.getElementById("toDoList");

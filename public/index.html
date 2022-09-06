@@ -6,13 +6,12 @@
     <link rel="stylesheet" href = "/public/css/style.css">
   </head>
   <body>
-    <!-- `action` specifies where to send the form-data-->
-    <form action = "/server.improved.js" method= "post">
+    <!-- `action` specifies where to send the form-data 
+     <form action = "/server.improved.js" method= "post"> -->
+    <form >
       <h1> To Do  List</h1>
       <!--
       <div>
-      <label for="task1">Task 1:</label>
-      <input type='text' id='task1' value="sample task" >
       <button>delete</button>
       <button>completed</button>
       <button>submit</button>
@@ -20,7 +19,8 @@
 -->
     <div>
       <label for="newTask">New Task:</label>
-      <input type='text' id='newTask' placeholder="sample task"> <button id="taskNewButton">+</button>
+      <input type='text' id='newTask' placeholder="sample task"> 
+      <button id="taskNewButton">+</button>
       
       <div class="toDoList" id="toDoList">
       <button>submit</button>  
@@ -32,7 +32,7 @@
     </div>
   
     </form>  
-    <script src="/public/js/scripts.js"></script>
+    <!-- <script src="/public/js/scripts.js"></script> -->
     
     </script>
     </body>
@@ -42,23 +42,29 @@
     // prevent default from trying to go to another page
     e.preventDefault()
 
-// references element that is in parenthesis ( ~ to getElementById but more general )
-    const input = document.querySelector( '#yourname' ), 
-    // creating json object from our input     //why use json here?
-          json = { yourname: input.value },
-
+// references first with attribute inside parenthesis ( ~ to getElementById but more general )
+    const input = document.querySelector( '#newTask' ), 
+    // creating json object from our input     
+          json = { yourname: input.value}, //why use json here?
 // stringify will convert this object into a string
           body = JSON.stringify( json )
-
-    // fetch will do an ansynchronous network request ( ones used in server)
+          
+    // fetch will do an ansynchronous network request ( ones used in server) - returns a promise?
     fetch( '/submit', { // fetch is where you specify the url><
       method:'POST',
-      body 
+      body
     })
     // javascript promise: value that is unknown now, it is called when it is received by the server?
-    .then( function( response ) {
+    .then( 
+      function( response ) {
       // do something with the reponse 
-      console.log( response )
+      //  console.log( response.json() )
+        return response.json()
+      }
+    )
+    .then( function(res){
+      // do something with res 
+      console.log(res)
     })
 
     return false

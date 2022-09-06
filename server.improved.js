@@ -1,8 +1,14 @@
+//require is ~ to include
+// gives access to http
 const http = require( 'http' ),
-      fs   = require( 'fs' ),
+// gives access to file system
+fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
+
+      //mime is a way of saying what type of data you have
       mime = require( 'mime' ), 
+      //directory ( no need to put in .create server)
       dir  = 'public/',
       port = 3000
 
@@ -13,6 +19,10 @@ const appdata = [
 ]
 
 const server = http.createServer( function( request,response ) {
+  //added
+  //sendFile() treansfers the file at the given path and sets the response HTTP header field based on the file extension
+
+  //
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
@@ -24,6 +34,7 @@ const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
   if( request.url === '/' ) {
+    //sendFile() treansfers the file at the given path and sets the response HTTP header field based on the file extension
     sendFile( response, 'public/index.html' )
   }else{
     sendFile( response, filename )
@@ -31,19 +42,23 @@ const handleGet = function( request, response ) {
 }
 
 const handlePost = function( request, response ) {
-  let dataString = ''
+  let dataString = '' 
 
   request.on( 'data', function( data ) {
       dataString += data 
-  })
+    }
+  )
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+   // console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    dataJson = JSON.parse(dataString)
+    dataJson.note = "completed"
+    console.log(dataJson)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(dataJson)) 
   })
 }
 
@@ -63,7 +78,7 @@ const sendFile = function( response, filename ) {
 
        // file not found, error code 404
        response.writeHeader( 404 )
-       response.end( '404 Error: File Not Found' )
+       response.end( '404 Error: File Not Found!!!' )
 
      }
    })
