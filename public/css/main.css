@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 
 /* =============== CSS RESET =============== */
 * {
@@ -35,27 +35,65 @@
   padding: 2em 0 4em;
 }
 
-.sidebar {
-  max-width: 150px;
-  align-items: center;
-  border-right: 1px solid;
-  padding-right: 0.5em;
-}
-
-.sidebar > h1 {
-  font-size: 1rem;
-  line-height: normal;
-}
-
 .info {
   padding: 0 0 2em 2em;
   flex-direction: column;
-  flex-grow: 1;
+}
+
+/* =============== FORM STYLING =============== */
+
+.form-container {
+  border-right: 1px solid;
+  display: inherit;
+  align-items: center;
+  padding: 0 2em;
+  width: 400px;
 }
 
 #input-form {
-  flex: 1;
-  display: flex;
+  display: inherit;
+  flex-direction: column;
+  width: 100%;
+}
+
+#top-field {
+  display: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  background-color: transparent;
+  color: inherit;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+#top-field * {
+  border: 0;
+  border-bottom: 1px solid #d2d2d2;
+  outline: 0;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+#input-form * {
+  font-family: inherit;
+  margin: 0.5em 0;
+}
+
+#input-form input[type="text"],
+textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #d2d2d2;
+  outline: 0;
+  font-size: inherit;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+#input-form textarea {
+  height: 500px;
 }
 
 /* =============== TYPOGRAPHY =============== */
@@ -64,12 +102,12 @@
 body {
   background-color: white;
   color: black;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: "Roboto", sans-serif;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   line-height: 8rem;
 }
 

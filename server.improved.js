@@ -103,8 +103,6 @@ const handlePost = function (request, response) {
       data.deadline = addDays(data.creation_time, days);
     }
 
-    console.log(data);
-
     appdata.push(data);
 
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });

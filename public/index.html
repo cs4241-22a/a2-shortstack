@@ -5,6 +5,7 @@
     <link href="./css/main.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/scripts.js"></script>
   </head>
   <body id="page-wrapper">
     <div id="page-container">
@@ -12,71 +13,48 @@
         <img class="shake" src="./assets/images/panda.png" alt="logo" />
       </header>
       <main class="content">
-        <div class="content sidebar">
-          <h1>form submission</h1>
-        </div>
-        <section class="info">
-          <h1>[this is a title]</h1>
-          <p>[this is some text]</p>
-          <form action="" id="input-form">
-            <select name="priority" required>
-              <option value="urgent">URGENT</option>
-              <option value="high">HIGH</option>
-              <option value="med">MEDIUM</option>
-              <option value="low">LOW</option>
-            </select>
-            <select name="type" required>
-              <option value="mqp">MQP</option>
-              <option value="academics">ACADEMICS</option>
-              <option value="work">WORK</option>
-              <option value="other">OTHER</option>
-            </select>
-            <input name="title" type="text" value="Task title" required />
-            <input
+        <aside class="form-container">
+          <form id="input-form">
+            <div id="top-field">
+              <select name="priority" required>
+                <option value="" disabled selected>PRIORITY</option>
+                <option value="urgent">URGENT</option>
+                <option value="high">HIGH</option>
+                <option value="med">MEDIUM</option>
+                <option value="low">LOW</option>
+              </select>
+              <select name="type" required>
+                <option value="" disabled selected>TYPE</option>
+                <option value="mqp">MQP</option>
+                <option value="academics">ACADEMICS</option>
+                <option value="work">WORK</option>
+                <option value="other">OTHER</option>
+              </select>
+              <input type="datetime-local" name="deadline" />
+            </div>
+            <input name="title" type="text" placeholder="Task title" required />
+            <textarea
               name="description"
-              type="text"
-              value="Description of task"
+              placeholder="Description of task"
               required
-            />
-            <input type="datetime-local" name="deadline" />
-            <button type="submit">click here</button>
+            ></textarea>
           </form>
-          <section id="results"></section>
+        </aside>
+        <section class="info">
+          <h1>todo list</h1>
+          <table>
+            <tr>
+              <th>Priority</th>
+              <th>Type</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Creation Time</th>
+              <th>Deadline</th>
+            </tr>
+            <tbody id="results"></tbody>
+          </table>
         </section>
       </main>
     </div>
   </body>
-  <script language="javascript" type="text/javascript">
-    const submit = function (e) {
-      /* Prevent default form action from being carried out */
-      e.preventDefault();
-
-      const data = new FormData(document.getElementById("input-form")),
-        json = Object.fromEntries(data.entries()),
-        body = JSON.stringify(json);
-
-      fetch("/submit", {
-        method: "POST",
-        body,
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          const results = document.querySelector("#results");
-          results.innerHTML = "";
-
-          json.forEach((item) => {
-            const p = document.createElement("p");
-            p.innerText = JSON.stringify(item);
-            results.appendChild(p);
-          });
-        });
-
-      return false;
-    };
-
-    window.onload = function () {
-      const button = document.querySelector("button");
-      button.onclick = submit;
-    };
-  </script>
 </html>
