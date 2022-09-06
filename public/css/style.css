@@ -1,1 +1,27 @@
-/*Style your own assignment! This is fun! */
+* {
+  font-family: 'DM Sans', sans-serif;
+}
+
+body {
+  background-color: #CCD6D2;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 80vw;
+}
+
+form {
+  text-align: center;
+}
+
+li {
+  list-style: none;
+}
+
+table#entryTable {
+  width: 100%;
+}
+
+table, tr, th, td {
+  border: 2px solid white;
+  border-collapse: collapse;
+}

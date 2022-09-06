@@ -13,9 +13,9 @@ const appdata = [
 ]
 
 const server = http.createServer( function( request,response ) {
-  if( request.method === 'GET' ) {
+  if ( request.method === 'GET' ) {
     handleGet( request, response )    
-  }else if( request.method === 'POST' ){
+  } else if ( request.method === 'POST' ) {
     handlePost( request, response ) 
   }
 })
@@ -23,9 +23,9 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
+  if ( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else {
     sendFile( response, filename )
   }
 }
@@ -53,13 +53,13 @@ const sendFile = function( response, filename ) {
    fs.readFile( filename, function( err, content ) {
 
      // if the error = null, then we've loaded the file successfully
-     if( err === null ) {
+     if ( err === null ) {
 
        // status code: https://httpstatuses.com
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
 
-     }else{
+    } else {
 
        // file not found, error code 404
        response.writeHeader( 404 )

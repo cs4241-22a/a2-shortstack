@@ -3,30 +3,49 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <script src="./js/scripts.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Mukta:wght@200&display=swap" rel="stylesheet">
   </head>
+  
   <body>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <input type="text" id="yourname" placeholder="your name here">
       <button>submit</button>
+      <ul id="entryList">
+      </ul>
+      <table id="entryTable">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Entry TS</th>
+          </tr>
+        </tbody>
+      </table>
     </form>
   </body>
+  
   <script>
-
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
     const input = document.querySelector( '#yourname' ),
           json = { yourname: input.value },
-          body = JSON.stringify( json )
+          a = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      body: a
     })
-    .then( function( response ) {
-      // do something with the reponse 
+    .then( response => {
+      // do something with the response 
       console.log( response )
+      let now = new Date()
+      addToList(input.value, now)
+      return
     })
 
     return false
@@ -34,8 +53,9 @@
 
   window.onload = function() {
     const button = document.querySelector( 'button' )
-    button.onclick = submit
+    button.onclick = function (e) {
+      submit(e)
+    }
   }
-
   </script>
 </html>
