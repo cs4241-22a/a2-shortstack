@@ -1,6 +1,6 @@
 ## Assignment 2 - Short Stack
 
-[Glitch Link]()
+[Glitch Link](https://a2-dtavana.glitch.me)
 
 In this assignment, I decided to create an application that stores the results and scores of a player in a game. The 3 fields that are able to be set as inputs include:
 
