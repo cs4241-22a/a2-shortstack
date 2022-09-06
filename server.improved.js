@@ -11,7 +11,7 @@ const appdata = [
     'assignment': 'Webware Assignment 2',
     'subject': 'CS',
     'dead_line': '2022-09-08',
-    'priority': 'High'
+    'priority': 'Medium   '
   },
   {
     'assignment': 'ENV 1110 Presentation',
@@ -20,7 +20,7 @@ const appdata = [
     'priority': 'Low'
   },
   {
-    'assignment': 'MQP Research',
+    'assignment': 'MQP',
     'subject': 'CS',
     'dead_line': '2022-12-12',
     'priority': 'High'
@@ -59,7 +59,7 @@ const handlePost = function( request, response ) {
   request.on('end', () => {
 
     let newTask = JSON.parse(dataString)
-    newTask.priority = isCS(newTask.subject)
+    newTask.priority = isCS(newTask.subject,newTask.assignment)
     appdata[appdata.length] = newTask
     sendListData(response)
   })
@@ -98,10 +98,13 @@ const sendListData = function (response) {
   response.end(JSON.stringify(appdata))
 }
 
-const isCS = function (subject) {
+const isCS = function (subject, assignment) {
 
   if (subject === "CS" || subject === "cs" || subject === "Computer Science ")
-    return 'High'
+    if (assignment === "MQP")
+      return 'High'
+    else
+      return 'Medium'
   else
     return 'Low'
 
