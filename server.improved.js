@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'listItem': 'Laundry', 'dueDate': 0907, 'priority': 'low', 'urgent': 0 },
+  { 'listItem': 'Clean', 'dueDate': 0907, 'priority': 'medium', 'urgent': 0 },
+  { 'listItem': 'Webware assignment', 'dueDate': 0908, 'priority': 'high', 'urgent': 0 } 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -26,6 +26,24 @@ const handleGet = function( request, response ) {
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
+     /*const html = 
+     `<html>
+         <body>
+             <form action="">
+                <input type="text" id="yourname" value="your name here">
+                <button>submit</button>
+             </form>
+             <ul id = "list">
+                debugger
+                <!--ol>${appdata.map(item => JSON.stringify(item))[0]}</ol-->
+                <ol>${JSON.stringify(appdata[0])}</ol>
+                <ol>${JSON.stringify(appdata[1])}</ol>
+                <ol>${JSON.stringify(appdata[2])}</ol>
+             </ul>
+         </body>
+     <html>`*/
+    
+    //response.end(html)
     sendFile( response, filename )
   }
 }
@@ -34,15 +52,35 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
+      //no data ?
+      console.log(data)
       dataString += data 
   })
 
   request.on( 'end', function() {
+    
+    //problem here
+    console.log("datastring")
     console.log( JSON.parse( dataString ) )
+    let newItem = JSON.parse( dataString )
+    if(!newItem.listItem || !newItem.dueDate || !newItem.priority){
+        //newItem.feedback = "Field cannot be empty"
+    }
+    else if(newItem.del === true){
+        remove(appdata)
+    }
+    else{
+        //console.log("is greater than 0")
+        appdata.push(newItem)
+        if(getMin(appdata) === parseInt(newItem.dueDate) && newItem.priority === "high"){
+            newItem.urgent = 1
+        }
+    }
 
-    // ... do something with the data here!!!
-
+    console.log( newItem )
+    
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write(JSON.stringify(appdata))
     response.end()
   })
 }
@@ -67,6 +105,27 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+const getMin = function(array){
+    date = 1000;
+    for(let i = 0; i < array.length; i++){
+        curDate = parseInt(array[i].dueDate)
+        if(curDate < date){
+            date = curDate
+        }
+    }
+    console.log("minDate:")
+    console.log(date)
+    return date
+}
+
+const remove = function(array){
+    const index = 0
+    if(index > -1){
+        array.splice(index, 1)
+    }
+    console.log(array)
 }
 
 server.listen( process.env.PORT || port )
