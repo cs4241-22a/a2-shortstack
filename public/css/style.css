@@ -1,23 +1,95 @@
-/*Style your own assignment! This is fun! */
 h1 {
     font-family: 'Plus Jakarta Sans';
     margin-top: 1em;
     padding-top: 1em;
+    color: white;
+    display: flex;
+    justify-content: center;
+    font-size: 3vw;
+}
+
+body p {
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+    text-align: center;
+    font-size: 1.5vw;
 }
 
 body {
     font-family: 'Anek Telugu';
     margin: 0 auto;
     max-width: 50em;
+    color: white;
+    background-color: rgb(17, 64, 87);
+    display: block;
+    justify-content: center;
+    font-size: 2vw;
+    padding: 10%;
 }
  
 #table-header {
     font-weight: bold;
-    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-/*
-Change input to start as gray until edited
+
+#table-header tr {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+
+#table-body {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 2vw;
+}
+
 input {
-    color: gray;
+    color: black;
 }
-*/ 
+
+form {
+    flex-wrap: wrap;
+}
+
+button {
+    font-size: 80%;
+}
+
+input[type=text] {
+    width: 50%;
+    margin: 4px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-size: 70%;
+}
+
+input[type=number] {
+    width: 50%;
+    margin: 4px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-size: 70%;
+}
+
+input[type=date] {
+    width: 50%;
+    margin: 4px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-size: 70%;
+}
+
+body button {
+    background-color: rgb(215, 69, 245);
+    color: white;
+    border-radius: 8px;
+    border: 4px solid rgb(215, 69, 245);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.2), 0 10px 50px 0 rgba(0,0,0,0.2);
+}

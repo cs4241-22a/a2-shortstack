@@ -75,6 +75,7 @@ const addTask = function( e ) {
     let list = document.getElementById("table-header")
     let list2 = document.getElementById("completed-table-header")
     let body = document.getElementById("completed-table-body")
+    let outerTable = document.getElementById("completed-to-do-list")
 
     let row = list.insertRow(-1)
     row.insertCell(0).innerHTML = "Task"
@@ -82,14 +83,15 @@ const addTask = function( e ) {
     row.insertCell(2).innerHTML = 'Due Date'
     row.insertCell(3).innerHTML = 'Estimated Completion'
 
+    outerTable.style.display = "none"
+    document.getElementById("completed-task-header").style.display = "none"
+
     let row2 = list2.insertRow(-1)
     row2.insertCell(0).innerHTML = "Task"
     row2.insertCell(1).innerHTML = 'Points'
     row2.insertCell(2).innerHTML = 'Due Date'
     row2.insertCell(3).innerHTML = 'Estimated Completion'
-    list2.style.display = "none"
-    body.style.display = "none"
-    button3.style.display = "none"
+
   }
 
   // Prints the to do list to the index.html file
@@ -116,11 +118,11 @@ const addTask = function( e ) {
 
   const makeVisible = function( e ) {
     let list2 = document.getElementById("completed-table-header")
-    let body = document.getElementById("completed-table-body")
+    let outerTable = document.getElementById("completed-to-do-list")
     const button3 = document.getElementById( "refresh" )
-    list2.style.display = "block"
-    body.style.display = "block"
-    button3.style.display = "block"
+    document.getElementById("completed-task-header").style.display = "block"
+    outerTable.style.display = "block"
+    
     if (completedTaskArray.length > 0)
     {
       createCompletedTable(completedTaskArray);
