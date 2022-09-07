@@ -13,6 +13,14 @@ const appdata = [
 
     // Starting data
 
+  {
+    activity: 'Sleep',
+    date: '2022-09-07',
+    time_started: '19:15',
+    time_ended: '19:15',
+    description: 'test'
+  }
+
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -45,10 +53,10 @@ const handlePost = function( request, response ) {
 
     let data = JSON.parse(dataString);
     appdata.push(data)
-    console.log(appdata)
+    console.log(JSON.stringify(appdata))
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.write(JSON.stringify(dataString))
-    response.end()
+    // response.write(JSON.stringify(dataString))
+    response.end(JSON.stringify(appdata))
   })
 }
 
