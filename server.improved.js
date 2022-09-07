@@ -37,7 +37,7 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     simplePokemon = JSON.parse(dataString)
-    pokemon = addWeaknessAndResistance(simplePokemon)
+    pokemon = addTypeChart(simplePokemon)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
@@ -132,7 +132,7 @@ const immunities = {
   'none': []
 }
 
-const addWeaknessAndResistance = function( pokemon ) {
+const addTypeChart = function( pokemon ) {
   const type1 = pokemon.type1,
     type2 = pokemon.type2
 
@@ -142,10 +142,30 @@ const addWeaknessAndResistance = function( pokemon ) {
     resistances2 = resistances[type2],
     immunities1 = immunities[type1],
     immunities2 = immunities[type2]
-  
-  //pokemon.immunities = 
+
+  console.log(weaknesses1)
+  console.log(weaknesses2)
+  console.log(resistances1)
+  console.log(resistances2)
+  console.log(immunities1)  
+  console.log(immunities2)
 
   
+  const finalImmunities = [],
+    finalWeaknesses = [],
+    finalResistances = []
+
+  immunities1.forEach(element => {
+    finalImmunities.push(element)
+  });
+
+  immunities2.forEach(element => {
+    if(!finalImmunities.includes(element)) {
+      finalImmunities.push(element)
+    }
+  })
+
+  console.log(finalImmunities)
 }
 
 server.listen( process.env.PORT || port )
