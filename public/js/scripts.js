@@ -82,6 +82,7 @@ const rps_game = function(choice) {
     
     playerScore.textContent = "Score: " + score
     
+    // Update text to show most recent player choice
     let playerText = ""
     switch (choice) {
       case 0:
@@ -96,6 +97,7 @@ const rps_game = function(choice) {
     }
     playerChose.textContent = "Player Chose: " + playerText
     
+    // Update text to show most recent player choice
     let compText = ""
     switch (computerChoice) {
       case 0:
@@ -110,14 +112,15 @@ const rps_game = function(choice) {
     }
     computerChose.textContent = "Computer Chose: " + compText
     
+    // Update text and continue game
     if(win) {
       statusMsg.textContent = "You Won this Round! Keep Going!"
     }
+    // Update text and set final game values for updating server data
     else if(gameover) {
       statusMsg.textContent = "Game Over! Submit Your Score"
       document.getElementById("submission").style.visibility = "visible"
       
-      document.getElementById("score").value = score
       document.getElementById("rock").value = totalRock
       document.getElementById("paper").value = totalPaper
       document.getElementById("scissors").value = totalScissors

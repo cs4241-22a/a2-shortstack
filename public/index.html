@@ -13,7 +13,7 @@
     <div class = "center">
       <!-- Shows data relevant to game -->
       <div class = "game">
-        <p id = "score" value="0">Score: 0</p>
+        <p id = "score">Score: 0</p>
         <p id = "player">Player Chose: </p>
         <p id = "computer">Computer Chose: </p>
         <p id = "status">Choose an Option</p>
@@ -26,13 +26,13 @@
       </div>
 
       <!-- Form to allow for score submission -->
-      <form id = "submission" action="">
+      <form id = "submission">
         <input type="text" id="name" value="Your Name Here">
         <button id = "scoreSubmit">Submit</button>
       </form>
 
       <!-- Form to allow for score deletion -->
-      <form id = "delete" action="">
+      <form id = "delete">
         <input type="text" id="nameDelete" value="Delete Name Here">
         <button id = "deleteSubmit">Submit</button>
       </form>
@@ -56,6 +56,9 @@
             + "<th>Scissors</th>"
             + "<th>Most Used</th></tr>"
 
+        // Get score value from score paragraph text
+        const scoreText = document.getElementById( "score" ).innerHTML
+        
         // Hides submission form to submit a score
         document.getElementById("submission").style.visibility = "hidden"
         // Hides submission form to delete a score from the table
@@ -68,7 +71,7 @@
               scissors = document.querySelector( "#scissors" ),
               json = { 
                 name: name.value,
-                score: parseInt(score.value),
+                score: parseInt(scoreText.substr(7, scoreText.length)),
                 rock: parseInt(rock.value),
                 paper: parseInt(paper.value),
                 scissors: parseInt(scissors.value)

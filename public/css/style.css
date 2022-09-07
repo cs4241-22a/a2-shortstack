@@ -1,7 +1,9 @@
 body {
   font-family: 'Oswald';
+  
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
+  
   background-color: #49274A;
 }
 
@@ -52,6 +54,7 @@ td {
 
 .center {
   grid-column: 2;
+  
   background-color: #94618E;
 }
 
