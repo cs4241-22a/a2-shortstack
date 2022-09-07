@@ -14,10 +14,27 @@ const submitbuy = function (e) {
   }).then(function (response) {
     // do something with the reponse
     console.log(response);
+    //if the response is 200, then add the stock to the list
+    if (response.status == 200) {
+      addStockToList(input.value);
+    }
   });
 
   return false;
 };
+
+function addStockToList(symbol) {
+  //use the data from the server to populate the div stock-list with stocks
+  //copy the template from the html
+  const template = document.querySelector("#stock-template");
+  //get the div to put the stocks in
+  const stockList = document.querySelector("#stock-list");
+  const stock = new Stock(symbol);
+  stock.init(template);
+  stock.startUpdating();
+
+  stockList.appendChild(stock.html);
+}
 
 const submitsell = function (e) {
   // prevent default form action from being carried out
@@ -43,8 +60,6 @@ const submitsell = function (e) {
 window.onload = async function () {
   const buybutton = document.querySelector("#buybutton");
   buybutton.onclick = submitbuy;
-  const sellbutton = document.querySelector("#sellbutton");
-  sellbutton.onclick = submitsell;
 
   //get data from server
   let response = await fetch("/stocks", {
@@ -59,7 +74,6 @@ window.onload = async function () {
   //get the div to put the stocks in
   const stockList = document.querySelector("#stock-list");
 
-  const stocks = [];
   //loop through the data
   for (let i = 0; i < data.length; i++) {
     //add the clone to the div
@@ -67,7 +81,6 @@ window.onload = async function () {
     const stock = new Stock(data[i].symbol);
     stock.init(template);
     stock.startUpdating();
-    stocks.push(stock);
 
     stockList.appendChild(stock.html);
   }
@@ -91,6 +104,26 @@ function Stock(symbol) {
     //set the id of the clone to empty
     this.html.id = "";
 
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("sell");
+    deleteButton.innerHTML = "DEL";
+    deleteButton.onclick = () => {
+      this.stopUpdating();
+      //post to the server to delete the stock
+      const json = { stockinput: this.symbol };
+      const body = JSON.stringify(json);
+      fetch("/delete", {
+        method: "POST",
+        body,
+      }).then(function (response) {
+        // do something with the reponse
+        console.log(response);
+      });
+      this.html.remove();
+    };
+
+    this.html.appendChild(deleteButton);
+
     this.updateData();
 
     return this.html;
@@ -98,15 +131,20 @@ function Stock(symbol) {
 
   this.setHTMLFromData = function (data) {
     this.html.querySelector(".last-update").innerHTML = new Date();
-    this.html.querySelector(".price").innerHTML = data.meta.regularMarketPrice;
-    this.html.querySelector(".full-name").innerHTML = data.meta.name;
+    this.html.querySelector(".price").innerHTML = data.regularMarketPrice;
+    this.html.querySelector(".full-name").innerHTML = data.longName;
   };
 
   this.startUpdating = function () {
     //start updating the price
     this.updateData();
     //update the price every 5 seconds
-    setInterval(this.updateData.bind(this), 10000);
+    setInterval(this.updateData.bind(this), 5000);
+  };
+
+  this.stopUpdating = function () {
+    //stop updating the price
+    clearInterval(this.updateData.bind(this));
   };
 
   this.updateData = async function () {

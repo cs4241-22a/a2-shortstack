@@ -9,12 +9,14 @@ const http = require("http"),
   dir = "public/",
   port = 3000;
 
+const yahooFinance = require("yahoo-finance2").default;
+
 const getJSON = bent("json");
 
 const stocks = [
   { symbol: "tsla", dateAdded: new Date() },
   { symbol: "amzn", dateAdded: new Date() },
-  { symbol: "ford", dateAdded: new Date() },
+  { symbol: "f", dateAdded: new Date() },
 ];
 
 const server = http.createServer(function (request, response) {
@@ -41,42 +43,18 @@ const handleGet = async function (request, response) {
     let symbol = request.url.split("=")[1];
     //get the stock data from the api
     let stockData = await getStockData(symbol);
-    console.log(symbol);
-    console.log(stockData);
     //send the symbol back to the client
     response.writeHead(200, { "Content-Type": "application/json" });
-    response.end(JSON.stringify(stockData["chart"]["result"][0]));
+    response.end(JSON.stringify(stockData));
   } else {
     sendFile(response, filename);
   }
 };
 
 const getStockData = async function (symbol) {
-  const url =
-    "https://query1.finance.yahoo.com/v8/finance/chart/" +
-    symbol.toUpperCase() +
-    "?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance";
-
-  const nameData = await getBuffer(
-    "https://www.nasdaq.com/market-activity/stocks/" + symbol.toUpperCase()
-  );
-
-  console.log(nameData.toString());
-
-  const name = await nameData.text();
-  //grab the string between the title tags
-  const nameString = name.substring(
-    name.indexOf("<title>") + 7,
-    name.indexOf("</title>")
-  );
-
-  console.log(nameString);
-  //name is the first part of the string split at the comma
-  const nameFinal = nameString.split(",")[0];
-
-  const data = await getJSON(url);
-  data["chart"]["result"][0]["meta"]["name"] = nameFinal;
-  return data;
+  const results = await yahooFinance.quote(symbol.toUpperCase());
+  console.log(results);
+  return results;
 };
 
 const handlePost = function (request, response) {
@@ -90,29 +68,39 @@ const handlePost = function (request, response) {
     let dataObject = JSON.parse(dataString);
     console.log(dataObject);
 
-    const url =
-      "https://query1.finance.yahoo.com/v8/finance/chart/" +
-      dataObject["stockinput"] +
-      "?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance";
-
-    getJSON(url)
-      .then((res) => {
-        //log the data
-        console.log(res.chart.result[0].meta.regularMarketPrice);
-        //send the data back to the client
-        response.writeHeader(200, { "Content-Type": "application/json" });
+    if (request.url === "/submit") {
+      //if the stock is not already in the array, add it
+      if (stocks.find((stock) => stock.symbol === dataObject.stockinput)) {
+        console.log("stock already in array");
+        response.writeHead(406, { "Content-Type": "application/json" });
         response.end(
-          JSON.stringify(res.chart.result[0].meta.regularMarketPrice)
+          JSON.stringify({ message: "ERROR: stock already in array" })
         );
-      }) //catch any errors
-      .catch((err) => {
-        console.log(err);
-      });
+      } else {
+        //add the stock to the array with the date right now
+        stocks.push({
+          symbol: dataObject.stockinput.toLowerCase(),
+          dateAdded: new Date(),
+        });
 
-    // ... do something with the data here!!!
-
-    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-    response.end("post received");
+        response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+        response.end("Added stock to array");
+      }
+    } else if (request.url === "/delete") {
+      //find the stock in the array
+      let stock = stocks.find(
+        (stock) => stock.symbol === dataObject.stockinput
+      );
+      //if the stock is in the array, remove it
+      if (stock) {
+        stocks.splice(stocks.indexOf(stock), 1);
+        response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+        response.end("Removed stock from array");
+      } else {
+        response.writeHead(404, "Not Found", { "Content-Type": "text/plain" });
+        response.end("Stock not found in array");
+      }
+    }
   });
 };
 
