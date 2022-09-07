@@ -1,1 +1,31 @@
 /*Style your own assignment! This is fun! */
+
+@font-face {
+  font-family: "Caveat";
+  src: url(https://cdn.glitch.global/97d0aa55-f508-4ad6-8727-a9ae2438189c/Caveat-VariableFont_wght.ttf?v=1662499872789)
+    format("truetype");
+}
+
+h1 {
+  font-family: "Caveat";
+  font-weight: 48;
+}
+
+body {
+  background-image: url("https://cdn.glitch.global/97d0aa55-f508-4ad6-8727-a9ae2438189c/lukas-blazek-GnvurwJsKaY-unsplash.jpg?v=1662408164982");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+form {
+  background-color: gray;
+}
+
+input {
+  background-color: white;  
+}
