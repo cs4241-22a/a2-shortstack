@@ -21,6 +21,9 @@ h1#page-title {
 }
 
 div#content {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
     margin: 50px;
     font-family: 'Nunito', sans-serif;
     color: #201E1F;
@@ -36,10 +39,6 @@ p#your-list {
     font-weight: bold;
     font-size: 20px;
     margin-top: 10px;
-}
-
-div#create-entry {
-    margin-top: 50px;
 }
 
 div#new-entry-box {

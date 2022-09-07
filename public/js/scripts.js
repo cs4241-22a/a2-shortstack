@@ -215,7 +215,8 @@ let wordBank = ["killer", "awesome", "jaw-dropping", "spectacular", "scary", "te
                 "illustrious", "sexy", "outstanding", "great", "favorite", "incredible",
                 "classic", "wonderful", "special", "insightful", "first-rate", "intriguing",
                 "riveting", "powerful", "legendary", "pretentious", "tender", "charming", "hillarious",
-                "clever"];
+                "clever", "absorbing", "award-winning", "awe-inspiring", "beautiful", "bold",
+                "colorful", "iconic", "controversial", "daring", "phenomenal", "engrossing"];
 let scrambler = "";
 
 document.querySelectorAll('.scrambleable').forEach(function(el) {
