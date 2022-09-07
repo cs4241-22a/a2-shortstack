@@ -1,5 +1,5 @@
-Dillon McCarthy
-GitHub Username: dmccarthy11
+Dillon McCarthy<br>
+GitHub Username: dmccarthy11<br>
 https://a2-dmccarthy11.glitch.me/
 
 This project demonstrates the ability to develop a two-tiered web application with client-server communication.  The project implements HTML, JavaScript, CSS, and Node.js functionality to create an application to track your music playlists online and store them on the server.
@@ -33,8 +33,8 @@ CSS:
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: User interface testing
 
-Student: Cindy Trac
-Task: Add a song to your playlist, remove a song from your playlist, and find the three songs already added to your playlist.
+Student: Cindy Trac<br>
+Task: Add a song to your playlist, remove a song from your playlist, and find the three songs already added to your playlist.<br>
 Platform: Zoom
 
 Feedback:
