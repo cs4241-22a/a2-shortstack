@@ -10,3 +10,6 @@ all pages validate and are free of major errors
 ## Technical Achievements
 
 - **Tech Achievement 1**: A single page app was created which dynamically updates based on a user submitting or deleting data. making any change to the data (either additions or removals) with automatically update the table to provide a real time view of the current dataset.
+
+the website can be viewed at a2-gilchristb78.glitch.me  
+the code can be viewed at github.com/gilchristb78
