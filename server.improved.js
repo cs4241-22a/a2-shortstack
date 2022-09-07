@@ -35,14 +35,28 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    //console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    if (dataString.startsWith('d')) {
+
+      const index = parseInt(dataString.slice(1))
+      appdata.splice(index, 1)
+
+    }else if (dataString.startsWith('e')) {
+
+      const index = parseInt(dataString.slice(1, dataString.indexOf(','))),
+          json = JSON.parse(dataString.slice(dataString.indexOf(',') + 1)),
+          itemHTML = appdata[index]
+
+          itemHTML.data = json.data
+
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end( JSON.stringify( appdata ))
+    response.end( JSON.stringify( appdata ))}
   })
 }
+
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
