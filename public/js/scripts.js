@@ -1,4 +1,4 @@
-let current_row = 0
+let cr = 0
 
 //Submit function that uses POST and then resets all fields in the form
 const submit = function (e) {
@@ -70,7 +70,7 @@ const editStats = function (e) {
         document.getElementById('deaths').value = data.deaths
         document.getElementById('description').textContent = 'Modify Game Stats'
         document.getElementById('submitB').onclick = updateStats
-        current_row = id
+        cr = id
     }).catch((reason) => {
         console.log(reason)
     })
@@ -89,7 +89,7 @@ const updateStats = function (e) {
         get_deaths = document.getElementById('deaths'),
         json = {game: get_game.value, character: get_character.value, kills: get_kills.value, assists: get_assists.value, deaths: get_deaths.value},
         body = JSON.stringify(json)
-    fetch('/' + current_row, {
+    fetch('/' + cr, {
         method: 'PATCH',
         headers: {"Content-Type": "application/json"},
         body
@@ -124,26 +124,11 @@ const deleteStats = function (e) {
 //Display all of the data sets in the table + edit/delete buttons
 const displayStats = function (json) {
     //Create table
-    let html =
-        '<table>\n' +
-        '        <tr>\n' +
-        '            <th>Game</th>\n' +
-        '            <th>Character</th>\n' +
-        '            <th>Kills</th>\n' +
-        '            <th>Assists</th>\n' +
-        '            <th>Deaths</th>\n' +
-        '            <th>KDA</th>\n' +
-        '            <th></th>\n' +
-        '            <th></th>\n' +
-        '        </tr>\n'
+    let html = '<table>\n' + '<tr>\n' + '<th>Game</th>\n' + '<th>Character</th>\n' + '<th>Kills</th>\n' + '<th>Assists</th>\n' + '<th>Deaths</th>\n' + '<th>KDA</th>\n' + '<th></th>\n' + '<th></th>\n' + '</tr>\n'
     let idx = 0
     for (let stat of json) {
         html += `<tr class="tableRow" id="${idx}">`
-        html += '<td>' + stat.game + '</td>'
-        html += '<td>' + stat.character + '</td>'
-        html += '<td>' + stat.kills + '</td>'
-        html += '<td>' + stat.assists + '</td>'
-        html += '<td>' + stat.deaths + '</td>'
+        html += '<td>' + stat.game + '</td>' + '<td>' + stat.character + '</td>' + '<td>' + stat.kills + '</td>' + '<td>' + stat.assists + '</td>' + '<td>' + stat.deaths + '</td>'
         //Change kda background based on value
         if (Number(stat.kda) <= Number(1.5))
             html += '<td style="background-color: rgb(255, 82, 82); color: black">' + stat.kda + '</td>'
@@ -151,29 +136,21 @@ const displayStats = function (json) {
             html += '<td style="background-color: rgb(91, 219, 87); color: black">' + stat.kda + '</td>'
         else
             html += '<td style="background-color: rgb(245, 178, 78); color: black">' + stat.kda + '</td>'
-        html += '<td><button class="editB">Edit</button></td>'
-        html += '<td><button class="deleteB">Delete</button></td>'
-        html += '</tr>'
+        html += `<td><button class="editB" id=edit${idx}>Edit</button></td>` + `<td><button class=deleteB id=delete${idx}>Delete</button></td>` + '</tr>'
+        
         idx++
     }
     html += '</table>'
     document.getElementById('table').innerHTML = html
 
     const editButtons = document.getElementsByClassName('editB')
-    idx = 0
-    for (let button of editButtons) {
-        button.onclick = editStats
-        button.id = 'edit' + idx
-        idx++
+    const deleteButtons = document.getElementsByClassName('deleteB')
+
+    for (idx = 0; idx < editButtons.length; idx++) {
+        editButtons[idx].onclick = editStats
+        deleteButtons[idx].onclick = deleteStats
     }
 
-    const deleteButtons = document.getElementsByClassName('deleteB')
-    idx = 0
-    for (let button of deleteButtons) {
-        button.onclick = deleteStats
-        button.id = 'delete' + idx
-        idx++
-    }
 }
 
 //Window onload function that starts up in the beginning
@@ -195,9 +172,7 @@ window.onload = function () {
     const addData = document.getElementById('addData')[0]
     addData.oninput = () => {
         document.getElementById('submitB').disabled = document.getElementById('game').value.trim() === '' || 
-                                                      document.getElementById('character').value.trim() === '' ||
-                                                      document.getElementById('kills').value.trim() === '' ||
-                                                      document.getElementById('assists').value.trim() === '' ||
-                                                      document.getElementById('deaths').value.trim() === ''
+        document.getElementById('character').value.trim() === '' || document.getElementById('kills').value.trim() === '' ||
+        document.getElementById('assists').value.trim() === '' || document.getElementById('deaths').value.trim() === ''
     }
 }
