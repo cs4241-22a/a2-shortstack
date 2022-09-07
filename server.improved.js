@@ -48,12 +48,9 @@ const handlePost = function (request, response) {
         const data = JSON.parse(dataString);
         const summary = appdata.summary;
 
-        const today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
-        yesterday.setHours(...data.timeSleep.split(':'));
-        today.setHours(...data.timeWakeUp.split(':'));
-        const hoursSlept = getHoursDiff(today, yesterday);
+        const bedTime = new Date(data.timeSleep);
+        const timeAwake = new Date(data.timeWakeUp);
+        const hoursSlept = getHoursDiff(bedTime, timeAwake);
 
         summary.numberOfRecords++;
         summary.averageTimeAsleep += (hoursSlept - summary.averageTimeAsleep) / summary.numberOfRecords;
