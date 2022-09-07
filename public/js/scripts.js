@@ -1,31 +1,10 @@
 const submit = function (e) {
 	// prevent default form action from being carried out
 	e.preventDefault();
-
-	let inputIDs = ["#firstName", "#lastName", "#birthday", "#giftIdea"]; //Element IDs for each input field
-	let formLabels = [];
-	let formInputs = [];
-
-	for (let index = 0; index < inputIDs.length; index++) {
-		let ID = inputIDs[index];
-		let input = document.querySelector(ID);
-		let fieldName = ID.slice(1); //JSON object key
-		formLabels.push(fieldName);
-		formInputs.push(input.value);
-	}
-	function convertToObj(a, b) {
-		if (a.length != b.length || a.length == 0 || b.length == 0) {
-			return null;
-		}
-		let obj = {};
-		json = a.forEach((k, i) => {
-			obj[k] = b[i];
-		});
-		return obj;
-	}
-
-	json = convertToObj(formLabels, formInputs);
-	body = JSON.stringify(json);
+	let form = document.querySelector("form");
+	let submission = getForm();
+	form.reset();
+	let body = JSON.stringify(submission);
 
 	fetch("/submit", {
 		method: "POST",
@@ -35,6 +14,7 @@ const submit = function (e) {
 		.then((json) => console.log(json));
 
 	renderTable();
+	document.querySelector("table").scrollIntoView();
 
 	return false;
 };
@@ -51,7 +31,6 @@ function renderTable() {
 	})
 		.then((response) => response.json())
 		.then((appdata) => {
-			console.log(JSON.stringify(appdata));
 			//Do not render table if no birthdays have been added to the server yet, otherwise render the results table content
 			if (JSON.stringify(appdata) === "[]") {
 				console.log("No data to display :(");
@@ -72,13 +51,13 @@ function renderTable() {
 				let hRow = document.createElement("tr");
 				hRow.className = "results";
 				resultsTable.appendChild(hRow);
-				hRow.innerHTML =
-					`<th>First Name</th>
+				hRow.innerHTML = `<th>First Name</th>
                     <th>Last Name</th>
                     <th>Birthday</th>
                     <th>Days Until Next Birthday</th>
                     <th>Gift Idea</th>
-                    <th style="background-color: black;"></th>`;
+                    <th style="background-color: black;"></th>
+					<th style="background-color: black;"></th>`;
 
 				for (let entries in appdata) {
 					let row = document.createElement("tr");
@@ -90,17 +69,27 @@ function renderTable() {
 					let cell4 = row.insertCell(3);
 					let cell5 = row.insertCell(4);
 					let cell6 = row.insertCell(5);
-					let btn = cell6.appendChild(document.createElement("button"));
+					let cell7 = row.insertCell(6);
+
+					let delBtn = cell6.appendChild(document.createElement("button"));
+					let modBtn = cell7.appendChild(document.createElement("button"));
 
 					cell1.innerHTML = `${appdata[entries].firstName}`;
 					cell2.innerHTML = `${appdata[entries].lastName}`;
 					cell3.innerHTML = `${appdata[entries].birthday}`;
 					cell4.innerHTML = `${appdata[entries].daysUntil}`;
 					cell5.innerHTML = `${appdata[entries].giftIdea}`;
-					btn.className = `${appdata[entries].submitTime}`;
-					btn.innerHTML = "Delete";
-					btn.onclick = function () {
-						remove(btn.className);
+
+					delBtn.className = `${appdata[entries].submitTime}`;
+					delBtn.innerHTML = "Delete";
+					delBtn.onclick = function () {
+						remove(delBtn.className);
+					};
+
+					modBtn.className = `${appdata[entries].submitTime}`;
+					modBtn.innerHTML = "Modify";
+					modBtn.onclick = function () {
+						modify(modBtn.className);
 					};
 				}
 			}
@@ -108,7 +97,6 @@ function renderTable() {
 }
 
 function remove(UID) {
-	console.log(UID);
 	let body = UID;
 	fetch("/remove", {
 		method: "POST",
@@ -119,3 +107,51 @@ function remove(UID) {
 
 	renderTable();
 }
+
+function modify(UID) {
+	let modification = getForm();
+	let form = document.querySelector("form");
+	form.reset();
+	let oldUID = { oldUID: `${UID}` };
+	let bodyObjects = [oldUID, modification];
+	let body = JSON.stringify(bodyObjects);
+	fetch("/modify", {
+		method: "POST",
+		body,
+	})
+		.then((response) => response.json())
+		.then((json) => console.log(json));
+
+	renderTable();
+}
+
+function convertToObj(a, b) {
+	if (a.length != b.length || a.length == 0 || b.length == 0) {
+		return null;
+	}
+	let obj = {};
+	json = a.forEach((k, i) => {
+		obj[k] = b[i];
+	});
+	return obj;
+}
+
+function getForm() {
+	let inputIDs = ["#firstName", "#lastName", "#birthday", "#giftIdea"]; //Element IDs for each input field
+	let formLabels = [];
+	let formInputs = [];
+
+	for (let index = 0; index < inputIDs.length; index++) {
+		let ID = inputIDs[index];
+		let input = document.querySelector(ID);
+		let fieldName = ID.slice(1); //JSON object key
+		formLabels.push(fieldName);
+		formInputs.push(input.value);
+		
+	}
+	let table = document.querySelector("table");
+	table.focus();
+	json = convertToObj(formLabels, formInputs);
+	return json;
+}
+

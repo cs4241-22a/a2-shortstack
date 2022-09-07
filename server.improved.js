@@ -6,7 +6,7 @@ const http = require("http"),
 	dir = "public/",
 	port = 3000;
 
-const appdata = [];
+let appdata = [];
 
 const server = http.createServer(function (request, response) {
 	if (request.method === "GET") {
@@ -22,6 +22,7 @@ const handleGet = function (request, response) {
 	if (request.url === "/") {
 		sendFile(response, "public/index.html");
 	} else if (request.url === "/birthdays") {
+		updateDaysUntil(appdata);
 		response.writeHeader(200, { "Content-Type": "text/plain" });
 		response.end(JSON.stringify(appdata));
 	} else {
@@ -35,16 +36,10 @@ const handlePost = function (request, response) {
 	request.on("data", function (data) {
 		dataString += data;
 	});
-	console.log(dataString);
 	request.on("end", function () {
 		if (request.url === "/submit") {
 			let submission = JSON.parse(dataString);
-			//Calculated field
-			let calcField = {
-				daysUntil: `${daysUntilCalc(submission.birthday)}`,
-				submitTime: `${Date.now()}`,
-			};
-			let newEntry = Object.assign(submission, calcField);
+			let newEntry = calcField(submission);
 			appdata.push(newEntry);
 			response.writeHead(200, "OK", { "Content-Type": "text/plain" });
 			response.end(JSON.stringify(appdata));
@@ -56,6 +51,21 @@ const handlePost = function (request, response) {
 				}
 			});
 			appdata.splice(index, 1);
+			response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+			response.end(JSON.stringify(appdata));
+		} else if (request.url === "/modify") {
+			let modEntry = JSON.parse(dataString);
+			//Get index of entry to be modified
+			let oldUID = modEntry[0];
+			let index = appdata.findIndex((element) => {
+				if (element.submitTime === oldUID.oldUID) {
+					return true;
+				}
+			});
+			//Create new entry to replace deleted one
+			let submission = modEntry[1];
+			let newEntry = calcField(submission);
+			appdata.splice(index, 1, newEntry);
 			response.writeHead(200, "OK", { "Content-Type": "text/plain" });
 			response.end(JSON.stringify(appdata));
 		}
@@ -94,4 +104,38 @@ function daysUntilCalc(string) {
 	//Calculate difference between days
 	let daysUntil = Math.floor((birthday - currentDay) / (1000 * 60 * 60 * 24));
 	return daysUntil;
+}
+
+//Function to take raw submission and convert it into newEntry (with calculated field) to be pushed into appdata
+function calcField(submission) {
+	let calcField = {
+		daysUntil: `${daysUntilCalc(submission.birthday)}`,
+		submitTime: `${Date.now()}`,
+	};
+	let newEntry = Object.assign(submission, calcField);
+	return newEntry;
+}
+
+//Ensure the days until birthday number is accuarate on any day, not just day of submission
+//Runs in GET request from renderTable function on client side (request.url === "/birthdays")
+function updateDaysUntil(appdata) {
+	for (let entries in appdata) {
+		let today = new Date(Date.now());
+		let subDate = new Date(Date.parse(appdata[entries].submitTime));
+
+		if (isSameDay(today, subDate)) {
+			continue;
+		} else {
+			appdata[entries].daysUntil = daysUntilCalc(appdata[entries].birthday);
+		}
+	}
+}
+
+//Check if two dates have mathing year, month, and day of the month
+function isSameDay(date1, date2) {
+	return (
+		date1.getFullYear() === date2.getFullYear() &&
+		date1.getMonth() === date2.getMonth() &&
+		date1.getDate() === date2.getDate()
+	);
 }

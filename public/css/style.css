@@ -50,14 +50,6 @@ tr.results > td {
 	text-align: center;
 }
 
-.birthday {
-	text-align: right;
-}
-
-.daysUntil {
-	text-align: right;
-}
-
 h1 {
 	text-align: center;
 	font-size: 2.5em;
@@ -73,6 +65,8 @@ h2 {
 h3 {
 	text-align: center;
 	font-size: 1.25em;
+	margin-top: 1em;
+	margin-bottom: 0;
 }
 
 input {
@@ -85,6 +79,16 @@ input {
 button {
 	margin: 1em 1em 0em 1em;
 	padding: 0.5em;
+}
+
+p {
+	text-align: center;
+}
+
+ul {
+	list-style-type: none;
+	padding-right: 1.5em;
+	text-align: center;
 }
 
 /* Mobile specific rules */
