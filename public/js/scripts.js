@@ -28,7 +28,119 @@ const search = function( e ) {
         }
     }); 
 
-    return false
+    return false;
+}
+
+const addMovie = function(e) {
+    e.preventDefault();
+
+    let idx = e['target'].id.substring(3);
+    console.log(searchState[idx]);
+
+    const json = { type: "add", 
+                   entry: searchState[idx] },
+          body = JSON.stringify(json)
+
+    fetch( '/submit', {
+        method:'POST',
+        body 
+    })
+    .then(response => response.status)
+    .then(data => {
+        if (data === 200) {
+            getList();
+        }
+    }); 
+
+}
+
+const removeMovie = function(e) {
+    e.preventDefault();
+
+    let idx = e['target'].id.substring(3);
+    console.log(localList[idx]);
+
+    const json = { type: "rmv", 
+                   entry: localList[idx] },
+          body = JSON.stringify(json)
+
+    fetch( '/submit', {
+        method:'POST',
+        body 
+    })
+    .then(response => response.status)
+    .then(data => {
+        if (data === 200) {
+            getList();
+        }
+    }); 
+}
+
+const getList = function() {
+    fetch('/list', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        const movieList = document.querySelector("#movie-list");
+        
+        // Reset list
+        while(movieList.firstChild) {
+            movieList.removeChild(movieList.firstChild);
+        }
+
+        if (data.length === 0) {
+            const listEmpty = document.createElement("p")
+            const listEmptyText = document.createTextNode("Your list is empty, add movies below and start watching!");
+            listEmpty.id = "your-list";
+            listEmpty.appendChild(listEmptyText)
+            movieList.appendChild(listEmpty);
+        } else {
+            const yourList = document.createElement('p');
+            const yourListText = document.createTextNode("Your Watchlist:");
+            yourList.appendChild(yourListText);
+            yourList.id = "your-list";
+            movieList.appendChild(yourList);
+        }
+
+        let i = 0;
+        data.forEach(e => {
+            const dEl = document.createElement('div');
+            dEl.className = "title";
+            
+            imgEl = document.createElement('img');
+            imgEl.src = e['Poster'];
+            imgEl.className = "poster";
+
+            const aEl = document.createElement('a');
+            aEl.href = `https://www.imdb.com/title/${e['imdbID']}/`
+            aEl.className = 'title';
+
+            const pEl = document.createElement('p');
+            const movieTitle = document.createTextNode(`${e['Title']} (${e['Year']})`);
+            pEl.className = 'title';
+            
+            pEl.appendChild(movieTitle);
+            aEl.appendChild(pEl);
+
+            const rmvBtn = document.createElement('button');
+            const rmvTxt = document.createTextNode("-");
+            rmvBtn.type = 'button';
+            rmvBtn.className = 'rmvbtn';
+            rmvBtn.id = `rmv${i}`;
+            rmvBtn.addEventListener('click', removeMovie);
+            rmvBtn.appendChild(rmvTxt);
+            
+            dEl.appendChild(imgEl);
+            dEl.appendChild(aEl);
+            dEl.appendChild(rmvBtn);
+    
+            movieList.appendChild(dEl);
+            i++;
+        });
+
+        localList = data;
+    });
 }
 
 const collapse = function() {
@@ -41,13 +153,6 @@ const collapse = function() {
         content.style.maxHeight = content.scrollHeight + "px";
     } 
 };
-
-const addMovie = function(e) {
-    e.preventDefault();
-
-    let idx = e['target'].id.substring(3);
-    console.log(searchState[idx]);
-}
 
 const showSearchResults = function(results) {
     const currentResults = document.getElementById('titles');
@@ -83,7 +188,7 @@ const showSearchResults = function(results) {
         pEl.appendChild(movieTitle);
 
         const addBtn = document.createElement('button');
-        const addTxt = document.createTextNode("Add");
+        const addTxt = document.createTextNode("+");
         addBtn.type = 'button';
         addBtn.className = 'btn';
         addBtn.id = `add${i}`;
@@ -106,6 +211,30 @@ const showSearchResults = function(results) {
     content.style.maxHeight = content.scrollHeight + "px";
 }
 
+let wordBank = ["killer", "awesome", "jaw-dropping", "spectacular", "scary", "tear-jerking",
+                "illustrious", "sexy", "outstanding", "great", "favorite", "incredible",
+                "classic", "wonderful", "special", "insightful", "first-rate", "intriguing",
+                "riveting", "powerful", "legendary", "pretentious", "tender", "charming", "hillarious",
+                "clever"];
+let scrambler = "";
+
+document.querySelectorAll('.scrambleable').forEach(function(el) {
+    el.addEventListener('mouseenter', (e) => {
+        scrambler = setInterval(function() {el.innerText = scramble()}, 100)
+    });
+    
+    el.addEventListener('mouseleave', (e) => {
+        clearInterval(scrambler);
+    });
+});
+
+function scramble() {
+    // Return a movie adjective
+    const randWord = Math.floor(Math.random() * wordBank.length);
+    
+    return wordBank[randWord];
+}
+
 window.onload = function() {    
     const add_btn = document.querySelector('#new-movie');
     const search_button = document.querySelector('#search');
@@ -120,4 +249,6 @@ window.onload = function() {
             document.getElementById("search").click();
         }
     });
+
+    getList();
 }
