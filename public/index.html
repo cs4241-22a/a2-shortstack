@@ -1,41 +1,105 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo">
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div class="parent">
+      <div class="div1">
+        <h1>Trip Planning</h1>
+      </div>
+      <div class="div2">
+        <form id="form">
+          <label>destination</label>
+          <input type="text" id="destination" value="your destination here" />
+          <label>miles to destination</label>
+          <input type="number" id="miles" value="12" />
+          <label>average speed (mph)</label>
+          <input type="number" id="average" value="36" />
+          <button id="btn">submit</button>
+        </form>
+      </div>
+      <div class="div3">
+        <table id="results">
+          <tr>
+            <th>Destination</th>
+            <th>Distance to Destination</th>
+            <th>Average Speed</th>
+            <th>Time to Destination</th>
+            <th>delete</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const submit = function (e) {
+        // prevent default form action from being carried out
+        e.preventDefault();
+
+        const input = document.querySelector("#destination");
+        const input2 = document.querySelector("#miles");
+        const input3 = document.querySelector("#average");
+        (json = { dest: input.value, dist: input2.value, avr: input3.value }),
+          (body = JSON.stringify(json));
+
+        fetch("/submit", {
+          method: "POST",
+          body,
+        })
+          .then((response) => response.json())
+          .then((json) => updateTable(json));
+
+        return false;
+      };
+
+      function del(e) {
+        body = e;
+        fetch("/delete", {
+          method: "POST",
+          body,
+        })
+          .then((response) => response.json())
+          .then((json) => updateTable(json));
+
+        return false;
+      }
+
+      function updateTable(json) {
+        const table = document.getElementById("results");
+        const rows = table.rows.length;
+        for (let i = rows - 1; i > 0; i--) {
+          table.deleteRow(i);
+        }
+
+        json.forEach((item) => {
+          const row = table.insertRow(1);
+          const cell1 = row.insertCell(0);
+          const cell2 = row.insertCell(1);
+          const cell3 = row.insertCell(2);
+          const cell4 = row.insertCell(3);
+          const cell5 = row.insertCell(4);
+          cell1.innerHTML = item.dest;
+          cell2.innerHTML = item.dist;
+          cell3.innerHTML = item.avr;
+          cell4.innerHTML = item.derive;
+          cell5.innerHTML = "   X   ";
+          cell5.addEventListener("click", function () {
+            del(item.ind);
+          });
+          cell5.classList.add("deleter");
+        });
+      }
+
+      window.onload = function () {
+        const button = document.querySelector("button");
+        button.onclick = submit;
+      };
+    </script>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>

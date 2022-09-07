@@ -1,3 +1,5 @@
+
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -6,11 +8,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -20,30 +18,41 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
+
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }else if(request.url = '/style.css'){
+    sendFile( response, 'public/css/style.css' )
+  }else {
     sendFile( response, filename )
   }
 }
 
 const handlePost = function( request, response ) {
-  let dataString = ''
 
+  
+  
+  let dataString = ''
   request.on( 'data', function( data ) {
       dataString += data 
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    console.log( typeof  dataString  )
+    
+    
+  if(request.url === "/submit"){
+    add(dataString)
+  } else if (request.url == "/delete"){
+    remove(dataString)
+  }
 
-    // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
@@ -70,3 +79,33 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+let i = 0;
+
+const add = function (dataString){
+  const obj = JSON.parse(dataString)
+    const time = (Math.round((obj.dist/obj.avr) * 100) / 100).toString(10) + " hours"
+    
+    
+    obj.ind = i
+    i++
+    obj.derive = time
+    dataString = JSON.stringify(obj)
+    appdata.push(JSON.parse(dataString))
+}
+
+
+
+const remove = function (dataString){
+  console.log(Number(dataString))
+  
+  let obj = appdata.find(o => o.ind === Number(dataString));
+  console.log(obj)
+  //const obj = JSON.parse(dataString)
+    //const time = (Math.round((obj.dist/obj.avr) * 100) / 100).toString(10) + " hours"
+    appdata = appdata.filter(data => data.ind != Number(dataString));
+
+    
+    //obj.derive = time
+    //dataString = JSON.stringify(obj)
+    //appdata.push(JSON.parse(dataString))
+}
