@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1 style="text-align: center">Welcome to the Homework Reminder!!!</h1>
-    <form action="" style="float:right">
+    <form action="" style="float: right">
       <input
         type="text"
         onfocus="this.value=''"
@@ -20,7 +20,12 @@
         id="date"
         placeholder="Today's Date"
       />
-      <input list="classes" name="hwList" id="hwList" placeholder="Subject Here" />
+      <input
+        list="classes"
+        name="hwList"
+        id="hwList"
+        placeholder="Subject Here"
+      />
       <datalist id="classes">
         <option value="Math"></option>
         <option value="Science"></option>
@@ -36,50 +41,6 @@
       />
       <button id="submitBtn">submit</button>
     </form>
+    <ul id="dataTable"></ul>
   </body>
-  <script>
-
-    const submit = function( e ) {
-      // prevent default form action from being carried out
-      e.preventDefault()
-
-      const nameInput = document.querySelector( '#yourname' ),
-            dateInput = document.querySelector( '#date' ),
-            subjectInput = document.querySelector( '#subjectList' )
-            assignmentInput = document.querySelector( '#assignment')      
-      
-            json = { yourname: nameInput.value,
-                     date: dateInput.value,
-                     subjectList: subjectInput.value,
-                     assignment: assignmentInput.value
-                   },
-            body = JSON.stringify( json )
-      
-      nameInput.value = ''
-      schoolInput.value = ''
-      dateInput.value = ''
-      subjectInput.value = ''
-      assignmentInput.value = ''
-
-      fetch( '/submit', {
-        method:'POST',
-        body
-      })
-      .then( response, => response.json() )
-      .then( json => {
-        json.forEach( item => {
-          const p = document.createElement('p')
-          p.innerText = JSON.stringify( item )
-          document.body.appendChild( p )
-        })
-      })
-
-      return false
-    }
-
-    window.onload = function() {
-      const button = document.querySelector( 'button' )
-      button.onclick = submit
-    }
-  </script>
 </html>
