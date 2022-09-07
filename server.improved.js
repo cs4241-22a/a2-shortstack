@@ -69,7 +69,7 @@ const checkIfToddPhillips = function( title, year )
                    'the hangover part iii', 'war dogs', 'joker' ];
   const numFilms = 10;
   let i;
-  for (i = 0 ;  i < numFilms ; i++ ) { if( year = years[i] && title.toLowerCase().equals(titles[i]) ) { return true; } }
+  for (i = 0 ;  i < numFilms ; i++ ) { if( year = years[i] && title.toString().toLowerCase().equals(titles[i]) ) { return true; } }
   return false;
 ;}
 
