@@ -61,9 +61,11 @@ Overall, he thought the program was easy to understand and intuitive, besides th
 **What problems did the user have with your design?**
 
 There is generally no big problem with my design, it is easy to understand and intuitive. But the minor problems include, it is not pretty enough, there are still some functions missing.
+
 **What comments did they make that surprised you?**
 
 Alex Bolduc thought that the “Get database” button is actually the way to retrieve the quests, so I will change that in my future work
+
 **What would you change about the interface based on their feedback?**
 
 I will make my design prettier, and do what Alex Bolduc suggested.
