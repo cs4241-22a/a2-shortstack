@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "SylarZzz",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "a2",
+  "author": "Wenjie Zhang",
   "scripts": {
     "start": "node server.improved.js"
   },
