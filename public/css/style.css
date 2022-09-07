@@ -1,1 +1,60 @@
 /*Style your own assignment! This is fun! */
+body { 
+    font-family: 'Comic Sans', Arial, Helvetica, sans-serif;
+    text-align: left;
+    background-color: rgb(13, 53, 122); 
+    color: rgb(7, 2, 18)
+}
+
+input[type-text] { 
+    background:transparent;
+    border: none;
+    border-bottom: 1px solid rgb(26, 53, 72);
+}
+
+table { 
+    text-align: left; 
+    background-color: rgb(13, 32, 69);
+    border-radius: black;
+    color: purple;
+}
+
+.inputData { 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+button { 
+    transition-duration: 0.35;
+    border-radius: 25px;
+    padding: 1cm;
+   
+}
+
+button:hover { 
+    background-color: pink; 
+    color:white;
+}
+
+.grid { 
+    display: inline-grid;
+}
+
+.layout { 
+    margin-top: auto; 
+    margin-bottom: auto; 
+    padding: 10cm; 
+    width: 30cm;
+    display: inline-block;
+}
+
+#savedData { 
+    margin-right: auto; 
+    margin-left: auto;
+    background-color: rgb(6, 22, 58);
+    color: blueviolet; 
+}
+
+#saveButton { 
+    text-align: left;
+}

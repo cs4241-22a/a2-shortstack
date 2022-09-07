@@ -25,7 +25,7 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else {
     sendFile( response, filename )
   }
 }
@@ -38,11 +38,23 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    console.log( JSON.parse( dataString ) .password > 5)
+    let newLogin = JSON.parse (dataString) 
+    if (newLogin.password.length < 5) { 
+      newLogin.popUpMessage = "That's not a good password:("
+    } else if (newLogin.password.length < 10) { 
+        newLogin.popUpMessage = "That's a better password, but try again!" 
+    } else { 
+      newLogin.popUpMessage = "Acceptable. Keep this safe.  "
+    }
 
-    // ... do something with the data here!!!
+    console.log(newLogin)
+    appdata.push(newLogin)
+    // This is what I do with the data!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write(JSON.stringify(appdata))
+    console.log(appdata)
     response.end()
   })
 }
