@@ -9,31 +9,35 @@
   </head>
   <body>
 
-    <!-- Shows data relevant to game -->
-    <p class = "game" id = "score" value="0">Score: 0</p>
-    <p class = "game" id = "player">Player Chose: </p>
-    <p class = "game" id = "computer">Computer Chose: </p>
-    <p class = "game" id = "status">Choose an Option</p>
-    
-    <!-- Contains buttons used to interact with game -->
-    <div class = "choices">
-      <button id = "rock" onclick="rps_game(0)" value="0">Rock</button>
-      <button id = "paper" onclick="rps_game(1)" value="0">Paper</button>
-      <button id = "scissors" onclick="rps_game(2)" value="0">Scissors</button>
+    <!-- div created specifically to style elements in the center of the site -->
+    <div class = "center">
+      <!-- Shows data relevant to game -->
+      <div class = "game">
+        <p id = "score" value="0">Score: 0</p>
+        <p id = "player">Player Chose: </p>
+        <p id = "computer">Computer Chose: </p>
+        <p id = "status">Choose an Option</p>
+      </div>
+      <!-- Contains buttons used to interact with game -->
+      <div class = "choices">
+        <button id = "rock" onclick="rps_game(0)" value="0">Rock</button>
+        <button id = "paper" onclick="rps_game(1)" value="0">Paper</button>
+        <button id = "scissors" onclick="rps_game(2)" value="0">Scissors</button>
+      </div>
+
+      <!-- Form to allow for score submission -->
+      <form id = "submission" action="">
+        <input type="text" id="name" value="Your Name Here">
+        <button id = "scoreSubmit">Submit</button>
+      </form>
+
+      <!-- Form to allow for score deletion -->
+      <form id = "delete" action="">
+        <input type="text" id="nameDelete" value="Delete Name Here">
+        <button id = "deleteSubmit">Submit</button>
+      </form>
     </div>
-    
-    <!-- Form to allow for score submission -->
-    <form id = "submission" action="">
-      <input type="text" id="name" value="Your Name Here">
-      <button id = "scoreSubmit">Submit</button>
-    </form>
-    
-    <!-- Form to allow for score deletion -->
-    <form id = "delete" action="">
-      <input type="text" id="nameDelete" value="Delete Name Here">
-      <button id = "deleteSubmit">Submit</button>
-    </form>
-    
+
     <script>
 
       const submit = function( e ) {
@@ -85,11 +89,6 @@
             + "<td>" + item.paper + "</td>"
             + "<td>" + item.scissors + "</td>"
             + "<td>" + item.most_used + "</td></tr>"
-            /*
-            const p = document.createElement('p')
-            p.innerText = JSON.stringify( item ) + "cool"
-            document.body.appendChild( p )
-            */
           })
         })
 

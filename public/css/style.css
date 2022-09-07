@@ -1,45 +1,94 @@
 body {
   font-family: 'Oswald';
   display: grid;
-  grid-template-columns: 20% 10% 60% 10% 20%;
-  grid-template-rows: 10% 10% 10% 10% 10% 30%;
+  grid-template-columns: 1fr 5fr 1fr;
+  background-color: #49274A;
+}
+
+button {
+  background-color: #F4DECB;
+
+  border: 2px solid;
+  border-radius: 8px;
   
+  font-family: 'Oswald';
+  font-size: 1.1em;
+  
+  transition-duration: 0.2s;
+}
+
+button:hover {
+  background-color: #F8EEE7;
+}
+
+input {
+  font-family: 'Oswald';
+}
+
+p {
+  color: white;
+
+  text-align: center;
+}
+
+table {
+  border: 3px solid;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 2px solid;
+  
+  text-align: center;
+}
+
+th {
+  background-color: #F4DECB;
+}
+
+td {
+  background-color: #F8EEE7;
+}
+
+.center {
+  grid-column: 2;
+  background-color: #94618E;
+}
+
+.choices {
+  display: grid;
 }
 
 .game {
   display: grid;
-  grid-column: 3;
   justify-content: center;
 }
 
-.choices {
-  grid-row: 6;
-}
-
-
+/* CSS for Game Options */
 #rock {
-  grid-column: 2;
+  margin-right: 3em;
   justify-content: center;
+  grid-row: 2;
 }
 
 #paper {
-  grid-column: 3;
   justify-content: center;
+  grid-row: 2;
 }
 
 #scissors {
-  grid-column: 4;
+  margin-left: 3em;
+  justify-content: center;
+  grid-row: 2;
 }
 
-
-#submission {
+/* CSS for Form Submission */
+#submission, #delete {
   visibility: hidden;
+  
+  text-align: center;
 }
 
-#delete {
-  visibility: hidden;
-}
-
-#allScores {
-  visibility: hidden;
+#dataTable {
+  grid-column: 2;
 }
