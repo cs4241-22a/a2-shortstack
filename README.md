@@ -88,11 +88,50 @@ You'll need to use sometype of collaborative software that will enable you both 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+## Movie Watchlist
+This site provides and easy to way to build out a movie and TV watchlist. The site features 2 components. The first is the running list. This data is stored on the server and fetched everytime the page refreshes or the list is updated by the client. The second component is a movie search bar that allows the user to lookup movies and tv shows by their name. The user can then add the desired title to their list. These components are arranged using the CSS flexbox properties.
+
+### How to Use:
+- Click on the "+ New Movie" button to expand the search function.
+- Enter a desired movie or TV show title into the search box and hit enter (or click search)
+- A list of titles matching the search query will appear below the search bar. To add one of these movies to the watch list, click the blue "+" to the right of the title.
+- The title will now appear above in the watchlist. To remove it from this list, click the red "-" button to the right of the title.
+- Check out the IMDB page for the title by clicking the name in your watchlist.
+- The search feature can be minimized by clicking on the "+ New Movie" button again.
+- Hover over the *great* descriptor before the search bar for an easter egg :)
+
+## Requirements:
+- **Server**: Serves client files, maintains dataset of current movie list. Columns: `Title`, `Year`, `imdbDB`, `Type`, `Poster`, `URL`.
+- **Results**: Current movie list always displayed on top of page.
+- **Form**: User can search for movies using a text input which is submitted to the server on enter or button press.
+- **Server Logic**: Server can take `add` or `remove` commands from the client to create new or remove entries from the dataset. Server checks if the unique entry already exists before adding or subtracting from the dataset.
+- **Derived field**: The IMDB url is derived from the imdbID field. The url is resolved by the client, but derived on the server and stored in the dataset.
+
+### HTML:
+- Form tag: <input> - used to collect search information.
+- Results rendered as single page app
+- Pages validate
+- Single page
+
+### CSS:
+- All elements of page styled
+- Selectors used: element, id, class
+- CSS flexbox layout used for primary components
+- All text styled using google fonts and custom colorscheme
+- All CSS defined in `style.css` external stylesheet
+
+### Javascript:
+- All page rendering done in `scripts.js`
+- Data fetching done in `scripts.js`
+
+### Node.js:
+- HTTP server delivers client page, maintains dataset and creates derived field
+- Fetches movie information from external movie database
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: This is a single page web app that always displays the current state of the internal data (current watchlist) on the server. This is done with a REST API to GET the current list, and to POST add or remove commands for specific titles. These API calls are controlled by the "+" and "-" buttons next to the titles. Sending an add or remove request returns the updated movie list and the client list is updated accordingly. Additionally, the search function uses a term provided by the user and fetches a movie list from ombapi, a movie database.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Single Page App**: The webpage updates are all done through js and do not require a reload to display the current dataset. When the client updates the server dataset through an add or remove, the server responds with an updated watchlist, which is rendered on the page by modifying the DOM. This was challenging in pure JS since DOM modification and creating elements is not intuitive or easy. By looping over each entry in the dataset and building styled elements around the information, I was able to create a good looking list of data.
+- **Search Feature**: The movie search feature is done on the serverside after the user submits a query on the client. The query is translated into an API call to ombapi which returns a JSON object with movies related to the search term. These results are passed to the client, where the results list is rendered in a similar manner to the watchlist. This task took debugging on Glitch, since it worked on local build, but not hosted. The solution was to define the version of node Glitch would use, since the fetch library did not work with the version of Node Glitch was using out of the box.
+
