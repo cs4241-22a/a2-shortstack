@@ -32,9 +32,11 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    if (request.url === '/addTask') {
 
+    }
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+
     response.end(dataString)
   })
 }
