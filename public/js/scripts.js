@@ -1,6 +1,15 @@
+let searchState = {};
+let localList = {};
+
 const search = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
+
+    // Show loading
+    const currentResults = document.getElementById('titles');
+    if (currentResults) {
+        currentResults.innerText = "Loading...";
+    }
 
     const input = document.querySelector( '#search-bar' ),
             json = { type: "search", 
@@ -33,31 +42,68 @@ const collapse = function() {
     } 
 };
 
+const addMovie = function(e) {
+    e.preventDefault();
+
+    let idx = e['target'].id.substring(3);
+    console.log(searchState[idx]);
+}
+
 const showSearchResults = function(results) {
-    // Remove existing results
     const currentResults = document.getElementById('titles');
+    const content = document.getElementById('new-entry');
+    searchState = results;
+
+    // Check for no results
+    if (results === undefined) {
+        if (currentResults) {
+            currentResults.innerText = "No movies found :(";
+            content.style.maxHeight = content.scrollHeight + "px";
+            return;
+        }
+    }
+
+    // Remove existing results
     if (currentResults) {
         currentResults.parentNode.removeChild(currentResults);
     }
 
+    let i = 0;
     // Create new query response element
-    const resultsElement = document.createElement('div');
-    resultsElement.id = "titles";
+    const resultsEl = document.createElement('div');
+    resultsEl.id = "titles";
 
     results.forEach( e => {
-        console.log(e['Title']);
-        const newElement = document.createTextNode(e['Title']);
-        resultsElement.appendChild(newElement);
+        const dEl = document.createElement('div');
+        dEl.className = "title";
+
+        const pEl = document.createElement('p');
+        const movieTitle = document.createTextNode(`${e['Title']} (${e['Year']})`);
+        pEl.className = 'title';
+        pEl.appendChild(movieTitle);
+
+        const addBtn = document.createElement('button');
+        const addTxt = document.createTextNode("Add");
+        addBtn.type = 'button';
+        addBtn.className = 'btn';
+        addBtn.id = `add${i}`;
+        addBtn.addEventListener('click', addMovie);
+        addBtn.appendChild(addTxt);
+
+        dEl.appendChild(pEl);
+        dEl.appendChild(addBtn);
+
+        resultsEl.appendChild(dEl);
+
+        i++;
     });
 
-    console.log(resultsElement);
-    const parentDiv = document.getElementById('search-results')
-    parentDiv.appendChild(resultsElement);
+    console.log(resultsEl);
+    const parentDiv = document.getElementById('search-results');
+    parentDiv.appendChild(resultsEl);
 
     // Resize bounding box
-    const newEntry = document.getElementById('new-entry');
-    newEntry.style.maxHeight = content.scrollHeight + "px";
-
+    content.style.maxHeight = content.scrollHeight + "px";
 }
 
 window.onload = function() {    
