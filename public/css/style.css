@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    background-color: #FEEFDD;
 }
 
 header {
@@ -23,9 +24,14 @@ div#content {
     color: #201E1F;
 }
 
+div#new-entry-box {
+    padding: 50px 20px;
+}
+
 .collapsible {
     background-color: #FAAA8D;
     color: #201E1F;
+    box-shadow: 0px 1px 2px;
     cursor: pointer;
     padding: 18px;
     border: none;
@@ -36,23 +42,43 @@ div#content {
 
 .active, .collapsible:hover {
     background-color: #FF4000;
+    box-shadow: 0px 0px 0px;
 }
 
 .collapsible-content {
-    padding: 0px 18px;
+    margin: 0px -50px 0px -50px;
+    padding: 0px 50px;
     background-color: #FAAA8D;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
 
-.search-bar {
+input#search-bar {
     height: 20px;
     position: relative;
     border: none;
+    border-bottom: 2px solid #201E1F;
     outline: none;
     background-color: #FAAA8D;
     font-size: 20px;
+}
+
+button#search {
+    background-color: #50B2C0;
+    color: #201E1F;
+    box-shadow: 0px 1px 2px;
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+button#search:hover {
+    background-color: #9acdd4;
+    box-shadow: none;
 }
 
 footer {
@@ -64,5 +90,5 @@ footer {
     padding: 10px;
     font-family: 'Nunito', sans-serif;
     color: #201E1F;
-    background-color: #FF4000;
+    background-color: #50B2C0;
 }
