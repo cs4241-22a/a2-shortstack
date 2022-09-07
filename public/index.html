@@ -1,41 +1,158 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
+    <link rel=stylesheet href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+<h1 id="title">Purchase Spreadsheet</h1>
+<form action="" id="input">
+    <p>
+        Item Name:
+        <input type='text' name='item_name' id='item_name'>
+    </p>
+    <p>
+        Cost:
+        <input type='text' id='item_cost' name="item_cost">
+    </p>
+    <p>
+        Quantity:
+        <input type='text' id='item_quantity' name="item_quantity">
+    </p>
+    <p>
+        Payment Method:
+        <select id="payment_method" name="payment_method">
+            <option value="credit_card">Credit Card</option>
+            <option value="debit_card">Debit Card</option>
+            <option value="cash">Cash</option>
+        </select>
+    </p>
+    <button id="submit">Submit</button>
+</form>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+<table id="item_table">
+    <tr>
+        <th>Item Name</th>
+        <th>Item Cost</th>
+        <th>Item Quantity</th>
+        <th>Payment Method</th>
+        <th>Total Amount</th>
+    </tr>
+</table>
+</body>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+<script>
 
-    return false
-  }
+    const submit = function (e) {
+        // prevent default form action from being carried out
+        // required pattern="^\d*(\.\d{0,2})?$"
+        e.preventDefault()
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+        const name = document.querySelector('#item_name').value
+        const cost = document.querySelector('#item_cost').value
+        const method = document.querySelector('#payment_method').value
+        const quantity = document.querySelector('#item_quantity').value
 
-  </script>
+        const json = {
+            item_name: name,
+            item_cost: cost,
+            item_quantity: quantity,
+            payment_method: method
+        }
+
+        const body = JSON.stringify(json)
+
+
+        fetch('/submit', {
+            method: 'POST',
+            body
+        })
+            .then(function (response) {
+                // do something with the reponse
+                console.log(response)
+            })
+
+        updateTable()
+        return false
+    }
+
+    window.onload = function () {
+
+        const button = document.querySelector('#submit')
+        button.onclick = submit
+
+        setTimeout(() => {
+            updateTable()
+        }, 1000)
+    }
+
+    const updateTable = function () {
+        fetch('/database', {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(db => {
+                document.querySelector("#item_table").innerHTML = "    <tr>\n" +
+                    "        <th>Item Name</th>\n" +
+                    "        <th>Item Cost</th>\n" +
+                    "        <th>Item Quantity</th>\n" +
+                    "        <th>Payment Method</th>\n" +
+                    "        <th>Total Amount</th>\n" +
+                    "    </tr>"
+                for (let i = 0; i < db.length; i++) {
+                    let item = db[i]
+                    let row = document.createElement("tr")
+                    row.setAttribute("class", "item_row")
+
+                    let nameCell = document.createElement("td")
+                    nameCell.appendChild(document.createTextNode(item.item_name))
+                    row.appendChild(nameCell)
+
+                    let costCell = document.createElement("td")
+                    costCell.appendChild(document.createTextNode(item.item_cost))
+                    row.appendChild(costCell)
+
+                    let quantityCell = document.createElement("td")
+                    quantityCell.appendChild(document.createTextNode(item.item_quantity))
+                    let decreaseButton = document.createElement('button')
+                    decreaseButton.innerText = 'Decrease'
+                    decreaseButton.style = "float: right;"
+                    decreaseButton.addEventListener('click', () => {
+
+                        const json = {
+                            id: item.id
+                        }
+
+                        const body = JSON.stringify(json)
+                        fetch('/decrease', {
+                            method: 'POST',
+                            body
+                        })
+                            .then(function (response) {
+                                setTimeout(() => updateTable(), 50)
+                            })
+                    })
+                    quantityCell.appendChild(decreaseButton)
+
+                    row.appendChild(quantityCell)
+
+                    let paymentCell = document.createElement("td")
+                    paymentCell.appendChild(document.createTextNode(item.payment_method))
+                    row.appendChild(paymentCell)
+
+                    let amountCell = document.createElement("td")
+                    amountCell.appendChild(document.createTextNode(item.total_amount))
+                    row.appendChild(amountCell)
+
+                    document.querySelector("#item_table").appendChild(row)
+                }
+            })
+    }
+
+</script>
 </html>
