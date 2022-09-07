@@ -21,6 +21,16 @@ const submit = function( e ) {
     return false;
   }
 
+const letsGo = function()
+{
+    fetch( '/data', {
+        method:'GET',
+    }).then( response => response.json() )
+    .then(json => {
+        build( json );
+    });
+}
+
   const build = function( json )
   {
     const data = document.getElementById('datatable');
@@ -31,6 +41,7 @@ const submit = function( e ) {
   }
 
   window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+    const button = document.getElementById( 'submit' );
+    button.onclick = submit;
+    letsGo();
   }
