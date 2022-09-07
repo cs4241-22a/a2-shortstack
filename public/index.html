@@ -1,41 +1,94 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Pacifico&display=swap" rel="stylesheet">
+    
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <script src="js/scripts.js"></script>
   </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
+  
+  <body style="background-color: #A892D6;">
+  
+    <h1>
+      <section class="purple"><div class="blink-bg">Jackie's Chicano Art Museum</div></section>
+    </h1>
+  
+    <h2> About <i>El Movimiento</i></h2>
+    <span class="smdot1"></span>
+    <span class="smdot2"></span>
+    <span class="smdot3"></span>
+    <span class="smdot4"></span>
+    <span class="smdot1"></span>
+    <span class="smdot2"></span>
+    <span class="smdot3"></span>
+    <span class="smdot4"></span>
+  
+    <p>
+      Welcome to Jackie's Art Museum! As a "Chicana" herself, Jackie wanted to share with the world her passion for Chicano Art.
+    </p>
+    
+    <p>
+      Known as <i>El Movimiento</i>, The Chicano Movement began in the late 1960's and early 1970s that advocated social and political 
+      empowerment through a chicanismo / cultural nationalism. This was a way for Chicanos to form and develop a collective identity
+      that distinguised itself as Mexican-American to reject assimilation to the Euro-Centric American culture.
+    </p>
+    
+    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/artists-2-1626385417.jpg" alt="Art Image" width="100%" height="100%" class= "center">
+
+    <p> 
+       Many of the exhibits here showcase some of the most inspiring art from popular Chicano Artists such as:
+
+    <ul>
+      <li><a href="https://americanart.si.edu/artist/yreina-d-cervantez-5982"> Yreina Cervantez</a></li>
+      <li><a href="https://www.somosla.net/"> Chaz Bojorquez</a></li>
+      <li><a href="https://www.areaarts.com/richard-duardo/"> Richard Duardo</a></li>
+      <li><a href="https://www.artsy.net/artist/gilbert-magu-lujan">Magú</a></li>
+    </ul>
+    </p>
+  
+    <span class="smdot1"></span>
+    <span class="smdot2"></span>
+    <span class="smdot3"></span>
+    <span class="smdot4"></span>
+    <span class="smdot1"></span>
+    <span class="smdot2"></span>
+    <span class="smdot3"></span>
+    <span class="smdot4"></span>
+  <h2> Registration</h2>
+  
+  <p>
+    If you would like to visit our museum, please register below for an appointment. 
+    Due to the increase of covid, we must take precautions and limit our capacity
+    for our safety and yours.
+  </p>
+  <p>
+    <i> *WPI students can submit their ID number for free admission*
+    </i>
+  </p>
+    <form >
+      <input type="text" id="studentID" value="ID #">
+    </form>
+    <form >
+      <input type="text" id="name" value="Name">
+    </form>
+    <form >
+      <input type="datetime-local" id="appointment" value="">
       <button>submit</button>
     </form>
+
+  
+    <h2> Registered Visitors </h2>
+    <p>Here is a table to keep track of all the appointments.</p>
+    <table id = "taskTable"> 
+      <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Appointment Time</th>
+        <th>Visit Time Left</th>
+      </tr>
+    </table>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>

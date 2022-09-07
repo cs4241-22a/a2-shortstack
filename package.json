@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "Jacquelyn Lopez",
   "version": "",
   "description": "",
-  "author": "",
+  "author": "Jacquelyn Lopez",
   "scripts": {
     "start": "node server.improved.js"
   },
