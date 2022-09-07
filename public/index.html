@@ -1,41 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
+    <img
+        src="https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/clock_in.png?v=1662180150892"
+      />
+      <br />
     <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+      <!--       <input type= "text" id="yourname" value="your name here" onfocus = "this.value= ''"> -->
+
+      <form action = "">
+        <div class="grid_container">
+          <label class="grid_item" for="activity">Type of Activity Done</label>
+          <select type="text" id="activity" name="Type of activity done">
+            <option value="Sleep">Sleep</option>
+            <option value="Food">Food</option>
+            <option value="School">School</option>
+            <option value="Work">Work</option>
+            <option value="Fun">Fun</option>
+          </select>
+
+          <!--         <br /> -->
+          <label for="date">Date</label>
+          <input type="date" id="date" name="date" />
+
+          <label for="time_started">Time Started</label>
+          <input type="time" id="time_started" name="time_started" />
+
+          <label for="time_end">Time Ended</label>
+          <input type="time" id="time_ended" name="time_ended" />
+
+          <!--         <br /> -->
+          <label for="description">Description</label>
+          <input type="text" id="description" name="decription" />
+        </div>
+        <br /><button>submit</button>
+      </form>
+      
+      
+      <br />
+      <table id="table">
+        <tr>
+          <th>Activity Done</th>
+          <th>Date</th>
+          <th>Time Started</th>
+          <th>Time Ended</th>
+          <th>Description</th>
+        </tr>
+      </table>
     </form>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+  <script src="/scripts.js"></script>
 </html>
