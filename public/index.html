@@ -4,21 +4,34 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
   </head>
-  <body>
+  <body id="myText">
+    <h1> Worcester Airsoft Tracker!!! </h1>
+    <p> Be-safe! track worcester Airsoft. !</p>
+    <img src="airsoft.jpg">
     <form action="">
       <input type='text' id='yourname' value="your name here">
       <button>submit</button>
+      <input type='text' id='wheresoft' value="where you saw the airsoft">
+      <button>submit</button>
     </form>
+    <p> don't Click the Button below its virus.:</p>
+    <button onclick="swapImg()">
+      <img id="downloadImage" src="download.png" width="400" height="150">
+    </button>
+    <h2> Here's where other people spotted wild Airsofts:</h2>
+    <p> placeholder </p>
   </body>
   <script>
+  
+    let theBody = document.getElementById("myText");
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+    const submit = function( e ) {
+      // prevent default form action from being carried out
+      e.preventDefault()
 
     const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+      json = { yourname: input.value },
+      body = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
@@ -30,6 +43,34 @@
     })
 
     return false
+  }
+
+  let andrewGarfield = setInterval(updateColor, 20);
+  let colorCounter = 0;
+  
+  function updateColor() { // changes the color of the background over time
+    colorCounter += 1;
+    if (colorCounter > 9999) {
+      colorCounter = 1;
+    }
+    theBody.style.backgroundColor = "rgb("+(85+colorCounter) % 255+","+(170+colorCounter) % 255+","+colorCounter % 255+")";
+  }
+
+  let bearClicked = true
+
+  function swapImg() { // swaps the download image on button click
+    let img = document.getElementById("downloadImage")
+    img.src="bear.PNG"
+    setTimeout(function() {
+      if (bearClicked) {
+        window.alert("The cybersecurity bear is disappointed in you.\n\n\n\n\n\n\n\n\n\nHe says:\nDon't click on images that may be suspicious, whether they say 'CLICK HERE', 'download', or even if it's a picture of a bear.")
+        bearClicked = false;
+      } else {
+        window.alert("In many ways, the low-quality (but not necessarily low-effort) websites of the early to late 2000's were a truly original and innovative art form lost to time, wherein would-be artists would attempt to create webpages appearing to have been made with the utmost incompetence despite working perfectly.  The incongruous UI choices, the mysterious labyrinthine link embeds, and the utterly incomprehensible design choices made to seemingly deter the user only made those webpages more enticing to explore.  In many ways, my websites thus far have been love letters to this phenomenon that I truly believe to be an art form lost to time.")
+      }
+    }, 100);
+
+    
   }
 
   window.onload = function() {
