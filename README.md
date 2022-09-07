@@ -4,10 +4,6 @@
 Hey everyone my name is Aidan Mulcahey and I made a colerful page that allows a user to make an account with a username and password. Fulfills all requirements. To use my application one must have access to the webpage, which can be found here: 
 The CSS poitioning technique I used was ... Technical, Design, Evaluation achievements are below. 
 
-Acheivements
----
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
 ## Technical Achievements
 - created a page where a user can create an account with a user name and password 
 - shows current state of server data, included previous username attempts and password on display 
