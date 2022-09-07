@@ -1,4 +1,18 @@
 /*Style your own assignment! This is fun! */
 h1 {
+    display: flex;
+    justify-content: center;
+    columns: center;
     color:green;
-};
+}
+#QuestReceived{
+    color: Blue;
+    background-color: aliceblue;
+}
+.title {
+    color:yellow;
+    background-color: blue;
+}
+.div{
+    font-family: 'Metal Mania', cursive;
+}

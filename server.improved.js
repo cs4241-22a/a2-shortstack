@@ -115,7 +115,7 @@ const handlePost = function (request, response) {
           item.Done = false;
         }
       });
-      const json = {Retern : "Good Job!"};
+      const json = {Retern : "Maybe next time?"};
       const Result = JSON.stringify(json);
       response.end(Result);
     } else if (task === "GetDoneNum") {
@@ -153,10 +153,11 @@ const handlePost = function (request, response) {
       response.writeHead(200, "OK", { "Content-Type": "text/plain" });
       response.end(JSON.stringify(Output_val));
     } else if (task === "AddAppData") {
-      debugger
+
       const Name = content.Qname;
       const Field = content.Qfield;
       const id = ID_track+1
+      ID_track = ID_track+1
       appdata.push({ Quest: Name, Category: Field, Done: false, ID: id.toString() })
       const json = {Result : "Added the new row!"}
       response.end(JSON.stringify(json))
