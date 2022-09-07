@@ -4,11 +4,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -38,9 +34,13 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     simplePokemon = JSON.parse(dataString)
     pokemon = addTypeChart(simplePokemon)
+    console.log(pokemon)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    appdata.push(pokemon)
+    content = JSON.stringify(appdata)
+
+    response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
+    response.end( content )
   })
 }
 
@@ -143,13 +143,6 @@ const addTypeChart = function( pokemon ) {
     immunities1 = immunities[type1],
     immunities2 = immunities[type2]
 
-  console.log(weaknesses1)
-  console.log(weaknesses2)
-  console.log(resistances1)
-  console.log(resistances2)
-  console.log(immunities1)  
-  console.log(immunities2)
-
   
   const finalImmunities = [],
     finalWeaknesses = [],
@@ -163,9 +156,37 @@ const addTypeChart = function( pokemon ) {
     if(!finalImmunities.includes(element)) {
       finalImmunities.push(element)
     }
-  })
+  });
 
-  console.log(finalImmunities)
+  weaknesses1.forEach(element => {
+    if(!finalImmunities.includes(element) && !resistances2.includes(element)) {
+      finalWeaknesses.push(element)
+    }
+  });
+
+  weaknesses2.forEach(element => {
+    if(!finalImmunities.includes(element) && !resistances1.includes(element) && !finalWeaknesses.includes(element)) {
+      finalWeaknesses.push(element)
+    }
+  });
+
+  resistances1.forEach(element => {
+    if(!finalImmunities.includes(element) && !weaknesses2.includes(element)) {
+      finalResistances.push(element)
+    }
+  });
+
+  resistances2.forEach(element => {
+    if(!finalImmunities.includes(element) && !weaknesses1.includes(element) && !finalResistances.includes(element)) {
+      finalResistances.push(element)
+    }
+  });
+
+  pokemon.immunities = finalImmunities
+  pokemon.resistances = finalResistances
+  pokemon.weaknesses = finalWeaknesses
+
+  return pokemon
 }
 
 server.listen( process.env.PORT || port )

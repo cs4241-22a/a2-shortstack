@@ -12,7 +12,7 @@ async function submit( e ) {
 
         const responseData = await postFormDataAsJSON({url, formData})
 
-        console.log({responseData})
+        console.log(responseData)
     } catch(error) {
         console.error(error)
     }
@@ -36,8 +36,7 @@ async function postFormDataAsJSON({url, formData}) {
         const errorMessage = await response.text()
         throw new Error(errorMessage)
     }
-
-    console.log(response)
+    responseData = response.json()
     
-    return response
+    return responseData
 }
