@@ -1,1 +1,14 @@
 /*Style your own assignment! This is fun! */
+section{
+    display: inline-block;
+}
+#add{
+    background-color: lightblue;
+    border-radius: 49%;
+    border-color: black;
+    color: black;
+    text-align: center;
+    font-size: larger;
+    margin-left: 20px;
+
+}
