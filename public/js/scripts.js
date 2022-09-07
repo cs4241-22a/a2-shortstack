@@ -1,3 +1,12 @@
+const config = [
+  "priority",
+  "type",
+  "title",
+  "description",
+  "creation_time",
+  "deadline",
+];
+
 const submit = function (e) {
   /* Prevent default form action from being carried out */
   e.preventDefault();
@@ -18,17 +27,21 @@ const submit = function (e) {
       json.forEach((item) => {
         const row = document.createElement("tr");
 
-        for (const key in item) {
-          const p = document.createElement("th");
+        config.forEach((key) => {
+          const p = document.createElement("td");
           p.innerHTML = item[key];
-          p.setAttribute("class", "");
           row.appendChild(p);
-        }
+        });
+
         results.appendChild(row);
       });
     });
 
   return false;
+};
+
+const show = function () {
+  document.getElementById("modal-container").style.display = "flex";
 };
 
 window.onload = function () {

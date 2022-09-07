@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap");
 
 /* =============== CSS RESET =============== */
 * {
@@ -22,7 +22,7 @@
   margin: 0 auto;
 }
 
-#page-header {
+.header {
   margin-top: 3em;
   text-align: center;
   height: 3.5em;
@@ -38,65 +38,65 @@
 .info {
   padding: 0 0 2em 2em;
   flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+
+.btn-icon {
+  height: 45px;
+  width: 45px;
+  border-style: none;
+  border-radius: 6px;
+}
+
+#result-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+#btn-container {
+  display: inherit;
+  gap: 0.8em;
 }
 
 /* =============== FORM STYLING =============== */
 
-.form-container {
-  border-right: 1px solid;
-  display: inherit;
-  align-items: center;
-  padding: 0 2em;
-  width: 400px;
+#modal-container {
+  background-color: white;
+  border-radius: 1em;
+  border: 2px solid;
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 3em 3em 3em;
+  min-width: 400px;
+  z-index: 1;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #input-form {
   display: inherit;
-  flex-direction: column;
-  width: 100%;
+  flex-direction: inherit;
 }
 
 #top-field {
-  display: inherit;
-  font-family: inherit;
-  font-size: inherit;
-  background-color: transparent;
-  color: inherit;
   justify-content: space-between;
   align-content: space-between;
-}
-
-#top-field * {
-  border: 0;
-  border-bottom: 1px solid #d2d2d2;
-  outline: 0;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
+  margin-top: 1em;
+  display: inherit;
 }
 
 #input-form * {
   font-family: inherit;
-  margin: 0.5em 0;
-}
-
-#input-form input[type="text"],
-textarea {
-  width: 100%;
-  border: 0;
-  border-bottom: 1px solid #d2d2d2;
-  outline: 0;
-  font-size: inherit;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
 }
 
 #input-form textarea {
-  height: 500px;
+  height: 200px;
 }
-
-/* =============== TYPOGRAPHY =============== */
 
 /* =============== GENERAL STYLES =============== */
 body {
@@ -109,10 +109,43 @@ body {
 h1 {
   font-size: 2.5rem;
   line-height: 8rem;
+  margin: 0;
+  display: inline-block;
+  font-weight: 100;
 }
 
 img {
   height: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+footer {
+  font-size: 0.8em;
+  margin: 2em;
+  text-align: center;
+}
+
+th,
+select,
+input,
+textarea {
+  border: 0;
+  border-bottom: 1px solid #d2d2d2;
+  outline: 0;
+  padding: 0.5em 0;
+  margin: 0.5em 0;
+  transition: border-color 0.2s;
+}
+
+.red {
+  background-color: #ff6961;
+}
+
+.green {
+  background-color: #77dd77;
 }
 
 /* =============== LOGO ANIMATION =============== */

@@ -9,26 +9,29 @@
   </head>
   <body id="page-wrapper">
     <div id="page-container">
-      <header id="page-header">
+      <header class="header">
         <img class="shake" src="./assets/images/panda.png" alt="logo" />
       </header>
       <main class="content">
-        <aside class="form-container">
+        <div id="modal-container">
+          <div class="header">
+            <img class="shake" src="./assets/images/panda.png" alt="logo" />
+          </div>
           <form id="input-form">
             <div id="top-field">
               <select name="priority" required>
                 <option value="" disabled selected>PRIORITY</option>
-                <option value="urgent">URGENT</option>
-                <option value="high">HIGH</option>
-                <option value="med">MEDIUM</option>
-                <option value="low">LOW</option>
+                <option value="URGENT">URGENT</option>
+                <option value="HIGH">HIGH</option>
+                <option value="MED">MEDIUM</option>
+                <option value="LOW">LOW</option>
               </select>
               <select name="type" required>
                 <option value="" disabled selected>TYPE</option>
-                <option value="mqp">MQP</option>
-                <option value="academics">ACADEMICS</option>
-                <option value="work">WORK</option>
-                <option value="other">OTHER</option>
+                <option value="MQP">MQP</option>
+                <option value="ACADEMICS">ACADEMICS</option>
+                <option value="WORK">WORK</option>
+                <option value="OTHER">OTHER</option>
               </select>
               <input type="datetime-local" name="deadline" />
             </div>
@@ -38,23 +41,33 @@
               placeholder="Description of task"
               required
             ></textarea>
+            <button>Click this.</button>
           </form>
-        </aside>
+        </div>
         <section class="info">
-          <h1>todo list</h1>
+          <div id="result-header">
+            <h1>todo list</h1>
+            <div id="btn-container">
+              <button onclick="show()" class="btn-icon green" />
+              <button class="btn-icon red" />
+            </div>
+          </div>
           <table>
-            <tr>
-              <th>Priority</th>
-              <th>Type</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Creation Time</th>
-              <th>Deadline</th>
-            </tr>
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Type</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Creation Time</th>
+                <th>Deadline</th>
+              </tr>
+            </thead>
             <tbody id="results"></tbody>
           </table>
         </section>
       </main>
+      <footer>Logo made by Aiyi Huynh</footer>
     </div>
   </body>
 </html>
