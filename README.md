@@ -13,8 +13,7 @@ CSS acheivements:
 
 ### Design/Evaluation Achievements
 - **Evaluation with Alex Bolduc**: Evaluation report is attached below
-- **Evaluation with Reagan **: Evaluation report is attached below
-
+- **Evaluation with Reagan Brunelle**: Evaluation report is attached below
 
 Think aloud:
 Alex Bolduc:
