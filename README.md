@@ -24,7 +24,9 @@ Alex took some time to look at it first, and then I started to explain the tasks
 **Mark some tasks as done, meaning that you did it:**
 
 	He quickly hovered the mouse over the “I did it!” button and clicked it without hesitation.
-How many tasks have you done so far:
+	
+**How many tasks have you done so far:**
+
 He quickly responded to the correct answer that was shown below the quest.	
 
 **You realized that was a misclick, tell the server that you did not do this task:**
@@ -57,6 +59,9 @@ Regan did not take anytime to read the webpage, I just started to explain the ta
 **Comments:**
 
 Overall, he thought the program was easy to understand and intuitive, besides the aesthetic portion of the program.
+
+
+
 
 **What problems did the user have with your design?**
 
