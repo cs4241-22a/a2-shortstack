@@ -9,20 +9,55 @@ const http = require("http"),
   dir = "public/",
   port = 3000;
 
+let Num_things_done = 0;
+let ID_track = 11;
 const appdata = [
-  { Quest: "Do laudary", Category: "Life", Done: false },
-  { Quest: "Make a fully working website", Category: "School", Done: false },
-  { Quest: "Break a world record", Category: "Challenge", Done: false },
+  { Quest: "Do laudary", Category: "Life", Done: false, ID: 0 },
+  { Quest: "Make yourself a meal", Category: "Life", Done: false, ID: 1 },
+  {
+    Quest: "Relax yourself, play some games",
+    Category: "Life",
+    Done: false,
+    ID: 2,
+  },
+  { Quest: "Go grocery shopping", Category: "Life", Done: false, ID: 3 },
+  {
+    Quest: "Make a fully working website",
+    Category: "School",
+    Done: false,
+    ID: 4,
+  },
+  { Quest: "Do Geology HW2", Category: "School", Done: false, ID: 5 },
+  {
+    Quest: "Learn programming skills by watching youtube",
+    Category: "School",
+    Done: false,
+    ID: 6,
+  },
+  {
+    Quest: "Go to Noelle's office hour",
+    Category: "School",
+    Done: false,
+    ID: 7,
+  },
+  { Quest: "Break a world record", Category: "Challenge", Done: false, ID: 8 },
   {
     Quest: "Beat Kurry in a basketball game",
     Category: "Challenge",
     Done: false,
+    ID: 9,
   },
-  { Quest: "Win the championship in FIFA", Category: "Challenge", Done: false },
+  {
+    Quest: "Win the championship in FIFA",
+    Category: "Challenge",
+    Done: false,
+    ID: 10,
+  },
   {
     Quest: "Create a world top 500 company in one day",
     Category: "Challenge",
     Done: false,
+    ID: 11,
   },
 ];
 
@@ -60,11 +95,43 @@ const handlePost = function (request, response) {
     dataString += data;
   });
   request.on("end", function () {
-    if (dataString === "GetAllData") {
+    dataString = JSON.parse(dataString);
+    const task = dataString.Task;
+    const content = dataString.Content;
+    if (task === "Done") {
+      const target_ID = content;
+      appdata.forEach((item) => {
+        if (item.ID == target_ID) {
+          item.Done = true;
+        }
+      });
+      const json = {Retern : "Good Job!"};
+      const Result = JSON.stringify(json);
+      response.end(Result);
+    } else if (task === "NotDone") {
+      const target_ID = content;
+      appdata.forEach((item) => {
+        if (item.ID == target_ID) {
+          item.Done = false;
+        }
+      });
+      const json = {Retern : "Good Job!"};
+      const Result = JSON.stringify(json);
+      response.end(Result);
+    } else if (task === "GetDoneNum") {
+      let ct = 0;
+      appdata.forEach((item) => {
+        if (item.Done) {
+          ct = ct + 1;
+        }
+      });
+      const json = { count: ct.toString() };
+      const Result = JSON.stringify(json);
+      response.end(Result);
+    } else if (task === "GetAllData") {
       response.end(JSON.stringify(appdata));
-    } else {
-      const input = JSON.parse(dataString);
-      const keyword = input.yourname;
+    } else if (task === "submit") {
+      const keyword = content;
 
       // ... do something with the data here!!!
       const count = appdata.length;
@@ -85,6 +152,14 @@ const handlePost = function (request, response) {
 
       response.writeHead(200, "OK", { "Content-Type": "text/plain" });
       response.end(JSON.stringify(Output_val));
+    } else if (task === "AddAppData") {
+      debugger
+      const Name = content.Qname;
+      const Field = content.Qfield;
+      const id = ID_track+1
+      appdata.push({ Quest: Name, Category: Field, Done: false, ID: id.toString() })
+      const json = {Result : "Added the new row!"}
+      response.end(JSON.stringify(json))
     }
   });
 };

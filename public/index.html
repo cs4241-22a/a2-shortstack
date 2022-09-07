@@ -4,7 +4,7 @@
 <head>
   <title>CS4241 Assignment 2</title>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
@@ -12,24 +12,30 @@
     <h1>Welcome to Everyday Quest</h1>
     <p>The fields are (School, Life, Challenge)</p>
     <p>Type in the field you want to work on:</p>
-    <input type="text" id="yourname" value="Challenge" />
+    <input type="text" id="fieldname" value="Challenge" />
     <button id="Submit">submit</button>
-    <p>if you want to retreive a quest:</p>
+    <p>Press Submit to retreive a quest:</p>
     <P id="QuestReceived">What ever is the quest (will be generated)</P>
-    <button id="Done">I did it! (not done)</botton>
-      <button style="margin-left: 50px" id="NotDone">I did not :( (not done)</button>
+    <button id="Done">I did it!</botton>
+      <button style="margin-left: 50px" id="NotDone">I did not :(</button>
       <h3>How many things done?</h3>
       <p id="GetDoneNum">You got nothing done today</p>
-    <button id="Result">Get Database</button>
+      <h3>Want to add some challenges?</h3>
+      <input type="text" id="QuestName" value="What is the Quest?" />
+      <input type="text" id="QuestType" value="What flied is it?" />
+      <button id="addquest">Add Quest</button>
+      <p id = "successAdd"></p>
+      <button id="Result">Get Database</button>
   </form>
 </body>
 <script>
+  let ID_num = -1;
   const submit = function (e) {
     // prevent default form action from being carried out
     e.preventDefault();
 
-    const input = document.querySelector("#yourname"),
-      json = { yourname: input.value },
+    const input = document.querySelector("#fieldname"),
+      json = { Task: "submit", Content: input.value },
       body = JSON.stringify(json);
 
     fetch("/submit", {
@@ -42,25 +48,76 @@
       .then((json) => {
         const quest = document.body.querySelector("#QuestReceived");
         const Quest = json.Quest;
+        ID_num = json.ID;
         quest.innerText = Quest;
-        /*
-        for (let i = 0;i < test;i++) {
+      })
+      .then(function (response) {
+        // do something with the reponse 
+        console.log(ID_num)
+      })
 
-        }
+    return false;
+  };
 
-        json.forEach((item) => {
-          const p = JSON.stringify(item);
-          quest.innerText = p;
-        });
-        */
-        /*
+  const Done = function (e) {
+    e.preventDefault();
+
+    const json = { Task: "Done", Content: ID_num.toString() };
+    const body = JSON.stringify(json);
+
+    fetch("/submit", {
+      method: "POST",
+      body,
+    })
+      .then((response) => {
+        return response.json()
+      }).then((json) => {
+        console.log(json)
+        GetDoneNum()
+      })
+
+      return false;
+  };
+
+  const NotDone = function (e) {
+    e.preventDefault();
+
+    const json = { Task: "NotDone", Content: ID_num.toString() };
+    const body = JSON.stringify(json);
+
+    fetch("/submit", {
+      method: "POST",
+      body,
+    })
+      .then((response) => {
+        return response.json()
+      }).then((json) => {
+        console.log(json)
+        GetDoneNum()
+      })
+    
+      return false;
+  };
+
+  const Result = function (e) {
+
+    e.preventDefault();
+    const json = { Task: "GetAllData", Content: "" };
+    const body = JSON.stringify(json);
+
+    fetch("/submit", {
+      method: "POST",
+      body,
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
         json.forEach((item) => {
           const p = document.createElement("p");
           p.innerText = JSON.stringify(item);
-          const quest = document.body.querySelector("#QuestReceived");
-          quest.innerText = p.innerText;
+          document.body.appendChild(p);
         });
-        */
       })
       .then(function (response) {
         // do something with the reponse 
@@ -70,28 +127,9 @@
     return false;
   };
 
-  const Done = function (e) {
-    e.preventDefault();
-
-    Q_element = document.querySelector("#QuestReceived")
-    body = "NoDo" + Q_element.innerText
-
-    fetch("/submit", {
-      method: "POST",
-      body,
-    })
-      .then((response) => {
-        return response.json();
-      })
-
-    return false;
-  };
-
-  const NotDone = function (e) {
-    e.preventDefault();
-
-    const input = document.querySelector("#yourname"),
-      json = { yourname: input.value },
+  const GetDoneNum = function (e) {
+    const input = document.querySelector("#fieldname"),
+      json = { Task: "GetDoneNum", Content: "" },
       body = JSON.stringify(json);
 
     fetch("/submit", {
@@ -102,25 +140,22 @@
         return response.json();
       })
       .then((json) => {
-        json.forEach((item) => {
-          const p = document.createElement("p");
-          p.innerText = JSON.stringify(item);
-          const quest = document.body.querySelector("#QuestReceived");
-          quest.innerText = p.innerText;
-        });
-      })
-      .then(function (response) {
-        // do something with the reponse 
-        console.log(response)
+        const num = document.querySelector("#GetDoneNum");
+        num.innerText = json.count;
       })
 
     return false;
   };
-  
-  const Result = function (e) {
-    
+
+  const AddQuest = function (e) {
+    // prevent default form action from being carried out
     e.preventDefault();
-    body = "GetAllData"
+
+    const Qname = document.querySelector("#QuestName"),
+      Qfield = document.querySelector("#QuestType"),
+      content = {Qname : Qname.value, Qfield : Qfield.value }
+      json = { Task: "AddAppData", Content: content },
+      body = JSON.stringify(json);
 
     fetch("/submit", {
       method: "POST",
@@ -130,15 +165,9 @@
         return response.json();
       })
       .then((json) => {
-        json.forEach((item) => {
-          const p = document.createElement("p");
-          p.innerText = JSON.stringify(item.Quest);
-          document.body.appendChild(p);
-        });
-      })
-      .then(function (response) {
-        // do something with the reponse 
-        console.log(response)
+        console.log(json)
+        const p = document.querySelector("#successAdd")
+        p.innerText = json.Result
       })
 
     return false;
@@ -153,6 +182,9 @@
     button_Notdone.onclick = NotDone;
     const button_Result = document.querySelector("#Result");
     button_Result.onclick = Result;
+    const button_AddQuest = document.querySelector("#addquest");
+    button_AddQuest.onclick = AddQuest;
+    GetDoneNum();
   };
 </script>
 
