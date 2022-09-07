@@ -1,8 +1,7 @@
 ## Aidan Mulcahey, Glitch: https://a2-aidanmulcahey.glitch.me
 
 ## Unemployment Benefits Portal 
-Hey everyone my name is Aidan Mulcahey and I made a colerful page that allows a user to make an account with a username and password. Fulfills all requirements. To use my application one must have access to the webpage, which can be found here: 
-The CSS poitioning technique I used was ... Technical, Design, Evaluation achievements are below. 
+Hey everyone my name is Aidan Mulcahey and I made a colerful page that allows a user to make an account with a username and password. Fulfills all requirements. Technical, Design, Evaluation achievements are below. 
 
 ## Technical Achievements
 - created a page where a user can create an account with a user name and password 
@@ -15,4 +14,4 @@ The CSS poitioning technique I used was ... Technical, Design, Evaluation achiev
 1. Names of those in study: Camacho, Zhu 
 2. Problems wiith Design: Color scheme was very vibrant, perhaps a little too vibrant. 
 3. Surprising Comments: They liked it a lot, the feature and overall function. 
-4. Feedback Results: Change the background color to something more normal, not Christmas colors. 
+4. Feedback Results: Change the background color to something more normal, it's all blue
