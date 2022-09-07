@@ -58,24 +58,18 @@ window.onload = async function () {
   const template = document.querySelector("#stock-template");
   //get the div to put the stocks in
   const stockList = document.querySelector("#stock-list");
+
+  const stocks = [];
   //loop through the data
   for (let i = 0; i < data.length; i++) {
-    //create a clone of the template
-    const clone = template.cloneNode(true);
-    const fetchedData = await getCompanyData(data[i].symbol);
-
-    const symbol = clone.querySelector(".symbol");
-    symbol.innerHTML = data[i].symbol.toUpperCase();
-
-    //set the id of the clone to empty
-    clone.id = "";
-
-    //parse the response as json and log
-    const parsedData = await fetchedData.json();
-    console.log(parsedData);
-
     //add the clone to the div
-    stockList.appendChild(clone);
+    //create a stock object and call init
+    const stock = new Stock(data[i].symbol);
+    stock.init(template);
+    stock.startUpdating();
+    stocks.push(stock);
+
+    stockList.appendChild(stock.html);
   }
 };
 
@@ -83,10 +77,43 @@ window.onload = async function () {
 function Stock(symbol) {
   this.symbol = symbol;
   this.price = 0;
+  this.html = null;
+
+  this.init = async function (template) {
+    //create the html for the stock from the template
+    //create a clone of the template
+    this.html = template.cloneNode(true);
+    const fetchedData = await getCompanyData(this.symbol);
+
+    const symbol = this.html.querySelector(".symbol");
+    symbol.innerHTML = this.symbol.toUpperCase();
+
+    //set the id of the clone to empty
+    this.html.id = "";
+
+    this.updateData();
+
+    return this.html;
+  };
+
+  this.setHTMLFromData = function (data) {
+    this.html.querySelector(".last-update").innerHTML = new Date();
+    this.html.querySelector(".price").innerHTML = data.meta.regularMarketPrice;
+    this.html.querySelector(".full-name").innerHTML = data.meta.name;
+  };
+
+  this.startUpdating = function () {
+    //start updating the price
+    this.updateData();
+    //update the price every 5 seconds
+    setInterval(this.updateData.bind(this), 10000);
+  };
 
   this.updateData = async function () {
-    const fetchedData = await getStockData(this.symbol);
+    console.log(symbol + " Data Refreshing");
+    const fetchedData = await getCompanyData(this.symbol);
     const parsedData = await fetchedData.json();
+    this.setHTMLFromData(parsedData);
     return parsedData;
   };
 }

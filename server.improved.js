@@ -1,3 +1,5 @@
+const { log } = require("console");
+
 const http = require("http"),
   fs = require("fs"),
   // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -55,7 +57,25 @@ const getStockData = async function (symbol) {
     symbol.toUpperCase() +
     "?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance";
 
+  const nameData = await getBuffer(
+    "https://www.nasdaq.com/market-activity/stocks/" + symbol.toUpperCase()
+  );
+
+  console.log(nameData.toString());
+
+  const name = await nameData.text();
+  //grab the string between the title tags
+  const nameString = name.substring(
+    name.indexOf("<title>") + 7,
+    name.indexOf("</title>")
+  );
+
+  console.log(nameString);
+  //name is the first part of the string split at the comma
+  const nameFinal = nameString.split(",")[0];
+
   const data = await getJSON(url);
+  data["chart"]["result"][0]["meta"]["name"] = nameFinal;
   return data;
 };
 
