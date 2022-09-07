@@ -37,9 +37,13 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
+    let newHold = JSON.parse( dataString )
+    if (newHold.holdConfirm < 1) {
+      newHold.holdConfirm = ""
+    }
 
-    //console.log( newHold )
-    //appdata.push( newHold )
+    console.log( newHold )
+    appdata.push( newHold )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end( JSON.stringify( appdata ) )

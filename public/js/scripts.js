@@ -33,11 +33,14 @@
 
     function refreshInfo(formResults) {
         const board = document.getElementById("reserveData")
-        board.innerHTML = " "
+        board.innerHTML = ""
 
         formResults.forEach((element, index) => {
             board.innerHTML +=
-            "<tr><td>" + username + "has placed a hold on " + "<tr><td>" + bookTitle + "by " + "<tr><td>" + bookAuthor + ". A confirmation will be sent to " + "<tr><td>" + useremail + "."
+            element.username + " has placed a hold on " 
+            + element.bookTitle + " by " 
+            + element.bookAuthor + ". A confirmation will be sent to " 
+            + element.useremail + "."
         })
     }
 
