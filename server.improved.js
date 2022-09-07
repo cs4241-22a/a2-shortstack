@@ -1,8 +1,9 @@
-const http = require('http'),
-    fs = require('fs'),
-    mime = require('mime'),
-    dir = 'public/',
-    port = 3000
+const { v4: uuidv4 } = require('uuid');
+const http = require('http');
+const fs = require('fs');
+const mime = require('mime');
+const dir = 'public/';
+const port = 3000;
 
 const appdata = {
     summary: {
@@ -11,7 +12,7 @@ const appdata = {
         dreamPercentage: 0,
         numberOfRecords: 0
     },
-    sleepData: []
+    sleepData: {}
 }
 
 const server = http.createServer(function (request, response) {
@@ -19,6 +20,8 @@ const server = http.createServer(function (request, response) {
         handleGet(request, response)
     } else if (request.method === 'POST') {
         handlePost(request, response)
+    } else if (request.method === 'DELETE') {
+        handleDelete(request, response)
     }
 })
 
@@ -53,14 +56,51 @@ const handlePost = function (request, response) {
         const hoursSlept = getHoursDiff(bedTime, timeAwake);
 
         summary.numberOfRecords++;
-        summary.averageTimeAsleep += (hoursSlept - summary.averageTimeAsleep) / summary.numberOfRecords;
-        summary.averageSleepRating += (data.sleepRating - summary.averageSleepRating) / summary.numberOfRecords;
-        summary.dreamPercentage += (data.hadDream - summary.dreamPercentage) / summary.numberOfRecords;
-        console.log(summary)
-        appdata.sleepData.push(data);
 
-        response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-        response.end(JSON.stringify(summary))
+        const averageTimeAsleepChange = (hoursSlept - summary.averageTimeAsleep) / summary.numberOfRecords;
+        const averageSleepRatingChange = (data.sleepRating - summary.averageSleepRating) / summary.numberOfRecords;
+        const dreamPercentageChange = (data.hadDream - summary.dreamPercentage) / summary.numberOfRecords;
+
+        summary.averageTimeAsleep += averageTimeAsleepChange;
+        summary.averageSleepRating += averageSleepRatingChange;
+        summary.dreamPercentage += dreamPercentageChange;
+
+        data.id = uuidv4();
+        data.averageTimeAsleepChange = averageTimeAsleepChange;
+        data.averageSleepRatingChange = averageSleepRatingChange;
+        data.dreamPercentageChange = dreamPercentageChange;
+        appdata.sleepData[data.id] = data;
+
+        response.writeHead(200, "OK", {'Content-Type': 'text/plain'});
+        response.end(JSON.stringify({summary: summary, id: data.id}))
+    })
+}
+
+const handleDelete = function (request, response) {
+    let dataString = ''
+
+    request.on('data', function (data) {
+        dataString += data
+    })
+
+    request.on('end', function () {
+        const data = JSON.parse(dataString);
+        const summary = appdata.summary;
+        const sleepData = appdata.sleepData;
+        if(Object.hasOwn(sleepData, data.id)) {
+            const recordData = sleepData[data.id];
+            console.log(recordData)
+            summary.averageTimeAsleep -= recordData.averageTimeAsleepChange;
+            summary.averageSleepRating -= recordData.averageSleepRatingChange;
+            summary.dreamPercentage -= recordData.dreamPercentageChange;
+            summary.numberOfRecords--;
+
+            delete sleepData[data.id];
+        }
+
+
+        response.writeHead(200, "OK", {'Content-Type': 'text/plain'});
+        response.end(JSON.stringify(summary));
     })
 }
 

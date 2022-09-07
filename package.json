@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "a2",
   "version": "",
   "description": "",
   "author": "",
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "mime": "^2.4.4",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "uuid": "^9.0.0"
   }
 }

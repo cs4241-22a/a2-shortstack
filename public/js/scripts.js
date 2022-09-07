@@ -8,14 +8,14 @@ const submit = async function (e) {
         hadDream: inputs['did-dream'].checked,
         dreamDescription: inputs['dream-description'].value,
     }
-    console.log(json);
     const body = JSON.stringify(json);
 
     const rawRes = await fetch('/submit', {method: 'POST', body});
-    const updatedSummary = await rawRes.json();
+    const updatedData = await rawRes.json();
 
-    updateSummaries(updatedSummary);
-    updateData(json);
+    updateSummaries(updatedData['summary']);
+    json.id = updatedData['id']
+    updateData({[json.id]: json});
 
     return false;
 }
@@ -32,25 +32,32 @@ const updateSummaries = function (summary) {
 const updateData = function (data) {
     const table = document.getElementById('sleep-data');
 
-    if(!Array.isArray(data)) {
-        data = [data];
-    }
-
-    data.forEach(datum => {
+    Object.values(data).forEach(datum => {
         const row = table.insertRow(-1);
         const timeAsleepCell = row.insertCell(0);
         const timeAwakeCell = row.insertCell(1);
         const ratingCell = row.insertCell(2);
         const didDreamCell = row.insertCell(3);
         const dreamSummaryCell = row.insertCell(4);
-        console.log(datum['hadDream'])
-        row.classList.add('history-entry')
+        const deleteCell = row.insertCell(5);
+
+        row.classList.add('history-entry');
         timeAsleepCell.innerText = new Date(datum['timeSleep']).toLocaleString();
         timeAwakeCell.innerText = new Date(datum['timeWakeUp']).toLocaleString();
         ratingCell.innerText = datum['sleepRating'];
         didDreamCell.innerText = datum['hadDream'] ? '✓' : '✗';
-        dreamSummaryCell.innerText = datum['hadDream'] ? datum['dreamDescription'] : 'N/A';
+        dreamSummaryCell.innerText = datum['hadDream'] ? (datum['dreamDescription'] ?? 'N/A') : 'N/A';
+        deleteCell.innerHTML = `<td><button id="${datum.id}" class="delete-button" onclick="deleteItem(this)"><span class="material-symbols-outlined">delete</span></button></td>`
     })
+}
+
+const deleteItem = async function (button) {
+    const res = await fetch('/deleteEntry', {method: "DELETE", body: JSON.stringify({id: button.id})});
+    const summary = await res.json();
+    updateSummaries(summary);
+    const table = document.getElementById('sleep-data');
+    const rowIndex = button.parentNode.parentNode.rowIndex;
+    table.deleteRow(rowIndex);
 }
 
 window.onload = function () {
