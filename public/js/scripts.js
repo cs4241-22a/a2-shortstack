@@ -130,16 +130,22 @@ function Stock(symbol) {
   };
 
   this.setHTMLFromData = function (data) {
-    this.html.querySelector(".last-update").innerHTML = new Date();
-    this.html.querySelector(".price").innerHTML = data.regularMarketPrice;
+    this.html.querySelector(".last-update").innerHTML = this.html.querySelector(
+      ".price"
+    ).innerHTML = data.regularMarketPrice;
     this.html.querySelector(".full-name").innerHTML = data.longName;
+    this.html.querySelector(".change").innerHTML = data.regularMarketChange;
+    this.html.querySelector(".change-percent").innerHTML =
+      data.regularMarketChangePercent;
+    this.html.querySelector(".volume").innerHTML = data.regularMarketVolume;
+    this.html.querySelector(".market-cap").innerHTML = data.marketCap;
   };
 
   this.startUpdating = function () {
     //start updating the price
     this.updateData();
     //update the price every 5 seconds
-    setInterval(this.updateData.bind(this), 5000);
+    setInterval(this.updateData.bind(this), 10000);
   };
 
   this.stopUpdating = function () {
