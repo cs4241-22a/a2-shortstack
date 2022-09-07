@@ -10,8 +10,11 @@ body {
     margin: 0 auto;
     max-width: 50em;
 }
-
-
+ 
+#table-header {
+    font-weight: bold;
+    padding: 50px;
+}
 /*
 Change input to start as gray until edited
 input {

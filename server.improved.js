@@ -6,8 +6,6 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-var appdata = []
-
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -36,11 +34,8 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
-    
-
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(dataString)
   })
 }
 
