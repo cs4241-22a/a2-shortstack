@@ -19,7 +19,7 @@ const submit = function (e) {
   if (Object.keys(json).length !== 5) {
     return;
   } else {
-    toggleModal("none");
+    toggleModal("hidden");
 
     fetch("/submit", {
       method: "POST",
@@ -51,7 +51,7 @@ const submit = function (e) {
 const toggleModal = function (visibility) {
   document.getElementById("modal-container").style.visibility = visibility;
 
-  if (display === "none") {
+  if (visibility === "none") {
     const form = document.getElementById("input-form");
     form.reset();
   }
