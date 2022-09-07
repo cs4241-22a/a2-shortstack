@@ -6,29 +6,70 @@
   </head>
   <body>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <label for="trailname">Trail name:</label><br>
+      <input type='text' id='trailname'><br>
+      <label for="traillength">Trail length (mi):</label><br>
+      <input type='number' id='traillength'><br>
+      <label for="trailelevation">Trail elevation change (ft):</label><br>
+      <input type='number' id='trailelevation'><br>
       <button>submit</button>
     </form>
+    <table id="datatable">
+      <tr>
+        <th>Trail Name</th>
+        <th>Trail Length</th>
+        <th>Trail Elevation Gain</th>
+      </tr>
+    </table>
   </body>
   <script>
+
+  let rowsAdded = 0 //keeps track of how many rows of data our table has (useful for clearing the table)
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const input = {
+      name: document.querySelector( '#trailname' ),
+      length: document.querySelector( '#traillength' ),
+      elevation: document.querySelector( '#trailelevation' )
+    }
+    const json = {
+      name: input.name.value,
+      length: input.length.value,
+      elevation: input.elevation.value
+    }
+    const body = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
       body 
     })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+    .then( response => response.json() )
+            .then( json => {
+              const table = document.getElementById("datatable")
+              const dataLength = json.length
 
+              //if no trail name specified, we cleared the server so we need to clear the table
+              if(dataLength === 0) {
+                for(let i = 0; i < rowsAdded; i++) {
+                  table.deleteRow(-1) //will remove the last row always
+                }
+                rowsAdded = 0
+              } else {
+                //insert row for new data
+                const row = table.insertRow()
+                rowsAdded++
+                //insert cells for this row
+                let cell = row.insertCell()
+                cell.innerHTML = json[dataLength-1].name
+                cell = row.insertCell()
+                cell.innerHTML = json[dataLength-1].length
+                cell = row.insertCell()
+                cell.innerHTML = json[dataLength-1].elevation
+              }
+            })
     return false
   }
 
