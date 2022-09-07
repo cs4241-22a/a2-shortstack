@@ -4,7 +4,7 @@ const submit = async function (e) {
     const json = {
         timeSleep: inputs['sleep-time'].value,
         timeWakeUp: inputs['wake-time'].value,
-        sleepRating: inputs['sleep-rating'].value, // Out of 5
+        sleepRating: Number(inputs['sleep-rating'].value), // Out of 5
         hadDream: inputs['did-dream'].checked,
         dreamDescription: inputs['dream-description'].value,
     }
@@ -24,7 +24,7 @@ const updateSummaries = function (summary) {
     const averageHours = document.getElementById('average-hours-stat');
     const dreamPercentage = document.getElementById('dream-percentage-stat');
     const averageRating = document.getElementById('average-rating-stat');
-    averageHours.innerText = summary['averageTimeAsleep'];
+    averageHours.innerText = `${Math.round(summary['averageTimeAsleep']*100)/100}`;
     dreamPercentage.innerText = `${summary['dreamPercentage'].toFixed(2) * 100}%`;
     averageRating.innerText = `${Math.round(summary['averageSleepRating'] * 100) / 100}/5`;
 }
@@ -52,12 +52,13 @@ const updateData = function (data) {
 }
 
 const deleteItem = async function (button) {
-    const res = await fetch('/deleteEntry', {method: "DELETE", body: JSON.stringify({id: button.id})});
-    const summary = await res.json();
-    updateSummaries(summary);
     const table = document.getElementById('sleep-data');
     const rowIndex = button.parentNode.parentNode.rowIndex;
     table.deleteRow(rowIndex);
+    const res = await fetch('/deleteEntry', {method: "DELETE", body: JSON.stringify({id: button.id})});
+    const summary = await res.json();
+    console.log(summary)
+    updateSummaries(summary);
 }
 
 window.onload = function () {

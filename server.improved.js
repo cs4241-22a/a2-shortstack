@@ -66,9 +66,7 @@ const handlePost = function (request, response) {
         summary.dreamPercentage += dreamPercentageChange;
 
         data.id = uuidv4();
-        data.averageTimeAsleepChange = averageTimeAsleepChange;
-        data.averageSleepRatingChange = averageSleepRatingChange;
-        data.dreamPercentageChange = dreamPercentageChange;
+        data.hoursSlept = hoursSlept;
         appdata.sleepData[data.id] = data;
 
         response.writeHead(200, "OK", {'Content-Type': 'text/plain'});
@@ -84,22 +82,37 @@ const handleDelete = function (request, response) {
     })
 
     request.on('end', function () {
+        console.log('\n-----------')
         const data = JSON.parse(dataString);
         const summary = appdata.summary;
         const sleepData = appdata.sleepData;
         if(Object.hasOwn(sleepData, data.id)) {
-            const recordData = sleepData[data.id];
-            console.log(recordData)
-            summary.averageTimeAsleep -= recordData.averageTimeAsleepChange;
-            summary.averageSleepRating -= recordData.averageSleepRatingChange;
-            summary.dreamPercentage -= recordData.dreamPercentageChange;
             summary.numberOfRecords--;
-
             delete sleepData[data.id];
         }
 
+        if(summary.numberOfRecords > 0) {
+            let totalHoursSlept = 0;
+            let totalSleepRating = 0;
+            let totalDreamPercentage = 0;
+            for (const record of Object.values(sleepData)) {
+                totalHoursSlept += record.hoursSlept;
+                totalSleepRating += record.sleepRating;
+                totalDreamPercentage += record.hadDream;
+            }
+            console.log(totalHoursSlept);
+            console.log(totalSleepRating);
+            console.log(totalDreamPercentage);
+            summary.averageTimeAsleep = totalHoursSlept / summary.numberOfRecords;
+            summary.averageSleepRating = totalSleepRating / summary.numberOfRecords;
+            summary.dreamPercentage = totalDreamPercentage / summary.numberOfRecords;
+        } else {
+            summary.averageTimeAsleep = 0;
+            summary.averageSleepRating = 0;
+            summary.dreamPercentage = 0;
+        }
 
-        response.writeHead(200, "OK", {'Content-Type': 'text/plain'});
+        response.writeHead(200, "OK", {'Content-Type': 'application/json'});
         response.end(JSON.stringify(summary));
     })
 }
@@ -134,7 +147,7 @@ const sendFile = function (response, filename) {
 
 const getHoursDiff = function (startDate, endDate) {
     const msInHour = 1000 * 60 * 60;
-    return (Math.abs(endDate - startDate) / msInHour).toFixed(2);
+    return Number((Math.abs(endDate - startDate) / msInHour).toFixed(2));
 }
 
 server.listen(process.env.PORT || port)
