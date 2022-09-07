@@ -1,7 +1,6 @@
 Jacquelyn Lopez
 
-Glitch Link: https://citrine-rift-pleasure.glitch.me
-
+Glitch Link: https://a2-jlopez-codes.glitch.me
 
 ## Art Museum Appointment Website
 I created a museum website where you can make appointments to visit
@@ -68,6 +67,9 @@ JavaScript:
 - A client that updates its data display
 
 ### Design/Evaluation Achievements
+Using the "think-aloud protocol" I asked my users to submit, edit, and delete an appointment.
+The following are the results: 
+
 - **First User**: 
 1. Sorpol
 2. This user had trouble modifying their appointment date. They didn't realize it popped up again
