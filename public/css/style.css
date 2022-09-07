@@ -1,1 +1,77 @@
 /*Style your own assignment! This is fun! */
+
+
+input, select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:"Arimo", monospace;
+}
+
+label, button{
+  padding: 12px 20px;
+  margin: 4px 0;
+  font-family:"Lucida Console", monospace;
+}
+
+table, th, td{
+  margin: 8px;
+  border: 1px solid black;
+  text-align: center;
+  font-family:"Arimo", monospace;
+  
+  
+}
+
+h1{
+  text-align: center;
+  
+  font-family: "Trirong", serif;
+}
+
+.deleter{
+  cursor: pointer;
+}
+
+#btn{
+  background-color: #4CAF50;
+  color:white;
+  border-radius: 8px;
+}
+
+.parent {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+grid-template-rows: repeat(5, 1fr);
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+}
+
+.div1 { grid-area: 1 / 1 / 2 / 5; }
+.div2 { grid-area: 2 / 1 / 6 / 3; }
+.div3 { grid-area: 2 / 3 / 6 / 5; }
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #630c0c);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    height: 100vh;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+ 
+    50% {
+        background-position: 100% 50%;
+    }
+ 
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
