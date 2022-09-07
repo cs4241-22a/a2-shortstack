@@ -1,13 +1,13 @@
-​​## The Everyday Quest
+## The Everyday Quest
 This project is designed to help boring people get some fun tasks to do. The client can choose which category of the task, including Life, School, Challenge, and then they will do it. If they do not want to do that, press the "submit" button again, and it will auto generate another task for the client. Clients can also add their costomized tasks into the existing database. The system will tell the client how many tasks have they done, as an achievement.
 
 CSS acheivements:
-    - The title of the application is centered by using flex display;
-    - Google font used : 'Metal Mania'
-    - Element selector : h1
-    - ID selector : #QuestReceived
-    - Class selector : .title
-    - CSS file located in "./css/style.css"
+- The title of the application is centered by using flex display;
+- Google font used : 'Metal Mania'
+- Element selector : h1
+- ID selector : #QuestReceived
+- Class selector : .title
+- CSS file located in "./css/style.css"
 ## Technical Achievements
 - **Database displayed**: Database is displayed at the button of the page in real time.
 
