@@ -1,1 +1,73 @@
-/*Style your own assignment! This is fun! */
+body {
+  background-color: #E8E9EB;
+  font-family: "Calibri";
+  color: #313638;
+  text-align: center;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  background-color: #E4B363;
+  border-radius: 0.5em;
+  font-size: 3em;
+}
+
+h2 {
+  color: #E4B363;
+  background-color: #313638;
+  display: flex;
+  justify-content: center;
+  font-size: 2.5em;
+  border-radius: 0.5em;
+  
+}
+
+li {
+  font-size: 1.1em;
+  margin: 5px;
+}
+
+ul { 
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border-color: #E8E9EB;
+  background-color: #EF6461;
+  font-family: "Calibri";
+  font-size: 1.4em;
+  border-radius: 0.5em;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+table {
+  display: flex;
+  justify-content: center;
+  border-color: #313638;
+  font-family: "Calibri";
+}
+
+th {
+  padding: 10px 20px;
+  background-color: #EF6461;
+  font-size: 1.2em;
+}
+
+td {
+  padding: 10px 20px;
+  background-color: #E8E9EB;
+  font-size: 1em;
+}
+
+label {
+  font-size: 1.2em;
+}
+
+.label {
+  text-decoration: wavy underline;
+}
+
