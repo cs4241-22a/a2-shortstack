@@ -41,9 +41,8 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    // console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+
     let data = JSON.parse(dataString);
     appdata.push(data)
     console.log(appdata)

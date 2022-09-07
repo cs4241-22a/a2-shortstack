@@ -48,11 +48,11 @@ const submit = function (e) {
               + "<td>" + time_ended + "</td>"
               + "<td>" + description + "</td>"
               + "<td>" + time_duration(time_started, time_ended) + "</td>" //(time_duration("2:15", "03: 18"))
-              + "<td> <button id = 'delete' >Delete</button> </td>"
+              + "<td> <button id = 'delete' onclick = 'delete_row( " + count.toString() + ")'>Delete</button> </td>"
               + "</tr>"
           }
-      )
-
+      )//" + count + "
+      count++;
       return false;
     };
 
@@ -104,25 +104,11 @@ function time_duration(start, end) {
             dur_min = (end_min + 60) - start_min;
         }
     }
-
     return ((dur_hour.toString() + " Hours  " + dur_min.toString() + " Minutes")).toString();
 
 }
 
-// const Delete = function (e) {
-//
-//     e.preventDefault();
-//
-//     fetch("/delete", {
-//         method: "POST",
-//         body,
-//     })
-//         .then(function (){
-//             const id = document.parentElement;
-//             let table = document.getElementById("table");
-//             table.removeChild(id);
-//         }
-//         )
-//     return false;
-// };
-//
+function delete_row(id) {
+    document.getElementById(id).remove();
+};
+
