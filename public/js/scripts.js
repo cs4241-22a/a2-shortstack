@@ -6,6 +6,7 @@ const submitter = function( e ) {
           json  = { title: title.value, genre: genre.value, year: year.value },
           body  = JSON.stringify( json );
     fetch( '/submit', { method:'POST', body } ).then( response => response.json() ).then( json => { builder( json ); } );
+    getter();
     return false; };
 const getter = function() { fetch( '/get', { method:'GET', } ).then( response => response.json() ).then( json => { builder( json ); } ); };
 const builder = function( json ) {
@@ -19,20 +20,25 @@ const builder = function( json ) {
             col3 = newrow.insertCell( 2 ),
             col4 = newrow.insertCell( 3 ),
             col5 = newrow.insertCell( 4 );
-        col1.innerHTML = entry.title;
-        col2.innerHTML = entry.genre;
+        col1.innerHTML = entry.title.toString().toUpperCase();
+        col2.innerHTML = entry.genre.toString().toUpperCase();
         col3.innerHTML = entry.year;
         col4.innerHTML = toddcheck( entry.title, entry.year );
-        col5.innerHTML = '<button type="button" onclick="deleter(this);">'
-        console.log( index );
+        col5.innerHTML = '<button id="'+entry.title+'" onclick="deleter(this);"></button>'
         index++; } ); };
-const deleter = function( x ) { $(x).parents("tr").remove(); };
+const deleter = function (x)
+{
+  const json = { title: x.id.toString() },
+        body = JSON.stringify( json );
+  fetch( '/submit', { method:'DELETE', body } ).then( response => response.json() ).then( json => { builder( json ); } );
+  $(x).parents("tr").remove();
+}
 const toddcheck = function( title, year ) {
     const years = [ 2000, 2003, 2004, 2006, 2009, 2010, 2011, 2013, 2016, 2019 ];
-    const titles = [ 'road trip', 'old school', 'starsky & hutch', 'school for scoundrels', 'the hangover',
-                     'due date', 'the hangover part ii', 'the hangover part iii', 'war dogs', 'joker' ];
+    const titles = [ 'ROAD TRIP', 'OLD SCHOOL', 'STARSKY & HUTCH', 'SCHOOL FOR SCOUNDRELS', 'THE HANGOVER',
+                     'DUE DATE', 'THE HANGOVER PART II', 'THE HANGOVER III', 'WAR DOGS', 'JOKER' ];
     const numFilms = 10;
-    title = title.toString().toLowerCase();
+    title = title.toString().toUpperCase();
     for ( let i = 0 ;  i < numFilms ; i++ ) { if( year = years[ i ] && title == titles[ i ] ) { return 'YES!'; } }
     return 'NO!'; };
 window.onload = function() {

@@ -5,8 +5,9 @@ const appdata = [ { 'title': 'Halloween',                                   'gen
                   { 'title': 'Alvin and the Chipmunks: The Road Chip',      'genre': 'family', 'year': 2015 },
                   { 'title': 'Old School',                                  'genre': 'comedy', 'year': 2003 } ];
 const server = http.createServer( function( request,response ) {
-       if( request.method === 'GET'  ) {  handleGet( request, response ); }
-  else if( request.method === 'POST' ) { handlePost( request, response ); } } );
+       if( request.method === 'GET'    ) {    handleGet( request, response ); }
+  else if( request.method === 'POST'   ) {   handlePost( request, response ); }
+  else if( request.method === 'DELETE' ) { handleDelete( request, response ); } } );
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 );
   if ( request.url === '/' ) { sendFile( response, 'public/index.html' ); }
@@ -16,10 +17,18 @@ const handleGet = function( request, response ) {
   else { sendFile( response, filename ); } };
 const handlePost = function( request, response ) {
   let dataString = '';
-  request.on( 'data', function( data ) { dataString += data; });
+  request.on( 'data', function( data ) { dataString += data; } );
   request.on( 'end', function() {
     appdata.push( JSON.parse( dataString ) );
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' } );
+    response.end(); } ); };
+const handleDelete = function( request, response ) {
+  let dataString = '';
+  request.on( 'data', function( data ) { dataString += data; } );
+  request.on( 'end', function() {
+    let toberemoved = JSON.parse( dataString ).name.toString().toLowerCase();
+    appdata.filter( item => item.name.toLowerCase() !== toberemoved );
+    response.writeHead( 200, "OK", {"Content-Type": 'text/plain' } );
     response.end(); } ); };
 const sendFile = function( response, filename ) {
   const type = mime.getType( filename );
