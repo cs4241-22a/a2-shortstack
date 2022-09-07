@@ -1,1 +1,89 @@
-/*Style your own assignment! This is fun! */
+h1 {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color:rgb(52, 44, 35);
+    font-weight: bolder;
+    font-size: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 4%;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: rgb(255, 245, 233);
+    margin-left: 9%;
+}
+
+body {
+    background-image: url("background.jpg"); /* Image by rawpixel.com on Freepik */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.body {
+    display: grid;
+    height: 85vh;
+    grid-template-columns: 40% 60%;
+}
+
+.left-body {
+    margin-left: 10px;
+    background-color: rgba(74, 61, 61, .5);
+
+}
+
+.right-body {
+    background-color: rgba(74, 61, 61, .5);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+button{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #403e39;
+    color: rgb(255, 245, 233);
+    font-weight: 600;
+    font-size: 10px;
+    margin-left: 4%;
+    margin-top: auto;
+}
+
+ul {
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 245, 233);
+    list-style-type: none;
+}
+
+fieldset{
+    font-family: 'Montserrat', sans-serif;
+    border: 0ch;
+    color: rgb(255, 245, 233);
+    width: 50%;
+    margin-left: 7%;
+}
+
+
+
+/* change these */
+table {
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 245, 233);
+    border-collapse: collapse;
+    margin-left: 5%;
+}
+
+table,th,td {
+    border: 1px solid rgb(52, 44, 35);
+    text-align: center;
+    vertical-align: middle;
+}
