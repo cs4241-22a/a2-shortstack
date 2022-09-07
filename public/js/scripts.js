@@ -11,10 +11,10 @@
     let bookTitle = document.querySelector("#bookTitle")
     let bookAuthor = document.querySelector("#bookAuthor")
     let json = {
-        username,
-        useremail,
-        bookTitle,
-        bookAuthor,
+        username: username.value,
+        useremail: useremail.value,
+        bookTitle: bookTitle.value,
+        bookAuthor: bookAuthor.value,
         holdConfirm: ""
     }
     let body = JSON.stringify(json)
@@ -32,12 +32,12 @@
     }
 
     function refreshInfo(formResults) {
-        const board = document.getElementById("form")
+        const board = document.getElementById("reserveData")
         board.innerHTML = " "
 
         formResults.forEach((element, index) => {
             board.innerHTML +=
-            username + "has placed a hold on " + bookTitle + "by " + bookAuthor + ". A confirmation will be sent to " + useremail + "."
+            "<tr><td>" + username + "has placed a hold on " + "<tr><td>" + bookTitle + "by " + "<tr><td>" + bookAuthor + ". A confirmation will be sent to " + "<tr><td>" + useremail + "."
         })
     }
 

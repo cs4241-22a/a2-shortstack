@@ -7,24 +7,40 @@
   </head>
   <h1>Library Book Hold System</h1>
   <body>
-    <div id="form" class="myform">
-    <form id="bookReserve" onsubmit="return submit()">
-      <label for="name">Name</label>
-      <input type="text" name="username" required/>
-
-      <label for="email">Email</label>
-      <input type="email" name="useremail" required/>
-
-      <label for="booktitle">Book Title</label>
-      <input type="text" name="bookTitle" required/>
-
-      <label for="bookauthor">Book Author</label>
-      <input type="text" name="bookAuthor" required/>
-
-      <button id="submit">Place Hold</button>
+    <form action=" " id="myForm">
+    <table class="bookReserve">
+      <tr>
+        <td>Name: </td>
+        <td><input class="textInput" type="text" id="username" name="username" value="" required/></td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td><input class="textInput" type="text" id="useremail" name="useremail" value="" required/></td>
+      </tr>
+      <tr>
+        <td>Book Title: </td>
+        <td><input class="textInput" type="text" id="bookTitle" name="bookTitle" value="" required/></td>
+      </tr>
+      <tr>
+        <td>Book Author: </td>
+        <td><input class="textInput" type="text" id="bookAuthor" name="bookAuthor" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="submitButton"><button>Place Hold</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="removeButton"><button>Remove Hold</button></td>
+      </tr>
 
     </form>
-  </div>
+    <table id="reserveData">
+    </table>
   </body>
   <script src="js/scripts.js">
   </script>
