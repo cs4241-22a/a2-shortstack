@@ -9,6 +9,7 @@ This application asks the users for their name, age, sex, daily calories and fav
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
+
 Evalution 1: By Patrick O'Mullan
     Patrick did not have problems with my design. According to him, the application was straightforward and self-explanatory. He mentioned that any user have the link to the website will be able to delete any responses, which is not very secure. And this is a feature I would need to think about when I learn more about web development should definitely be considered in the future. 
 
