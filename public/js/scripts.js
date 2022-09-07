@@ -1,18 +1,48 @@
 let rowsAdded = 0 //keeps track of how many rows of data our table has (useful for clearing the table)
+let dataUpdated = 0 //lets the page know that the data has been displayed to the user on first opening
 
-const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+//updates the table with the data that the server sends back
+const updateTable = function ( json ) {
+    const table = document.getElementById("datatable")
+    const dataLength = json.length
 
-    const input = {
-        name: document.querySelector( '#trailname' ),
-        length: document.querySelector( '#traillength' ),
-        elevation: document.querySelector( '#trailelevation' )
+    //if no trail name specified, we cleared the server so we need to clear the table
+    if(dataLength === 0) {
+        for(let i = 0; i < rowsAdded; i++) {
+            table.deleteRow(-1) //will remove the last row always
+        }
+        rowsAdded = 0
+    } else {
+        //clear all rows
+        for(let i = 0; i < rowsAdded; i++) {
+            table.deleteRow(-1) //will remove the last row always
+        }
+        rowsAdded = 0
+        //add all the data back
+        //this is so that all the rows are displayed on page load and not just the last one
+        for(let i = 0; i < dataLength; i++) {
+            //insert row for new data
+            const row = table.insertRow()
+            rowsAdded++
+            //insert cells for this row
+            let cell = row.insertCell()
+            cell.innerHTML = json[i].name
+            cell = row.insertCell()
+            cell.innerHTML = json[i].length
+            cell = row.insertCell()
+            cell.innerHTML = json[i].elevation
+            cell = row.insertCell()
+            cell.innerHTML = json[i].totallength
+            cell = row.insertCell()
+            cell.innerHTML = json[i].totalelevation
+        }
     }
+}
+
+const clear = function () {
+
     const json = {
-        name: input.name.value,
-        length: input.length.value,
-        elevation: input.elevation.value
+        name: "!clear"
     }
     const body = JSON.stringify( json )
 
@@ -22,32 +52,75 @@ const submit = function( e ) {
     })
         .then( response => response.json() )
         .then( json => {
-            const table = document.getElementById("datatable")
-            const dataLength = json.length
+            updateTable(json)
+        })
+    return false
+}
 
-            //if no trail name specified, we cleared the server so we need to clear the table
-            if(dataLength === 0) {
-                for(let i = 0; i < rowsAdded; i++) {
-                    table.deleteRow(-1) //will remove the last row always
-                }
-                rowsAdded = 0
-            } else {
-                //insert row for new data
-                const row = table.insertRow()
-                rowsAdded++
-                //insert cells for this row
-                let cell = row.insertCell()
-                cell.innerHTML = json[dataLength-1].name
-                cell = row.insertCell()
-                cell.innerHTML = json[dataLength-1].length
-                cell = row.insertCell()
-                cell.innerHTML = json[dataLength-1].elevation
-            }
+const update = function () {
+    const json = {
+        name: "!update"
+    }
+    const body = JSON.stringify( json )
+
+    fetch( '/submit', {
+        method:'POST',
+        body
+    })
+        .then( response => response.json() )
+        .then( json => {
+            updateTable(json)
+        })
+    return false
+}
+
+const submit = function() {
+
+    const input = {
+        name: document.querySelector( '#trailname' ),
+        length: document.querySelector( '#traillength' ),
+        elevation: document.querySelector( '#trailelevation' ),
+        //these fields will be derived and filled by the server
+        totallength: 0,
+        totalelevation: 0
+    }
+    const json = {
+        name: input.name.value,
+        length: input.length.value,
+        elevation: input.elevation.value,
+        totallength: input.totallength.value,
+        totalelevation: input.totalelevation.value
+    }
+    const body = JSON.stringify( json )
+
+    fetch( '/submit', {
+        method:'POST',
+        body
+    })
+        .then( response => response.json() )
+        .then( json => {
+            updateTable(json)
         })
     return false
 }
 
 window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+    //clear the data from the last session that is 'stuck' on the server so this session doesn't have leftovers
+    //we can do this by just submitting the empty fields right as the window loads the first time
+    if(dataUpdated === 0) {
+        update()
+        dataUpdated = 1
+    }
+
+    const submitbutton = document.getElementById( 'submitbutton' )
+    const clearbutton =  document.getElementById( 'clearbutton' )
+    submitbutton.onclick = function(e) {
+        //just in case button type=button doesn't prevent the submit action
+        e.preventDefault()
+        submit()
+    }
+    clearbutton.onclick = function(e) {
+        e.preventDefault()
+        clear()
+    }
 }

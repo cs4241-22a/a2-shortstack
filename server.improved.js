@@ -1,3 +1,8 @@
+//global variables to keep track of the derived fields
+let totalElevation = 0;
+let totalDistance = 0;
+
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -36,12 +41,23 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     let data = JSON.parse( dataString )
 
-    if(data.name !== '') {
-      //add new data to appdata if not a clear call
-      appdata.push( data )
-    } else {
+    if(data.name === '!clear') {
       //clear data
       appdata = []
+      totalElevation = 0
+      totalDistance = 0
+    } else if(data.name === '!update') {
+      //simply do nothing; server just sends back the data it has
+    } else {
+      //add new data to appdata if not a clear or update call
+
+      //add derived fields
+      totalDistance = parseFloat(totalDistance) + parseFloat(data.length)
+      totalElevation = parseFloat(totalElevation) + parseFloat(data.elevation)
+      data.totallength = totalDistance
+      data.totalelevation = totalElevation
+
+      appdata.push( data )
     }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
