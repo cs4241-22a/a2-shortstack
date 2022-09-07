@@ -1,3 +1,6 @@
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -38,12 +41,19 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
+    resp = JSON.parse(dataString)
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+    if (resp['type'] === 'search') {
+      console.log("Search...");
+      sendMovieQueryResp(resp['title'], response);
+    }
+    else if (resp['type'] === 'add') {
+      console.log("Add...");
+    }
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    // response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    // response.end()
   })
 }
 
@@ -69,4 +79,21 @@ const sendFile = function( response, filename ) {
    })
 }
 
+const sendMovieQueryResp = function (movieTitle, response) {
+  movieStr = movieTitle.trim().replace(/ /g, '+');
+  fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=60b6c6a4&s=${movieStr}&plot=short&r=json`)
+    .then((response) => response.json())
+    .then((data) => {
+      const json = { type: "queryResp",
+               data: data},
+      body = JSON.stringify(json);
+      response.writeHeader(200, { 'Content-Type': 'application/json'});
+      response.end(body);
+      console.log("Sent response");
+      console.log(body);
+    });
+}
+
+
 server.listen( process.env.PORT || port )
+
