@@ -13,7 +13,6 @@ CSS acheivements:
 
 ### Design/Evaluation Achievements
 - **Evaluation with Alex Bolduc**: Evaluation report is attached below
-- **Evaluation with Reagan Brunelle**: Evaluation report is attached below
 
 Think aloud:
 Alex Bolduc:
@@ -28,9 +27,10 @@ You realized that was a misclick, tell the server that you did not do this task:
 	He quickly clicked the “I did not” button, and successfully updated the data.
 At last, he gave several improvements that I can make to make this app more user friendly.
 First, he suggested that I use placeholder instead of a value task, because everytime he wants to type something, he has to delete the original value left.
-Second, he thought that I can make my website better by making the direction text larger and more noticeable.
 
-Reagan :
+Second, he thought that I can make my website better by making the direction text larger and more noticeable.
+- **Evaluation with Reagan Brunelle**: Evaluation report is attached below
+Reagan Brunelle:
 Regan did not take anytime to read the webpage, I just started to explain the tasks to him
 Get a few new quest in the Life field:
 	He first started to read from top to button and it took less than 20 seconds to input “Life” and then click the submit button.
