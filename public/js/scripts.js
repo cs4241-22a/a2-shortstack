@@ -113,7 +113,7 @@ const getList = function() {
             imgEl.className = "poster";
 
             const aEl = document.createElement('a');
-            aEl.href = `https://www.imdb.com/title/${e['imdbID']}/`
+            aEl.href = e['URL'];
             aEl.className = 'title';
 
             const pEl = document.createElement('p');

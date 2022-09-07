@@ -49,8 +49,12 @@ const handlePost = function( request, response ) {
       sendMovieQueryResp(resp['title'], response);
     }
     else if (resp['type'] === 'add') {
-      if (findTitle(resp['entry']) === -1) {
-        appdata.push(resp['entry']);
+      // Derive the imdb link using the imdbID field
+      let entry = resp['entry'];
+      entry['URL'] = `https://www.imdb.com/title/${entry['imdbID']}/`;
+      
+      if (findTitle(entry) === -1) {
+        appdata.push(entry);
       }
       response.writeHeader(200);
       response.end();
