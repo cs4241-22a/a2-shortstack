@@ -6,10 +6,10 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let appdata = [
+  { 'song': 'Grace', 'artist': 'Lil Baby', 'album': 'My Turn - Grace by Lil Baby'},
+  { 'song': 'Emotionally Scarred', 'artist': 'Lil Baby', 'album': 'My Turn - Emotionally Scarred by Lil Baby'},
+  { 'song': 'Freestyle', 'artist': 'Lil Baby', 'album': 'Too Hard - Freestyle by Lil Baby'}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -25,7 +25,14 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else if( request.url === '/public/css/style.css' ) {
+    sendFile( response, 'public/css/style.css' )
+  }
+  else if( request.url === '/public/js/scripts.js' ) {
+    sendFile( response, 'public/js/scripts.js' )
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -39,11 +46,37 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
+    debugger
 
-    // ... do something with the data here!!!
+    // handles remove song case --> finds all instances of song and removes them
+    if( !(dataString.includes('"album":'))) {
+      let i = 0
+      let found = false
+      let arr = []
+      appdata.forEach(item => {
+        if(item.song == JSON.parse(dataString).song && item.artist == JSON.parse(dataString).artist) {
+          arr.push(i)
+          found = true
+        }
+        else {
+          i++
+        }
+      })
+      if(found) {
+        arr.forEach(item => {
+          appdata.splice(item, 1)
+        })
+      }
+    }
+    // capture incoming data only from add song and add to appdata table stored in server
+    else if( dataString != '{}') {
+      entry = JSON.parse(dataString)
+      entry.album = entry.album + " - " + entry.song + " by " + entry.artist
+      appdata.push(entry)
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
@@ -67,6 +100,10 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+const sendData = function( response ) {
+  response.data = appdata
 }
 
 server.listen( process.env.PORT || port )
