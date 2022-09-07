@@ -1,1 +1,92 @@
-/*Style your own assignment! This is fun! */
+:root {
+    --budgeteer-black1: #0A0A0A;
+    --budgeteer-black2: #151515;
+    --budgeteer-cream: #FBFCD4;
+    --budgeteer-yellow: #FFDD03;
+    --budgeteer-gold: #FBC403;
+}
+
+body {
+    background-color: var(--budgeteer-black1);
+    color: var(--budgeteer-cream);
+    overflow: hidden;
+    font-family: 'Share Tech Mono', monospace;
+    background-image: url("../svg/goldPeaks.svg");
+    background-position-y: bottom;
+    transition: all 1s ease;
+}
+
+.title-page {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    transform: translateY(0);
+    transition: transform 1s ease;
+    border: 2px solid red;
+}
+
+.title-page.hidden {
+    transform: translateY(-100vh);
+}
+
+h1 {
+    font-size: 100px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    user-select: none;
+}
+
+h2 {
+    user-select: none;
+    margin-top: 10px;
+    font-size: 32px;
+}
+
+button {
+    text-transform: uppercase;
+    font-family: 'Share Tech Mono', monospace;
+    border-radius: 0px;
+    font-size: 16px;
+    padding: 10px 20px 10px 20px;
+    user-select: none;
+    opacity: 1;
+    transition: opacity 1s ease, transform 0.5s ease;
+    text-decoration: none;
+}
+
+button.dark {
+    color: var(--budgeteer-cream);
+    border: solid var(--budgeteer-yellow) 3px;
+    background: var(--budgeteer-black1);
+}
+
+button.dark:hover {
+    background: var(--budgeteer-black2);
+    border: solid var(--budgeteer-gold) 3px;
+}
+
+button.large {
+    font-size: 32px;
+}
+
+button.hidden {
+    opacity: 0;
+}
+  
+button:hover {
+    transform: scale(1.1);
+}
+
+.main-page {
+    transition: all 0.5s ease;
+    height: 100vh;
+    border: 2px solid green;
+}
+
+.main-page.hidden {
+    height: 0px;
+}
