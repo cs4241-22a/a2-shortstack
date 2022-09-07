@@ -1,4 +1,4 @@
-const submit = function( e ) {
+const submitter = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
@@ -16,22 +16,22 @@ const submit = function( e ) {
     })
     .then( response => response.json() )
     .then( json => {
-        build( json );
+        builder( json );
     });
     return false;
   }
 
-const letsGo = function()
+const getter = function()
 {
     fetch( '/data', {
         method:'GET',
     }).then( response => response.json() )
     .then(json => {
-        build( json );
+        builder( json );
     });
 }
 
-  const build = function( json )
+  const builder = function( json )
   {
     const data = document.getElementById('datatable');
     data.innerHTML = '<tr><th>title</th><th>genre</th><th>year</th></tr>';
@@ -42,6 +42,6 @@ const letsGo = function()
 
   window.onload = function() {
     const button = document.getElementById( 'submit' );
-    button.onclick = submit;
-    letsGo();
+    button.onclick = submiter;
+    getter();
   }

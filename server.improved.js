@@ -11,9 +11,9 @@ const appdata = [
     'genre': 'horror',
     'year': 1978
   },
-  { 'title': 'Final Destination 2',
-    'genre': 'horror',
-    'year': 2003
+  { 'title': 'War Dogs',
+    'genre': 'comedy',
+    'year': 2016
   },
   { 'title': 'A Nightmare On Elm Street 3: Dream Warriors',
     'genre': 'horror',
@@ -23,9 +23,9 @@ const appdata = [
     'genre': 'family',
     'year': 2015
   },
-  { 'title': 'Fast Five',
-    'genre': 'action',
-    'year': 2011
+  { 'title': 'Old School',
+    'genre': 'comedy',
+    'year': 2003
   }
 ]
 
@@ -41,8 +41,11 @@ const handleGet = function( request, response )
 {
   const filename = dir + request.url.slice( 1 );
   if ( request.url === '/' ) { sendFile( response, 'public/index.html' ); }
+  else if ( request.url === '/get' ) {
+    response.writeHead( 200, 'OK', { 'Content-Type': 'text/plain' });
+    response.end( JSON.stringify(appdata) ); }
   else { sendFile( response, filename ); }
-};
+}
 
 const handlePost = function( request, response )
 {
