@@ -7,9 +7,6 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,20 +35,19 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) .password > 5)
+    console.log( JSON.parse( dataString ) .password > 4)
     let newLogin = JSON.parse (dataString) 
-    if (newLogin.password.length < 5) { 
+    if (newLogin.password.length < 6) { 
       newLogin.popUpMessage = "That's not a good password:("
-    } else if (newLogin.password.length < 10) { 
+    } else if (newLogin.password.length < 8) { 
         newLogin.popUpMessage = "That's a better password, but try again!" 
     } else { 
       newLogin.popUpMessage = "Acceptable. Keep this safe.  "
     }
 
+     // This is what I do with the data!!!
     console.log(newLogin)
     appdata.push(newLogin)
-    // This is what I do with the data!!!
-
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.write(JSON.stringify(appdata))
     console.log(appdata)

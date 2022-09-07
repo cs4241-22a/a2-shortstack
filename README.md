@@ -8,6 +8,7 @@ Hey everyone my name is Aidan Mulcahey and I made a colerful page that allows a 
 - shows current state of server data, included previous username attempts and password on display 
 - client can update data display with each click of the button 
 - can swipe off the page 
+- delete your entries in the fields feature 
 
 ### Design/Evaluation Achievements
 - conducted a study(think-aloud) with another classmate and received feedback 
