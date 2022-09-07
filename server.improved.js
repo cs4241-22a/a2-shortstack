@@ -42,10 +42,15 @@ const handlePost = function (request, response) {
         if (request.url === '/decrease') {
             const item_id = JSON.parse(dataString).id
             let item = purchases.find((p) => p.id === item_id)
-            item.item_quantity--;
-            item.total_amount = item.item_quantity * item.item_cost;
-            purchases = purchases.filter((p) => p.item_quantity > 0)
-            response.end(JSON.stringify(purchases))
+            if (item !== undefined) {
+                item.item_quantity--;
+                item.total_amount = item.item_quantity * item.item_cost;
+                purchases = purchases.filter((p) => p.item_quantity > 0)
+                response.end(JSON.stringify(purchases))
+                response.writeHead(200, "OK", {'Content-Type': 'text/json'})
+            }
+            response.writeHead(400, "ID Not Found", {'Content-Type': 'text/plain'})
+            response.end()
         } else {
             const new_data = JSON.parse(dataString)
             new_data.id = id++

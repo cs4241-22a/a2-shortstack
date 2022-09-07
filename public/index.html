@@ -58,6 +58,22 @@
         const method = document.querySelector('#payment_method').value
         const quantity = document.querySelector('#item_quantity').value
 
+
+        if (name.length === 0 || cost.length === 0 || quantity.length === 0) {
+            alert("Please fill in all fields to submit.")
+            return
+        }
+
+        if (isNaN(cost) || cost <= 0) {
+            alert("Cost must be a positive number!")
+            return;
+        }
+
+        if (!quantity.match("^[0-9]*[1-9][0-9]*$")) {
+            alert("Quantity must be a positive integer!")
+            return;
+        }
+
         const json = {
             item_name: name,
             item_cost: cost,
