@@ -37,12 +37,17 @@
 
         formResults.forEach((element, index) => {
             board.innerHTML +=
-            element.username + " has placed a hold on " 
+            "<tr><td>" + element.username + " has placed a hold on " 
             + element.bookTitle + " by " 
             + element.bookAuthor + ". A confirmation will be sent to " 
-            + element.useremail + "."
+            + element.useremail + "." + "</td></tr>"
         })
     }
+
+/*     const remove = function( d ) {
+        let index, table = document.getElementById("reserveData")
+        table.deleteRow(index)
+    } */
 
     window.onload = function() {
         const button = document.querySelector( 'button' )
