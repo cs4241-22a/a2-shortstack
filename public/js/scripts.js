@@ -25,5 +25,5 @@ const builder = function( json ) {
 
 window.onload = function() {
     const button = document.getElementById( 'submit' );
-    button.onclick = submiter;
+    button.onclick = submitter;
     getter(); };
