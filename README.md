@@ -10,9 +10,9 @@ My CSS is organized by usage in the HTML. For example, I have my wrappers and pa
 
 ## Technical Achievements
 
-#### Create a CPA
+#### Create a SPA
 
-The application is CPA because it takes in user data and displays (real-time) the information that the server holds. The modal that pops up for the form entry is still in the same .html and is not a separate file.
+The application is SPA because it takes in user data and displays (real-time) the information that the server holds on the same page. The modal that pops up for the form entry is still in the same .html and is not a separate file.
 
 ## Design Achievements
 
