@@ -14,23 +14,17 @@
 
     <form action="https://localhost:3000/" id="form">
 
-      <section>
-      <label for="name">What is your Pokemon's name?</label>
-      <input type='text' id='name' name="name" maxlength="20" required>
+      <section class="formSection">
+        <label for="name">What is your Pokemon's name?</label>
+        <input type='text' id='name' name="name" maxlength="20" required>
       </section>
 
-      <br>
-
-      <section>
-      <label for="description">Describe your Pokemon</label>
-      <br>
-      <textarea type='text' name="description" id='description'>
-      </textarea>  
+      <section class="formSection">
+        <label for="description">Describe your Pokemon</label>
+        <textarea type='text' name="description" id='description'></textarea> 
       </section>
 
-      <br>
-
-      <section>
+      <section class="formSection">
         <legend>Choose your Pokemon's types</legend>
         <select name="type1" id="type1" required>
           <option value=""></option>
@@ -76,8 +70,6 @@
           <option value="fairy">Fairy</option>
         </select>
       </section>
-
-      <br>
 
       <input type="submit" id="submit">
 

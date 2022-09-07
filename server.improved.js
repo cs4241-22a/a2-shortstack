@@ -36,9 +36,8 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    simplePokemon = JSON.parse(dataString)
+    pokemon = addWeaknessAndResistance(simplePokemon)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
@@ -65,6 +64,88 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+const weaknesses = {
+  'normal': ['fighting'],
+  'fighting': ['flying', 'psychic', 'fairy'],
+  'flying': ['rock', 'electric', 'ice'],
+  'poison': ['ground', 'psychic'],
+  'ground': ['water', 'grass', 'ice'],
+  'rock': ['fighting', 'ground', 'steel', 'water', 'grass'],
+  'bug': ['flying', 'rock', 'fire'],
+  'ghost': ['ghost', 'dark'],
+  'steel': ['fighting', 'ground', 'fire'],
+  'fire': ['ground', 'rock', 'water'],
+  'water': ['grass', 'electric'],
+  'grass': ['flying', 'poison', 'bug', 'fire', 'ice'],
+  'electric': ['ground'],
+  'psychic': ['bug', 'ghost', 'dark'],
+  'ice': ['fighting', 'rock', 'steel', 'fire'],
+  'dragon': ['ice', 'dragon', 'fairy'],
+  'dark': ['fighting', 'bug', 'fairy'],
+  'fairy': ['poison', 'steel'],
+  'none': []
+}
+
+const resistances = {
+  'normal': [],
+  'fighting': ['rock', 'bug', 'dark'],
+  'flying': ['fighting', 'bug', 'grass'],
+  'poison': ['fighting', 'poison', 'bug', 'grass', 'fairy'],
+  'ground': ['poison', 'rock'],
+  'rock': ['normal', 'flying', 'poison', 'fire'],
+  'bug': ['fighting', 'ground', 'grass'],
+  'ghost': ['poison', 'bug'],
+  'steel': ['normal', 'flying', 'rock', 'bug', 'steel', 'grass', 'psychic', 'ice', 'dragon', 'fairy'],
+  'fire': ['bug', 'steel', 'fire', 'grass', 'ice', 'fairy'],
+  'water': ['steel', 'fire', 'water', 'ice'],
+  'grass': ['ground', 'water', 'grass', 'electric'],
+  'electric': ['flying', 'steel', 'electric'],
+  'psychic': ['fighting', 'psychic'],
+  'ice': ['ice'],
+  'dragon': ['fire', 'water', 'grass', 'electric'],
+  'dark': ['ghost', 'dark'],
+  'fairy': ['fighting', 'bug', 'dark'],
+  'none': []
+}
+
+const immunities = {
+  'normal': ['ghost'],
+  'fighting': [],
+  'flying': ['ground'],
+  'poison': [],
+  'ground': ['electric'],
+  'rock': [],
+  'bug': [],
+  'ghost': ['normal', 'fighting'],
+  'steel': ['poison'],
+  'fire': [],
+  'water': [],
+  'grass': [],
+  'electric': [],
+  'psychic': [],
+  'ice': [],
+  'dragon': [],
+  'dark': ['psychic'],
+  'fairy': ['dragon'],
+  'none': []
+}
+
+const addWeaknessAndResistance = function( pokemon ) {
+  const type1 = pokemon.type1,
+    type2 = pokemon.type2
+
+  const weaknesses1 = weaknesses[type1],
+    weaknesses2 = weaknesses[type2],
+    resistances1 = resistances[type1],
+    resistances2 = resistances[type2],
+    immunities1 = immunities[type1],
+    immunities2 = immunities[type2]
+  
+  //pokemon.immunities = 
+
+  
 }
 
 server.listen( process.env.PORT || port )

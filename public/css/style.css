@@ -23,6 +23,10 @@ form {
     text-align: center;
 }
 
+.formSection {
+    padding-bottom: 20px;
+}
+
 h2 {
     text-align: center;
 }
