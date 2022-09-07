@@ -22,8 +22,8 @@ let task = [
     type: "MQP",
     title: "Initial Sponsor Meeting",
     description: "[example text]",
-    deadline: "2022-09-09 23:59",
-    creation_time: "2022-9-2 11:01",
+    deadline: "2022-09-04T23:30:50.014Z",
+    creation_time: "2022-08-07T23:30:50.014Z",
   },
   {
     primary: 1,
@@ -31,8 +31,8 @@ let task = [
     type: "ACADEMICS",
     title: "CS 4241 Assignment 2",
     description: "[example text1]",
-    deadline: "2022-09-08 11:59",
-    creation_time: "2022-9-2 13:10",
+    deadline: "2022-09-07T23:30:50.014Z",
+    creation_time: "2022-09-02T23:30:50.014Z0",
   },
   {
     primary: 2,
@@ -40,8 +40,8 @@ let task = [
     type: "OTHER",
     title: "Gym [LEG DAY]",
     description: "[example text2]",
-    deadline: "2022-09-09 23:59",
-    creation_time: "2022-9-5 18:50",
+    deadline: "2022-09-14T23:30:50.014Z9",
+    creation_time: "2022-09-01T23:30:50.014Z",
   },
 ];
 
@@ -101,6 +101,7 @@ const handlePost = function (request, response) {
       const data = JSON.parse(dataString);
       /* Get current date and time */
       data.creation_time = new Date();
+      console.log(data.creation_time);
 
       /* Check if there is not a given deadline */
       if (data.deadline == "") {
