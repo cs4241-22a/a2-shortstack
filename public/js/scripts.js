@@ -14,10 +14,7 @@ const submit = function( e ) {
       console.log( response )
     })
 
-    fetch( './server.js', {
-        method:'GET',
-        body
-    })
+    fetch( './server.js' )
     .then( function( response ) {
         var table = document.getElementById("nonTextSection");
         var row = table.insertRow(0);
