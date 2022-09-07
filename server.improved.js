@@ -7,32 +7,37 @@ const http = require("http"),
   port = 3000;
 
 const priorityDate = {
-  urgent: 1,
-  high: 2,
-  med: 3,
-  low: 4,
+  URGENT: 1,
+  HIGH: 2,
+  MED: 3,
+  LOW: 4,
 };
 
-const appdata = [
+let counter = 3;
+
+let task = [
   {
-    priority: "high",
-    type: "mqp",
+    primary: 0,
+    priority: "HIGH",
+    type: "MQP",
     title: "Initial Sponsor Meeting",
     description: "[example text]",
     deadline: "2022-09-09 23:59",
     creation_time: "2022-9-2 11:01",
   },
   {
-    priority: "urgent",
-    type: "academic",
+    primary: 1,
+    priority: "URGENT",
+    type: "ACADEMICS",
     title: "CS 4241 Assignment 2",
     description: "[example text1]",
     deadline: "2022-09-08 11:59",
     creation_time: "2022-9-2 13:10",
   },
   {
-    priority: "low",
-    type: "other",
+    primary: 2,
+    priority: "LOW",
+    type: "OTHER",
     title: "Gym [LEG DAY]",
     description: "[example text2]",
     deadline: "2022-09-09 23:59",
@@ -92,21 +97,25 @@ const handlePost = function (request, response) {
   });
 
   request.on("end", function () {
-    const data = JSON.parse(dataString);
+    if (request.url == "/submit") {
+      const data = JSON.parse(dataString);
+      /* Get current date and time */
+      data.creation_time = new Date();
 
-    /* Get current date and time */
-    data.creation_time = new Date();
+      /* Check if there is not a given deadline */
+      if (data.deadline == "") {
+        let days = priorityDate[data.priority];
+        data.deadline = addDays(data.creation_time, days);
+      }
 
-    /* Check if there is not a given deadline */
-    if (!data.deadline) {
-      let days = priorityDate[data.priority];
-      data.deadline = addDays(data.creation_time, days);
+      data.primary = counter++;
+
+      task.push(data);
+    } else if (request.url == "/delete") {
+      task = task.filter((entry) => entry.primary != dataString);
     }
-
-    appdata.push(data);
-
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-    response.end(JSON.stringify(appdata));
+    response.end(JSON.stringify(task));
   });
 };
 

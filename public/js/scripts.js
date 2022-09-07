@@ -27,20 +27,7 @@ const submit = function (e) {
     })
       .then((response) => response.json())
       .then((json) => {
-        const results = document.querySelector("#results");
-        results.innerHTML = "";
-
-        json.forEach((item) => {
-          const row = document.createElement("tr");
-
-          config.forEach((key) => {
-            const p = document.createElement("td");
-            p.innerHTML = item[key];
-            row.appendChild(p);
-          });
-
-          results.appendChild(row);
-        });
+        display(json);
       });
     form.reset();
   }
@@ -55,6 +42,50 @@ const toggleModal = function (visibility) {
     const form = document.getElementById("input-form");
     form.reset();
   }
+};
+
+const display = function (json) {
+  const results = document.querySelector("#results");
+  results.innerHTML = "";
+
+  json.forEach((item) => {
+    const row = document.createElement("tr");
+
+    config.forEach((key) => {
+      const td = document.createElement("td");
+
+      td.innerHTML =
+        key == "creation_time" || key == "deadline"
+          ? item[key].substr(0, 10)
+          : item[key];
+
+      row.appendChild(td);
+    });
+
+    const btnWrapper = document.createElement("td");
+    const btn = document.createElement("button");
+    btn.innerHTML = "delete";
+    btn.classList.add("btn");
+    btn.addEventListener("click", function () {
+      remove(item.primary);
+    });
+
+    btnWrapper.appendChild(btn);
+    row.appendChild(btnWrapper);
+
+    results.appendChild(row);
+  });
+};
+
+const remove = function (id) {
+  fetch("/delete", {
+    method: "POST",
+    body: id,
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      display(json);
+    });
 };
 
 window.onload = function () {

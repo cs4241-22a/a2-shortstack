@@ -74,8 +74,13 @@
   font-weight: 300;
 }
 
-#results {
+#table {
   margin-top: 2em;
+}
+
+td {
+  padding: 0.5em 0;
+  text-align: center;
 }
 
 /* =============== FORM STYLING =============== */
@@ -91,7 +96,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 3em;
-  min-width: 400px;
+  min-width: 450px;
   z-index: 1;
   justify-content: center;
   flex-direction: column;
@@ -125,7 +130,7 @@
 
 /* =============== GENERAL STYLES =============== */
 * {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-family: "Roboto", sans-serif;
 }
 
