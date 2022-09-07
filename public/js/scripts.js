@@ -29,6 +29,7 @@ function makeTable(json) {
 
     let priority = newTodo.insertCell(3);
     let priorityText = document.createTextNode(item["priority"]);
+    
     if (item["priority"] === "RED") {
       priorityText = document.createElement("span");
       priorityText.classList.add("dotRed");

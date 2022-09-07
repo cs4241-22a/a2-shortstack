@@ -97,8 +97,8 @@ const handlePost = function (request, response) {
 };
 
 const handleDelete = function (request, response) {
-  const num = request.url.substring(1);
-  appdata.splice(parseInt(num), 1);
+  const index = request.url.substring(1);
+  appdata.splice(parseInt(index), 1);
   response.writeHead(200, "OK", { "Content-Type": "text/plain" });
   response.end(JSON.stringify(appdata));
 };
