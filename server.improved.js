@@ -7,7 +7,6 @@ const http = require('http'),
     port = 3000
 
 let id = 0
-
 let purchases = []
 
 const server = http.createServer(function (request, response) {

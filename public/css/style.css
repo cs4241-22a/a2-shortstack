@@ -1,28 +1,19 @@
-
 body {
     background-color: #95ffd7;
-    display: grid;
-    grid-template: "a a a"
-                   "b b b"
-                   "c c c";
 }
 
-#title {
-    grid-column-start: 2;
+.flexbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
     text-align: center;
 }
 
 #input {
-    grid-column-start: 2;
-    grid-row-start: 2;
     text-align: center;
     padding-bottom: 3px;
-}
-
-#item_table {
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 3;
 }
 
 table, th, td {
