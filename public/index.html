@@ -3,37 +3,97 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <header>
+      <img src="images/pikachu.jpg" alt="Pikachu" id="pikachu">
+      <h1>Create your own Pokemon!</h1>
+      <img src="images/vaporeon.jpg" alt="Vaporeon" id="vaporeon">
+    </header>
+
+    <form action="https://localhost:3000/" id="form">
+
+      <section>
+      <label for="name">What is your Pokemon's name?</label>
+      <input type='text' id='name' name="name" maxlength="20" required>
+      </section>
+
+      <br>
+
+      <section>
+      <label for="description">Describe your Pokemon</label>
+      <br>
+      <textarea type='text' name="description" id='description'>
+      </textarea>  
+      </section>
+
+      <br>
+
+      <section>
+        <legend>Choose your Pokemon's types</legend>
+        <select name="type1" id="type1" required>
+          <option value=""></option>
+          <option value="normal">Normal</option>
+          <option value="fighting">Fighting</option>
+          <option value="flying">Flying</option>
+          <option value="poison">Poison</option>
+          <option value="ground">Ground</option>
+          <option value="rock">Rock</option>
+          <option value="bug">Bug</option>
+          <option value="ghost">Ghost</option>
+          <option value="steel">Steel</option>
+          <option value="fire">Fire</option>
+          <option value="water">Water</option>
+          <option value="grass">Grass</option>
+          <option value="electric">Electric</option>
+          <option value="psychic">Psychic</option>
+          <option value="ice">Ice</option>
+          <option value="dragon">Dragon</option>
+          <option value="dark">Dark</option>
+          <option value="fairy">Fairy</option>
+        </select>
+
+        <select name="type2" id="type2">
+          <option value="none">None</option>
+          <option value="normal">Normal</option>
+          <option value="fighting">Fighting</option>
+          <option value="flying">Flying</option>
+          <option value="poison">Poison</option>
+          <option value="ground">Ground</option>
+          <option value="rock">Rock</option>
+          <option value="bug">Bug</option>
+          <option value="ghost">Ghost</option>
+          <option value="steel">Steel</option>
+          <option value="fire">Fire</option>
+          <option value="water">Water</option>
+          <option value="grass">Grass</option>
+          <option value="electric">Electric</option>
+          <option value="psychic">Psychic</option>
+          <option value="ice">Ice</option>
+          <option value="dragon">Dragon</option>
+          <option value="dark">Dark</option>
+          <option value="fairy">Fairy</option>
+        </select>
+      </section>
+
+      <br>
+
+      <input type="submit" id="submit">
+
+      <script src="js/scripts.js"></script>
     </form>
+
+    <h2>Pokemon List</h2>
+    <table>
+      <tr>
+        <th>ID#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Types</th>
+        <th>Weaknesses</th>
+        <th>Resistances</th>
+      </tr>
+    </table>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( response => response.json() )
-    .then( json => console.log( json ) )
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
