@@ -47,7 +47,7 @@ window.onload = function () {
   sellbutton.onclick = submitsell;
 };
 
-var barCount = 60;
+var barCount = 100;
 var initialDateStr = "01 Apr 2017 00:00 Z";
 
 var ctx = document.getElementById("chart").getContext("2d");
@@ -66,7 +66,7 @@ var chart = new Chart(ctx, {
   data: {
     datasets: [
       {
-        label: "CHRT - Chart.js Corporation",
+        label: "Test Label",
         data: barData,
       },
     ],
@@ -114,63 +114,5 @@ function getRandomData(dateStr, count) {
 }
 
 var update = function () {
-  var dataset = chart.config.data.datasets[0];
-
-  // candlestick vs ohlc
-  var type = document.getElementById("type").value;
-  dataset.type = type;
-
-  // linear vs log
-  var scaleType = document.getElementById("scale-type").value;
-  chart.config.options.scales.y.type = scaleType;
-
-  // color
-  var colorScheme = "neon";
-  if (colorScheme === "neon") {
-    dataset.color = {
-      up: "#01ff01",
-      down: "#fe0000",
-      unchanged: "#999",
-    };
-  } else {
-    delete dataset.color;
-  }
-
-  // border
-  var border = "false";
-  var defaultOpts = Chart.defaults.elements[type];
-  if (border === "true") {
-    dataset.borderColor = defaultOpts.borderColor;
-  } else {
-    dataset.borderColor = {
-      up: defaultOpts.color.up,
-      down: defaultOpts.color.down,
-      unchanged: defaultOpts.color.up,
-    };
-  }
-
-  // mixed charts
-  var mixed = "false";
-  if (mixed === "true") {
-    chart.config.data.datasets = [
-      {
-        label: "CHRT - Chart.js Corporation",
-        data: barData,
-      },
-      {
-        label: "Close price",
-        type: "line",
-        data: lineData(),
-      },
-    ];
-  } else {
-    chart.config.data.datasets = [
-      {
-        label: "CHRT - Chart.js Corporation",
-        data: barData,
-      },
-    ];
-  }
-
   chart.update();
 };

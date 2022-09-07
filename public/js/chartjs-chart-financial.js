@@ -248,6 +248,7 @@
 
     plugins: {
       tooltip: {
+        // enabled: false,
         intersect: false,
         mode: "index",
         callbacks: {

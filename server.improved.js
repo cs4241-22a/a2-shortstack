@@ -9,10 +9,10 @@ const http = require("http"),
 
 const getJSON = bent("json");
 
-const appdata = [
-  { model: "toyota", year: 1999, mpg: 23 },
-  { model: "honda", year: 2004, mpg: 30 },
-  { model: "ford", year: 1987, mpg: 14 },
+const stocks = [
+  { symbol: "tsla", price: 100.0, dateAdded: new Date() },
+  { model: "amzn", price: 50.0, dateAdded: new Date() },
+  { model: "ford", price: 10.0, dateAdded: new Date() },
 ];
 
 const server = http.createServer(function (request, response) {
@@ -28,6 +28,10 @@ const handleGet = function (request, response) {
 
   if (request.url === "/") {
     sendFile(response, "public/index.html");
+  } //check for a request for stocks
+  else if (request.url === "/stocks") {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify(stocks));
   } else {
     sendFile(response, filename);
   }
