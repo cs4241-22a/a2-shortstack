@@ -40,12 +40,65 @@ const submitsell = function (e) {
   return false;
 };
 
-window.onload = function () {
+window.onload = async function () {
   const buybutton = document.querySelector("#buybutton");
   buybutton.onclick = submitbuy;
   const sellbutton = document.querySelector("#sellbutton");
   sellbutton.onclick = submitsell;
+
+  //get data from server
+  let response = await fetch("/stocks", {
+    method: "GET",
+  });
+  let data = await response.json();
+  console.log(data);
+
+  //use the data from the server to populate the div stock-list with stocks
+  //copy the template from the html
+  const template = document.querySelector("#stock-template");
+  //get the div to put the stocks in
+  const stockList = document.querySelector("#stock-list");
+  //loop through the data
+  for (let i = 0; i < data.length; i++) {
+    //create a clone of the template
+    const clone = template.cloneNode(true);
+    const fetchedData = await getCompanyData(data[i].symbol);
+
+    const symbol = clone.querySelector(".symbol");
+    symbol.innerHTML = data[i].symbol.toUpperCase();
+
+    //set the id of the clone to empty
+    clone.id = "";
+
+    //parse the response as json and log
+    const parsedData = await fetchedData.json();
+    console.log(parsedData);
+
+    //add the clone to the div
+    stockList.appendChild(clone);
+  }
 };
+
+//create a stock object
+function Stock(symbol) {
+  this.symbol = symbol;
+  this.price = 0;
+
+  this.updateData = async function () {
+    const fetchedData = await getStockData(this.symbol);
+    const parsedData = await fetchedData.json();
+    return parsedData;
+  };
+}
+
+async function getCompanyData(ticker) {
+  const url = "/stock?ticker=" + ticker;
+
+  //fetch from server
+  const response = fetch(url);
+  // const data = await response.json();
+  return response;
+}
 
 var barCount = 100;
 var initialDateStr = "01 Apr 2017 00:00 Z";

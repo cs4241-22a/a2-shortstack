@@ -1,24 +1,42 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>My Stock Portfolio</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/style.css">
-    <script type="text/javascript" src="./js/scripts.js" defer></script>
+    <script src="./js/scripts.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.1/dist/chart.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
-		<script src="./js/chartjs-chart-financial.js" type="text/javascript"></script>
+		<script src="./js/chartjs-chart-financial.js"></script>
   </head>
   <body>
-    <h1>CS4241 Assignment 2</h1>
-    <form action="">
+    <h1>My Stock Portfolio</h1>
+    <form>
       <input type='text' id='stockinput' placeholder="Example: AMZN">
-      <button class="buy" id="buybutton">BUY</button>
-      <button class="sell" id="sellbutton">SELL</button>
-
-      <canvas id="chart" max-width="400" height="400"></canvas>
-
+      <button class="buy" id="buybutton">ADD</button>
+      <button class="sell" id="sellbutton">DEL</button>
     </form>
+    <div id="stock-list">
+      
+      <div class="stock" id="stock-template">
+        <h2 class="symbol">AMZN</h2>
+        <div class="stock-data">
+          <h3 class="full-name">Amazon</h3>
+          <h3 class="price">Price: $3,000.00</h3>
+          <h3 class="change">Change: $0.00</h3>
+          <h3 class="change-percent">Change Percent: 0.00%</h3>
+          <h3 class="volume">Volume: 0</h3>
+          <h3 class="last-update">Last Update: 2021-08-01 00:00:00</h3>
+          <h3 class="market-cap">Market Cap: $0</h3>
+      <canvas id="chart"></canvas>
+    </div>
+      </div>
+
+
+
+    </div>
+
+
   </body>
 </html>

@@ -10,9 +10,9 @@ const http = require("http"),
 const getJSON = bent("json");
 
 const stocks = [
-  { symbol: "tsla", price: 100.0, dateAdded: new Date() },
-  { model: "amzn", price: 50.0, dateAdded: new Date() },
-  { model: "ford", price: 10.0, dateAdded: new Date() },
+  { symbol: "tsla", dateAdded: new Date() },
+  { symbol: "amzn", dateAdded: new Date() },
+  { symbol: "ford", dateAdded: new Date() },
 ];
 
 const server = http.createServer(function (request, response) {
@@ -23,7 +23,7 @@ const server = http.createServer(function (request, response) {
   }
 });
 
-const handleGet = function (request, response) {
+const handleGet = async function (request, response) {
   const filename = dir + request.url.slice(1);
 
   if (request.url === "/") {
@@ -32,9 +32,31 @@ const handleGet = function (request, response) {
   else if (request.url === "/stocks") {
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(stocks));
+  }
+  //url is /stock with a symbol as a query parameter
+  else if (request.url.startsWith("/stock?")) {
+    //get the symbol from the query parameter
+    let symbol = request.url.split("=")[1];
+    //get the stock data from the api
+    let stockData = await getStockData(symbol);
+    console.log(symbol);
+    console.log(stockData);
+    //send the symbol back to the client
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify(stockData["chart"]["result"][0]));
   } else {
     sendFile(response, filename);
   }
+};
+
+const getStockData = async function (symbol) {
+  const url =
+    "https://query1.finance.yahoo.com/v8/finance/chart/" +
+    symbol.toUpperCase() +
+    "?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance";
+
+  const data = await getJSON(url);
+  return data;
 };
 
 const handlePost = function (request, response) {
