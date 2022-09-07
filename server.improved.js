@@ -21,7 +21,7 @@ const handleGet = function (request, response) {
 
   if (request.url === '/') {
     sendFile(response, 'public/index.html')
-  } else if (request.url === '/gettasks'){
+  } else if (request.url === '/gettasks') {
     response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
     response.end(JSON.stringify(render(tasks)))
   } else {
@@ -36,12 +36,12 @@ const handlePost = function (request, response) {
   if (request.url === '/remove') {
     handleRemove(request, response)
   }
-  if (request.url === '/update'){
+  if (request.url === '/update') {
     handleUpdate(request, response)
   }
 }
 
-const handleUpdate = function(request, response) {
+const handleUpdate = function (request, response) {
   let dataString = ''
   request.on('data', function (data) {
     dataString += data
@@ -49,29 +49,35 @@ const handleUpdate = function(request, response) {
 
   request.on('end', function () {
     data = JSON.parse(dataString)
-    let today = new Date();
-    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    data.dateCreated = date
-    let dayMS = 24 * 60 * 60 * 1000
-    let priority = 'low'
-    let parts = data.dueDate.split('-');
-    let dueDate = new Date(parts[0], parts[1] - 1, parts[2]);
-    let timeDiff = dueDate.getTime() - today.getTime()//1-3 high 3-5 medium 6+ low
-    let dayDiff = timeDiff / dayMS
-    if (dayDiff <= 5) {
-      priority = 'medium'
-    }
-    if (dayDiff <= 3) {
-      priority = 'high'
-    }
-    data.priority = priority
-    // console.log(data)
-    tasks = tasks.filter(e => e.taskname !== data.oldtaskname)
-    delete data.oldtaskname
-    tasks.push(data)
+    debugger
+    if (data.taskname.length > 0 && data.dueDate.length > 0 && (!tasks.find(n => n.taskname === data.taskname) || data.taskname === data.oldtaskname)) {
+      let today = new Date();
+      let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      data.dateCreated = date
+      let dayMS = 24 * 60 * 60 * 1000
+      let priority = 'low'
+      let parts = data.dueDate.split('-');
+      let dueDate = new Date(parts[0], parts[1] - 1, parts[2]);
+      let timeDiff = dueDate.getTime() - today.getTime()//1-3 high 3-5 medium 6+ low
+      let dayDiff = timeDiff / dayMS
+      if (dayDiff <= 5) {
+        priority = 'medium'
+      }
+      if (dayDiff <= 3) {
+        priority = 'high'
+      }
+      data.priority = priority
+      // console.log(data)
+      tasks = tasks.filter(e => e.taskname !== data.oldtaskname)
+      delete data.oldtaskname
+      tasks.push(data)
 
-    response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(render(tasks)))
+      response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(render(tasks)))
+    } else {
+      response.writeHead(200, "Bad Input", { 'Content-Type': 'text/plain' })
+      response.end(JSON.stringify({ message: data.taskname.length === 0 ? 'A name for the task must be provided' : data.dueDate.length > 0 ? 'A task with this name already exists' : 'A date for the task must be provided' }))
+    }
   })
 }
 
@@ -99,7 +105,7 @@ const handleSubmit = function (request, response) {
 
   request.on('end', function () {
     data = JSON.parse(dataString)
-    if(data.taskname.length > 0 && data.dueDate.length > 0 && !tasks.find(n => n.taskname === data.taskname)){
+    if (data.taskname.length > 0 && data.dueDate.length > 0 && !tasks.find(n => n.taskname === data.taskname)) {
       let today = new Date();
       let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       data.dateCreated = date
@@ -118,13 +124,13 @@ const handleSubmit = function (request, response) {
       data.priority = priority
       // console.log(data)
       tasks.push(data)
-  
+
       response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
       response.end(JSON.stringify(render(tasks)))
     }
-    else{
+    else {
       response.writeHead(200, "Bad Input", { 'Content-Type': 'text/plain' })
-      response.end(JSON.stringify({message: data.taskname.length === 0?'A name for the task must be provided':data.dueDate.length > 0?'A task with this name already exists':'A date for the task must be provided'}))
+      response.end(JSON.stringify({ message: data.taskname.length === 0 ? 'A name for the task must be provided' : data.dueDate.length > 0 ? 'A task with this name already exists' : 'A date for the task must be provided' }))
     }
   })
 }

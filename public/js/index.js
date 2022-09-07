@@ -13,10 +13,10 @@ const submit = function (e) {
     })
         .then(response => response.json())
         .then(tasks => {
-            if(tasks.message){
+            if (tasks.message) {
                 alert(tasks.message)
             }
-            else{
+            else {
                 updateData(tasks)
             }
         })
@@ -36,7 +36,7 @@ const markCompleted = function (taskname) {
     return false
 }
 
-const updateData = function(tasks) {
+const updateData = function (tasks) {
     Array.from(document.body.getElementsByClassName(`container`)).forEach(e => e.innerHTML = '')
     Array.from(tasks).forEach(task => {
         let container = document.body.getElementsByClassName(`container ${task.priority}`)
@@ -52,7 +52,7 @@ const updateData = function(tasks) {
     })
 }
 
-const edit = function(id) {
+const edit = function (id) {
     let taskHTML = document.getElementById(id)
     let taskblock = taskHTML.getElementsByClassName('task-block')[0]
     let h2 = taskHTML.getElementsByTagName('h2')[0]
@@ -85,7 +85,7 @@ const edit = function(id) {
     }
 }
 
-const update = function(taskhtml, old) {
+const update = function (taskhtml, old) {
     const task = taskhtml.querySelector('#task'),
         due = taskhtml.querySelector('#due'),
         json = { oldtaskname: old, taskname: task.value, dueDate: due.value },
@@ -96,8 +96,14 @@ const update = function(taskhtml, old) {
         body
     })
         .then(response => response.json())
-        .then(tasks => updateData(tasks))
-        .catch(error => console.log('bad input'))
+        .then(tasks => {
+            if (tasks.message) {
+                alert(tasks.message)
+            }
+            else {
+                updateData(tasks)
+            }
+        })
 }
 
 //https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
@@ -106,10 +112,10 @@ const update = function(taskhtml, old) {
 function createElementFromHTML(htmlString) {
     var div = document.createElement('div');
     div.innerHTML = htmlString.trim();
-  
+
     // Change this to div.childNodes to support multiple top-level nodes.
     return div.firstChild;
-  }
+}
 
 const open = function (priority) {
     let dropdown = document.getElementsByClassName(`dropdown ${priority}`)
