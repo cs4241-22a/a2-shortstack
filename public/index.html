@@ -10,14 +10,15 @@
   <body id="page-wrapper">
     <div id="page-container">
       <header class="header">
-        <img class="shake" src="./assets/images/panda.png" alt="logo" />
+        <img src="./assets/images/panda.png" alt="logo" />
+        <h1>todo list</h1>
       </header>
       <main class="content">
         <div id="modal-container">
-          <div class="header">
-            <img class="shake" src="./assets/images/panda.png" alt="logo" />
-          </div>
-          <form id="input-form">
+          <button class="btn icon close cta" onclick="toggleModal('hidden')">
+            &times;
+          </button>
+          <form action="" id="input-form">
             <div id="top-field">
               <select name="priority" required>
                 <option value="" disabled selected>PRIORITY</option>
@@ -41,18 +42,14 @@
               placeholder="Description of task"
               required
             ></textarea>
-            <button>Click this.</button>
+            <button class="btn submit">submit</button>
           </form>
         </div>
         <section class="info">
-          <div id="result-header">
-            <h1>todo list</h1>
-            <div id="btn-container">
-              <button onclick="show()" class="btn-icon green" />
-              <button class="btn-icon red" />
-            </div>
-          </div>
-          <table>
+          <button class="btn cta" onclick="toggleModal('visible')">
+            add task
+          </button>
+          <table id="results">
             <thead>
               <tr>
                 <th>Priority</th>
