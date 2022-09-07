@@ -31,18 +31,6 @@ const handleGet = function( request, response ) {
     sendFile( response, 'public/index.html' )
   }else{
     sendFile( response, filename)
-    
-    /*
-    const html = `
-    <html>
-    <body>
-      ${ appdata.map( item => JSON.stringify(item) ) }
-    </body>
-    </html>
-    `
-    response.end( html )
-    */
-    //sendFile( response, filename )
   }
 }
 
@@ -56,7 +44,6 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     let newData = JSON.parse( dataString ) 
     console.log( JSON.parse( dataString ) )
-    // ... do something with the data here!!!
     
     // Find most frequently used option and create a derived field with that information
     const mostPlayed = getMostPlayed(newData.rock, newData.paper, newData.scissors)
@@ -86,8 +73,6 @@ const handleDelete = function( request, response ) {
     
     console.log( appdata )
     
-    //appdata.push( newData )
-
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end( JSON.stringify( deleteScore ) )
   })

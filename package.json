@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Marathon Rock Paper Scissors",
+  "version": "1",
+  "description": "Rock Paper Scissors game for CS4241",
+  "author": "Sean OConnor",
   "scripts": {
     "start": "node server.improved.js"
   },
