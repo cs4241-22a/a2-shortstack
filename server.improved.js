@@ -9,11 +9,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -28,7 +24,11 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else if (request.url === '/list') {
+    sendList(response);
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -49,13 +49,28 @@ const handlePost = function( request, response ) {
       sendMovieQueryResp(resp['title'], response);
     }
     else if (resp['type'] === 'add') {
-      console.log("Add...");
+      if (findTitle(resp['entry']) === -1) {
+        appdata.push(resp['entry']);
+      }
+      response.writeHeader(200);
+      response.end();
     }
-
-    // response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    // response.end()
+    else if (resp['type'] === 'rmv') {
+      let idx = findTitle(resp['entry']);
+      if (idx !== -1) {
+        appdata.splice(idx, 1);
+      }
+      response.writeHeader(200);
+      response.end();
+    }
   })
 }
+
+const sendList = function (response) {
+  response.writeHeader(200, {'Content-Type': 'application/json'});
+  response.end(JSON.stringify(appdata));
+}
+
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
@@ -92,6 +107,17 @@ const sendMovieQueryResp = function (movieTitle, response) {
       console.log("Sent response");
       console.log(body);
     });
+}
+
+const findTitle = function (obj) {
+  let idx = -1
+  for (i = 0; i < appdata.length; i++) {
+    if (obj["imdbID"] === appdata[i]["imdbID"]) {
+      idx = i;
+    }
+  }
+
+  return idx;
 }
 
 
