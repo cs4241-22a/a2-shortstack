@@ -1,14 +1,45 @@
+body {
+  font-family: 'Oswald';
+  display: grid;
+  grid-template-columns: 20% 10% 60% 10% 20%;
+  grid-template-rows: 10% 10% 10% 10% 10% 30%;
+  
+}
+
 .game {
-    visibility: hidden;
-    text-align: center;
-  }
-  
-  #choices {
-    visibility: hidden;
-    text-align: center;
-  }
-  
-  #scoreSubmit {
-    visibility: hidden;
-  }
-  
+  display: grid;
+  grid-column: 3;
+  justify-content: center;
+}
+
+.choices {
+  grid-row: 6;
+}
+
+
+#rock {
+  grid-column: 2;
+  justify-content: center;
+}
+
+#paper {
+  grid-column: 3;
+  justify-content: center;
+}
+
+#scissors {
+  grid-column: 4;
+}
+
+
+#submission {
+  visibility: hidden;
+}
+
+#delete {
+  visibility: hidden;
+}
+
+#allScores {
+  visibility: hidden;
+}

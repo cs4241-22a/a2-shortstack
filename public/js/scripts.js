@@ -115,13 +115,13 @@ const rps_game = function(choice) {
     }
     else if(gameover) {
       statusMsg.textContent = "Game Over! Submit Your Score"
-      document.getElementById("scoreSubmit").style.visibility = "visible"
-      /*
+      document.getElementById("submission").style.visibility = "visible"
+      
       document.getElementById("score").value = score
       document.getElementById("rock").value = totalRock
       document.getElementById("paper").value = totalPaper
       document.getElementById("scissors").value = totalScissors
-      */
+      
     }
     else {
       statusMsg.textContent = "It's a Tie! Keep Going!"
@@ -135,82 +135,4 @@ function getRandomInt(low, high) {
   low = Math.ceil(low)
   high = Math.floor(high)
   return Math.floor(Math.random() * (high - low) + low)
-}
-
-/*
-const updateScores = function ( e ) {
-  // prevent default form action from being carried out
-    e.preventDefault()
-
-    let name = document.querySelector( "#yourname" )
-    
-    let json = {
-      name: name.value,
-      score: score,
-      rock: totalRock,
-      paper: totalPaper,
-      scissors: totalScissors,
-    }
-    let body = JSON.stringify(json)
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( async function ( response ) {
-      let data = await response.json()
-      refresh(data)
-      console.log(data)
-    })
-	  
-  return false
-}
-*/
-
-/*
-const submit = function( e ) {
-  // prevent default form action from being carried out
-  e.preventDefault()
-
-  let name = document.querySelector( "#yourname" ) 
-   
-  let json = {
-    name: name.value,
-    score: score,
-    rock: totalRock,
-    paper: totalPaper,
-    scissors: totalScissors,
-  }
-  let body = JSON.stringify(json)
-
-  fetch( '/submit', {
-    method:'POST',
-    body 
-  })
-  .then( async function ( response ) {
-    let data = await response.json()
-    //refresh(data)
-    console.log(data)
-  })
-	 
-  return false
-}
-    
-window.onload = function() {
-  const button = document.querySelector( '#scoreSubmit' )
-  button.onclick = submit
-}
-
-function refresh(data) {
-  
-}
-*/
-
-// Set all invisible game elements to be visible
-function showGame() {
-    document.getElementById("choices").style.visibility = "visible"
-    document.getElementById("score").style.visibility = "visible"
-    document.getElementById("computer").style.visibility = "visible"
-    document.getElementById("player").style.visibility = "visible"
-    document.getElementById("status").style.visibility = "visible"
 }

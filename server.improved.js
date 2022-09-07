@@ -8,9 +8,9 @@ const http = require( 'http' ),
 
 
 const appdata = [
-  { 'name': 'May', 'score': '3', 'rock': '2', 'paper': '1', 'scissors': '0' },
-  { 'name': 'Ben', 'score': '8', 'rock': '1', 'paper': '4', 'scissors': '3'},
-  { 'name': 'Peter', 'score': '5', 'rock': '1', 'paper': '2', 'scissors': '5'} 
+  { 'name': 'May', 'score': 3, 'rock': 2, 'paper': 1, 'scissors': 1, 'most_used': 'Rock'},
+  { 'name': 'Ben', 'score': 8, 'rock': 1, 'paper': 5, 'scissors': 3, 'most_used': 'Paper'},
+  { 'name': 'Peter', 'score': 5, 'rock': 1, 'paper': 2, 'scissors': 5, 'most_used': 'Scissors'} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -18,6 +18,8 @@ const server = http.createServer( function( request,response ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  } else if( request.method === 'DELETE' ){
+    handleDelete( request, response )
   }
 })
 
@@ -52,15 +54,42 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    //let newData = JSON.parse( dataString ) 
-    console.log( JSON.parse( dataString )  )
+    let newData = JSON.parse( dataString ) 
+    console.log( JSON.parse( dataString ) )
     // ... do something with the data here!!!
-    //const mostPlayed = getMostPlayed(newData.rock, newData.paper, newData.scissors)
+    
+    // Find most frequently used option and create a derived field with that information
+    const mostPlayed = getMostPlayed(newData.rock, newData.paper, newData.scissors)
+    newData.most_used = mostPlayed
+    
+    appdata.push( newData )
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify( appdata ) )
+  })
+}
+
+const handleDelete = function( request, response ) {
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+      dataString += data 
+  })
+
+  request.on( 'end', function() {
+    let newData = JSON.parse( dataString ) 
+    console.log( JSON.parse( dataString ) )
+    
+    // Find name and delete the first instance of it from the data
+    const name = newData.name
+    const deleteScore = deleteAppDataValue(name)
+    
+    console.log( appdata )
     
     //appdata.push( newData )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify( appdata ) )
+    response.end( JSON.stringify( deleteScore ) )
   })
 }
 
@@ -86,7 +115,7 @@ const sendFile = function( response, filename ) {
    })
 }
 
-/*
+
 function getMostPlayed(totalRock, totalPaper, totalScissors) {
   const vals = [totalRock, totalPaper, totalScissors]
   
@@ -98,6 +127,7 @@ function getMostPlayed(totalRock, totalPaper, totalScissors) {
     }
   }
   
+  // Sets the correct string value and returns it
   let mostPlayed = ""
   switch (j) {
     case 0:
@@ -109,6 +139,17 @@ function getMostPlayed(totalRock, totalPaper, totalScissors) {
       return mostPlayed = "Scissors"
     }
 }
-*/
+
+function deleteAppDataValue(name) {
+  let i = 0
+  for (i; i < appdata.length; i++) {
+    if (appdata[i].name === name) {
+      appdata.splice(i,1)
+      break;
+    }
+  }
+  return i
+}
+
 
 server.listen( process.env.PORT || port )

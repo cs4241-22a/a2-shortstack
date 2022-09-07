@@ -4,106 +4,137 @@
     <title>CS4241 Assignment 2</title>        
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <script src="js/scripts.js"></script>
   </head>
   <body>
-    <form action="">
-      <input type="text" id="yourname" value="Your Name Here">
-      <button id = "nameSubmit">Submit Name</button>
-    </form>
 
-    <p class = "game" id = "score">Score: 0</p>
+    <!-- Shows data relevant to game -->
+    <p class = "game" id = "score" value="0">Score: 0</p>
     <p class = "game" id = "player">Player Chose: </p>
     <p class = "game" id = "computer">Computer Chose: </p>
     <p class = "game" id = "status">Choose an Option</p>
     
-    <div id = "choices">
-      <button id = "rock" onclick="rps_game(0)">Rock</button>
-      <button id = "paper" onclick="rps_game(1)">Paper</button>
-      <button id = "scissors" onclick="rps_game(2)">Scissors</button>
+    <!-- Contains buttons used to interact with game -->
+    <div class = "choices">
+      <button id = "rock" onclick="rps_game(0)" value="0">Rock</button>
+      <button id = "paper" onclick="rps_game(1)" value="0">Paper</button>
+      <button id = "scissors" onclick="rps_game(2)" value="0">Scissors</button>
     </div>
     
-    <button id = "scoreSubmit" onclick="submit">Submit</button>
+    <!-- Form to allow for score submission -->
+    <form id = "submission" action="">
+      <input type="text" id="name" value="Your Name Here">
+      <button id = "scoreSubmit">Submit</button>
+    </form>
+    
+    <!-- Form to allow for score deletion -->
+    <form id = "delete" action="">
+      <input type="text" id="nameDelete" value="Delete Name Here">
+      <button id = "deleteSubmit">Submit</button>
+    </form>
+    
+    <script>
+
+      const submit = function( e ) {
+        // prevent default form action from being carried out
+        e.preventDefault()
+
+        // Creates the table containing score data and creates a row for headers
+        const table = document.createElement( "table" )
+        table.id = "dataTable"
+        table.innerHTML = ""
+        table.innerHTML +=
+            "<tr><th>Name</th>"
+            + "<th>Score</th>"
+            + "<th>Rock</th>"
+            + "<th>Paper</th>"
+            + "<th>Scissors</th>"
+            + "<th>Most Used</th></tr>"
+
+        // Hides submission form to submit a score
+        document.getElementById("submission").style.visibility = "hidden"
+        // Hides submission form to delete a score from the table
+        document.getElementById("delete").style.visibility = "visible"
+
+        const name = document.querySelector( '#name' ),
+              score = document.querySelector( "#score" ),
+              rock = document.querySelector( "#rock" ),
+              paper = document.querySelector( "#paper" ),
+              scissors = document.querySelector( "#scissors" ),
+              json = { 
+                name: name.value,
+                score: parseInt(score.value),
+                rock: parseInt(rock.value),
+                paper: parseInt(paper.value),
+                scissors: parseInt(scissors.value)
+              },
+              body = JSON.stringify( json )
+
+        fetch( '/submit', {
+          method:'POST',
+          body 
+        })
+        .then( response => response.json() )
+        .then( json => {
+          json.forEach( item => {
+            table.innerHTML +=
+            "<tr><td>" + item.name + "</td>"
+            + "<td>" + item.score + "</td>"
+            + "<td>" + item.rock + "</td>"
+            + "<td>" + item.paper + "</td>"
+            + "<td>" + item.scissors + "</td>"
+            + "<td>" + item.most_used + "</td></tr>"
+            /*
+            const p = document.createElement('p')
+            p.innerText = JSON.stringify( item ) + "cool"
+            document.body.appendChild( p )
+            */
+          })
+        })
+
+        document.body.appendChild( table )
+
+        return false
+      }
+
+      const deleteSubmit = function( e ) {
+        // prevent default form action from being carried out
+        e.preventDefault()
+
+
+        // Hides submission form to delete a score from the table
+        document.getElementById("delete").style.visibility = "hidden"
+
+        const name = document.querySelector( '#nameDelete' ),
+              json = { 
+                name: name.value
+              },
+              body = JSON.stringify( json )
+
+        fetch( '/deleteSubmit', {
+          method:'DELETE',
+          body 
+        })
+        .then( response => response.json() )
+        .then( json => {
+            document.getElementById( "dataTable" ).deleteRow(json + 1)
+          })
+
+        return false
+      }
+
+      window.onload = function() {
+        const scoreButton = document.querySelector( '#scoreSubmit' )
+        scoreButton.onclick = submit
+
+        const deleteButton = document.querySelector( '#deleteSubmit' )
+        deleteButton.onclick = deleteSubmit
+      }
+
+    </script>
     
   </body>
-  <script>
-
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( response => response.json() )
-	  .then( json => {
-      json.forEach( item => {
-		    const p = document.createElement('p')
-		    p.innerText = JSON.stringify( item )
-		    document.body.appendChild( p )
-		  })
-	  })
-	  // console.log( response )
-    
-    document.getElementById("choices").style.visibility = "visible"
-    document.getElementById("score").style.visibility = "visible"
-    document.getElementById("computer").style.visibility = "visible"
-    document.getElementById("player").style.visibility = "visible"
-    document.getElementById("status").style.visibility = "visible"
-    
-    return false
-  }
-
-/*
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    let name = document.querySelector( "#yourname" )
-    let score = document.querySelector( "#score" )
-    let rock = document.querySelector( "#rock" )
-    let paper = document.querySelector( "#paper" )
-    let scissors = document.querySelector( "#scissors" )
-    
-    let json = {
-      name: name.value,
-      score: score.value,
-      rock: rock.value,
-      paper: paper.value,
-      scissors: scissors.value,
-    }
-    let body = JSON.stringify(json)
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( async function ( response ) {
-      let data = await response.json()
-      //refresh(data)
-      console.log(data)
-    })
-	  
-    return false
-  }
-  
-  //function refresh(data) {
-    
-  //}
-    */
-  
-  window.onload = function() {
-    const button = document.querySelector( '#nameSubmit' )
-    button.onclick = submit
-  }
-
-  </script>
   
   
 </html>
