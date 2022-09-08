@@ -1,13 +1,14 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
-===
 
-Due: September 8th, by 11:59 AM.
+
+
+## Your Web Application Title
+Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 
 This assignment aims to introduce you to creating a prototype two-tiered web application. 
 Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
 
 Baseline Requirements
----
+
 
 There is a large range of application areas and possibilities that meet these baseline requirements. 
 Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
@@ -78,21 +79,21 @@ Below are suggested technical and design achievements. You can use these to help
 
 You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
 
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
 
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
+I created a ToDo list which takes input from the user and displays their tasks in a table.
+the user enters the task, the expected time to complete, and the day it is due. The derived field takes the
+ecpected time to complete and multiplies it with the time left before the due date and returns the highest priority task. The user can submit tasks into the table as well as remove them from the table.
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+Although it was not working correctly, I still had my roommate Ben Watkins test the program. 
+The obvious problem that he had with the design was that the table itself does not work. Although this was minorly embarassing for me, he still said that had it worked correctly, he would have found the design user friendly. Based on his feedback, he would like the table to shift directions and be more vertical so that it was easier to read. I agreed with him. 
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+Likewise, I also had my other roommate Ian Khung try out my project. Like Ben, he was disappointed that it did not work, but said that the instructions were clear. Based in Ian's input, he suggested that I make the table expand when more than 3 tasks are inputted by the user. This is something I would have liked to add to the program.
+
+Here is a link to the site: 
+https://pricey-balsam-gram.glitch.me
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+I was able to implement a form and a table that ideally would have taken the input and returned a derived value. 
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+I was able to use classes to affect the color of different buttons, and the alignment of the text in paragraphs, headers, forms, and the table. I used flex box to aso center items within the screen with jusity-content and align-content. I also imported google fonts into the program. 
