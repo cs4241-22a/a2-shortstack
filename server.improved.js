@@ -34,12 +34,16 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
-
+    let data = JSON.parse(dataString),
+        time = data.time,
+        hour = Number(time.substring(0,2)),
+        min = Number(time.substring(3)),
+        totaltime = (hour * 60 + (min + 10)).toString();
+    data.time = totaltime.toString();
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(data));
   })
 }
 
