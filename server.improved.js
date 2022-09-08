@@ -7,9 +7,7 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -34,15 +32,28 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
+    dataString += data 
   })
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    let dataInstance = JSON.parse( dataString )
+    let hotbed = false;
+    
+    for (let i = 0; i < appdata.length; i++) {
+      if (appdata[i].wheresoft == dataInstance.wheresoft) {
+        hotbed = true;
+      }
+    }
+    if (hotbed) {
+      dataInstance.hotbed = "That seems like a hotbed for activity!";
+    }
+                    
+    appdata.push(dataInstance)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write( JSON.stringify( appdata ) )
+    console.log(appdata)
     response.end()
   })
 }
