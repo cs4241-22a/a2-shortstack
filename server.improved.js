@@ -6,13 +6,14 @@ const http = require("http"),
   dir = "public/",
   port = 3000;
 
-const appdata = [
+let appdata = [
   // { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   // { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   // { 'model': 'ford', 'year': 1987, 'mpg': 14}
 
 
   // Starting data
+
 
   {
     activity: "Sleep",
@@ -38,7 +39,7 @@ const appdata = [
     description: "test",
     duration: "12 Hour  50 Minutes",
   },
-];
+]
 
 const server = http.createServer(function (request, response) {
   if (request.method === "GET") {
@@ -149,15 +150,17 @@ function time_duration(start, end) {
       dur_hour = end_hour + 24 - start_hour - 1;
       dur_min = end_min + 60 - start_min;
     }
+
   }
+    // Return
+    return (
+        dur_hour.toString() +
+        " Hours  " +
+        dur_min.toString() +
+        " Minutes"
+    ).toString();
 
 
-  // Return
-  return (
-    dur_hour.toString() +
-    " Hours  " +
-    dur_min.toString() +
-    " Minutes"
-  ).toString();
 }
 
+server.listen( process.env.PORT || port )
