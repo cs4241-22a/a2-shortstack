@@ -10,44 +10,6 @@
 </head>
 <body>
 
-<div class="flexbox-container">
-    <h1 class="header">Purchase Spreadsheet</h1>
-    <form action="" id="input">
-        <p>
-            Item Name:
-            <input type='text' name='item_name' id='item_name'>
-        </p>
-        <p>
-            Cost:
-            <input type='text' id='item_cost' name="item_cost">
-        </p>
-        <p>
-            Quantity:
-            <input type='text' id='item_quantity' name="item_quantity">
-        </p>
-        <p>
-            Payment Method:
-            <select id="payment_method" name="payment_method">
-                <option value="credit_card">Credit Card</option>
-                <option value="debit_card">Debit Card</option>
-                <option value="cash">Cash</option>
-            </select>
-        </p>
-        <button id="submit">Submit</button>
-    </form>
-
-    <table id="item_table">
-        <tr>
-            <th>Item Name</th>
-            <th>Item Cost</th>
-            <th>Item Quantity</th>
-            <th>Payment Method</th>
-            <th>Total Amount</th>
-        </tr>
-    </table>
-</div>
-</body>
-
 <script>
     const submit = function (e) {
         // prevent default form action from being carried out
@@ -171,4 +133,42 @@
     }
 
 </script>
+
+<div class="flexbox-container">
+    <h1 class="header">Purchase Spreadsheet</h1>
+    <form id="input">
+        <p>
+            Item Name:
+            <input type='text' name='item_name' id='item_name'>
+        </p>
+        <p>
+            Cost:
+            <input type='text' id='item_cost' name="item_cost">
+        </p>
+        <p>
+            Quantity:
+            <input type='text' id='item_quantity' name="item_quantity">
+        </p>
+        <p>
+            Payment Method:
+            <select id="payment_method" name="payment_method">
+                <option value="credit_card">Credit Card</option>
+                <option value="debit_card">Debit Card</option>
+                <option value="cash">Cash</option>
+            </select>
+        </p>
+        <button id="submit">Submit</button>
+    </form>
+
+    <table id="item_table">
+        <tr>
+            <th>Item Name</th>
+            <th>Item Cost</th>
+            <th>Item Quantity</th>
+            <th>Payment Method</th>
+            <th>Total Amount</th>
+        </tr>
+    </table>
+</div>
+</body>
 </html>
