@@ -1,41 +1,125 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script src="./js/scripts.js"></script>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div>
+      
+      <h1>
+        Pokemon EV task organizer
+      </h1>
+      <body>
+        
+      <div style="width:50%; float:right; height:100px; margin:10px">
+        <table id="list">
+          <tr>
+            <th>Name</th>
+            <th>HP</th>
+            <th>Attack</th>
+            <th>Defense</th>
+            <th>Sp. Attack</th>
+            <th>Sp. Defense</th>
+            <th>Speed</th>
+            <th>Is valid?</th>
+          </tr>
+        </table>
+      </div>
+      <div style="width:50%; float:left; height:100px; margin:10px">
+        <form id="form">
+          <label>`Mon name</label>
+          <input type="text" id="name" value="Name here"/>
+          <label><br>HP EVs</label>
+          <input type="number" id="HPEVs" value="0"/>
+          <label><br>Attack EVs</label>
+          <input type="number" id="ATKEVs" value="0"/>
+          <label><br>Defense EVs</label>
+          <input type="number" id="DFSEVs" value="0"/>
+          <label><br>Sp. Attack EVs</label>
+          <input type="number" id="SPATEVs" value="0"/>
+          <label><br>Sp. Defense EVs</label>
+          <input type="number" id="SPDFEVs" value="0"/>
+          <label><br>Speed EVs</label>
+          <input type="number" id="SPDEVs" value="0"/>
+          <label><br></label>
+          <button id="add">
+            Add
+          </button>
+        </form>        
+      </div>
+
+      </body>
+    </div>
   </body>
   <script>
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const input = document.querySelector("#name");
+    const input2 = document.querySelector("#HPEVs");
+    const input3 = document.querySelector("#ATKEVs");
+    const input4 = document.querySelector("#DFSEVs");
+    const input5 = document.querySelector("#SPATEVs");
+    const input6 = document.querySelector("#SPDFEVs");
+    const input7 = document.querySelector("#SPDEVs");
+    const isVld = allValid(input2.value, input3.value, input4.value, 
+                           input5.value, input6.value, input7.value);
+    
+    (json = { name: input.value, hp: input2.value, atk: input3.value, dfs: input4.value, spatk: input5.value, spdfs: input6.value, spd: input7.value, vld: isVld.value}),
+      (body = JSON.stringify(json));
 
     fetch( '/submit', {
       method:'POST',
       body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
+    }).then(function(response) {
+      response.text().then(function(json){
+        
+        //create table
+        const tbl = document.getElementById("list");
+        //clean table for new data
+        for(let x = tbl.rows.length - 1; x > 0; x--){
+          tbl.deleteRow(x);
+        }
+        //iterate through json data
+        json.forEach(object => {
+          //create new row
+          const nrow = tbl.insertRow(1);
+          //add cells to the rows
+          const nhp = nrow.insertCell(0);
+          const natk = nrow.insertCell(1);
+          const ndef = nrow.insertCell(2);
+          const nspatk = nrow.insertCell(3);
+          const nspdef = nrow.insertCell(4);
+          const nspd = nrow.insertCell(5);
+          const nvld = nrow.insertCell(6);
+          //give cells the data
+          nhp.innerHTML = object.name;
+          natk.innerHTML = object.atk;
+          ndef.innerHTML = object.dfs;
+          nspatk.innerHTML = object.spatk;
+          nspdef.innerHTML = object.nspdfs;
+          nspd.innerHTML = object.spd;
+          nvld.innerHTML = object.vld;
+      }
+    });
+  });
+}
+    
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
-
+    
+  function addTable(json){
+    );
+}
   </script>
 </html>
+
