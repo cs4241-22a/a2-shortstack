@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "todo application",
+  "author": "Jacob Adams",
   "scripts": {
     "start": "node server.improved.js"
   },
