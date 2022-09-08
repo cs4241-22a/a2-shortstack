@@ -1,3 +1,7 @@
-// Add some Javascript code here, to run on the front end.
-
-console.log("Welcome to assignment 2!")
+function clearScreen() {
+    document.getElementById("result").value = ""
+}
+ 
+function display(value) {
+    document.getElementById("result").value += value
+}
