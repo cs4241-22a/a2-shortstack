@@ -25,9 +25,17 @@ const submit = function( e ) {
       method:'POST',
       body 
     })
-    .then( async function ( response ) {
+    
+    /* .then( async function ( response ) {
       // do something with the reponse
-      let newData = await response.text() //.json
+      try{
+      let newData = await response.json();} //.json
+      catch(error){
+        console.log("catch");
+      } */
+      const res = await fetch()
+      const json = await res.json()
+      
       reload(newData)
       console.log(newData)
       console.log("helloooo")
@@ -41,12 +49,20 @@ const submit = function( e ) {
     const table = document.getElementById("todo_list")
     table.innerHTML = ""
 
-    newData.forEach((element, index) => {
+   /*  newData.forEach((element, index) => {
       table.innerHTML +=
-        "<tr><td>" + element.item + "</td><td>" + element.category + "</td><td>" +
-          element.data + "</td><td>" + element.priority + "</td><td>" + 
-          element.days_left + "</td></tr>"
-    })
+        "<tr><td>" 
+        + element.item 
+        + "</td><td>" 
+        + element.category 
+        + "</td><td>" 
+        + element.data 
+        + "</td><td>" 
+        + element.priority 
+        + "</td><td>" 
+        + element.days_left 
+        + "</td></tr>"
+    }) */
   }
   
   window.onload = function() {
