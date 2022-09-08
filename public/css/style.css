@@ -1,1 +1,38 @@
 /*Style your own assignment! This is fun! */
+body 
+{background-color: #FFAD42;}
+
+h1{color:#FFD430;
+    text-align: center;
+}
+
+.item-a {
+    grid-area: header;
+  }
+  .item-b {
+    grid-area: main;
+  }
+  .item-d {
+    grid-area: footer;
+  }
+
+  .container {
+    width: 1000px;
+    border: 5px #E8AE31;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 280px 280px 280px;
+    grid-template-rows: 280px 280px 280px;
+    grid-template-areas: 
+      "header header header "
+      "main main main"
+      "footer footer footer";
+  }
+
+.Alfie_Image {
+    width:245px;
+    float: center;
+    height:245px;
+    background-color: #E87C31;
+}

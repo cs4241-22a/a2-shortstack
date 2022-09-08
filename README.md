@@ -1,10 +1,7 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 
-Due: September 8th, by 11:59 AM.
-
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
+This incomplete project version is located here: https://a2-sophiastrano.glitch.me
 
 Baseline Requirements
 ---
