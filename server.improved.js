@@ -30,15 +30,8 @@ const handleGet = function( request, response ) {
   } 
   else
   {
-    const html =`
-    <html>
-    <body>
-      ${ appdata.map( item => JSON.stringify(item) ) } 
-    </body>
-    </html>
-    `
-    response.end( html )
-      //sendFile( response, filename )
+    const html =
+      sendFile( response, filename )
   }
 }
 

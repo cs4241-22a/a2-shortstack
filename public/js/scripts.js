@@ -3,7 +3,7 @@ console.log("Welcome to assignment 2!")
     const submit = function( e ) {
       // prevent default form action from being carried out
       e.preventDefault()
-
+    debugger
     const nameInput = document.findElementByID( 'yourname' ).value,
        dateInput = document.findElementByID( 'date' ).value,
        //subjectInput = document.findElementByID( 'subjectList' ),
@@ -36,20 +36,6 @@ console.log("Welcome to assignment 2!")
     })
       return false
     }
-
-    /*function collectNewInfo(data) {
-      const newInfoTable = document.getElementById('dataTable')
-      newInfoTable.innerHTML = ""
-      data.forEach((item, index) => {
-        newInfoTable.innerText +=
-          "<td>" + item.nameInput +
-          "</td><td>" + item.dateInput +
-          "</td><td>" + item.subjectInput +
-          "</td><td>" + item.assignmentInput +
-          "</td>"
-      })
-      console.log(collectNewInfo())
-    } */
 
     window.onload = function() {
       const button = document.querySelector( 'button' )
