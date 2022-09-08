@@ -12,7 +12,7 @@ const submit = function (e) {
 			body,
 		})
 			.then((response) => response.json())
-			.then((json) => console.log(json));
+			.then((json) => console.log(json))
 
 		renderTable();
 		document.querySelector("table").scrollIntoView();
@@ -111,7 +111,7 @@ function remove(UID) {
 		body,
 	})
 		.then((response) => response.json())
-		.then((json) => console.log(json));
+		.then((json) => console.log(json))
 
 	renderTable();
 }
@@ -129,7 +129,7 @@ function modify(UID) {
 			body,
 		})
 			.then((response) => response.json())
-			.then((json) => console.log(json));
+			.then((json) => console.log(json))
 
 		renderTable();
 	} else {
