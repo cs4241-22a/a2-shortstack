@@ -1,1 +1,20 @@
 /*Style your own assignment! This is fun! */
+body {
+    background-color: #2AE869;
+  }
+  h1 {
+    color: #2AE869;
+    font-family: "Audiowide", sans-serif;
+  }
+  button{
+    color: #32B1DB;
+    font-family: "Audiowide", serif;
+  }
+  p {
+    color: #422AE8;
+    font-family: "Audiowide", serif;
+  }
+  li{
+    color: #2C6AF2;
+    font-family: "Audiowide", serif;
+  }
