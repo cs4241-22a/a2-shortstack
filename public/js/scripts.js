@@ -79,7 +79,6 @@ function renderTable() {
 					let cell6 = row.insertCell(5);
 					let cell7 = row.insertCell(6);
 
-
 					cell1.innerHTML = `${appdata[entries].firstName}`;
 					cell2.innerHTML = `${appdata[entries].lastName}`;
 					cell3.innerHTML = `${appdata[entries].birthday}`;
