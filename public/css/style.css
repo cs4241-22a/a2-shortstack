@@ -73,16 +73,20 @@ input {
 }
 
 .chart-container {
-    width: 100%;
-    height: 100%;
+    max-width: 800px;
+    max-height: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+
+
 }
 
 #chart {
     /* min-width: 50vh; */
     /* min-height: 20vh; */
-    width: 100%;
-    height: 100%;
-    border: red solid 1px;
 }
 
 #stocklist{
@@ -106,6 +110,12 @@ input {
     padding: 10px;
     margin: 10px;
     cursor: pointer;
+
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
 
 }
 

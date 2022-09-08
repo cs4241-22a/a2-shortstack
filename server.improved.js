@@ -43,6 +43,17 @@ const handleGet = async function (request, response) {
     //send the symbol back to the client
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(stockData));
+  } else if (request.url.startsWith("/historical?")) {
+    console.log("historical request for " + request.url);
+    let query = request.url.split("=")[1];
+    const pastDate = new Date();
+    pastDate.setFullYear(pastDate.getFullYear() - 2);
+    const pastDateString = pastDate.toISOString().split("T")[0];
+    const queryOptions = { period1: pastDateString, interval: "1wk" };
+    const result = await yahooFinance.historical(query, queryOptions);
+
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify(result));
   } else {
     sendFile(response, filename);
   }
@@ -50,7 +61,7 @@ const handleGet = async function (request, response) {
 
 const getStockData = async function (symbol) {
   const results = await yahooFinance.quote(symbol.toUpperCase());
-  console.log(results);
+  // console.log(results);
   return results;
 };
 
@@ -63,7 +74,7 @@ const handlePost = async function (request, response) {
 
   request.on("end", async function () {
     let dataObject = JSON.parse(dataString);
-    console.log(dataObject);
+    // console.log(dataObject);
 
     if (request.url === "/submit") {
       //if the stock is not already in the array, add it
@@ -73,7 +84,7 @@ const handlePost = async function (request, response) {
         response.end(
           JSON.stringify({ message: "ERROR: stock already in array" })
         );
-      } else if(dataObject.stockinput !== ""){
+      } else if (dataObject.stockinput !== "") {
         //check that the stock is valid
         let stockData = await getStockData(dataObject.stockinput);
         if (stockData === undefined) {
@@ -81,15 +92,16 @@ const handlePost = async function (request, response) {
           response.writeHead(404, { "Content-Type": "application/json" });
           response.end(JSON.stringify({ message: "ERROR: stock not found" }));
         } else {
-        //add the stock to the array with the date right now
-        stocks.push({
-          symbol: dataObject.stockinput.toLowerCase(),
-          dateAdded: new Date(),
-        });
+          //add the stock to the array with the date right now
+          stocks.push({
+            symbol: dataObject.stockinput.toLowerCase(),
+            dateAdded: new Date(),
+          });
 
-        response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-        response.end("Added stock to array");
-      } }
+          response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+          response.end("Added stock to array");
+        }
+      }
     } else if (request.url === "/delete") {
       //find the stock in the array
       let stock = stocks.find(

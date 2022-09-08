@@ -17,6 +17,8 @@ const submitbuy = function (e) {
     //if the response is 200, then add the stock to the list
     if (response.status == 200) {
       addStockToList(input.value);
+      //clear the input
+      input.value = "";
     }
   });
 
@@ -84,7 +86,6 @@ window.onload = async function () {
 
     stockList.appendChild(stock.html);
   }
-  makeChart();
 };
 
 //create a stock object
@@ -104,10 +105,9 @@ function Stock(symbol) {
     const summaryBlock = this.html.querySelector("summary");
     //on click, toggle the expansion indicator from side arrow to down arrow
     summaryBlock.onclick = function () {
-      expansionIndicator.innerHTML = expansionIndicator.innerHTML == "▶" ? "▼" : "▶";
+      expansionIndicator.innerHTML =
+        expansionIndicator.innerHTML == "▶" ? "▼" : "▶";
     };
-
-
 
     const symbol = this.html.querySelector(".symbol");
     symbol.innerHTML = this.symbol.toUpperCase();
@@ -140,7 +140,21 @@ function Stock(symbol) {
 
     this.updateData();
 
+    //get some historical data from the server
+    const historicalData = await this.getHistoricalData(this.symbol);
+
+    makeChart(this.html, this.symbol, historicalData);
+
     return this.html;
+  };
+
+  this.getHistoricalData = async function (ticker) {
+    //get the last year of data
+    const response = await fetch("/historical?symbol=" + ticker, {
+      method: "GET",
+    });
+    const data = await response.json();
+    return data;
   };
 
   this.setHTMLFromData = function (data) {
@@ -156,7 +170,10 @@ function Stock(symbol) {
     if (data.regularMarketChange > 0) {
       change = "+" + change;
     }
-    this.setPosNegClass(this.html.querySelector(".change"), data.regularMarketChange);
+    this.setPosNegClass(
+      this.html.querySelector(".change"),
+      data.regularMarketChange
+    );
 
     this.html.querySelector(".change").innerHTML = change;
     let changePercent = data.regularMarketChangePercent;
@@ -165,9 +182,14 @@ function Stock(symbol) {
     if (data.regularMarketChange > 0) {
       changePercent = "+" + changePercent;
     }
-    this.setPosNegClass(this.html.querySelector(".change-percent"), data.regularMarketChangePercent);
+    this.setPosNegClass(
+      this.html.querySelector(".change-percent"),
+      data.regularMarketChangePercent
+    );
     this.html.querySelector(".change-percent").innerHTML = changePercent;
-    this.html.querySelector(".volume").innerHTML = this.formatNumberWithSuffix(data.regularMarketVolume);
+    this.html.querySelector(".volume").innerHTML = this.formatNumberWithSuffix(
+      data.regularMarketVolume
+    );
     let marketCap = data.marketCap;
     //format the market cap to use the correct suffix
     marketCap = this.formatNumberWithSuffix(marketCap);
@@ -175,13 +197,15 @@ function Stock(symbol) {
 
     //open, high, low, previous close
     this.html.querySelector(".open").innerHTML = "$" + data.regularMarketOpen;
-    this.html.querySelector(".high").innerHTML = "$" + data.regularMarketDayHigh;
+    this.html.querySelector(".high").innerHTML =
+      "$" + data.regularMarketDayHigh;
     this.html.querySelector(".low").innerHTML = "$" + data.regularMarketDayLow;
-    this.html.querySelector(".previous-close").innerHTML = "$" + data.regularMarketPreviousClose;
+    this.html.querySelector(".previous-close").innerHTML =
+      "$" + data.regularMarketPreviousClose;
   };
 
   this.formatNumberWithSuffix = function (number) {
-    if(number === undefined) {
+    if (number === undefined) {
       return "N/A";
     }
     //format the number to use the correct suffix
@@ -242,83 +266,90 @@ function Stock(symbol) {
 
 async function getCompanyData(ticker) {
   const url = "/stock?ticker=" + ticker;
-
   //fetch from server
-  const response = fetch(url);
+  const response = await fetch(url);
   // const data = await response.json();
   return response;
 }
 
-function makeChart(){
+function makeChart(root, ticker, data) {
+  var ctx = root.querySelector("#chart").getContext("2d");
 
-  var barCount = 100;
-  var initialDateStr = "01 Apr 2017 00:00 Z";
-  
-  var ctx = document.querySelector("chart").getContext("2d");
-  ctx.canvas.width = 1000;
-  ctx.canvas.height = 250;
-  
-  var barData = getRandomData(initialDateStr, barCount);
-  function lineData() {
-    return barData.map((d) => {
-      return { x: d.x, y: d.c };
-    });
-  }
-  
+  var barData = parseHistoricalData(data);
+
   var chart = new Chart(ctx, {
     type: "candlestick",
     data: {
       datasets: [
         {
-          label: "Test Label",
+          label: ticker.toUpperCase() + " 2 Year, 1 Week",
           data: barData,
         },
       ],
     },
+    //set axis label color to white
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "white", // not 'fontColor:' anymore.
+            // fontSize: 18  // not 'fontSize:' anymore
+            font: {
+              size: 18, // 'size' now within object 'font {}'
+            },
+          },
+        },
+      },
+      scales: {
+        y: {
+          ticks: {
+            color: "white",
+            font: {
+              size: 18,
+            },
+            stepSize: 1,
+            beginAtZero: true,
+          },
+        },
+        x: {
+          ticks: {
+            color: "white",
+            font: {
+              size: 14,
+            },
+            stepSize: 1,
+            beginAtZero: true,
+          },
+        },
+      },
+    },
   });
-  
-  var getRandomInt = function (max) {
-    return Math.floor(Math.random() * Math.floor(max));
+
+  var dataset = chart.config.data.datasets[0];
+  dataset.color = {
+    up: "#00ff00",
+    down: "#ff0000",
+    unchanged: "#0000ff",
   };
-  
-  function randomNumber(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-  
-  function randomBar(date, lastClose) {
-    var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
-    var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
-    var high = +randomNumber(
-      Math.max(open, close),
-      Math.max(open, close) * 1.1
-    ).toFixed(2);
-    var low = +randomNumber(
-      Math.min(open, close) * 0.9,
-      Math.min(open, close)
-    ).toFixed(2);
-    return {
-      x: date.valueOf(),
-      o: open,
-      h: high,
-      l: low,
-      c: close,
-    };
-  }
-  
-  function getRandomData(dateStr, count) {
-    var date = luxon.DateTime.fromRFC2822(dateStr);
-    var data = [randomBar(date, 30)];
-    while (data.length < count) {
-      date = date.plus({ days: 1 });
-      if (date.weekday <= 5) {
-        data.push(randomBar(date, data[data.length - 1].c));
-      }
+
+  dataset.borderColor = {
+    up: "#111111",
+    down: "#111111",
+    unchanged: "#111111",
+  };
+
+  function parseHistoricalData(data) {
+    let parsedData = [];
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      parsedData.push({
+        x: luxon.DateTime.fromISO(element.date).valueOf(),
+        o: element.open,
+        h: element.high,
+        l: element.low,
+        c: element.close,
+      });
     }
-    return data;
+    return parsedData;
   }
-  
-  var update = function () {
-    chart.update();
-  };
-  
 }
