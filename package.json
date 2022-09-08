@@ -1,6 +1,6 @@
 {
   "name": "movieranker",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "A simple ranking device supporting adding and removing movies",
   "author": "Theo Coppola",
   "scripts": {
