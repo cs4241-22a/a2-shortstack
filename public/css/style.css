@@ -19,7 +19,6 @@ body {
   background-size: cover;
   font-family: "PlayfairDisplay", sans-serif;
   text-align: center;
-  font-size: 1.2em;
 } /*Style your own assignment! This is fun! */
 
 
@@ -28,7 +27,7 @@ table {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 60%;
   color: #599FF0;
 }
 
@@ -56,13 +55,12 @@ th, td, tr {
 input,
 select,
 button {
-  /*   width = 30%; */
-  box-sizing: border-box;
-  font-family: "PlayfairDisplay", sans-serif;
+
+  font-family: "PlayfairDisplay-BoldItalics", sans-serif;
 }
 
 form {
-  font-family: "PlayfairDisplay", sans-serif;
+  font-family: "PlayfairDisplay-BoldItalics", sans-serif;
 }
 
 #activity, #date, #time_started, #time_ended, #description {

@@ -85,7 +85,9 @@ window.onload = function () {
   button.onclick = submit;
 };
 
+
 // Function to delete the row
+// I wanted to delete a row and then convert the current table to JSON and send back to server and get the new appdata back (without the deleted row) and recreate but it seems to just reset the appdata back to the starting array
 function delete_row(id) {
   document.getElementById(id).remove(); // Remove from html table based on the id of the row
 
