@@ -23,7 +23,7 @@ This site provides and easy to way to build out a movie and TV watchlist. The si
 - **Derived field**: The data fields are provided by a search query and API call. When the user selects a movie to add, the fields from the movie site are stored in an internal list `appdata`. The IMDB url `URL` (displayed on the site) is derived from the `imdbID` field. The url is resolved by the client, but derived on the server and stored in the dataset.
 
 ### HTML:
-- Form tag: <input> - used to collect search information.
+- Form tag: \<input> - used to collect search information.
 - Results rendered as single page app
 - Pages validate
 - Single page
