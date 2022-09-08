@@ -45,9 +45,9 @@ const handlePost = function (request, response) {
       let seen = false;
       for (let i = 0; i < appdata.length; i++) {
         let response = appdata[i];
-        if (response.Name.toLowerCase() === newData.Name.toLowerCase()){
+        if (response.Name.toLowerCase() == newData.Name.toLowerCase()){
           seen = true;
-          if (newData.Clicks > response.Clicks){
+          if (parseInt(newData.Clicks, 10) > parseInt(response.Clicks, 10)){
             response.Clicks = newData.Clicks;
             response.CPS = newData.CPS;
           }
