@@ -3,16 +3,23 @@
 <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=2.0,width=device-width" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto" />
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <form action="">
-        <input type='text' id='listItem' value="Add todo here">
-        <input type="text" id="dueDate" value="Enter a 4 digit number e.g. (0908)" />
-        <input type="text" id="priority" value="High, medium or low" />
+    <h1>
+        Todo List
+    </h1>
+    <form action="" id="inputItem" class="formItems">
+        <input type='text' id='listItem' placeholder="Add todo here">
+        <input type="text" id="dueDate" placeholder="Enter a 4 digit number e.g. 0908" />
+        <input type="text" id="priority" placeholder="High, medium or low" />
         <button>Submit</button>
     </form>
     <button id="delButton">Remove</button>
-    <table id="todoList">
+    <table id="todoList" class="todoTable">
         <tr>
             <th>Task</th>
             <th>Due Date</th>
@@ -23,100 +30,4 @@
 
 </body>
  <script src="js/scripts.js"></script>
-<!--script>
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    let listItem = document.querySelector( '#listItem' )
-    let dueDate  = document.querySelector( '#dueDate' )
-    let priority = document.querySelector( '#priority' )
-    let json = { listItem: listItem.value,
-                 dueDate: dueDate.value,
-                 priority: priority.value,
-                 feedback: ""
-                }
-    body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body
-    })
-    .then(async function (response){
-       console.log("the function response")
-       console.log(response)
-       let newData = await response.json() //wait until response
-       update(newData)
-       console.log(newData)
-    })
-    return false
-  }
-
-  const update = function(newItem){
-      const entry = document.getElementById("todoList")
-      entry.innerHTML = ""
-      let id = 0
-
-      //const delButton = document.createNewElement("button")
-      //button.innerHTML = "Delete"
-
-      newItem.forEach((element, index) => {
-
-        let newEntry = document.createElement("tr")
-        newEntry.setAttribute("id", id)
-
-        let newEntryItem = document.createElement("td")
-        newEntryItem.innerHTML = element.listItem
-        let newEntryDate = document.createElement("td")
-        newEntryDate.innerHTML = element.dueDate
-        let newEntryPriority = document.createElement("td")
-        newEntryPriority.innerHTML = element.priority
-
-        newEntry.appendChild(newEntryItem)
-        newEntry.appendChild(newEntryDate)
-        newEntry.appendChild(newEntryPriority)
-
-        /*entry.innerHTML +=
-            "
-<tr>
-    <td>" + element.listItem + "</td>
-    <td>
-        "
-        + element.dueDate + "
-    </td>
-    <td>
-        "
-        + element.priority + "
-    </td>
-</tr>"
-           // + "
-<td><button id=`{$element.listItem}`>" + "Delete" + "</button></td></tr>"*/
-
-        let delButton = document.createElement("button")
-        delButton.innerHTML = "Remove"
-        delButton.setAttribute("value", "Remove")
-        delButton.setAttribute("id", id)
-
-        newEntry.appendChild(delButton)
-        entry.appendChild(newEntry)
-
-        newEntry.addEventListener('click', function(e) {
-           //IT WORKS BUT NEEDS TO CHANGE APPDATA
-           newEntry.parentNode.removeChild(newEntry);
-        });
-
-        id += 1
-      })
-
-
-      console.log(entry.innerHTML)
-
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script-->
 </html>

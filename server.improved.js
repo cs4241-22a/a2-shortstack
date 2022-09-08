@@ -7,9 +7,6 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'listItem': 'Laundry', 'dueDate': 0907, 'priority': 'low', 'urgent': 0 },
-  { 'listItem': 'Clean', 'dueDate': 0907, 'priority': 'medium', 'urgent': 0 },
-  { 'listItem': 'Webware assignment', 'dueDate': 0908, 'priority': 'high', 'urgent': 0 } 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -26,24 +23,6 @@ const handleGet = function( request, response ) {
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
-     /*const html = 
-     `<html>
-         <body>
-             <form action="">
-                <input type="text" id="yourname" value="your name here">
-                <button>submit</button>
-             </form>
-             <ul id = "list">
-                debugger
-                <!--ol>${appdata.map(item => JSON.stringify(item))[0]}</ol-->
-                <ol>${JSON.stringify(appdata[0])}</ol>
-                <ol>${JSON.stringify(appdata[1])}</ol>
-                <ol>${JSON.stringify(appdata[2])}</ol>
-             </ul>
-         </body>
-     <html>`*/
-    
-    //response.end(html)
     sendFile( response, filename )
   }
 }
@@ -52,28 +31,23 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      //no data ?
       console.log(data)
       dataString += data 
   })
 
   request.on( 'end', function() {
-    
-    //problem here
-    console.log("datastring")
-    console.log( JSON.parse( dataString ) )
     let newItem = JSON.parse( dataString )
     if(!newItem.listItem || !newItem.dueDate || !newItem.priority){
-        //newItem.feedback = "Field cannot be empty"
     }
     else if(newItem.del === true){
         remove(appdata)
     }
     else{
-        //console.log("is greater than 0")
         appdata.push(newItem)
-        if(getMin(appdata) === parseInt(newItem.dueDate) && newItem.priority === "high"){
-            newItem.urgent = 1
+        if(newItem.priority === "high"){
+            if(getMin(appdata) === parseInt(newItem.dueDate)){
+                newItem.urgent = 1
+            }
         }
     }
 
@@ -107,16 +81,29 @@ const sendFile = function( response, filename ) {
    })
 }
 
+//gets soonest dated task that has high priority
 const getMin = function(array){
-    date = 1000;
+    let date = 1000;
+    let indexPrev = [];
     for(let i = 0; i < array.length; i++){
         curDate = parseInt(array[i].dueDate)
         if(curDate < date){
-            date = curDate
+            if(array[i].priority === "high"){
+                if(indexPrev.length >= 0){
+                    for(let j = 0; j < indexPrev.length; j++){
+                        array[j].urgent = 0
+                    }
+                }
+                date = curDate
+                indexPrev.push(i)
+            }
         }
+        if(curDate === date){
+            indexPrev.push(i)
+        }
+        console.log("indexPrev")
+        console.log(indexPrev)
     }
-    console.log("minDate:")
-    console.log(date)
     return date
 }
 

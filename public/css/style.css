@@ -1,1 +1,91 @@
-/*Style your own assignment! This is fun! */
+body {
+    font-family: "Roboto", serif;
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding: 20px;
+}
+
+button {
+    background-color: teal;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#todoList {
+    display: flex;
+    background-color: teal;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-collapse: collapse;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+}
+
+#todoList th{
+    background-color: teal;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    align-items:center;
+    justify-content: center;
+}
+
+#todoList tr{
+    display:flex;
+    background-color: teal;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-collapse: collapse;
+    align-items:center;
+    justify-content: center;
+}
+
+
+#todoList td{
+    display:flex;
+    background-color: teal;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-collapse: collapse;
+    align-items:center;
+    justify-content: center;
+}
+
+.formItems {
+    padding: 20px;
+    margin: 20px;
+}
+
+input {
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+}

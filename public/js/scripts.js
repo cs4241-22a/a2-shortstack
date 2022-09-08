@@ -30,7 +30,11 @@
 
   const update = function(newItem){
       const entry = document.getElementById("todoList")
-      entry.innerHTML = ""
+      entry.innerHTML = "<tr><th>" + "Task" + "</th><th>" 
+      + "Due Date" + "</th><th>"
+      + "Priority" + "</th><th>" 
+      + "Most Urgent" + "</th></tr>"
+
       let id = 0
 
       //const delButton = document.createNewElement("button")
@@ -45,8 +49,10 @@
 
         let newEntryItem = document.createElement("td")
         newEntryItem.innerHTML = element.listItem
+
         let newEntryDate = document.createElement("td")
         newEntryDate.innerHTML = element.dueDate
+
         let newEntryPriority = document.createElement("td")
         newEntryPriority.innerHTML = element.priority
 
@@ -126,16 +132,6 @@
     })
     return false
   }
-
-  /*const removeUpdate = function(newEntry){
-    const entry = document.getElementById("todoList")
-    newEntry.forEach((element, index) => {
-        if(index === 1){
-            newEntry.del = true
-        }
-    }
-    
-  }*/
 
   window.onload = function() {
     const button = document.querySelector( 'button' )
