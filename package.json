@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Schedule App",
+  "version": "0.01",
+  "description": "Anarchy schedules for all",
+  "author": "Greg Klimov",
   "scripts": {
     "start": "node server.improved.js"
   },
