@@ -9,6 +9,11 @@
       <input type='text' id='yourname' value="your name here">
       <button>submit</button>
     </form>
+  <table>
+    <thead>
+      Name
+    </thead>
+  </table>
   </body>
   <script>
 
@@ -25,8 +30,8 @@
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+      var data = response.json()
+      console.log( data )
     })
 
     return false
