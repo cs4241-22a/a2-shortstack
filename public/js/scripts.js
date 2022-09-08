@@ -251,7 +251,7 @@ function Stock(symbol, dateAdded) {
     //start updating the price
     this.updateData();
     //update the price every 5 seconds
-    setInterval(this.updateData.bind(this), 30000);
+    setInterval(this.updateData.bind(this), 5000);
   };
 
   this.stopUpdating = function () {
@@ -296,10 +296,11 @@ function makeChart(root, ticker, data) {
       plugins: {
         legend: {
           labels: {
-            color: "white", // not 'fontColor:' anymore.
-            // fontSize: 18  // not 'fontSize:' anymore
+            color: "white",
             font: {
-              size: 18, // 'size' now within object 'font {}'
+              size: 18,
+              family: "Share Tech Mono",
+              weight: "bold",
             },
           },
         },
@@ -310,6 +311,7 @@ function makeChart(root, ticker, data) {
             color: "white",
             font: {
               size: 18,
+              family: "Share Tech Mono",
             },
             stepSize: 1,
             beginAtZero: true,
@@ -320,6 +322,7 @@ function makeChart(root, ticker, data) {
             color: "white",
             font: {
               size: 14,
+              family: "Share Tech Mono",
             },
             stepSize: 1,
             beginAtZero: true,

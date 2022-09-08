@@ -40,9 +40,15 @@ const handleGet = async function (request, response) {
     let symbol = request.url.split("=")[1];
     //get the stock data from the api
     let stockData = await getStockData(symbol);
-    //send the symbol back to the client
-    response.writeHead(200, { "Content-Type": "application/json" });
-    response.end(JSON.stringify(stockData));
+    //if the stock is not found, return a 404
+    if (stockData === undefined) {
+      response.writeHead(404, { "Content-Type": "text/plain" });
+      response.end("Stock not found");
+    } else {
+      //otherwise, return the stock data
+      response.writeHead(200, { "Content-Type": "application/json" });
+      response.end(JSON.stringify(stockData));
+    }
   } else if (request.url.startsWith("/historical?")) {
     // console.log("historical request for " + request.url);
     let query = request.url.split("=")[1];
@@ -50,7 +56,14 @@ const handleGet = async function (request, response) {
     pastDate.setFullYear(pastDate.getFullYear() - 2);
     const pastDateString = pastDate.toISOString().split("T")[0];
     const queryOptions = { period1: pastDateString, interval: "1wk" };
-    const result = await yahooFinance.historical(query, queryOptions);
+    let result = undefined;
+    try {
+      result = await yahooFinance.historical(query, queryOptions);
+    } catch (error) {
+      console.log(error);
+      response.writeHead(404, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ message: "ERROR: stock not found" }));
+    }
 
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(result));
@@ -60,8 +73,12 @@ const handleGet = async function (request, response) {
 };
 
 const getStockData = async function (symbol) {
-  const results = await yahooFinance.quote(symbol.toUpperCase());
-  // console.log(results);
+  let results = undefined;
+  try {
+    results = await yahooFinance.quote(symbol.toUpperCase());
+  } catch (error) {
+    console.log(error);
+  }
   return results;
 };
 
