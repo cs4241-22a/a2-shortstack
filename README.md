@@ -17,7 +17,8 @@ Link to site: https://a2-cjacobson.glitch.me/
 - **Server Logic**: The server updates the date of the received data to log exactly when the server wrote the message
 to the database.
   - When messages are sent to the client, they are automatically sorted in the server by the date they were posted.
-- **Derived Field**: The time is updated when the data is written **(does this count?)**
+- **Derived Field**: The time is updated on the server when the data is written. Responses to Queries from the server
+are also sorted by time serverside
 - **Clientside Javascript**: Javascript on the client is used for several things
   - Automatically adjust the css height of the messages element to ensure it fits between the top and bottom bar.
   - Clears the input text box after a message has been submitted
