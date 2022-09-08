@@ -23,13 +23,13 @@ const submit = function( e ) {
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      body, 
     })
     
     .then( async function ( response ) {
       // do something with the reponse
-      let newData = await response.json()
-        reload(newData);
+      let newData = await response.text()
+        reload(JSON.parse(newData));
 
       console.log(newData)
       console.log("helloooo")
@@ -40,12 +40,12 @@ const submit = function( e ) {
   }
 
   function reload(newData) {
-    const table = document.getElementById("todo_list")
-    table.innerHTML = ""
+    const table = document.getElementById("data")
+    table.innerHTML = "<tr><th>To Do</th> <th>Category</th> <th>Due Date</th> <th>Item Priority</th> <th>Days Left</th></tr>"
 
-   /*  newData.forEach((element, index) => {
+    newData.forEach((element, index) => {
       table.innerHTML +=
-        "<tr><td>" 
+        + "<tr><td>" 
         + element.item 
         + "</td><td>" 
         + element.category 
@@ -56,7 +56,7 @@ const submit = function( e ) {
         + "</td><td>" 
         + element.days_left 
         + "</td></tr>"
-    }) */
+    })
   }
   
   window.onload = function() {
