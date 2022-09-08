@@ -1,41 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <link href="./css/main.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/scripts.js"></script>
   </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+  <body id="page-wrapper">
+    <div id="page-container">
+      <header class="header">
+        <img src="./assets/images/panda.png" alt="logo" />
+        <h1>todo list</h1>
+      </header>
+      <main class="content">
+        <div id="modal-container">
+          <button class="btn icon close cta" onclick="toggleModal('hidden')">
+            &times;
+          </button>
+          <form id="input-form">
+            <div id="top-field">
+              <select name="priority" required>
+                <option value="" disabled selected>PRIORITY</option>
+                <option value="URGENT">URGENT</option>
+                <option value="HIGH">HIGH</option>
+                <option value="MED">MEDIUM</option>
+                <option value="LOW">LOW</option>
+              </select>
+              <select name="type" required>
+                <option value="" disabled selected>TYPE</option>
+                <option value="MQP">MQP</option>
+                <option value="ACADEMICS">ACADEMICS</option>
+                <option value="WORK">WORK</option>
+                <option value="OTHER">OTHER</option>
+              </select>
+              <input type="datetime-local" name="deadline" />
+            </div>
+            <input name="title" type="text" placeholder="Task title" required />
+            <textarea
+              name="description"
+              placeholder="Description of task"
+              required
+            ></textarea>
+            <button class="btn submit">submit</button>
+          </form>
+        </div>
+        <div class="info">
+          <button class="btn cta" onclick="toggleModal('visible')">
+            add task
+          </button>
+          <table id="table">
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Type</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Creation Time</th>
+                <th>Deadline</th>
+                <th>0_0</th>
+              </tr>
+            </thead>
+            <tbody id="results"></tbody>
+          </table>
+        </div>
+      </main>
+      <footer>Logo made by Aiyi Huynh</footer>
+    </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
