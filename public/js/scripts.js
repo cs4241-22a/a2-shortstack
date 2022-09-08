@@ -12,28 +12,28 @@ const submitbuy = function (e) {
     method: "POST",
     body,
   }).then(function (response) {
-    // do something with the reponse
-    console.log(response);
-    //if the response is 200, then add the stock to the list
-    if (response.status == 200) {
-      addStockToList(response);
-      //clear the input
-      input.value = "";
+    // if the response is ok, then add the stock to the list and clear the input
+    if (response.ok) {
+      console.log("response worked!");
+      //get response data
+      response.json().then((data) => {
+        //add the stock to the list
+        addStockToList(data.symbol, data.dateAdded);
+        input.value = "";
+      });
     }
   });
 
   return false;
 };
 
-function addStockToList(response) {
-  const symbol = response.symbol;
-  const dateAdded = response.dateAdded;
+function addStockToList(ticker, dateAdded) {
   //use the data from the server to populate the div stock-list with stocks
   //copy the template from the html
   const template = document.querySelector("#stock-template");
   //get the div to put the stocks in
   const stockList = document.querySelector("#stock-list");
-  const stock = new Stock(symbol, dateAdded);
+  const stock = new Stock(ticker, dateAdded);
   stock.init(template);
   stock.startUpdating();
 
@@ -111,8 +111,8 @@ function Stock(symbol, dateAdded) {
         expansionIndicator.innerHTML == "▶" ? "▼" : "▶";
     };
 
-    const symbol = this.html.querySelector(".symbol");
-    symbol.innerHTML = this.symbol.toUpperCase();
+    const symbolHTML = this.html.querySelector(".symbol");
+    symbolHTML.innerHTML = this.symbol.toUpperCase();
 
     //set the id of the clone to empty
     this.html.id = "";
