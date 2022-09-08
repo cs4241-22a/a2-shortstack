@@ -53,7 +53,6 @@ const handleDelete = function( request, response ) {
   })
 
   request.on('end', function() {
-    console.log(dataString)
     for (let i=appdata.length-1;i>=0;i--) {
 
       if (appdata[i].name === dataString) {

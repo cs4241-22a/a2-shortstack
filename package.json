@@ -2,7 +2,7 @@
   "name": "cs4241-a2",
   "version": "",
   "description": "",
-  "author": "",
+  "author": "Cooper Dean",
   "scripts": {
     "start": "node server.improved.js"
   },
