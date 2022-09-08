@@ -1,7 +1,7 @@
 {
-  "name": "todo",
+  "name": "Todo List",
   "version": "1.0",
-  "description": "",
+  "description": "Simple todo list with fields for a title, assignment date, and due date.",
   "author": "May Dong",
   "scripts": {
     "start": "node server.improved.js"
