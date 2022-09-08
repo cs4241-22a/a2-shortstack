@@ -1,4 +1,8 @@
 ## To Do List
+Eri Kim
+
+https://a2-iekimi.glitch.me
+
 This web application can serve as a To Do List. 
 Using the CSS flexbox for the layout, there are three fields where you can add, a todo item, its due date, and a tag. 
 When a todo item is created, the table below gets updated with a new row that has five different fields: Status, Todo, Due, Priority, and Tag.
