@@ -16,6 +16,8 @@ The project of:
         alignatiev@wpi.edu
 
 Glitch: http://a2-alignatiev.glitch.me
+back-up Glitch: https://glitch.com/~a2-alignatiev
+
 
 
 ## Kurtz's Cars Automobile Repository
