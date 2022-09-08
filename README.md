@@ -1,4 +1,4 @@
-Bookshelf (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
+Bookshelf
 ---
 Glitch: https://a2-nkuchipudi.glitch.me/
 
