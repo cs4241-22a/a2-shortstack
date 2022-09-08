@@ -1,3 +1,5 @@
+const { time } = require('console')
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       mime = require( 'mime' ),
@@ -6,7 +8,7 @@ const http = require( 'http' ),
 
 var index = 0
 
-const appdata = [
+var appdata = [
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -46,10 +48,33 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     var name = JSON.parse( dataString )
-    var numChars = name.length
-    console.log(name)
-    console.log(numChars)
-    appdata.push({ 'index': index, 'Name': name, 'Characters': numChars })
+
+    if(name.includes("(Delete)"))
+    {
+      var data = name.substring(8,name.length)
+      var temp = []
+      for(let i = 0; i < appdata.length; i++)
+      {
+          if(appdata[i].Name === data)
+          {
+          }
+          else
+          {
+            console.log(appdata[0].name)
+            temp.push(appdata[i])
+          }
+      }
+      appdata = temp
+    }
+    else
+    {
+      var numChars = name.length
+      var timestamp = Math.floor(Date.now() / 1000)
+      console.log(name)
+      console.log(numChars)
+      console.log(timestamp)
+      appdata.push({ 'index': index, 'Name': name, 'Characters': numChars, 'Timestamp': timestamp })
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
