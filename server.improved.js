@@ -82,7 +82,6 @@ const handleDelete = function (request, response) {
     })
 
     request.on('end', function () {
-        console.log('\n-----------')
         const data = JSON.parse(dataString);
         const summary = appdata.summary;
         const sleepData = appdata.sleepData;
@@ -100,9 +99,6 @@ const handleDelete = function (request, response) {
                 totalSleepRating += record.sleepRating;
                 totalDreamPercentage += record.hadDream;
             }
-            console.log(totalHoursSlept);
-            console.log(totalSleepRating);
-            console.log(totalDreamPercentage);
             summary.averageTimeAsleep = totalHoursSlept / summary.numberOfRecords;
             summary.averageSleepRating = totalSleepRating / summary.numberOfRecords;
             summary.dreamPercentage = totalDreamPercentage / summary.numberOfRecords;
