@@ -1,6 +1,8 @@
 ## Disclaimer
 I unfortunately was not able to get this project fully working :( However, I did complete the server, HTML, and CSS as well ass added in comments in what I know I needed to add into the scripts.js file to hopefully make it functional. I attempted to go "above and beyond" on the HTML/CSS to hopefully show some extra desgin achievements.
 
+Link: https://a2-meganletendre7.glitch.me
+
 ## To Do List Maker
 I have created a web application that allows users to make to do lists and organize them. The user can add an item to the list and specify:
 (1) what a task is
