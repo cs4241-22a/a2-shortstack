@@ -55,7 +55,8 @@ const addTask = function( e ) {
     button.onclick = addTask
     const button2 = document.getElementById( "completedTasks" )
     button2.onclick = makeVisible
-    const button3 = document.getElementById( "refresh" )
+    const button3 = document.getElementById( "hideCompletedTasks" )
+    button3.onclick = makeInvisible
 
     // Create table
     let list = document.getElementById("table-header")
@@ -122,10 +123,27 @@ const addTask = function( e ) {
   const makeVisible = function(completedTaskArray) {
     let list2 = document.getElementById("completed-table-header")
     let outerTable = document.getElementById("completed-to-do-list")
-    const button3 = document.getElementById( "refresh" )
+    const button3 = document.getElementById( "hideCompletedTasks" )
+    const button2 = document.getElementById( "completedTasks" )
     document.getElementById("completed-task-header").style.display = "block"
     outerTable.style.display = "block"
-    
+    button2.style.display = "none"
+    button3.style.display = "block"
+    if (completedTaskArray.length > 0)
+    {
+      createCompletedTable(completedTaskArray);
+    }
+  }
+
+  const makeInvisible = function(completedTaskArray) {
+    let list2 = document.getElementById("completed-table-header")
+    let outerTable = document.getElementById("completed-to-do-list")
+    const button2 = document.getElementById( "completedTasks" )
+    const button3 = document.getElementById( "hideCompletedTasks" )
+    document.getElementById("completed-task-header").style.display = "none"
+    outerTable.style.display = "none"
+    button2.style.display = "block"
+    button3.style.display = "none"
     if (completedTaskArray.length > 0)
     {
       createCompletedTable(completedTaskArray);

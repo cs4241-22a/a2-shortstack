@@ -27,23 +27,87 @@ body {
     font-size: 2vw;
     padding: 10%;
 }
- 
-#table-header {
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
 
-#table-header tr {
+#to-do-list {
     display: flex;
-    flex-flow: row nowrap;
+    flex-direction: column;
 }
-
 
 #table-body {
     display: flex;
     flex-direction: column;
+}
+
+#table-body tr {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+    width: 100%;
+}
+
+#table-body tr td {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    width: 100%;
+    align-items: center;
+}
+
+#table-header tr {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+    width: 57%;
+}
+
+#table-header tr td{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+    width: 100%;
+    font-weight: bolder;
+    color: rgb(215, 69, 245);
+}
+
+#completed-to-do-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#completed-table-body {
+    display: flex;
+    flex-direction: column;
+}
+
+#completed-table-body tr {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+    width: 100%;
+}
+
+#completed-table-body tr td {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    width: 100%;
+    align-items: center;
+}
+
+#completed-table-header tr {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+    width: 225%;
+}
+
+#completed-table-header tr td{
+    display: flex;
+    flex-direction: row;
+    border: 2px solid white;
+    width: 200%;
+    font-weight: bolder;
+    color: rgb(215, 69, 245);
 }
 
 label {
