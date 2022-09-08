@@ -6,11 +6,24 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+// EXAMPLE DATA
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { item: "here is an example to-do item", date: "2022-09-08" },
+  { item: "here is a second example item", date: "09/09/22"}
 ]
+
+const add_item = function(list_item) {
+  appdata.push(list_item)
+}
+
+const delete_item = function(list_item) {
+  let x = 0;
+  for(let i = 0; i < appdata.length; i++) {
+    if (list_item.item === appdata[i].item) {
+      appdata.splice(i,i);
+    }
+  }
+}
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -20,6 +33,7 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
+// handles GET requests
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
@@ -30,6 +44,7 @@ const handleGet = function( request, response ) {
   }
 }
 
+// hangles POST requests
 const handlePost = function( request, response ) {
   let dataString = ''
 
@@ -38,12 +53,26 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    if(dataString === '') {
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(appdata))
+      return
+    }
+    
+    const list_item = JSON.parse(dataString)
+    console.log(list_item)
+    
+    if(request.url === "/add") {
+      add_item(list_item)
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(appdata[appdata.length-1]))
+    }
+    
+    if(request.url === "/delete")
+      delete_item(list_item)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 

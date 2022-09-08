@@ -3,39 +3,67 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans"/>
+    <link rel="stylesheet" href="css/style.css"/>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <!-- Header -->
+    <div class="header">
+      <h1>
+        To-do List
+      </h1>
+      <p>
+        A simple to-do list web app
+      </p>
+    </div>
+
+    <!-- Description (???) -->
+    <div class="description">
+      <h2>
+        About this app
+      </h2>
+      <p>
+        Type your to-do item and date in the box and click 'add' to add it to the list.
+      </p>
+      <p>
+        Click 'delete' on an existing item to delete it from the list.
+      </p>
+    </div>
+    
+    <!-- To-do List -->
+    <div class="todo">
+      <!-- Input -->
+      <form action="">
+        <input type="text" id="item" value="write your next to-do item">
+        <input type="text" id="date" value="date for this item">
+        <button>
+          add
+        </button>
+      </form>
+      
+      <!-- list content goes here, TODO -->
+      <table id="todo-list">
+<!--         <tr>
+          <td>here is a list item</td>
+          <td>01/01/01</td>
+          <td>
+            <button>
+              delete
+            </button>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>..................................</td>
+          <td>023</td>
+          <td>
+            <button> delete </button>
+          </td>
+        </tr> -->
+      </table>
+    </div>
+    
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+  
+  <script src="js/scripts.js"></script>
 </html>
