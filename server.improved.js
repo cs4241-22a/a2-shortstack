@@ -7,7 +7,6 @@ const http = require( 'http' ),
 var index = 0
 
 const appdata = [
-  { 'index': index, 'Name': "Sean", 'Characters': 4 }
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -23,9 +22,16 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }else if(request.url === '/api') {
+    getData( request, response);
   }else{
     sendFile( response, filename )
   }
+}
+
+const getData = function( request, response ) {
+  response.setHeader("Content-Type", "application/json");
+  response.end(JSON.stringify(appdata));
 }
 
 const handlePost = function( request, response ) {
@@ -39,8 +45,11 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
-    var numChars = dataString.length
-    appdata.push({index, dataString, numChars})
+    var name = JSON.parse( dataString )
+    var numChars = name.length
+    console.log(name)
+    console.log(numChars)
+    appdata.push({ 'index': index, 'Name': name, 'Characters': numChars })
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
