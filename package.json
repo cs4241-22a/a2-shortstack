@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "cs4241-A2-ToDo_List_Maker",
+  "version": "1",
+  "description": "A web application that helps a user to make to do lists and organize them.",
+  "author": "Megan Letendre",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^3.0.0"
   }
 }
