@@ -9,17 +9,12 @@ header {
     align-items: center;
 }
 
-#pikachu {
+#pikachu, #vaporeon {
     width: 150px;
     height: auto;
 }
 
-#vaporeon {
-    width: 150px;
-    height: auto;
-}
-
-form {
+form, h2, td {
     text-align: center;
 }
 
@@ -27,10 +22,10 @@ form {
     padding-bottom: 20px;
 }
 
-h2 {
-    text-align: center;
-}
-
 table {
     width: 100%;
+}
+
+tr:not(.hrow):hover {
+    text-decoration: line-through;
 }

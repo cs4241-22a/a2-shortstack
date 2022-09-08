@@ -11,6 +11,8 @@ const server = http.createServer( function( request,response ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  }else if (request.method === 'DELETE'){
+    handleDelete( request, response)
   }
 })
 
@@ -32,11 +34,32 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    simplePokemon = JSON.parse(dataString)
-    pokemon = addTypeChart(simplePokemon)
-    console.log(pokemon)
+    const simplePokemon = JSON.parse(dataString)
+    const pokemon = addTypeChart(simplePokemon)
 
     appdata.push(pokemon)
+    content = JSON.stringify(appdata)
+
+    response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
+    response.end( content )
+  })
+}
+
+const handleDelete = function( request, response ) {
+  let dataString = ''
+
+  request.on ( 'data', function( data ) {
+    dataString += data
+  })
+
+  request.on('end', function() {
+    console.log(dataString)
+    for (let i=appdata.length-1;i>=0;i--) {
+
+      if (appdata[i].name === dataString) {
+        appdata.splice(i, 1)
+      }
+    }
     content = JSON.stringify(appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
@@ -67,69 +90,69 @@ const sendFile = function( response, filename ) {
 }
 
 const weaknesses = {
-  'normal': ['fighting'],
-  'fighting': ['flying', 'psychic', 'fairy'],
-  'flying': ['rock', 'electric', 'ice'],
-  'poison': ['ground', 'psychic'],
-  'ground': ['water', 'grass', 'ice'],
-  'rock': ['fighting', 'ground', 'steel', 'water', 'grass'],
-  'bug': ['flying', 'rock', 'fire'],
-  'ghost': ['ghost', 'dark'],
-  'steel': ['fighting', 'ground', 'fire'],
-  'fire': ['ground', 'rock', 'water'],
-  'water': ['grass', 'electric'],
-  'grass': ['flying', 'poison', 'bug', 'fire', 'ice'],
-  'electric': ['ground'],
-  'psychic': ['bug', 'ghost', 'dark'],
-  'ice': ['fighting', 'rock', 'steel', 'fire'],
-  'dragon': ['ice', 'dragon', 'fairy'],
-  'dark': ['fighting', 'bug', 'fairy'],
-  'fairy': ['poison', 'steel'],
-  'none': []
+  'Normal': ['Fighting'],
+  'Fighting': ['Flying', 'Psychic', 'Fairy'],
+  'Flying': ['Rock', 'Electric', 'Ice'],
+  'Poison': ['Ground', 'Psychic'],
+  'Ground': ['Water', 'Grass', 'Ice'],
+  'Rock': ['Fighting', 'Ground', 'Steel', 'Water', 'Grass'],
+  'Bug': ['Flying', 'Rock', 'Fire'],
+  'Ghost': ['Ghost', 'Dark'],
+  'Steel': ['Fighting', 'Ground', 'Fire'],
+  'Fire': ['Ground', 'Rock', 'Water'],
+  'Water': ['Grass', 'Electric'],
+  'Grass': ['Flying', 'Poison', 'Bug', 'Fire', 'Ice'],
+  'Electric': ['Ground'],
+  'Psychic': ['Bug', 'Ghost', 'Dark'],
+  'Ice': ['Fighting', 'Rock', 'Steel', 'Fire'],
+  'Dragon': ['Ice', 'Dragon', 'Fairy'],
+  'Dark': ['Fighting', 'Bug', 'Fairy'],
+  'Fairy': ['Poison', 'Steel'],
+  'None': []
 }
 
 const resistances = {
-  'normal': [],
-  'fighting': ['rock', 'bug', 'dark'],
-  'flying': ['fighting', 'bug', 'grass'],
-  'poison': ['fighting', 'poison', 'bug', 'grass', 'fairy'],
-  'ground': ['poison', 'rock'],
-  'rock': ['normal', 'flying', 'poison', 'fire'],
-  'bug': ['fighting', 'ground', 'grass'],
-  'ghost': ['poison', 'bug'],
-  'steel': ['normal', 'flying', 'rock', 'bug', 'steel', 'grass', 'psychic', 'ice', 'dragon', 'fairy'],
-  'fire': ['bug', 'steel', 'fire', 'grass', 'ice', 'fairy'],
-  'water': ['steel', 'fire', 'water', 'ice'],
-  'grass': ['ground', 'water', 'grass', 'electric'],
-  'electric': ['flying', 'steel', 'electric'],
-  'psychic': ['fighting', 'psychic'],
-  'ice': ['ice'],
-  'dragon': ['fire', 'water', 'grass', 'electric'],
-  'dark': ['ghost', 'dark'],
-  'fairy': ['fighting', 'bug', 'dark'],
-  'none': []
+  'Normal': [],
+  'Fighting': ['Rock', 'Bug', 'Dark'],
+  'Flying': ['Fighting', 'Bug', 'Grass'],
+  'Poison': ['Fighting', 'Poison', 'Bug', 'Grass', 'Fairy'],
+  'Ground': ['Poison', 'Rock'],
+  'Rock': ['Normal', 'Flying', 'Poison', 'Fire'],
+  'Bug': ['Fighting', 'Ground', 'Grass'],
+  'Ghost': ['Poison', 'Bug'],
+  'Steel': ['Normal', 'Flying', 'Rock', 'Bug', 'Steel', 'Grass', 'Psychic', 'Ice', 'Dragon', 'Fairy'],
+  'Fire': ['Bug', 'Steel', 'Fire', 'Grass', 'Ice', 'Fairy'],
+  'Water': ['Steel', 'Fire', 'Water', 'Ice'],
+  'Grass': ['Ground', 'Water', 'Grass', 'Electric'],
+  'Electric': ['Flying', 'Steel', 'Electric'],
+  'Psychic': ['Fighting', 'Psychic'],
+  'Ice': ['Ice'],
+  'Dragon': ['Fire', 'Water', 'Grass', 'Electric'],
+  'Dark': ['Ghost', 'Dark'],
+  'Fairy': ['Fighting', 'Bug', 'Dark'],
+  'None': []
 }
 
 const immunities = {
-  'normal': ['ghost'],
-  'fighting': [],
-  'flying': ['ground'],
-  'poison': [],
-  'ground': ['electric'],
-  'rock': [],
-  'bug': [],
-  'ghost': ['normal', 'fighting'],
-  'steel': ['poison'],
-  'fire': [],
-  'water': [],
-  'grass': [],
-  'electric': [],
-  'psychic': [],
-  'ice': [],
-  'dragon': [],
-  'dark': ['psychic'],
-  'fairy': ['dragon'],
-  'none': []
+  'Normal': ['Ghost'],
+  'Fighting': [],
+  'Flying': ['Ground'],
+  'Poison': [],
+  'Ground': ['Electric'],
+  'Rock': [],
+  'Bug': [],
+  'Ghost': ['Normal', 'Fighting'],
+  'Steel': ['Poison'],
+  'Fire': [],
+  'Water': [],
+  'Grass': [],
+  'Electric': [],
+  'Psychic': [],
+  'Ice': [],
+  'Dragon': [],
+  'Dark': ['Psychic'],
+  'Fairy': ['Dragon'],
+  'None': []
 }
 
 const addTypeChart = function( pokemon ) {
