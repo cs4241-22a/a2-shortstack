@@ -5,13 +5,10 @@ const http = require("http"),
   // IMPORTANT: you must run `npm install` in the directory for this assignment
   // to install the mime library used in the following line of code
   mime = require("mime"),
-  bent = require("bent"),
   dir = "public/",
   port = 3000;
 
 const yahooFinance = require("yahoo-finance2").default;
-
-const getJSON = bent("json");
 
 const stocks = [
   { symbol: "tsla", dateAdded: new Date() },
@@ -57,14 +54,14 @@ const getStockData = async function (symbol) {
   return results;
 };
 
-const handlePost = function (request, response) {
+const handlePost = async function (request, response) {
   let dataString = "";
 
   request.on("data", function (data) {
     dataString += data;
   });
 
-  request.on("end", function () {
+  request.on("end", async function () {
     let dataObject = JSON.parse(dataString);
     console.log(dataObject);
 
@@ -76,7 +73,14 @@ const handlePost = function (request, response) {
         response.end(
           JSON.stringify({ message: "ERROR: stock already in array" })
         );
-      } else {
+      } else if(dataObject.stockinput !== ""){
+        //check that the stock is valid
+        let stockData = await getStockData(dataObject.stockinput);
+        if (stockData === undefined) {
+          console.log("stock not found");
+          response.writeHead(404, { "Content-Type": "application/json" });
+          response.end(JSON.stringify({ message: "ERROR: stock not found" }));
+        } else {
         //add the stock to the array with the date right now
         stocks.push({
           symbol: dataObject.stockinput.toLowerCase(),
@@ -85,7 +89,7 @@ const handlePost = function (request, response) {
 
         response.writeHead(200, "OK", { "Content-Type": "text/plain" });
         response.end("Added stock to array");
-      }
+      } }
     } else if (request.url === "/delete") {
       //find the stock in the array
       let stock = stocks.find(

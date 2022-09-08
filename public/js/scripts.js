@@ -84,6 +84,7 @@ window.onload = async function () {
 
     stockList.appendChild(stock.html);
   }
+  makeChart();
 };
 
 //create a stock object
@@ -96,7 +97,17 @@ function Stock(symbol) {
     //create the html for the stock from the template
     //create a clone of the template
     this.html = template.cloneNode(true);
-    const fetchedData = await getCompanyData(this.symbol);
+
+    //add an expansion indicator for expansion-indicator
+    const expansionIndicator = this.html.querySelector(".expansion-indicator");
+
+    const summaryBlock = this.html.querySelector("summary");
+    //on click, toggle the expansion indicator from side arrow to down arrow
+    summaryBlock.onclick = function () {
+      expansionIndicator.innerHTML = expansionIndicator.innerHTML == "▶" ? "▼" : "▶";
+    };
+
+
 
     const symbol = this.html.querySelector(".symbol");
     symbol.innerHTML = this.symbol.toUpperCase();
@@ -122,7 +133,10 @@ function Stock(symbol) {
       this.html.remove();
     };
 
-    this.html.appendChild(deleteButton);
+    //get the summary element and append the delete button there
+    const summary = this.html.querySelector("summary");
+    summary.appendChild(deleteButton);
+    // this.html.appendChild(deleteButton);
 
     this.updateData();
 
@@ -130,22 +144,86 @@ function Stock(symbol) {
   };
 
   this.setHTMLFromData = function (data) {
-    this.html.querySelector(".last-update").innerHTML = this.html.querySelector(
-      ".price"
-    ).innerHTML = data.regularMarketPrice;
+    //last update should be the current time with no date
+    let lastUpdate = new Date();
+    lastUpdate = lastUpdate.toLocaleTimeString();
+    this.html.querySelector(".last-update").innerHTML = lastUpdate;
+    this.html.querySelector(".price").innerHTML = data.regularMarketPrice;
     this.html.querySelector(".full-name").innerHTML = data.longName;
-    this.html.querySelector(".change").innerHTML = data.regularMarketChange;
-    this.html.querySelector(".change-percent").innerHTML =
-      data.regularMarketChangePercent;
-    this.html.querySelector(".volume").innerHTML = data.regularMarketVolume;
-    this.html.querySelector(".market-cap").innerHTML = data.marketCap;
+    let change = data.regularMarketChange;
+    //format the change to 2 decimal places and add a $ and + if it is positive
+    change = change.toFixed(2);
+    if (data.regularMarketChange > 0) {
+      change = "+" + change;
+    }
+    this.setPosNegClass(this.html.querySelector(".change"), data.regularMarketChange);
+
+    this.html.querySelector(".change").innerHTML = change;
+    let changePercent = data.regularMarketChangePercent;
+    //format the change percent to 2 decimal places and add a % sign and a + or - sign
+    changePercent = changePercent.toFixed(2) + "%";
+    if (data.regularMarketChange > 0) {
+      changePercent = "+" + changePercent;
+    }
+    this.setPosNegClass(this.html.querySelector(".change-percent"), data.regularMarketChangePercent);
+    this.html.querySelector(".change-percent").innerHTML = changePercent;
+    this.html.querySelector(".volume").innerHTML = this.formatNumberWithSuffix(data.regularMarketVolume);
+    let marketCap = data.marketCap;
+    //format the market cap to use the correct suffix
+    marketCap = this.formatNumberWithSuffix(marketCap);
+    this.html.querySelector(".market-cap").innerHTML = "$" + marketCap;
+
+    //open, high, low, previous close
+    this.html.querySelector(".open").innerHTML = "$" + data.regularMarketOpen;
+    this.html.querySelector(".high").innerHTML = "$" + data.regularMarketDayHigh;
+    this.html.querySelector(".low").innerHTML = "$" + data.regularMarketDayLow;
+    this.html.querySelector(".previous-close").innerHTML = "$" + data.regularMarketPreviousClose;
+  };
+
+  this.formatNumberWithSuffix = function (number) {
+    if(number === undefined) {
+      return "N/A";
+    }
+    //format the number to use the correct suffix
+    let suffix = "";
+    if (number >= 1000000000000) {
+      number = number / 1000000000000;
+      suffix = "T";
+    } else if (number >= 1000000000) {
+      number = number / 1000000000;
+      suffix = "B";
+    } else if (number >= 1000000) {
+      number = number / 1000000;
+      suffix = "M";
+    } else if (number >= 1000) {
+      number = number / 1000;
+      suffix = "K";
+    }
+    //format the number to 2 decimal places and add the suffix
+    number = number.toFixed(2);
+    number = number + suffix;
+    return number;
+  };
+
+  this.setPosNegClass = function (element, value) {
+    if (value > 0) {
+      //add positive class
+      element.classList.add("positive");
+      //remove negative class
+      element.classList.remove("negative");
+    } else {
+      //remove positive class
+      element.classList.remove("positive");
+      //add negative class
+      element.classList.add("negative");
+    }
   };
 
   this.startUpdating = function () {
     //start updating the price
     this.updateData();
     //update the price every 5 seconds
-    setInterval(this.updateData.bind(this), 10000);
+    setInterval(this.updateData.bind(this), 30000);
   };
 
   this.stopUpdating = function () {
@@ -171,72 +249,76 @@ async function getCompanyData(ticker) {
   return response;
 }
 
-var barCount = 100;
-var initialDateStr = "01 Apr 2017 00:00 Z";
+function makeChart(){
 
-var ctx = document.getElementById("chart").getContext("2d");
-ctx.canvas.width = 1000;
-ctx.canvas.height = 250;
-
-var barData = getRandomData(initialDateStr, barCount);
-function lineData() {
-  return barData.map((d) => {
-    return { x: d.x, y: d.c };
-  });
-}
-
-var chart = new Chart(ctx, {
-  type: "candlestick",
-  data: {
-    datasets: [
-      {
-        label: "Test Label",
-        data: barData,
-      },
-    ],
-  },
-});
-
-var getRandomInt = function (max) {
-  return Math.floor(Math.random() * Math.floor(max));
-};
-
-function randomNumber(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function randomBar(date, lastClose) {
-  var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
-  var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
-  var high = +randomNumber(
-    Math.max(open, close),
-    Math.max(open, close) * 1.1
-  ).toFixed(2);
-  var low = +randomNumber(
-    Math.min(open, close) * 0.9,
-    Math.min(open, close)
-  ).toFixed(2);
-  return {
-    x: date.valueOf(),
-    o: open,
-    h: high,
-    l: low,
-    c: close,
-  };
-}
-
-function getRandomData(dateStr, count) {
-  var date = luxon.DateTime.fromRFC2822(dateStr);
-  var data = [randomBar(date, 30)];
-  while (data.length < count) {
-    date = date.plus({ days: 1 });
-    if (date.weekday <= 5) {
-      data.push(randomBar(date, data[data.length - 1].c));
-    }
+  var barCount = 100;
+  var initialDateStr = "01 Apr 2017 00:00 Z";
+  
+  var ctx = document.querySelector("chart").getContext("2d");
+  ctx.canvas.width = 1000;
+  ctx.canvas.height = 250;
+  
+  var barData = getRandomData(initialDateStr, barCount);
+  function lineData() {
+    return barData.map((d) => {
+      return { x: d.x, y: d.c };
+    });
   }
-  return data;
+  
+  var chart = new Chart(ctx, {
+    type: "candlestick",
+    data: {
+      datasets: [
+        {
+          label: "Test Label",
+          data: barData,
+        },
+      ],
+    },
+  });
+  
+  var getRandomInt = function (max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  };
+  
+  function randomNumber(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  function randomBar(date, lastClose) {
+    var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
+    var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
+    var high = +randomNumber(
+      Math.max(open, close),
+      Math.max(open, close) * 1.1
+    ).toFixed(2);
+    var low = +randomNumber(
+      Math.min(open, close) * 0.9,
+      Math.min(open, close)
+    ).toFixed(2);
+    return {
+      x: date.valueOf(),
+      o: open,
+      h: high,
+      l: low,
+      c: close,
+    };
+  }
+  
+  function getRandomData(dateStr, count) {
+    var date = luxon.DateTime.fromRFC2822(dateStr);
+    var data = [randomBar(date, 30)];
+    while (data.length < count) {
+      date = date.plus({ days: 1 });
+      if (date.weekday <= 5) {
+        data.push(randomBar(date, data[data.length - 1].c));
+      }
+    }
+    return data;
+  }
+  
+  var update = function () {
+    chart.update();
+  };
+  
 }
-
-var update = function () {
-  chart.update();
-};

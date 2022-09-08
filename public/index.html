@@ -1,41 +1,87 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>My Stock Portfolio</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/scripts.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.1/dist/chart.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
-		<script src="./js/chartjs-chart-financial.js"></script>
-  </head>
-  <body>
-    <h1>My Stock Portfolio</h1>
-    <form>
-      <input type='text' id='stockinput' placeholder="Example: AMZN">
-      <button class="buy" id="buybutton">ADD</button>
-    </form>
-    <div id="stock-list">
-      
-      <div class="stock" id="stock-template">
-        <h2 class="symbol">AMZN</h2>
-        <div class="stock-data">
-          <h3 class="full-name">Amazon</h3>
-          <h3 class="price">Price: $3,000.00</h3>
-          <h3 class="change">Change: $0.00</h3>
-          <h3 class="change-percent">Change Percent: 0.00%</h3>
-          <h3 class="volume">Volume: 0</h3>
-          <h3 class="last-update">Last Update: 2021-08-01 00:00:00</h3>
-          <h3 class="market-cap">Market Cap: $0</h3>
+
+<head>
+  <title>My Stock Portfolio</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/scripts.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.1/dist/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
+  <script src="./js/chartjs-chart-financial.js"></script>
+</head>
+
+<body>
+  <h1>My Stock Portfolio</h1>
+  <form>
+    <input type='text' id='stockinput' placeholder="Example: AMZN">
+    <button class="buy" id="buybutton">ADD</button>
+  </form>
+  <div id="stock-list">
+
+    <details class="stock" id="stock-template">
+      <summary class="stock-data">
+        <!-- add an carrot for showing if details are open or closed -->
+        <h2 class="expansion-indicator">▶</h2>
+
+        <!-- price, change, change percent and last update visible in a summary tag-->
+        <!-- then rest of the data including the chart in the details tag accessible by clicking on the summary tag -->
+        <div class="data-section">
+          <h3 class="data-heading">Ticker</h3>
+          <p class="symbol">TEMP</p>
+        </div>
+        <div class="data-section">
+          <h3 class="data-heading">Price</h3>
+          <p class="price">$0.00</p>
+        </div>
+        <div class="data-section">
+          <h3 class="data-heading">Change</h3>
+          <p class="change">$0.00</p>
+        </div>
+        <div class="data-section">
+          <h3 class="data-heading">Change Percent</h3>
+          <p class="change-percent">0.00%</p>
+        </div>
+        <div class="data-section">
+          <h3 class="data-heading">Last Update</h3>
+          <p class="last-update">0:00:00</p>
+        </div>
+      </summary>
+        <div class="detailed-data">
+          <div class="data-section">
+            <h3 class="data-heading">Full Name</h3>
+            <p class="full-name">Amazon Inc.</p>
+          </div>
+          <div class="data-section">
+            <h3 class="data-heading">Open</h3>
+            <p class="open">$0.00</p>
+          </div>
+          <div class="data-section">
+            <h3 class="data-heading">High</h3>
+            <p class="high">$0.00</p>
+          </div>
+          <div class="data-section">
+            <h3 class="data-heading">Low</h3>
+            <p class="low">$0.00</p>
+          </div>
+          <div class="data-section">
+            <h3 class="data-heading">Volume</h3>
+            <p class="volume">0</p>
+          </div>
+          <div class="data-section">
+            <h3 class="data-heading">Previous Close</h3>
+            <p class="previous-close">$0.00</p>
+          </div>
+          <div class="data-section">
+            <h3 class="data-heading">Market Cap</h3>
+            <p class="market-cap">$0.00</p>
+          </div>
+        </div>
+        <div class="chart-container">
           <canvas id="chart"></canvas>
-    </div>
-      </div>
-
-
-
-    </div>
-
-
-  </body>
+        </div>
+    </details>
+  </div>
+</body>
 </html>
