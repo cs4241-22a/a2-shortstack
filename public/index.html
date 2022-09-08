@@ -89,22 +89,6 @@
     return false
   }
 
-  const refresh = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    fetch( '/refresh', {
-      method:'GET',
-    })
-    .then (async function (res) {
-      let freshData = await res.json()
-      return freshData
-    })
-    .then (async function (data){
-        refreshTable(data)
-    })
-    return false
-}
 
   function refreshTable(data){
     let len = document.getElementById('history').tBodies[0].rows.length
@@ -129,27 +113,29 @@
         let button = document.createElement('button')
         button.type = 'button'
         button.innerHTML = 'X'
-        //button.onclick = deleteRow(index)
+        button.onclick =  function( e ) {
+          // prevent default form action from being carried out
+          e.preventDefault()
+
+          let json = { operation: "delete", index: i },
+              body = JSON.stringify( json )
+
+          fetch( '/delete', {
+              method:'POST',
+              body
+          })
+          .then (async function (res) {
+              let freshData = await res.json()
+              return freshData
+          })
+          .then (async function (data){
+            refreshTable(data)
+          })
+          return false
+        }
         cell2.appendChild(button)
     }
 }
-
-// const deleteRow = function( e ) {
-//     // prevent default form action from being carried out
-//     e.preventDefault()
-
-//     fetch( '/refresh', {
-//       method:'GET',
-//     })
-//     .then (async function (res) {
-//       let freshData = await res.json()
-//       return freshData
-//     })
-//     .then (async function (data){
-//         refreshTable(data)
-//     })
-//     return false
-// }
 
 window.onload = function() {
     const button = document.getElementById( 'equalBtn' )

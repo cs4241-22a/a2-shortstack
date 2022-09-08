@@ -13,8 +13,6 @@ const server = http.createServer( function( request,response ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
-  }else if(request.method === 'DELETE'){
-    handleDelete( request, response)
   }
 })
 
@@ -23,26 +21,9 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else if( request.url === '/refresh'){
-    request.on('end', function(){
-      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(appdata)) //Send data back
-    })
   }else{
     sendFile( response, filename )
   }
-}
-
-const handleDelete = function(request, response){
-  let dataString = ''
-
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
-
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-  })
 }
 
 const handlePost = function( request, response ) {
@@ -51,11 +32,18 @@ const handlePost = function( request, response ) {
   request.on( 'data', function( data ) {
       dataString += data 
   })
-
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
     const data = JSON.parse(dataString)
     const oper = data.operation
+
+    if(oper === "delete"){
+      let index = data.index
+      appdata.splice(index, 1);
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(appdata)) //Send data back
+      
+    }else{
+
     const operString = oper.toString()
     const temp = eval(oper)
     const res = temp.toString()
@@ -66,6 +54,7 @@ const handlePost = function( request, response ) {
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(appdata)) //Send data back
+    }
   })
 }
 
