@@ -101,6 +101,29 @@ function Stock(symbol, dateAdded) {
     //create a clone of the template
     this.html = template.cloneNode(true);
 
+    //add additional elements to the clone's summary tag
+
+    //get the summary tag
+    const summaryTag = this.html.querySelector("summary");
+
+    //create the elements using addSection
+    this.addSection(summaryTag, "Ticker", "symbol");
+    this.addSection(summaryTag, "Price", "price");
+    this.addSection(summaryTag, "Change", "change");
+    this.addSection(summaryTag, "Change Percent", "change-percent");
+    this.addSection(summaryTag, "Last Update", "last-update");
+
+    const detailsTag = this.html.querySelector(".detailed-data");
+
+    //create the elements using addSection
+    this.addSection(detailsTag, "Full Name", "full-name");
+    this.addSection(detailsTag, "Open", "open");
+    this.addSection(detailsTag, "High", "high");
+    this.addSection(detailsTag, "Low", "low");
+    this.addSection(detailsTag, "Volume", "volume");
+    this.addSection(detailsTag, "Previous Close", "previous-close");
+    this.addSection(detailsTag, "Market Cap", "market-cap");
+
     //add an expansion indicator for expansion-indicator
     const expansionIndicator = this.html.querySelector(".expansion-indicator");
 
@@ -148,6 +171,28 @@ function Stock(symbol, dateAdded) {
     makeChart(this.html, this.symbol, historicalData);
 
     return this.html;
+  };
+
+  this.addSection = function (root, heading, valueClass) {
+    //create the elements
+    const dataSection = document.createElement("div");
+    const dataHeading = document.createElement("h3");
+    const dataValue = document.createElement("p");
+
+    //add classes to the elements
+    dataSection.classList.add("data-section");
+    dataHeading.classList.add("data-heading");
+    dataValue.classList.add(valueClass);
+
+    //add text to the elements
+    dataHeading.textContent = heading;
+
+    //add the elements to the div
+    dataSection.appendChild(dataHeading);
+    dataSection.appendChild(dataValue);
+
+    //add the div to the html
+    root.appendChild(dataSection);
   };
 
   this.getHistoricalData = async function (ticker) {
