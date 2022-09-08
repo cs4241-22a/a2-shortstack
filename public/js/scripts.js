@@ -6,12 +6,14 @@
 const submit = function (e) {
   e.preventDefault();
   
-  const task = document.getElementById('task'),
-        date_created = document.getElementById('date_created'),
-        task_type = document.getElementById('task_type'),
-        date = new Date(),
-        json = {task:task.value, date_created: date, task_type: task_type.value},
-        body = JSON.stringify(json);
+  const task = document.getElementById('task');
+  const date_created = document.getElementById('date_created');
+  const task_type = document.getElementById('task_type');
+        
+  const date = new Date();
+        
+  const json = {task:task.value, date_created: date, task_type: task_type.value};
+  const body = JSON.stringify(json);
   
   fetch('/submit', {
     method: 'POST',
