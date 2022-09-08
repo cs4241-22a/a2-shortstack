@@ -1,1 +1,30 @@
 /*Style your own assignment! This is fun! */
+
+h1{
+  text-align: center;
+  width: 100%;
+  font-family: "Oswald", sans-serif;
+  background-color: #868784;
+}
+label{
+  background-color: #ABA9BF;
+  font-family: "Rubik", sans-serif;
+  margin: 5px 5px;
+}
+th{
+  background-color: #ABA9BF;
+  font-family: "Rubik", sans-serif;
+  text-align: center;
+  margin: 5px 5px;
+  border: 1px solid black;
+}
+table{
+  background-color: #D4F2D2;
+  font-family: "Kanit", sans-serif;
+  text-align: center;
+  margin: 5px 5px;
+  border: 1px solid black;
+}
+body{
+  background-color: #34113F;
+}
