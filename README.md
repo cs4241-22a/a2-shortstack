@@ -6,7 +6,7 @@ This application is constructed mostly of flexboxes.
 Use the ADD INCOME button to add an income, the ADD EXPENSE button to add an expense, a table should be visible at all other times.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Single Page App**: The entire app works seamlessly on a single page. This involves a lot of document.getElementById() and document.createElement() calls. I did my best to make the homescreen transition cleanly to the actual application, as well. This was particularly challenging with the background I'm using (from [Haikei](https://app.haikei.app/)), so I had to create an entire app-wrapper element and placed the pages in there.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
