@@ -1,41 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" user-scalable="no" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Merriweather+Sans"
+    />
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <main>
+      <h1>Click Speed Tower</h1>
+      <section class="information">
+        How many times can you click in 10 seconds? Climb the leaderboard and
+        become the fastest. To modify a previous score, submit your score under
+        the same name. You may not submit a score lower than your previous best.
+      </section>
+      <div class="timer">
+        TIME REMAINING:<span class="timer" id="timer">10.000</span>
+      </div>
+      <div id="clickarea">
+        <button id="begin">Click here to Begin!</button>
+      </div>
+      <section id="score" class="information">
+        <div class="num">Score:</div>
+        <div class="num" id="result">0</div>
+        <div class="num">Clicks:</div>
+        <div class="num" id="clicks">0</div>
+        <form action="">
+          <input type="text" id="yourname" placeholder="Your name here" />
+          <button id="formButton">submit</button>
+        </form>
+      </section>
+      <table style="width: 100%" id="scoreList">
+        <tr>
+          <th>Name</th>
+          <th>Clicks</th>
+          <th>Rating</th>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>-1</td>
+          <td>NA</td>
+        </tr>
+      </table>
+      <aside>
+        The Average human clicks per second is around 4-7 CPS according to
+        research by Google.
+      </aside>
+    </main>
   </body>
   <script>
+    updateTable();
+    const submit = function (e) {
+      // prevent default form action from being carried out
+      e.preventDefault();
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+      const input = document.querySelector("#yourname"),
+        clicks = document.querySelector("#clicks"),
+        CPS = document.querySelector("#result");
+      let json = {
+          Name: input.value,
+          Clicks: clicks.textContent,
+          CPS: CPS.textContent,
+          Rating: 0,
+        },
+        body = JSON.stringify(json);
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+      if (
+        clicks.textContent != 0 &&
+        clicks.textContent == CPS.textContent * 10
+      ) {
+        fetch("/submit", {
+          method: "POST",
+          body,
+        }).then(function (response) {
+          // do something with the reponse
+          updateTable();
+        });
+      }
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+      return false;
+    };
 
-    return false
-  }
+    window.onload = function () {
+      const button = document.getElementById("formButton");
+      button.onclick = submit;
+    };
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+    function updateTable() {
+      let table = document.getElementById("scoreList");
+      table.innerHTML = "<tr><th>Name</th><th>Clicks</th><th>Rating</th></tr>";
+      fetch("/getScores", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then(function (json) {
+          for (let response of json) {
+            let i = 0;
+            for (i = 1; i < table.rows.length; i++) {
+              if (
+                parseInt(response.Clicks, 10) >
+                parseInt(table.rows.item(i).cells.item(1).innerHTML, 10)
+              ) {
+                //this ensures the leaderboard is sorted
+                break;
+              }
+            }
+            let row = table.insertRow(i);
+            let Name = row.insertCell(0);
+            let Clicks = row.insertCell(1);
+            let Rating = row.insertCell(2);
 
+            row.cells[0].innerHTML = response.Name;
+            row.cells[1].innerHTML = response.Clicks;
+            row.cells[2].innerHTML = response.Rating;
+          }
+        });
+    }
   </script>
+  <script src="js/scripts.js"></script>
 </html>
