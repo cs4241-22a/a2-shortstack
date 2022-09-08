@@ -6,7 +6,6 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
-    /* column style content centered*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,7 +13,7 @@ body {
 }
 
 .buy {
-/* green block buy button */
+/* green block buy (ADD) button */
     background-color: #2ecc71;
     color: white;
     padding: 10px 20px;
@@ -43,13 +42,10 @@ body {
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
-    /* display: inline-block; */
     margin-right: 0;
     margin-left: auto;
     justify-self: flex-end;
     align-self: center;
-    /* justify-self: baseline; */
-    /* margin-left: 100px; */
 }
 
 .sell:hover {
@@ -70,6 +66,14 @@ input {
     font-weight: 600;
     display: inline-block;
     margin: 10px 0;
+    width: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .chart-container {
@@ -186,3 +190,9 @@ h3 {
     color: #e74c3c;
 }
 
+.date-added {
+    font-size: small;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}

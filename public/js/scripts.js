@@ -16,7 +16,7 @@ const submitbuy = function (e) {
     console.log(response);
     //if the response is 200, then add the stock to the list
     if (response.status == 200) {
-      addStockToList(input.value);
+      addStockToList(response);
       //clear the input
       input.value = "";
     }
@@ -25,13 +25,15 @@ const submitbuy = function (e) {
   return false;
 };
 
-function addStockToList(symbol) {
+function addStockToList(response) {
+  const symbol = response.symbol;
+  const dateAdded = response.dateAdded;
   //use the data from the server to populate the div stock-list with stocks
   //copy the template from the html
   const template = document.querySelector("#stock-template");
   //get the div to put the stocks in
   const stockList = document.querySelector("#stock-list");
-  const stock = new Stock(symbol);
+  const stock = new Stock(symbol, dateAdded);
   stock.init(template);
   stock.startUpdating();
 
@@ -68,7 +70,6 @@ window.onload = async function () {
     method: "GET",
   });
   let data = await response.json();
-  console.log(data);
 
   //use the data from the server to populate the div stock-list with stocks
   //copy the template from the html
@@ -80,7 +81,7 @@ window.onload = async function () {
   for (let i = 0; i < data.length; i++) {
     //add the clone to the div
     //create a stock object and call init
-    const stock = new Stock(data[i].symbol);
+    const stock = new Stock(data[i].symbol, data[i].dateAdded);
     stock.init(template);
     stock.startUpdating();
 
@@ -89,8 +90,9 @@ window.onload = async function () {
 };
 
 //create a stock object
-function Stock(symbol) {
+function Stock(symbol, dateAdded) {
   this.symbol = symbol;
+  this.dateAdded = dateAdded;
   this.price = 0;
   this.html = null;
 
@@ -202,6 +204,8 @@ function Stock(symbol) {
     this.html.querySelector(".low").innerHTML = "$" + data.regularMarketDayLow;
     this.html.querySelector(".previous-close").innerHTML =
       "$" + data.regularMarketPreviousClose;
+    this.html.querySelector(".date-added").innerHTML =
+      "Date Added: " + new Date(this.dateAdded).toLocaleString();
   };
 
   this.formatNumberWithSuffix = function (number) {

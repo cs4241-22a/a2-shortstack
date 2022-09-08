@@ -11,9 +11,9 @@ const http = require("http"),
 const yahooFinance = require("yahoo-finance2").default;
 
 const stocks = [
-  { symbol: "tsla", dateAdded: new Date() },
-  { symbol: "amzn", dateAdded: new Date() },
-  { symbol: "f", dateAdded: new Date() },
+  { symbol: "tsla", price: 0, dateAdded: new Date() },
+  { symbol: "amzn", price: 0, dateAdded: new Date() },
+  { symbol: "f", price: 0, dateAdded: new Date() },
 ];
 
 const server = http.createServer(function (request, response) {
@@ -44,7 +44,7 @@ const handleGet = async function (request, response) {
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(stockData));
   } else if (request.url.startsWith("/historical?")) {
-    console.log("historical request for " + request.url);
+    // console.log("historical request for " + request.url);
     let query = request.url.split("=")[1];
     const pastDate = new Date();
     pastDate.setFullYear(pastDate.getFullYear() - 2);
@@ -93,13 +93,15 @@ const handlePost = async function (request, response) {
           response.end(JSON.stringify({ message: "ERROR: stock not found" }));
         } else {
           //add the stock to the array with the date right now
-          stocks.push({
+          const newStock = {
             symbol: dataObject.stockinput.toLowerCase(),
+            price: stockData.regularMarketPrice, //derived field
             dateAdded: new Date(),
-          });
+          };
+          stocks.push(newStock);
 
-          response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-          response.end("Added stock to array");
+          response.writeHead(200, "OK", { "Content-Type": "application/json" });
+          response.end(JSON.stringify(newStock));
         }
       }
     } else if (request.url === "/delete") {

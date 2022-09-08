@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>My Stock Portfolio</title>
+  <title>Watchlist</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="./css/style.css">
   <script src="./js/scripts.js" defer></script>
@@ -13,9 +13,9 @@
 </head>
 
 <body>
-  <h1>My Stock Portfolio</h1>
+  <h1>Watchlist</h1>
   <form>
-    <input type='text' id='stockinput' placeholder="Example: AMZN">
+    <input type='text' id='stockinput' placeholder="Add a stock. Ex: GME">
     <button class="buy" id="buybutton">ADD</button>
   </form>
   <div id="stock-list">
@@ -81,6 +81,7 @@
         <div class="chart-container">
           <canvas id="chart"></canvas>
         </div>
+        <p class="date-added"></p>
     </details>
   </div>
 </body>
