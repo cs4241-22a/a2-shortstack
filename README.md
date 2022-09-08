@@ -9,15 +9,7 @@ Your application will include the use of HTML, CSS, JavaScript, and Node.js func
 Deliverables
 ---
 
-Do the following to complete this assignment and acheive a base grade of 85%:
-
-1. Fork the starting project code (make sure to fork the 2022 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
+Link: https://a2-gabi246.glitch.me
 
 Acheivements
 ---
@@ -25,9 +17,9 @@ Acheivements
 *Technical*
 - I was able to create a table on the website that displayed the real-time contents of the server. There is a field calculated on the server for the song count, counting how many other people answered that same song. 
 
-## Your Web Application Title
+## Music Suggestions .com
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
-- This website gives the users the ability to add or delete fields from the server. They can add their name, favorite music genre, and favorite song. The application than calulates how many other users answered the same song and returns this value in the 'Song Count' feild. If the user decides to delete a field, they can do so by simply entering a name from the table. The website will display the updated server to the user with their changes. 
+- This website gives the users the ability to add or delete fields from the server. They can add their name, favorite music genre, and favorite song. The application than calulates how many other users answered the same song and returns this value in the 'Song Count' feild. If the user decides to delete a field, they can do so by simply entering a name from the table. When an item is deleted, the other 'Song Counts' are decremented accordingly. The website will display the updated server to the user with their changes. 
 - The application cannot add to the table at the same time it is deleting from the table.
 - CSS: Used 'display,' 'padding.' 'background-color,' 'align,' and 'flex-flow.' All CSS styling is in the style.css file.
 
