@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Counter",
+  "version": "1",
+  "description": "A simple website for counting numbers",
+  "author": "Jake Matthews",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.6.0"
   }
 }

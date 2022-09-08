@@ -6,44 +6,91 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let times = []
+let addedNumbers = []
+let total = 0
+let allData = ["Total: " + total, addedNumbers, times]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  }else if(request.method === 'DELETE'){
+    handleRemove(request, response)
   }
 })
 
-const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
-  }
-}
-
-const handlePost = function( request, response ) {
+const handleRemove = function(request, response){
   let dataString = ''
-
+  
   request.on( 'data', function( data ) {
       dataString += data 
   })
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    let json = JSON.parse(dataString) //json = {numToAdd: '5'}
+    console.log(json.numToRemove)
+    
+    if(!isNaN(json.numToRemove)){
+      let indexToRemove = Number(json.numToRemove)
+      if(addedNumbers.length >= indexToRemove){
+        let numToRemove = addedNumbers[indexToRemove]
+        total -= numToRemove
+        if(indexToRemove > -1){
+          addedNumbers.splice(indexToRemove,1)
+          times.splice(indexToRemove,1)
+        }
+      }
+      allData = ["Total: " + total, addedNumbers, times]
+    }else{
+      console.log("Incorrect Format: Index not submitted")
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(allData))
+  })
+}
+
+const handleGet = function( request, response ) {
+  const filename = dir + request.url.slice( 1 ) 
+  let url = "." + request.url
+  if( request.url === '/' ) {
+    sendFile( response, 'public/index.html' )
+  }else{
+    sendFile(response, url)
+  }
+}
+
+const handlePost = function( request, response ) {
+  let dataString = ''
+  
+  request.on( 'data', function( data ) {
+      dataString += data 
+  })
+
+  request.on( 'end', function() {
+    console.log( JSON.parse( dataString ) )
+    let json = JSON.parse(dataString) //json = {numToAdd: '5'}
+    console.log(json.numToAdd)
+    
+    if(!isNaN(json.numToAdd)){
+      total += Number(json.numToAdd)
+      let now = new Date()
+      times.push(now.toLocaleTimeString('en-US'))
+      console.log(now.toLocaleTimeString('en-US'))
+      allData = ["Total: " + total, addedNumbers, times]
+      addedNumbers.push(Number(json.numToAdd))
+    }else{
+      console.log("Incorrect Format: Number not submitted")
+    }
+    
+    console.log(addedNumbers)
+    console.log(total)
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(allData))
   })
 }
 
