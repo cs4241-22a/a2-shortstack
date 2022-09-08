@@ -55,13 +55,18 @@ const handlePost = function( request, response ) {
           //Derived field: a message id is derived from the content of the message and the sender's name.
           //It also uses date and a random number.
           tempdata.mid = parseInt(crc32(dataobj.name+dataobj.message+formatDate()+(Math.random()*1000)),16);
+          //Derived field 2: word count
+          tempdata.wordcount = dataobj.message.trim().split(/\s+/).length;
           appdata.push(tempdata);
           break;
         case "edit":
           console.log("Submission type: Modify")
           appdata = appdata.map(obj => {
             if (obj.mid == dataobj.mid) {
-              return {...obj, name: dataobj.name,message:dataobj.message};
+              return {...obj, name: dataobj.name,
+                message:dataobj.message,
+                wordcount: dataobj.message.trim().split(/\s+/).length
+              };
             }
             return obj;
           });

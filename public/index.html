@@ -15,7 +15,7 @@
   <img src="images/banner.jpg" alt="morgan hall">
   <h2 id="jswarning-h2">Warning: Javascript Disabled!</h2>
   <p id="jswarning-p">Seems like you disabled JavaScript in your browser settings or your browser does not support
-    JavaScript.<br\>
+    JavaScript.<br>
       Please consult your browser's documentation or ask your administrator for assistant.</p>
     <div class="maingrid">
       <div class="nav-grid">
@@ -64,7 +64,7 @@
         </div>
         <div id="view-area" style="display: none;">
           <h2>Guest Messages</h2>
-          <p>These are messages that leaved by my guests.</p>
+          <p>These are messages that leaved by my guests.<span id="wordcountsp"></span></p>
           <div id="msglist" class="typewriter">
           </div>
         </div>
@@ -217,9 +217,12 @@
         //console.log(json)
         // do something with the reponse 
         msglist.innerHTML = ""
+        let wordcounter = 0
         json.forEach(element => {
+          wordcounter+=element.wordcount
           msglist.innerHTML += (element.name + " said: " + element.message + "   <a href=\"#\" onclick=\"editMsg(" + element.mid + ",'" + element.name + "','" + element.message + "')\">Edit</a> <a href=\"#\" onclick=\"deleteMsg(" + element.mid + ")\">Delete</a><br/>");
         });
+        document.getElementById("wordcountsp").innerHTML = "There are total of "+wordcounter+" words in my guest book and counting!"
       })
   }
   function timeoutfetch(url, timeout = 300) {
