@@ -1,5 +1,3 @@
-//const { getDefaultSettings } = require('http2')
-
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -42,8 +40,8 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    
-    
+  //  console.log( JSON.parse( dataString ) )
+
      // ... do something with the data here!!!
     if(dataString.slice(0,4) === "EDIT")
     {
@@ -65,7 +63,6 @@ const handlePost = function( request, response ) {
     appdata.forEach( element => appointmentDate(element))
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    //JSON.stringify(appdata[appdata.length-1])
     response.end(JSON.stringify( appdata ))
   })
 }
@@ -73,10 +70,13 @@ const handlePost = function( request, response ) {
 const sendFile = function( response, filename ) {
 const type = mime.getType( filename ) 
    fs.readFile( filename, function( err, content ) {
+  // if the error = null, then we've loaded the file successfully
      if( err === null ) {
+  // status code: https://httpstatuses.com
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
      }else{
+  // file not found, error code 404
        response.writeHeader( 404 )
        response.end( '404 Error: File Not Found' )
 
@@ -85,40 +85,41 @@ const type = mime.getType( filename )
 }
 
 const appointmentDate = function(data){
-  let start = new Date()
-          year = start.getFullYear()
-          month = start.getMonth() + 1
-          date = start.getDate()
-          hour = start.getHours()
-          minute = start.getMinutes()
-          dueYear = parseInt(data.appointment.slice(0, 4))
-          dueMonth = parseInt(data.appointment.slice(5, 7))
-          dueDay = parseInt(data.appointment.slice(8, 10))
-          dueHour = parseInt(data.appointment.slice(11, 13))
-          dueMinute = parseInt(data.appointment.slice(14, 16))
+  let current = new Date()
+          currentYear = current.getFullYear()
+          currentMonth = current.getMonth() + 1
+          currentDate = current.getDate()
+          currentHour = current.getHours()
+          currentMinute = current.getMinutes()
+          visitYear = parseInt(data.appointment.slice(0, 4))
+          visitMonth = parseInt(data.appointment.slice(5, 7))
+          visitDay = parseInt(data.appointment.slice(8, 10))
+          visitHour = parseInt(data.appointment.slice(11, 13))
+          visitMinute = parseInt(data.appointment.slice(14, 16))
 
-
-  let timeLeft = (((((dueYear - year) * 12 +  dueMonth - month) * 30 + dueDay - date) * 24 + dueHour - hour) * 60 + dueMinute - minute)
+//find the difference between the current __ and present __
+  let timeDifference = (((((visitYear - currentYear) * 12 +  visitMonth - currentMonth) * 30 + visitDay - currentDate) * 24 + visitHour - currentHour) * 60 + visitMinute - currentMinute)
   
-  if(timeLeft < 0){
+  if(timeDifference < 0){
     data.visitTimeLeft = "Visit is over"
   } else {
 
-      let minutesLeft = timeLeft % 60
-          hoursLeft = Math.floor(timeLeft / 60) % 24
-          daysLeft = Math.floor(timeLeft / 60 / 24) % 30
-          monthsLeft = Math.floor(timeLeft / 60 / 24 / 30) % 12
-          yearsLeft =  Math.floor(timeLeft / 60 / 24 / 30 / 12)
-          dueString = "Time Remaining: "
+      let minutesLeft = timeDifference % 60
+      //rounds down and returns the largest integer less than or equal to a given number.
+          hoursLeft = Math.floor(timeDifference / 60) % 24
+          daysLeft = Math.floor(timeDifference / 60 / 24) % 30
+          monthsLeft = Math.floor(timeDifference / 60 / 24 / 30) % 12
+          yearsLeft =  Math.floor(timeDifference / 60 / 24 / 30 / 12)
+          display = "Time Remaining: "
 
-      dueString += yearsLeft > 0 ? yearsLeft + " years " : ""
-      dueString += monthsLeft > 0 ? monthsLeft + " months " : ""
-      dueString += daysLeft > 0 ? daysLeft + " days " : ""
-      dueString += hoursLeft > 0 ? hoursLeft + " hours " : ""
-      dueString += minutesLeft > 0 ? minutesLeft + " minutes" : ""
+      display += yearsLeft > 0 ? yearsLeft + " years " : ""
+      display += monthsLeft > 0 ? monthsLeft + " months " : ""
+      display += daysLeft > 0 ? daysLeft + " days " : ""
+      display += hoursLeft > 0 ? hoursLeft + " hours " : ""
+      display += minutesLeft > 0 ? minutesLeft + " minutes" : ""
 
       
-    data.visitTimeLeft = dueString
+    data.visitTimeLeft = display
   }
   
 }
