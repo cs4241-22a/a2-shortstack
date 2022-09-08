@@ -5,7 +5,7 @@ Due: September 8th, by 11:59 AM.
 
 https://glitch.com/~a2-enoch-zhao
 
-## Your Web Application Title
+## TDEE CALCULATOR
 This project retrieves user entered data for age, gender, activeness, height, and weight to then calculate for that person's Total Daily Energy Expenditure. I used margins, flex directions, justifications, object alignment along with background positioning to customise the layout of the website. The website is relatively straightforward and only requires the user to enter data they are expected to already possess, and then click the "Calculate" button. The data will then be displayed in the server data table below. There is also a delete button if a user wishes to delete their input.
 
 ## Technical Achievements
