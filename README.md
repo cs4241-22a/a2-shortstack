@@ -10,7 +10,7 @@ In case things start or get too messy, each section (calendar, table view, etc) 
 - **Tech Achievement 1**: The events shown in the calendar/table are automatically pulled from the server when the page is loaded and when events are added/deleted. I did this by giving the server the option to send the data to the client. This also involved adding new /command POST statements. 
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 2 user tests.
+- **Design Achievement 1**: 3 user tests.
 User Test 1
 1. Provide the last name of each student you conduct the evaluation with.
     Ortega-Shue
@@ -24,7 +24,7 @@ User Test 1
 4. What would you change about the interface based on their feedback?
     I would fix the input validation and format the entered values as strings of finite length
 
-User Test 1
+User Test 2
 1. Provide the last name of each student you conduct the evaluation with.
     Dagett
 2. What problems did the user have with your design? 
@@ -36,3 +36,16 @@ User Test 1
 4. What would you change about the interface based on their feedback?
     I would fix the input validation and format the entered values
     I would fix the few UI flaws that were brought up
+    
+User Test 3
+1. Provide the last name of each student you conduct the evaluation with.
+    Sakac
+2. What problems did the user have with your design? 
+    Events can have negative durations
+    The delete functionality deleted all events of the same name
+    You have to make two events if you want an event to span two days (M 11pm - T 1AM)
+3. What comments did they make that surprised you?
+    They did not make other comments that surprised me
+4. What would you change about the interface based on their feedback?
+    I would put a delete button within each row of the table 
+    I would fix events being able to have negative durations
