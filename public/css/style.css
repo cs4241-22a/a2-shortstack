@@ -1,1 +1,23 @@
-/*Style your own assignment! This is fun! */
+body {
+    background-color: #95ffd7;
+}
+
+.flexbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+}
+
+#input {
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+table, th, td {
+    border: 1px solid;
+    padding: 0;
+}
+

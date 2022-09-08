@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "purchase-spreadsheet",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "Tracks Purchases",
+  "author": "Harrison Rubin",
   "scripts": {
     "start": "node server.improved.js"
   },
