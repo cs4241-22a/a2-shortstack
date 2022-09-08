@@ -6,17 +6,15 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  }else if( request.method === 'DELETE'){
+    handleDelete( request, response )
   }
 })
 
@@ -25,7 +23,11 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/show') {
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(appdata))
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -40,7 +42,27 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+    appdata.push(JSON.parse( dataString ) )
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end()
+  })
+}
+
+const handleDelete = function( request, response ) {
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+    dataString += data
+  })
+
+  request.on( 'end', function() {
+
+    const body = JSON.parse(dataString)
+
+    console.log( body.nameToRemove )
+    appdata = appdata.filter( entry => body.nameToRemove !== entry.name)
+    console.log( appdata )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
