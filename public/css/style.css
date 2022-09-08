@@ -1,1 +1,58 @@
-/*Style your own assignment! This is fun! */
+* {
+  font-family: 'DM Sans', sans-serif;
+}
+
+body {
+  background-color: #CCD6D2;
+  padding: 0px 30px;
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: space-between;
+}
+
+form {
+  width: 200px;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+button {
+  margin: 10px;
+  width: 80px;
+  color: white;
+  border-radius: 10px;
+  background-color: #65928E;
+}
+
+.del {
+  margin: 0;
+  place-content: center;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  opacity: 80%;
+}
+
+#dataTable {
+  border: 2px solid white;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+th, td, tr {
+  border: 2px solid white;
+  border-collapse: collapse;
+  height: 16px;
+}
