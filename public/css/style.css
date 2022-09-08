@@ -39,6 +39,7 @@ p#your-list {
     font-weight: bold;
     font-size: 20px;
     margin-top: 10px;
+    text-align: center;
 }
 
 div#new-entry-box {
