@@ -1,41 +1,163 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Oswald"
+    />
+    <script src="./js/scripts.js"></script>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div class="header">
+      <h1>Assignment Tracker v01</h1>
+      <h2>Developed by Cole Ouellette</h2>
+    </div>
+
+    <div class="flex-container">
+      <form id="courseForm">
+        <fieldset>
+          <legend>Add a Course</legend>
+          <ul>
+            <li>
+              <input
+                type="text"
+                id="cname"
+                name="cname"
+                placeholder="Untitled Course"
+                required
+              />
+            </li>
+            <li>
+              <label for="term">Term</label>
+              <select name="term" id="term">
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+                <option value="d">D</option>
+              </select>
+            </li>
+            <li>
+              <label for="weekly">How many classes per week?</label>
+              <input type="number" id="weekly" name="weekly" required />
+            </li>
+            <li>
+              <div class="buttons">
+                <input
+                  type="button"
+                  value="Cancel"
+                  onclick="location.href = '/index.html';"
+                />
+                <button id="submitCourses">Submit</button>
+              </div>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </div>
+
+    <table>
+      <tr id="coursesHeader">
+        <th>Course Name</th>
+        <th>Classes Left</th>
+      </tr>
+
+      <tbody id="courseTab"></tbody>
+    </table>
+
+    <div class="flex-container">
+      <form class="creation" id="assignForm">
+        <fieldset>
+          <legend>Add an Assignment</legend>
+          <ul>
+            <li>
+              <label for="coursesel">Course</label>
+              <select name="coursesel" id="coursesel"></select>
+            </li>
+            <li>
+              <input
+                type="text"
+                id="assignment"
+                name="assignment"
+                placeholder="Untitled Assignment"
+                required
+              />
+            </li>
+            <li><input type="date" id="due" name="due" required /></li>
+            <li>
+              <select name="priority" id="priority">
+                <option value="low">Low</option>
+                <option value="med">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </li>
+            <li>
+              <div class="buttons">
+                <input
+                  type="button"
+                  value="Cancel"
+                  onclick="location.href = '/index.html';"
+                />
+                <button id="submitAssignments">Submit</button>
+              </div>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </div>
+
+    <table>
+      <tr id="assignmentsHeader">
+        <th>
+          <input
+            type="checkbox"
+            id="headerbox"
+            name="headerbox"
+            disabled="disabled"
+          />
+        </th>
+        <th>Assignment</th>
+        <th>Course</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+      </tr>
+
+      <tbody id="assignmentsTab"></tbody>
+    </table>
+
+    <script>
+      window.onload = function () {
+        const button = document.getElementById("submitCourses");
+        button.onclick = submitCourse;
+        const button2 = document.getElementById("submitAssignments");
+        button2.onclick = submitAssignment;
+
+        fetch("/getCourses", {
+          method: "GET",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error, status = ${response.status}`);
+            }
+            return response.json();
+          })
+
+          .then((data) => updateCourseList(data));
+
+        fetch("/getAssignments", {
+          method: "GET",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error, status = ${response.status}`);
+            }
+            return response.json();
+          })
+
+          .then((data) => updateAssignList(data));
+      };
+    </script>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>

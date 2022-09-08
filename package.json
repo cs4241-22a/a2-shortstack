@@ -2,7 +2,7 @@
   "name": "",
   "version": "",
   "description": "",
-  "author": "",
+  "author": "Cole Ouellette",
   "scripts": {
     "start": "node server.improved.js"
   },

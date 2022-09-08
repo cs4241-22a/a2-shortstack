@@ -1,1 +1,89 @@
-/*Style your own assignment! This is fun! */
+form {
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+fieldset {
+  background-color: #a5c9ca;
+}
+
+body {
+  background-color: #e7f6f2;
+}
+
+* {
+  color: #2c3333;
+  font-family: "Oswald", sans-serif;
+}
+
+.header {
+  margin: auto;
+  margin-bottom: 8vh;
+  width: 50%;
+  text-align: center;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+  border-color: #395b64;
+  background-color: #FFFFFF;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-top: 1em;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  max-width: 1000px;
+  margin: 5em auto;
+}
+
+td {
+  width: 25%;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+label,
+select,
+input,
+button {
+  font-size: 1.5vh;
+}
+
+h1 {
+  font-size: 4vh;
+}
+
+h2 {
+  font-size: 2.6vh;
+}
+
+legend {
+  font-size: 2vh;
+}
+
+#assignmentsHeader,
+#coursesHeader {
+  text-align: left;
+}
