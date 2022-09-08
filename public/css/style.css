@@ -123,10 +123,10 @@ p {
 
 .data-section {
     /* arrange stock data in multiple columns */
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     margin: 10px;
 }
 
@@ -166,3 +166,17 @@ h3 {
     font-size: small;
     margin-left: 10px;
 }
+
+footer > p{
+    font-size: small;
+}
+
+footer {
+    /* positioned in bottom left corner */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 10px;
+    
+}
+   

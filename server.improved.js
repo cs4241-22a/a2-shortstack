@@ -50,26 +50,36 @@ const handleGet = async function (request, response) {
       response.end(JSON.stringify(stockData));
     }
   } else if (request.url.startsWith("/historical?")) {
-    // console.log("historical request for " + request.url);
-    let query = request.url.split("=")[1];
-    const pastDate = new Date();
-    pastDate.setFullYear(pastDate.getFullYear() - 2);
-    const pastDateString = pastDate.toISOString().split("T")[0];
-    const queryOptions = { period1: pastDateString, interval: "1wk" };
-    let result = undefined;
-    try {
-      result = await yahooFinance.historical(query, queryOptions);
-    } catch (error) {
-      console.log(error);
-      response.writeHead(404, { "Content-Type": "application/json" });
-      response.end(JSON.stringify({ message: "ERROR: stock not found" }));
+    //get the symbol from the query parameter
+    let symbol = request.url.split("=")[1];
+    let historicalData = await getHistoricalData(symbol);
+    if (historicalData === undefined) {
+      response.writeHead(404, { "Content-Type": "text/plain" });
+      response.end("Stock not found");
     }
+    //otherwise, return the stock data
 
     response.writeHead(200, { "Content-Type": "application/json" });
-    response.end(JSON.stringify(result));
+    response.end(JSON.stringify(historicalData));
   } else {
     sendFile(response, filename);
   }
+};
+
+const getHistoricalData = async function (symbol) {
+  const pastDate = new Date();
+  pastDate.setFullYear(pastDate.getFullYear() - 2);
+  const pastDateString = pastDate.toISOString().split("T")[0];
+  const queryOptions = { period1: pastDateString, interval: "1wk" };
+  let result = undefined;
+  try {
+    result = await yahooFinance.historical(symbol, queryOptions);
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+
+  return result;
 };
 
 const getStockData = async function (symbol) {
@@ -78,6 +88,7 @@ const getStockData = async function (symbol) {
     results = await yahooFinance.quote(symbol.toUpperCase());
   } catch (error) {
     console.log(error);
+    return undefined;
   }
   return results;
 };
@@ -104,7 +115,10 @@ const handlePost = async function (request, response) {
       } else if (dataObject.stockinput !== "") {
         //check that the stock is valid
         let stockData = await getStockData(dataObject.stockinput);
-        if (stockData === undefined) {
+        //test getting historical data
+        let historicalData = await getHistoricalData(dataObject.stockinput);
+
+        if (stockData === undefined || historicalData === undefined) {
           console.log("stock not found");
           response.writeHead(404, { "Content-Type": "application/json" });
           response.end(JSON.stringify({ message: "ERROR: stock not found" }));
