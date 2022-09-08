@@ -3,37 +3,31 @@
 <head>
 	<title>CS4241 Assignment 2</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/styles.css" />
+	<script src="js/scripts.js" type="module" defer></script>
 </head>
 <body>
-<form action="">
-	<input type='text' id='yourname' value="your name here">
-	<button>submit</button>
-</form>
+<div id="main-sections">
+	<!--    Messages    -->
+	<section id="notes-section">
+		<div class="content">
+			<div id="messages"></div>
+		</div>
+	</section>
+
+	<!--    Input Form    -->
+	<section id="input-section">
+		<div class="content">
+			<form action="" class="hbox" id="new-note-form">
+				<input type='text' id="message" placeholder="your message here">
+				<div>
+					<label>Color:</label>
+					<input type="color" id='color' value="#ffffff">
+				</div>
+				<button id="submit" style="align-self: center">submit</button>
+			</form>
+		</div>
+	</section>
+</div>
 </body>
-<script>
-
-	const submit = function (e) {
-		// prevent default form action from being carried out
-		e.preventDefault();
-
-		const input = document.querySelector('#yourname'),
-			json = {yourname: input.value},
-			body = JSON.stringify(json);
-
-		fetch('/submit', {
-			method: 'POST',
-			body
-		})
-			.then((response) => response.json())
-			.then((json) => console.log(json));
-
-		return false;
-	}
-
-	window.onload = function () {
-		const button = document.querySelector('button');
-		button.onclick = submit;
-	}
-
-</script>
 </html>

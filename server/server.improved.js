@@ -4,10 +4,8 @@ const http = require('http'), fs = require('fs'),
 // IMPORTANT: you must run `npm install` in the directory for this assignment
 // to install the mime library used in the following line of code
 mime = require('mime'), dir = 'public/', port = 3000;
-const appdata = [
-    { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-    { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-    { 'model': 'ford', 'year': 1987, 'mpg': 14 }
+const messages = [
+    { timeCreated: new Date(), color: "#ffffff", message: "Test" }
 ];
 const server = http.createServer(function (request, response) {
     if (request.method === 'GET') {
@@ -24,6 +22,15 @@ const handleGet = function (request, response) {
     if (request.url === '/') {
         sendFile(response, 'public/index.html');
     }
+    else if (request.url === '/messages') {
+        // If messages are requested, send a .json of all messages on the server
+        console.log("Sent messages");
+        console.log(messages);
+        request.on('end', function () {
+            response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
+            response.end(JSON.stringify(messages));
+        });
+    }
     else {
         sendFile(response, filename);
     }
@@ -34,11 +41,9 @@ const handlePost = function (request, response) {
         dataString += data;
     });
     request.on('end', function () {
-        let data = { yourname: "" };
-        data = JSON.parse(dataString);
+        const data = JSON.parse(dataString);
         console.log(data);
         // ... do something with the data here!!!
-        // response.write(dataString);
         response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
         response.end(dataString);
     });

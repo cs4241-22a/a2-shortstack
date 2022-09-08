@@ -11,10 +11,17 @@ const http = require( 'http' ),
 	  dir  = 'public/',
 	  port = 3000;
 
-const appdata = [
-	{ 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-	{ 'model': 'honda', 'year': 2004, 'mpg': 30 },
-	{ 'model': 'ford', 'year': 1987, 'mpg': 14}
+
+// Establish types for the message board
+type HEX = `#${string}`;
+interface Message {
+	timeCreated: Date;
+	color: HEX;
+	message: string;
+}
+
+const messages: Message[] = [
+	{ timeCreated: new Date(), color: "#ffffff", message: "Test" }
 ];
 
 const server = http.createServer( function( request: IncomingMessage, response: ServerResponse ) {
@@ -33,7 +40,15 @@ const handleGet = function( request: IncomingMessage, response: ServerResponse )
 
 	if( request.url === '/' ) {
 		sendFile( response, 'public/index.html' );
-	}else{
+	} else if (request.url === '/messages') {
+		// If messages are requested, send a .json of all messages on the server
+		console.log("Sent messages");
+		console.log(messages);
+		request.on( 'end', function() {
+			response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+			response.end(JSON.stringify(messages));
+		});
+	}	else {
 		sendFile( response, filename );
 	}
 }
@@ -46,12 +61,10 @@ const handlePost = function( request: IncomingMessage, response: ServerResponse 
 	});
 
 	request.on( 'end', function() {
-		let data = {yourname: ""}
-		data = JSON.parse(dataString);
+		const data: Message = JSON.parse(dataString);
 		console.log(data);
 
 		// ... do something with the data here!!!
-		// response.write(dataString);
 
 		response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
 		response.end(dataString);
