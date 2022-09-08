@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -39,10 +35,47 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
+    let newItem = JSON.parse( dataString )
+    if (newItem.action == "add") {
+      if (newItem.item == "Eggs" || newItem.item == "eggs" || newItem.item == "Ice cream") {
+        newItem.units = "Carton"
+      } else if (newItem.item == "Chicken" || newItem.item == "Pork" || newItem.item == "Beef") {
+        newItem.units = "Lb"
+      } else if (newItem.item == "Peanut butter" || newItem.item == "Jam" || newItem.item == "Jelly") {
+        newItem.units = "Jar"
+      } else {
+        newItem.units = "Ct"
+      }
+  
+      if (newItem.qty != "1" && newItem.units != "Ct") {
+        newItem.units += "s"
+      }
+  
+      // brand is optional, so to make sure any brands still display on the correct line we add a nbsp
+      if (newItem.brand == "") { newItem.brand = "&nbsp;"}
+  
+      console.log( newItem )
+      appdata.push( newItem )
+    } else if (newItem.action == "delete") {
+      // for every thing in appdata, if it has the same item name then don't add to the new list
+      // have to edit the array w/o actually replacing it... 
+      const filterEntries = function( entry ) {
+        if (entry.item == newItem.item) {
+          entry.action = ""
+          entry.item = ""
+          entry.qty = ""
+          entry.units = ""
+          entry.brand = ""
+        }
+      }
+      appdata.forEach(filterEntries);
+      newItem.item = ""
 
-    // ... do something with the data here!!!
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write( JSON.stringify( appdata ))
+    console.log( appdata )
     response.end()
   })
 }
