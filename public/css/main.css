@@ -45,3 +45,71 @@ ul li::before {
     margin-right: auto;
     width: 70%;
 }
+
+.gameContainer {
+    background: #3c3b47;
+    color: rgb(255, 255, 255);
+}
+
+/* Score */
+.p-count,
+.c-count {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.title {
+    font-size: 3rem;
+    z-index: 2;
+    margin-top: 3rem;
+}
+
+/* displaying three buttons in one line */
+.options {
+    display: flex;
+    width: 70vw;
+    justify-content: space-evenly;
+    margin-top: 3rem;
+}
+
+/* Styling on all three buttons */
+.rock,
+.paper,
+.scissor {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    width: 100px;
+    border-radius: 10px;
+    background: #F0B151;
+    outline: none;
+    border-color: #F0B151;
+    border: none;
+    cursor: pointer;
+}
+
+.move {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 3rem;
+}
+
+.result {
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+/* Reload button style */
+.reload {
+    display: none;
+	margin-top: 2rem;
+	padding: 1rem;
+	background: #f3593d;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+
+
