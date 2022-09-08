@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node server.improved.js"
   },
+  "engines": {
+    "node": "16.17.0"
+  },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^3.0.0"
   }
 }

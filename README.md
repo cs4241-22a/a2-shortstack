@@ -1,3 +1,5 @@
+***\*\*See Github repo for most up to date readme\*\****
+===
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 
