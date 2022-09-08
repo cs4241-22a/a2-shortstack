@@ -6,10 +6,14 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+//first line is hacky and should be done client-side, but it works.
+const appdata = [ {'taskname' : 'Task name', 
+'date' : 'Due date',
+'timeleft' : 'Days left'}
+]
+
+const tasks = [
+  
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,12 +42,29 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
     // ... do something with the data here!!!
 
+    dataJson = JSON.parse(dataString)
+
+    //differentiate between add and remove
+    if( request.url === '/add')
+    {
+      addData(dataJson)
+    }
+    else if
+    ( request.url === '/remove')
+    {
+      removeData(dataJson)
+    }
+    else if
+    ( request.url === '/getData')
+    {
+    }
+
+    //console.log(dataJson)
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
@@ -67,6 +88,51 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+const addData = function( toAdd )
+{
+  let index;
+  if(toAdd.taskname !== 'Task name')
+  {
+    index = appdata.push(toAdd)
+    calculateTimeLeft(index)
+  }
+  //console.log(appdata)
+}
+
+const removeData = function( toRemove )
+{
+  //iterate through the data to find what to remove
+  let i=0
+  while (i < appdata.length)
+  {
+    if((appdata[i].taskname === toRemove.taskname)
+      && (appdata[i].date === toRemove.date)
+      && (appdata[i].taskname !== 'Task name'))
+    {
+      appdata.splice(i, 1);
+    }
+    else
+    {
+      i++;
+    }
+  }
+  //console.log(appdata)
+}
+
+
+//calculates the time left on a task and stores it in appdata
+const calculateTimeLeft = function(index)
+{
+  let taskDate = Date.parse(appdata[index-1].date)
+  let today = new Date()
+  let time = ((taskDate - today) / 86400000).toPrecision(3)
+  if(time <= 0)
+  {
+    time = 0
+  }
+  appdata[index-1].timeleft = time
 }
 
 server.listen( process.env.PORT || port )

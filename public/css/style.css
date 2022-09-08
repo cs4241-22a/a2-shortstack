@@ -1,1 +1,72 @@
-/*Style your own assignment! This is fun! */
+/* need: element, id, and class selectors*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+
+/*Page*/
+:root{
+    background-color:antiquewhite;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body{
+    grid-template-columns: 1fr 5fr 1fr;
+    justify-content: center;
+}
+
+.center{
+    display:grid;
+    grid-column: 2;
+}
+
+
+/*Forms*/
+.form{
+    display:grid;
+}
+
+button {
+    border: 2px solid;
+    border-radius: 4px;
+    justify-content: center;
+}
+
+input{
+    border: 2px solid;
+    border-radius: 4px;
+    justify-content: center;
+}
+input:hover{
+    background-color:#b1aa9f
+}
+
+#add:hover{
+    background-color: darkseagreen;
+}
+
+#remove:hover{
+    background-color: firebrick;
+}
+
+
+/*Data table*/
+table {
+    border: 2px solid;
+    border-color: black;
+    border-collapse: collapse;
+}
+
+th, td{
+    border: 2px solid;
+    border-color: black;
+}
+
+td{
+    padding:5px;
+}
+
+#taskTable tbody:first-child{
+    background-color:#b1aa9f;
+}
+
+
+
