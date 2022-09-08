@@ -7,10 +7,11 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'model': 'toyota', 'year': 1999, 'mileage': 205724},
+  { 'model': 'dodge', 'year': 2004, 'mileage': 172057 },
+  { 'model': 'ford', 'year': 1987, 'mileage': 299690} 
 ]
+
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -23,7 +24,7 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
+  if( request.url === '/'  || request.url === "/?" ) {
     sendFile( response, 'public/index.html' )
   }else{
     sendFile( response, filename )
@@ -38,12 +39,25 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
     // ... do something with the data here!!!
-
+    var inD =  JSON.parse( dataString ) 
+    console.log(inD)
+    if(inD.action === "add"){
+      nC = {model: inD.model, year: inD.year, mileage: inD.mileage}
+      appdata.push(nC)
+    }
+    console.log(appdata)
+    if(inD.action === "delete"){
+      const trashBin = appdata.splice(inD.index, 1)
+    }
+    theYear = new Date().getFullYear()
+    for(k = 0; k<appdata.length; k++){
+      appdata[k].milesPerYear = parseInt(appdata[k].mileage / (theYear - appdata[k].year))
+    }
+    console.log(appdata)
+    var rb = JSON.stringify(appdata)
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(rb)
   })
 }
 
