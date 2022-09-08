@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "To Do List",
+  "version": "1.0",
+  "description": "This app can be used to create/keep track of/delete todo items.",
+  "author": "Eri Kim",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^3.0.0"
   }
 }
