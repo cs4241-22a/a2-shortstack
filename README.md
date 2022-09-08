@@ -11,7 +11,7 @@ This is a todo list app, on the bottom you can type the name of your task and th
 2. Colors are not intuitive for priority
 3. The red, yellow, and green colors are not intuitive
 4. Add an indicator stating the priorities other than the colors
-
+###
 1. Pollock
 2. Form being at the bottom is in a weird spot to find
 3. I was surprised that he thought the form was in a weird spot
