@@ -1,5 +1,5 @@
 {
-  "name": "Todo List",
+  "name": "todolist",
   "version": "1.0",
   "description": "Simple todo list with fields for a title, assignment date, and due date.",
   "author": "May Dong",

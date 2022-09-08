@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script type="text/javascript" src="./js/scripts.js"></script>
+    <script src="./js/scripts.js"></script>
     <link rel="stylesheet" href="./css/style.css" />
     <link
       rel="stylesheet"
@@ -13,13 +13,13 @@
   <body>
     <h1>todo list</h1>
     <form method="post" onsubmit="return false">
-      <label for="todotitle">title</label>
-      <label for="assigndate">assignment date</label>
-      <label for="duedate">due date</label>
+      <label for="todo_item">title</label>
+      <label for="todo_item_assigndate">assignment date</label>
+      <label for="todo_item_duedate">due date</label>
 
-      <input name="todotitle" type="text" id="todo_item">
-      <input name="assigndate" type="date" id="todo_item_assigndate">
-      <input name="duedate" type="date" id="todo_item_duedate">
+      <input type="text" id="todo_item">
+      <input type="date" id="todo_item_assigndate">
+      <input type="date" id="todo_item_duedate">
       <button onclick="do_submit()">add</button>
     </form>
     <ul id="list_header">
