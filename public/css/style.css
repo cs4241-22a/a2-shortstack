@@ -33,6 +33,11 @@ html, body {
     grid-template-rows: 1fr 1fr;
     grid-auto-columns: minmax(0, 1fr);
     grid-auto-rows: minmax(0, 1fr);
+    text-align: center;
+}
+
+#main-grid * {
+    padding: 5px;
 }
 
 #top-left {

@@ -15,11 +15,11 @@
     </header>
     <div id="main-content">
       <div id="main-grid">
-        <div id="top-left">tl</div>
-        <div id="top-right">tr</div>
-        <div id="bottom-left">bl</div>
-        <div id="bottom-right">br</div>
-        <div id="center">cc</div>
+        <div id="top-left"></div>
+        <div id="top-right"></div>
+        <div id="bottom-left"></div>
+        <div id="bottom-right"></div>
+        <div id="center">Loading...</div>
       </div>
     </div>
     <footer id="main-footer">
@@ -53,6 +53,49 @@
 
     window.onload = function() {
       document.querySelector('button').onclick = submit;
+      var data = {
+        headers: ["Math","English","Science","History"],
+        events: []
+      };
+      initializeGrid(data);
+    }
+
+    function initializeGrid(data){
+      var grid = document.getElementById("main-grid");
+      var loadingText = document.getElementById("center");
+      loadingText.parentNode.removeChild(loadingText);
+
+      //Initialize headers
+      for(var i=0; i<data.headers.length; i++){
+        var headerElement = document.createElement("div");
+        headerElement.style.gridColumn = i+2; //+1 because they're 1-indexed, +1 because of the date column. A rare double off-by-one error correction!
+        headerElement.style.gridRow = 1;
+        headerElement.innerHTML = `<h2>${data.headers[i]}</h2>`;
+        grid.appendChild(headerElement);
+      }
+
+      //Initialize dates
+      data.events = data.events.sort((a,b)=>(a.date-b.date)); //Sort in ascending order of dates/times
+      var startDate = data.events[0] ? data.events[0].date : new Date(Date.now());
+      var endDate = data.events[data.events.length-1] ? data.events[data.events.length-1].date : new Date(Date.now());
+      console.log(getFormattedDate(startDate));
+      console.log(getFormattedDate(endDate));
+      var dates = [new Date(startDate.getTime())]; //Clone startDate as the first date
+      var curDate = new Date(startDate.getTime());
+      for(var i=0; i<100; i++){
+        curDate.setDate(curDate.getDate()+1); //Increment date by 1, accounting for months/timezones/etc.
+        console.log(curDate.getTime());
+        console.log(startDate.getTime());
+        if((curDate > endDate) && (curDate.getTime() - startDate.getTime() > (7*24*60*60*1000))){ //Until endDate, min=7 days max=100 days
+          break;
+        }
+        dates.push(new Date(curDate.getTime())); //Clone the next day and store it
+      }
+      console.log(dates);
+    }
+
+    function getFormattedDate(date){
+      return date.toLocaleString('en-US', { month: 'long', day: 'numeric' });
     }
   </script>
 </html>
