@@ -14,6 +14,9 @@ const server = http.createServer(function (request, response) {
     else if (request.method === 'POST') {
         handlePost(request, response);
     }
+    else if (request.method === 'DELETE') {
+        handleDelete(request, response);
+    }
 });
 const handleGet = function (request, response) {
     if (request === undefined)
@@ -24,9 +27,8 @@ const handleGet = function (request, response) {
     }
     else if (request.url === '/messages') {
         // If messages are requested, send a .json of all messages on the server
-        console.log("Sent messages");
-        console.log(messages);
-        request.on('end', function () {
+        request.on('data', (data) => console.log(data))
+            .on('end', function () {
             response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
             response.end(JSON.stringify(messages));
         });
@@ -42,12 +44,14 @@ const handlePost = function (request, response) {
     });
     request.on('end', function () {
         const data = JSON.parse(dataString);
-        console.log(data);
-        // ... do something with the data here!!!
+        data.timeCreated = new Date();
+        messages.push(data);
         response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
         response.end(dataString);
     });
 };
+function handleDelete(request, response) {
+}
 const sendFile = function (response, filename) {
     const type = mime.getType(filename);
     fs.readFile(filename, function (err, content) {

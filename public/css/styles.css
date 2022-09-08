@@ -79,12 +79,39 @@ hr {
     margin: 40pt auto;
 }
 
+/*Message styles*/
+.message {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px 0;
+    justify-content: space-between;
+}
+
+.delete-button {
+    border-radius: 50% / 40%;
+    border-color: transparent;
+    background-color: red;
+    margin-left: 20px;
+}
+
+#messages-section {
+    overflow-y: scroll;
+    height: 85vh;
+}
+
 /*Form styles*/
+#input-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
 #new-note-form > * {
     margin: 0 5px;
 }
 
-#message {
+#message-input {
     flex-grow: 1;
 }
 

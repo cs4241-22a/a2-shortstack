@@ -24,11 +24,13 @@ const messages: Message[] = [
 	{ timeCreated: new Date(), color: "#ffffff", message: "Test" }
 ];
 
-const server = http.createServer( function( request: IncomingMessage, response: ServerResponse ) {
-	if( request.method === 'GET' ) {
+const server = http.createServer( function (request: IncomingMessage, response: ServerResponse) {
+	if (request.method === 'GET') {
 		handleGet( request, response );
-	} else if( request.method === 'POST' ){
+	} else if (request.method === 'POST'){
 		handlePost(request, response);
+	} else if (request.method === 'DELETE') {
+		handleDelete(request, response);
 	}
 });
 
@@ -42,9 +44,8 @@ const handleGet = function( request: IncomingMessage, response: ServerResponse )
 		sendFile( response, 'public/index.html' );
 	} else if (request.url === '/messages') {
 		// If messages are requested, send a .json of all messages on the server
-		console.log("Sent messages");
-		console.log(messages);
-		request.on( 'end', function() {
+		request.on('data', (data) => console.log(data))
+			.on( 'end', function() {
 			response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
 			response.end(JSON.stringify(messages));
 		});
@@ -62,13 +63,17 @@ const handlePost = function( request: IncomingMessage, response: ServerResponse 
 
 	request.on( 'end', function() {
 		const data: Message = JSON.parse(dataString);
-		console.log(data);
 
-		// ... do something with the data here!!!
+		data.timeCreated = new Date();
+		messages.push(data);
 
 		response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
 		response.end(dataString);
 	});
+}
+
+function handleDelete(request: IncomingMessage, response: ServerResponse) {
+
 }
 
 const sendFile = function( response: ServerResponse, filename: string ) {

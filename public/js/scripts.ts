@@ -6,28 +6,53 @@ interface Message {
 	color: HEX;
 	message: string;
 }
-console.log('test');
-// Get prior messages upon page load
-async function loadMessages() {
-	await fetch('/messages')
-		.then(response => response.json())
-		.then(json => {
-			console.log(json);
-			const newElement = document.createElement('p');
-			newElement.textContent = JSON.stringify(json);
-			document.getElementById("messages")?.appendChild(newElement);
-		});
+
+/**
+ * Renders a message to an HTML element displaying the message, when it was posted, and a delete button
+ * @param message
+ */
+function renderMessage(message: Message): HTMLDivElement {
+	const rootDiv = document.createElement('div');
+	rootDiv.className = 'message hbox';
+	rootDiv.style.backgroundColor = message.color;
+	rootDiv.innerHTML = `
+		<p>${message.message}</p>
+		<div class="hbox">
+			<p>${message.timeCreated}</p>
+			<button class="delete-button">
+				<span class="material-symbols-outlined">delete</span>
+			</button>
+		</div>
+	`;
+
+	const deleteButton = <HTMLButtonElement>rootDiv.getElementsByClassName('delete-button')[0];
+	// deleteButton.onclick = {
+	//
+	// }
+
+	return rootDiv;
 }
 
-loadMessages();
+// Get prior messages upon page load
+fetch('/messages')
+	.then(response => response.json())
+	.then(json => {
+		console.log(json);
 
+		for (const message of json) {
+			const newElement = renderMessage(message);
+			document.getElementById("messages")?.appendChild(newElement);
+		}
+	});
+
+// Handle sending a new message
 const submit = function (e: Event) {
 	// prevent default form action from being carried out
 	e.preventDefault();
 
-	const message = <HTMLInputElement>document.querySelector('#message'),
+	const message = <HTMLInputElement>document.querySelector('#message-input'),
 		color = <HTMLInputElement>document.getElementById('color'),
-		json: Message = {message: message.value, color: <HEX>color.value, timeCreated: new Date()},
+		json: Message = {timeCreated: new Date(), color: <HEX>color.value, message: message.value},
 		body = JSON.stringify(json);
 
 	fetch('/submit', {
@@ -37,8 +62,7 @@ const submit = function (e: Event) {
 		.then((response) => response.json())
 		.then((json) => {
 			console.log(json);
-			const newElement = document.createElement('p');
-			newElement.textContent = JSON.stringify(json);
+			const newElement = renderMessage(json);
 			document.getElementById("messages")?.appendChild(newElement);
 		});
 
