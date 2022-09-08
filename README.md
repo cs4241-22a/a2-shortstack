@@ -1,4 +1,4 @@
-## Movie Ranker
+# Movie Ranker
 A single-page application for ranking and tracking watched movies. 
 
 Using the "Add Movie" form will add a movie to the server and display that movie at the bottom of the page. Using the Delete Movie form will remove a movie from the server and from the movies displayed on the page. 
@@ -12,9 +12,9 @@ When submitting a movie, two fields are created:
 ## Technical Achievements
 - **Single-page app**: When data is submitted to the server, the server automatically responds and displays the results of the submission to the bottom of the page.
 
-### Design/Evaluation Achievements
+## Design/Evaluation Achievements
 - **UI testing**: 
-    1. Pabón
-    2. They wished they could sort the movies by rank, date watched, or release date. 
-    3. They thought I should put a box around the rank key numbers/boxes or underline the Rank Key header. They thought the correct movie should be removed from the entries even if the title was typed in with incorrect upper or lower case letters.
-    4. I would make it so you can sort the movies based on different attributes via a dropdown selection box. I would make it so movies could be filtered by rank if the box representing that rank in the rank key was pressed. I would also include an edit function so movie entries can be adjusted.
+  1. Pabón
+  2. They wished they could sort the movies by rank, date watched, or release date. 
+  3. They thought I should put a box around the rank key numbers/boxes or underline the Rank Key header. They thought the correct movie should be removed from the entries even if the title was typed in with incorrect upper or lower case letters.
+  4. I would make it so you can sort the movies based on different attributes via a dropdown selection box. I would make it so movies could be filtered by rank if the box representing that rank in the rank key was pressed. I would also include an edit function so movie entries can be adjusted.
