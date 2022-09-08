@@ -1,4 +1,7 @@
 ## Budgeteer
+
+By Joe Dobbelaar: https://a2-r2pen2.glitch.me/
+
 A little web app for tacking your income and expenses. Visualize your money as a series of $/time vectors and determine how much money is entering or leaving your account at any given moment. 
 
 This application is constructed mostly of flexboxes.
