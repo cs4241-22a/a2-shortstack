@@ -7,9 +7,6 @@ const http = require('http'), fs = require('fs'),
 mime = require('mime'), dir = 'public/', port = 3000;
 // Create message database
 const messagesDB = new Datastore({ filename: './messages.json', autoload: true });
-const messages = [
-    { timeCreated: new Date(), color: "#ffffff", message: "Test" }
-];
 const server = http.createServer(function (request, response) {
     if (request.method === 'GET') {
         handleGet(request, response);
@@ -49,13 +46,12 @@ const handlePost = function (request, response) {
         dataString += data;
     });
     request.on('end', function () {
-        const data = JSON.parse(dataString);
+        const newMessage = JSON.parse(dataString);
         // Update timecreated to server time
-        data.timeCreated = new Date();
-        messagesDB.insert(data, (err, newDoc) => {
+        newMessage.timeCreated = new Date();
+        messagesDB.insert(newMessage, (err, newDoc) => {
             response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
             response.end(dataString);
-            // Notify
         });
     });
 };

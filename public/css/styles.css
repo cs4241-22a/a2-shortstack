@@ -16,9 +16,16 @@ h1, h2, h3 {
 }
 
 /*Body*/
+html, body {
+    height: 100vh;
+    overflow: visible;
+}
+
 body {
     margin: 0;
     background-color: #ABCADE;
+    display: flex;
+    flex-direction: column;
 }
 
 /*Animate a fade-in entry for every site element*/
@@ -96,7 +103,7 @@ hr {
 
 #messages-section {
     overflow-y: scroll;
-    height: 85vh;
+    height: 65vh;
 }
 
 /*Form styles*/

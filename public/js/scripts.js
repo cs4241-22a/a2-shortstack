@@ -58,3 +58,13 @@ const submit = function (e) {
 };
 const button = document.querySelector('#submit');
 button.onclick = submit;
+// Dynamically resize chat feed
+function setChatHeight() {
+    const chatSection = document.getElementById('messages-section'), instructionsSection = document.getElementById('instructions'), inputSection = document.getElementById('input-section');
+    chatSection.style.height
+        = `${window.innerHeight - (instructionsSection.offsetHeight + inputSection.offsetHeight) - 50}px`;
+}
+setChatHeight();
+window.addEventListener('resize', ev => {
+    setChatHeight();
+});

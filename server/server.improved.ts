@@ -2,8 +2,7 @@ import {IncomingMessage, ServerResponse} from "http";
 import {constants} from "os";
 import ErrnoException = NodeJS.ErrnoException;
 import {Serializer} from "v8";
-import {DataStoreOptions} from "nedb";
-const Datastore = require('nedb')
+const Datastore = require('nedb');
 
 const http = require( 'http' ),
 	  fs   = require( 'fs' ),
@@ -24,10 +23,6 @@ interface Message {
 
 // Create message database
 const messagesDB: Nedb = new Datastore({ filename: './messages.json', autoload: true });
-
-const messages: Message[] = [
-	{ timeCreated: new Date(), color: "#ffffff", message: "Test" }
-];
 
 const server = http.createServer( function (request: IncomingMessage, response: ServerResponse) {
 	if (request.method === 'GET') {
@@ -58,7 +53,7 @@ const handleGet = function( request: IncomingMessage, response: ServerResponse )
 				response.end(JSON.stringify(docs));
 			});
 		});
-	}	else {
+	} else {
 		sendFile( response, filename );
 	}
 }
@@ -71,16 +66,14 @@ const handlePost = function( request: IncomingMessage, response: ServerResponse 
 	});
 
 	request.on( 'end', function() {
-		const data: Message = JSON.parse(dataString);
+		const newMessage: Message = JSON.parse(dataString);
 
 		// Update timecreated to server time
-		data.timeCreated = new Date();
+		newMessage.timeCreated = new Date();
 
-		messagesDB.insert(data, (err, newDoc) => {
+		messagesDB.insert(newMessage, (err, newDoc) => {
 			response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
 			response.end(dataString);
-
-			// Notify
 		});
 	});
 }
@@ -118,4 +111,4 @@ const sendFile = function( response: ServerResponse, filename: string ) {
 	})
 }
 
-server.listen( process.env.PORT || port )
+server.listen( process.env.PORT || port );
