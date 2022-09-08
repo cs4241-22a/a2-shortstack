@@ -27,7 +27,7 @@ The page is validated, and met all the requirements as follows:
 1. Last name: Rocha
 2. The user was not sure which tag to use if there was no tag related to the todo item she was creating. I added another tag "Ohter" after this to address this issue.
 3. N/A
-4. I would try to avoid having a lot of texts. What I noticed was that users tend to see the visuals before texts, in this case, they tried to create a todo item before reading the instructions.
+4. I would try to avoid having a lot of texts. What I noticed was that users tend to see the visuals before texts, in this case, they tried to create a todo item before reading the instructions. Also, having a label that says "due date" next to the date field would be helpful.
 - **Design Achievement 2**: Used the think-aloud protocol to obtain feedback on my design. 
 1. Last name: Theofilou
 2. The first text field had a placeholder "Add todo item" instead of "Type todo item" so she did not fill out the field when creating a new todo item. After seeing this, I changed the placeholder and added a bullet point that explains what the first text field is for.
