@@ -5,7 +5,15 @@
     <meta charset="utf-8" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Sofia|Rubik|Roboto+Mono"
+      href="https://fonts.googleapis.com/css?family=Sofia"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Rubik"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono"
     />
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/scripts.js"></script>
@@ -27,20 +35,22 @@
       <h2>Keep track of your daily todo list! Stay Productive!!!!!</h2>
     </div>
 
-    <br />
 
-    <div id="form">
-      <form action="">
+
+    <div class="form" id="form">
+      <br/>
+      <form>
         <label for="task">Task Name:</label>
         <input type="text" id="task" name="task" placeholder="task ..." />
       </form>
-      <form action="">
+      <form>
         <label for="date">Due date:</label>
         <input type="date" id="date" name="date" />
       </form>
+      <br/>
 
       <button onclick="update()">Add Task</button>
-
+      <br/>
       <br />
     </div>
 

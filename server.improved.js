@@ -12,7 +12,7 @@ const http = require("http"),
 //   { model: "ford", year: 1987, mpg: 14 },
 // ];
 const appdata = [
-  { task: "do Homework", status: "done", date: "09/07/2022", dateTill: "" },
+  { task: "do Homework", date: "2022-10-09", dateTil: "example" },
 ];
 
 const server = http.createServer(function (request, response) {
@@ -28,7 +28,8 @@ const handleGet = function (request, response) {
 
   if (request.url === "/") {
     sendFile(response, "public/index.html");
-  } else if (request.url === "/getResponses") {
+  } else if (request.url === "/getTable") {
+    //getting data from appdata
     response.writeHeader(200, { "Content-Type": "text/plain" });
     response.end(JSON.stringify(appdata));
   } else {
@@ -51,15 +52,10 @@ const handlePost = function (request, response) {
     // ... do something with the data here!!!
     if (request.url === "/submit") {
       console.log(jsonData); //debug
-      appdata.push(jsonData);
+      appdata.push(jsonData); //pushing/adding data to appdata
     } else if (request.url === "/delete") {
       console.log(jsonData); //debug
-      appdata.splice(jsonData["deletingResponse"], 1);
-    }
-
-    for (let i = 0; i < appdata.length; i++) {
-      let response = appdata[i];
-      response.dateTill = 0; //TODO
+      appdata.splice(jsonData["deletingResponse"], 1); //deleting row
     }
 
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });
