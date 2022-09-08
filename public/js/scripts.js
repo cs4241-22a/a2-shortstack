@@ -33,7 +33,7 @@ function beginGame() {
 }
 
 function resetGame() {
-let CPS = (score / duration).toFixed(2);
+let CPS = (score / duration).toFixed(1);
 timer.textContent = "0.000";
 clicks.textContent = CPS;
 
