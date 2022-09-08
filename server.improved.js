@@ -118,7 +118,6 @@ const remove = function(array){
     if(index > -1){
         array.splice(index, 1)
     }
-    console.log(array)
 }
 
 server.listen( process.env.PORT || port )
