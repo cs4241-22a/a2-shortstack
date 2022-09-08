@@ -22,6 +22,6 @@ He did find that my server does the order of to do list with specific order. He 
 She thought my overall color is great, and the design is what she likes. She thought it would be better to distinct clear and delete since I originally have clear stuff as delete button which did confuse users. Obviously I changed it :)
 
 ###### Styling and functionality
-- 
+  * Did fields to restore the current status for conveiniently use of classifier to organize the list. Also the effective display among different tags and elements.
 
 
