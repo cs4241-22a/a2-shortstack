@@ -6,16 +6,15 @@ let priority
 function main(){
 task = document.getElementById('to do')
 date = document.querySelector('#date')
-priority = document.querySelector('priority')
+priority = document.querySelector('#priority')
 const add = document.querySelector('#add')
     add.onclick = buttonClick
 }
 function buttonClick(){
     isEmpty()
-    // submit()
+    submit()
     task.value = ""
     date.value = ""
-    priority.value = ""
 }
 function isEmpty(){
     if (task.value === "" || date.value === ""){
@@ -24,24 +23,66 @@ function isEmpty(){
     }
     return true
 }
-const submit = function( e ) {
-          json = { Task: task.value },
-          body = JSON.stringify( json )
 
-        //   json = { Date: date.value },
-        //   body = JSON.stringify( json )
 
-        //   json = { Priority: priority.value },
-        //   body = JSON.stringify( json )
+  const submit = function( e ) {
+    // prevent default form action from being carried out
+    // e.preventDefault()
+    let task2=[{Date:date.value}]
+    let task1= [{Task:task.value}]
+    let task3=[{Priority:priority.value}]
+    const json = task1,
+          body= JSON.stringify( json )
+    
+     const json1 = task2,
+          body1= JSON.stringify( json1 )
+     
+     const json2 = task3,
+        body2= JSON.stringify( json2 )
 
-    fetch( 'http://localhost:3000', {
+
+    fetch( '/', {
       method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      console.log( response )
+      body,
+      body1,
+      body2
+      
+      })
+    
+     .then( response => response.json())
+     .then( json => {
+      	let results = document.getElementById("results");
+ 				results.innerHTML = " ";
+        let heading_row = document.createElement("tr");
+        results.appendChild(heading_row)
+        heading_row.innerHTML+= '<th>Tasks</th>' 
+        heading_row.innerHTML+='<th>Date</th>'
+        heading_row.innerHTML+='<th>Priority</th>'
+      
+        
+					let input = document.createElement("tr");
+					results.appendChild(input);
+        
+          let task1 = input.insertCell(0)
+          let t=JSON.parse(body)
+          task1.innerHTML = body.split(":")[1].replace(/[^a-zA-Z0-9 ]/g,'')
+      
+          let task2 = input.insertCell(1)
+          task2.innerHTML = body1.split(":")[1].replace(/[^a-zA-Z0-9- ]/g,'')
+      
+          let task3 = input.insertCell(2)
+          task3.innerHTML = body2.split(":")[1].replace(/[^a-zA-Z0-9]/g,'')
+      
+      //console.log(JSON.stringify(body))
+      
+      
     })
 
     return false
   }
+
+ function populate_table(){
+   
+ }
+
 
