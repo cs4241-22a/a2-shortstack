@@ -4,27 +4,24 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="js/scripts.js"></script>
   </head>
   <body>
     <h1 style="text-align: center">Welcome to the Homework Reminder!!!</h1>
-    <form action="">
-      <input
-        type="text"
-        onfocus="this.value=''"
-        id="yourname"
-        placeholder="Your Name Here"
-      />
-      <input
-        type="date"
-        onfocus="this.value=''"
-        id="date"
-        placeholder="Today's Date"
-      />
+    <p>
+      This project shows a webpage using HTML, CSS, JSON, and JavaScript
+      (Node.js) to present a Homework Reminder for students to markdown their
+      assignments. Feel free to add you assignments down below!
+    </p>
+    <form>
+      <input type="text" id="yourname" placeholder="Your Name Here" />
+
+      <input type="date" id="currDate" />
       <input
         list="classes"
-        name="hwList"
-        id="hwList"
-        placeholder="Subject Here"
+        name="subjectList"
+        id="subjectList"
+        placeholder="Select Subject"
       />
       <datalist id="classes">
         <option value="Math"></option>
@@ -33,14 +30,19 @@
         <option value="History"></option>
         <option value="Computer Science"></option>
       </datalist>
-      <input
-        type="text"
-        onfocus="this.value=''"
-        id="assignment"
-        placeholder="Assignment Name"
-      />
+      <input type="text" id="assignment" placeholder="Assignment Name" />
+      <input type="date" id="dueDate" />
       <button id="submitBtn">submit</button>
     </form>
-    <ul id="dataTable"></ul>
+    <table id="dataTable">
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Subject</th>
+        <th>Assignment</th>
+        <th>Date Due</th>
+        <th>Priority</th>
+      </tr>
+    </table>
   </body>
 </html>
