@@ -1,1 +1,151 @@
-/*Style your own assignment! This is fun! */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    position: relative;
+}
+
+body {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #262626;
+    color: #e0e0e0;
+}
+
+h1{
+    padding: 30px;
+}
+
+form{
+    padding: 30px;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form div {
+    margin-top: 1em;
+}
+
+.inboxBtn {
+    color: white;
+    border: 0;
+    margin: 30px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 50px;
+    outline: none;
+    position: relative;
+    background-image: linear-gradient(to right, #25aae1, #40e495);
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
+
+.outboxBtn {
+    color: white;
+    border: 0;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 50px;
+    outline: none;
+    position: relative;
+    background-image: linear-gradient(to right, #6253e1, #852d91);
+    box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+}
+
+.inboxBtn:before {
+    content: "";
+    display: block;
+    background: linear-gradient(
+            to left,
+            rgba(255, 255, 255, 0) 50%,
+            rgba(255, 255, 255, 0.4) 50%
+    );
+    background-size: 210% 100%;
+    background-position: right bottom;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 50px;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+}
+
+.outboxBtn:before {
+    content: "";
+    display: block;
+    background: linear-gradient(
+            to left,
+            rgba(255, 255, 255, 0) 50%,
+            rgba(255, 255, 255, 0.4) 50%
+    );
+    background-size: 210% 100%;
+    background-position: right bottom;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 50px;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+}
+
+.outboxBtn:hover:before {
+    background-position: left bottom;
+}
+
+.inboxBtn:hover:before {
+    background-position: left bottom;
+}
+
+.acceptBtn {
+    margin: 30px;
+    border: 0;
+    border-radius: 50px;
+    color: white;
+    background: #FFA500;
+    padding: 10px 20px 10px 20px;
+    text-transform: uppercase;
+    background: linear-gradient(to left,#FFA500  50%, #f72585 50%);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    transition:all 1s ease;
+}
+
+.acceptBtn:hover {
+    background-position: right bottom;
+}
+
+.sendBtn {
+    border: 0;
+    border-radius: 50px;
+    color: white;
+    background: #FFA500;
+    padding: 10px 20px 10px 20px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #f72585 50%, #FFA500 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition:all 1s ease;
+}
+
+.sendBtn:hover {
+    background-position: left bottom;
+}

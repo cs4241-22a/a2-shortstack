@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "Shiyue(Vanessa) Wang",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "a2",
+  "author": "Vanessa",
   "scripts": {
     "start": "node server.improved.js"
   },
