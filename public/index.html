@@ -9,12 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
   </head>
   <body>
+    
+  <div class = "flex-container">
     <h1>To Do List</h1>
-    <form action="" id="form">
+    <p>Here is a to do list that displays how we are all feeling during the school year. 
+      Rank your item priority (1 for low priority and 3 for highest priority</p>
+    <form id="form">
+      <div id="test">
     <table id="todo_list">
     <tr>
         <td>To Do</td>
-        <td><input type='text' id='item' name="To Do", value=""></td>
+        <td><input type='text' id='item' name="To Do" value=""></td>
     </tr>
     <tr>
         <td>Category</td>
@@ -22,7 +27,7 @@
     </tr>
     <tr>
         <td>Due Date</td>
-        <td><input type='text' id='data' name="Due Date" value=""></td>
+        <td><input type='datetime-local' id='data' name="Due Date" value=""></td>
     </tr>
     <tr>
         <td>Item Priority</td>
@@ -31,15 +36,24 @@
     <tr>
         <td colspan="2"><button type = "submit" id="button">submit</button></td>
     </tr>
-    </table>
+        </table>
+      </div>
     </form>
+    <div></div>
+    <table id="results">
+    <tr>
+      <th>To Do</th>
+      <th>Category</th>
+      <th>Due Date</th>
+      <th>Item Priority</th>
+      <th>Reaction</th>
+    </tr>
 
-    <table id="data">
-     
-    </table>
-
-  </body>
-
+     </table>
+  </div>
   <script src="js/scripts.js">
   </script>
+  </body>
+
+  
 </html>

@@ -41,9 +41,12 @@ const handlePost = function( request, response ) {
 
     let entry = JSON.parse( dataString)
     if (entry.priority == '1'){
-      console.log("this works?")
-      entry.days_left = 5
+      entry.reaction = ':)'
     }
+    else if(entry.priority == '2'){
+      entry.reaction = ':/'
+    }
+    else(entry.reaction = ':(')
 
     console.log(entry)
     appdata.push(entry)

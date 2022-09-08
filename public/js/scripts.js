@@ -1,7 +1,3 @@
-// Add some Javascript code here, to run on the front end.
-
-console.log("Welcome to assignment 2!")
-
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
@@ -16,7 +12,7 @@ const submit = function( e ) {
       category: category.value,
       data: data.value, 
       priority: priority.value,
-      days_left: ""
+      reaction: ""
     }
 
     let body = JSON.stringify(json)
@@ -28,11 +24,10 @@ const submit = function( e ) {
     
     .then( async function ( response ) {
       // do something with the reponse
-      let newData = await response.text()
-        reload(JSON.parse(newData));
+      let newData = await response.json()
+        reload(newData);
 
       console.log(newData)
-      console.log("helloooo")
     })
 
     
@@ -40,22 +35,23 @@ const submit = function( e ) {
   }
 
   function reload(newData) {
-    const table = document.getElementById("data")
-    table.innerHTML = "<tr><th>To Do</th> <th>Category</th> <th>Due Date</th> <th>Item Priority</th> <th>Days Left</th></tr>"
+    const table = document.getElementById("results")
+    table.innerHTML =  "<tr><th>To Do</th><th>Category</th><th>Due Date</th><th>Item Priority</th><th>Reaction</th></tr>"
+
 
     newData.forEach((element, index) => {
-      table.innerHTML +=
-        + "<tr><td>" 
-        + element.item 
-        + "</td><td>" 
-        + element.category 
-        + "</td><td>" 
-        + element.data 
-        + "</td><td>" 
-        + element.priority 
-        + "</td><td>" 
-        + element.days_left 
-        + "</td></tr>"
+      table.innerHTML += "<tr><td>" 
+      + element.item 
+      + "</td><td>" 
+      + element.category 
+      + "</td><td>" 
+      + element.data 
+      + "</td><td>" 
+      + element.priority 
+      + "</td><td>" 
+      + element.reaction 
+      + "</td></tr>"
+
     })
   }
   
