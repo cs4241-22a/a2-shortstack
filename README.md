@@ -1,5 +1,5 @@
-# CS 4241 Assignment 1
-Kaelin Panneton https://a2-kpanneton.glitch.me/
+# CS 4241 Assignment 2
+Kaelin Panneton https://a2-kpanneton1.glitch.me/
 
 This project shows a hold system for a library using a single HTML form and Javascript scripts. The user will input their name, email address, the title and author of the book they want to check out, along with the date for the day they submit the form. It will then print a message with their data to show that it has been received and added to the database, along with assigning them a number in the hold queue, which is priority assigned based on the earliest date. It uses various CSS styling elements on the header, table, and table outputs, such as highlighting when you scroll over which hold you would like to select from the database. There are CSS selectors for elements. IDs, and classes present. The table and other elements are positioned using a css inline-grid which maintains the elements positioning on the page. The font for the website's copy text is the Merriweather font from the Google Fonts website. Included is a server that hosts the webpage that sends and receives data from the server. For this webpage, the derived field is the queue system for placing a hold on a book, which is based on the data inputted by the user and the dates of other holds in the queue. I had problems assigning IDs to each row in the array, so I did it so each row will have a different identifier using Math.random().
 
