@@ -39,14 +39,14 @@ const submit = function(e)
 
 function refreshInfo(newData) {
     const board = document.getElementById("results")
-    board.innerHTML = "<tr><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
+    board.innerHTML = "<tr id='firstRow'><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
 
     newData.forEach((element, index) => {
         board.innerHTML +=
           "<tr><td>" + element.songname + "</td><td>"
           + element.artist + "</td><td>"
           + element.duration + "</td><td>"
-          + element.album + "</td><td>"
+          + element.album + "</td><td class='tally'>"
           + element.playlistDur + "</td></tr>"
       })
   }
@@ -55,3 +55,4 @@ function refreshInfo(newData) {
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
+

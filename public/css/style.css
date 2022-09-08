@@ -41,3 +41,20 @@ tr
   color: white;
 }
 
+#firstRow
+{
+    background-color: rgb(80, 53, 53);
+}
+
+.tally
+{
+    text-decoration: underline;
+    background-color: blueviolet;
+}
+
+.flexBox
+{
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+}
