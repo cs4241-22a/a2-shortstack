@@ -11,6 +11,13 @@ h1 {
   font-weight: 48;
 }
 
+p {
+  font-family: "Caveat";
+  font-weight: 48;
+  border: 2px solid #647847;
+  background-color: #fbdf9e;
+}
+
 body{
   background-image: url("https://cdn.glitch.global/97d0aa55-f508-4ad6-8727-a9ae2438189c/lukas-blazek-GnvurwJsKaY-unsplash.jpg?v=1662408164982");
   background-color: #A69586;
