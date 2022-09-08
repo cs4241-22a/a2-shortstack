@@ -1,5 +1,7 @@
 # Kawane Moene's Guest Book
 
+https://a2-kmoene.glitch.me/
+
 In this website I created a guest book with NodeJS. Instead of retrieving data when the user submits a entry, it pulls data from the server every few seconds. To make sure it stays sync between multiple clients. It have a very short time out so the server state updates very fast. I used css flexbox for the css layout. There are two main fields, one additional field, and two derived fields. Two main fields are name and message, additional field is the date, and two derived fields are message id and word count. 
 
 ## Technical Achievements
