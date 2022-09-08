@@ -24,9 +24,15 @@
       method:'POST',
       body 
     })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+    .then( response => {
+      response.json()
+    })
+    .then( json => {
+      json.forEach( item => {
+        document.createElement('p')
+        p.innerText = item.toString()
+        document.body.appendChild(p)
+      })
     })
 
     return false
