@@ -1,41 +1,52 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+
+<head>
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/scripts.js"></script>
+</head>
+
+<body>
+  <h1>Contacts</h1>
+  <div class="addContact">
+    <form action="" id="add">
+      <table id="input">
+        <tr>
+          <td>First Name:</td>
+          <td>
+            <input class="textInput" type="text" id="fName" name="fName" value="">
+          </td>
+        </tr>
+        <tr>
+          <td>Last Name:</td>
+          <td>
+            <input class="textInput" type="text" id="lName" name="lName" value="">
+          </td>
+        </tr>
+        <tr>
+          <td>Phone Number:</td>
+          <td>
+            <input class="textInput" type="text" id="phoneNum" name="phoneNum" value="XXX-XXX-XXXX">
+          </td>
+        </tr>
+        <tr>
+          <td>Birthday:</td>
+          <td>
+            <input class="dateInput" type="date" id="DOB" name="DOB" value="mm/dd/yyyy" required pattern="\d{4}-\d{2}-\d{2}">
+          </td>
+        </tr>
+      </table>
+      <div class="submit">
+        <button>Submit</button>
+      </div>
     </form>
-  </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+  </div>
+  <br><br>
+  <div class="viewContacts" id="viewContacts">
+      <table id="heldInfo"></table>
+    </form>
+  </div>
+</body>
 </html>
