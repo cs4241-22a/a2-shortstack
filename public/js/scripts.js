@@ -26,17 +26,11 @@ const submit = function( e ) {
       body 
     })
     
-    /* .then( async function ( response ) {
+    .then( async function ( response ) {
       // do something with the reponse
-      try{
-      let newData = await response.json();} //.json
-      catch(error){
-        console.log("catch");
-      } */
-      const res = await fetch()
-      const json = await res.json()
-      
-      reload(newData)
+      let newData = await response.json()
+        reload(newData);
+
       console.log(newData)
       console.log("helloooo")
     })
