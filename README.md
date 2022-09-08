@@ -8,9 +8,7 @@ This project makes use of front-end JavaScript capabilities to get/fetch data fr
 This assignment includes all the baseline requirements including
 a server with server logic, form entry functionality, results (updated to do list), and a derived field.  
 For the design, the project also meets all expectations including CSS positioning/styling of primary elements, various CSS selector functionality, and use of an external stylesheet that is easily maintainable.  
-
-Be sure to include the CSS positioning technique you used, and any required instructions to use your application.  
-
+The positioning I used for the tables is flexbox. I created two tables and edited the <td> and <tr> CSS styles. I also selected the buttons and added curved edges, shadows, and color to them. Lastly, I made the <h1>, <p>, and <body> elements responsive to the page size. 
 
 ## Technical Achievements
 - **Single Page App**: both provides a form for users to submit data and always shows the current state of the server-side data.
