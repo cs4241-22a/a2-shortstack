@@ -7,7 +7,8 @@ let clickArea = document.getElementById("clickarea");
 
 let duration = 10;
 let beginTime;
-let clickable = false; 
+let clickable = false;
+let score = 0;
 
 function beginGame() {
     begin.style.visibility = "hidden";
