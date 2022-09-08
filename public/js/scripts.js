@@ -29,20 +29,17 @@ function makeTable(json) {
 
     let priority = newTodo.insertCell(3);
     let priorityText = document.createTextNode(item["priority"]);
-    
+
     if (item["priority"] === "RED") {
       priorityText = document.createElement("span");
       priorityText.classList.add("dotRed");
-    }
-    else if (item["priority"] === "YELLOW") {
+    } else if (item["priority"] === "YELLOW") {
       priorityText = document.createElement("span");
       priorityText.classList.add("dotYellow");
-    }
-    else if (item["priority"] === "GREEN") {
+    } else if (item["priority"] === "GREEN") {
       priorityText = document.createElement("span");
       priorityText.classList.add("dotGreen");
     }
-    
     priority.appendChild(priorityText);
 
     let tag = newTodo.insertCell(4);
@@ -67,9 +64,9 @@ function makeTable(json) {
 
   const doneBtns = document.getElementsByClassName("deleteTodo");
   let index = 0;
-  for (let done of doneBtns) {
-    done.onclick = deleteTodo;
-    done.id = "doneBtn-" + index;
+  for (let btn of doneBtns) {
+    btn.onclick = deleteTodo;
+    btn.id = "doneBtn-" + index;
     index++;
   }
 }
@@ -100,10 +97,10 @@ const createTodo = function (e) {
     .then((json) => {
       makeTable(json);
     });
-  
-  document.getElementById("todo").value = '';
-  document.getElementById("due").value = '';
-  document.getElementById("tag").value = '';
+
+  document.getElementById("todo").value = "";
+  document.getElementById("due").value = "";
+  document.getElementById("tag").value = "";
 
   return false;
 };

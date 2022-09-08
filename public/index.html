@@ -22,25 +22,32 @@
         alt="Logo"
       />
     </div>
-    
+
     <p>Create a Todo item with its due date and tag (if applicable)!</p>
     <ul>
-      <li>Once you complete it, click "Done" button to remove.</li>
       <li>
-        The "# days left" column shows how many days you have left to complete the
-        task from the creation date on this page. <br />
+        The second input field is for the due date. Put the date you wish to
+        complete the todo item by.
+      </li>
+      <li>Once you complete a todo item, click "Done" button to remove.</li>
+      <li>
+        The column "Priority" shows red, yellow, or green depending on how many
+        days are left until the due date.
         <ul>
-          <li>
-            ex) Created "task1" on 9/7 and its due date is 9/9. The # days left
-            column would show "2 day(s)".
-          </li>
+          <li>Red: less than or equal to 1 day</li>
+          <li>Yellow: more than a day but less than 3 days</li>
+          <li>Green: more than 3 days</li>
         </ul>
       </li>
+      <li>
+        There are also five different tags available - webware, deepLearning,
+        businessIntelligence, MQP, and work. They are color-coded differently.
+      </li>
     </ul>
-    
+
     <form>
       <div class="container">
-        <input type="text" id="todo" placeholder="Add Todo item" required />
+        <input type="text" id="todo" placeholder="Type todo item..." required />
         <input type="date" id="due" required />
         <select name="tag" id="tag">
           <option value="" disabled selected>Select a tag</option>

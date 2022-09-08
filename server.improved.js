@@ -51,7 +51,7 @@ const priority = function (duedate) {
   } else if (diffDays <= 1) {
     return "RED";
   } else if (diffDays <= 3) {
-    return "YELLOW"
+    return "YELLOW";
   } else {
     return "GREEN";
   }
