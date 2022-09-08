@@ -1,4 +1,7 @@
-# Assignment 1 for CS4241   
+# Assignment 1 for CS4241    
+Link To the Project
+---
+https://a2-hao-oliverchen.glitch.me/
 
 Summary
 ---
