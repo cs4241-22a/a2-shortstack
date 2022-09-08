@@ -236,7 +236,7 @@ window.onload = function () {
     personalCatLabel.classList.add("unselectedCategory")
   }
 
-  particlesJS.load('particles-js', '../../node_modules/particles.js/particles.json', function () {
+  particlesJS.load('particles-js', 'public/particles.json', function () {
     console.log('particles.js config loaded');
   });
   updateTaskListDisplay();
