@@ -5,6 +5,7 @@ https://a2-rmbrunelle.glitch.me/
 Summary: Music Playlist Creator. My project is a pretend music playlist. The user can add songs with specific name, artist, duration, and album, and see the playlist length in minutes on the right after each song. This way the user can know at what point in the playlist a song will play.
 
 Special Instructions: You must enter a number in the "Duration of song" field for it to work properly. It will round down to nearest integer.
+- If an error is made when typing in a response, the playlist length field will not work unless you relaunch by removing the server.improved file and pasting it in again in glitch
 - note that I tried to get a reset button working but couldn't get it compatible with my laylist length derived field. To check how it works with the reset button activated, uncomment const reset in scripts.js and uncomment the "if undefined" and its closed brace a few lines below in addToPlaylist
 
 some CSS Details to note:
