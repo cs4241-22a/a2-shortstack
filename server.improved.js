@@ -6,7 +6,9 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = []
+const appdata = [ {name:"Chris", date:"09/07/2022", subject:"Math", assignment:"Assignment 1"}
+  
+]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -21,9 +23,22 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
-    const html =
-      sendFile( response, filename )
+  } 
+  else if (request.url === '/getForm') {
+    response.writeHeader(200, {"Content-Type": "text/plain"});
+    response.end(JSON.stringify(appdata));
+  } 
+  else
+  {
+    const html =`
+    <html>
+    <body>
+      ${ appdata.map( item => JSON.stringify(item) ) } 
+    </body>
+    </html>
+    `
+    response.end( html )
+      //sendFile( response, filename )
   }
 }
 
@@ -36,13 +51,20 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
-
+    let newInfoData = JSON.parse(dataString)
     // ... do something with the data here!!!
+    
+    if (request.url === "/submit") {
+      
+      console.log(newInfoData)
+      appdata.push(newInfoData)
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end( JSON.stringify( appdata ))
-  })
+    response.end( JSON.stringify( appdata ))}
+  )
 }
+
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
@@ -56,7 +78,7 @@ const sendFile = function( response, filename ) {
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
 
-     }else{
+     } else{
 
        // file not found, error code 404
        response.writeHeader( 404 )

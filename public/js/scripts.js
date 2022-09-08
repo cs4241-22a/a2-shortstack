@@ -1,57 +1,58 @@
-// Add some Javascript code here, to run on the front end.
-
-<script>
-  
-  console.log("Welcome to assignment 2!")
+console.log("Welcome to assignment 2!")
 
     const submit = function( e ) {
       // prevent default form action from being carried out
       e.preventDefault()
 
-    let   nameInput = document.querySelector( '#yourname' )
-    let   dateInput = document.querySelector( '#date' )
-    let   subjectInput = document.querySelector( '#subjectList' )
-    let   assignmentInput = document.querySelector( '#assignment')
+    const nameInput = document.findElementByID( 'yourname' ).value,
+       dateInput = document.findElementByID( 'date' ).value,
+       //subjectInput = document.findElementByID( 'subjectList' ),
+       assignmentInput = document.findElementByID( 'assignment' ).value
 
-          let json = { yourname: nameInput.value,
-                     date: dateInput.value,
-                     subjectList: subjectInput.value,
-                     assignment: assignmentInput.value
+          let json = { yourname: nameInput,
+                     date: dateInput,
+                     //subjectList: subjectInput.value,
+                     assignment: assignmentInput
                    },
             body = JSON.stringify( json )
 
-      nameInput.value = ''
-      dateInput.value = ''
-      subjectInput.value = ''
-      assignmentInput.value = ''
-
+      nameInput = ''
+      dateInput = ''
+      //subjectInput.value = ''
+      assignmentInput = ''
+      
+      console.log(body)
       fetch( '/submit', {
         method:'POST',
         body
       })
-      .then( async function (response) {
-          let data = await response.json()
-          collectNewInfo(data)
-          console.log(data)
+      .then( response => response.json() )
+      .then( json => {
+        json.forEach( item => {
+        const p = document.createElement('p')
+        p.innerText = JSON.stringify( item )
+        document.body.appendChild( p )
       })
-          return false
+    })
+      return false
     }
 
-    function collectNewInfo(data) {
-      const newInfo = document.getElementById('dataTable')
-      newInfo.innerHTML = ""
-      data.forEach((item, index)) => {
-        newInfo.innerText +=
-          "<tr><td>" + item.nameInput +
+    /*function collectNewInfo(data) {
+      const newInfoTable = document.getElementById('dataTable')
+      newInfoTable.innerHTML = ""
+      data.forEach((item, index) => {
+        newInfoTable.innerText +=
+          "<td>" + item.nameInput +
           "</td><td>" + item.dateInput +
           "</td><td>" + item.subjectInput +
           "</td><td>" + item.assignmentInput +
-          "</td></tr>"
+          "</td>"
       })
-    }
+      console.log(collectNewInfo())
+    } */
 
     window.onload = function() {
       const button = document.querySelector( 'button' )
       button.onclick = submit
     }
-  </script>
+  
