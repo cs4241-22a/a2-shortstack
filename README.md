@@ -7,7 +7,7 @@ This is a weekly schedule planner tool that lets anyone add/delete events. I use
 In case things start or get too messy, each section (calendar, table view, etc) can be minimized. The Delete all events option is in the bottom right of the app
 
 ## Technical Achievements
-- **Tech Achievement 1**: The events shown in the calendar/table are automatically pulled from the server when the page is loaded and when events are added/deleted. I did this by giving the server the option to send the data to the client. This also involved adding new /command POST statements. 
+- **Tech Achievement 1**: The events shown in the calendar/table are automatically pulled from the server when the page is loaded and when events are added/deleted. I did this by giving the server the ability to send the data to the client. This also involved adding new /command POST statements. 
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 3 user tests.
