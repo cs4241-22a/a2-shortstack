@@ -6,20 +6,22 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+//can use or replace with our own dataset
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
+//create server
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  }else if (request.method === 'DELETE') {
+    handleDelete(request, response)
   }
 })
 
+//if its get, getting somehting. post = getting data coming in from a request
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
@@ -30,6 +32,45 @@ const handleGet = function( request, response ) {
   }
 }
 
+const handleDelete = function(request, response) {
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+      dataString += data 
+  })
+
+  //data recieved, end event
+  request.on( 'end', function() {
+    console.log( JSON.parse( dataString ) )
+    // ... do something with the data here!!!
+    //data string gives a parsible string with the response
+    let entryToDelete = JSON.parse( dataString )
+
+    for(let i =0;i < appdata.length; i++) {
+      if(appdata[i].yourname === entryToDelete.delete) {
+        appdata.splice(i,1)
+      }
+    }
+
+    //DECREMENT calculate how many other poeple answered that song 
+    for(let i =0;i < appdata.length; i++) {
+
+      if(appdata[i].yoursong === entryToDelete.yoursong) {
+        console.log("HEREEEE")
+        console.log(appdata[i].count)
+        appdata[i].count = appdata[i].count - 1
+        console.log("After")
+        console.log(appdata[i].count)
+      }
+    }
+    
+
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })   //send back simple value
+    response.end(JSON.stringify( appdata )) //send back to the client.. this is sending back just a test string
+  })
+}
+
 const handlePost = function( request, response ) {
   let dataString = ''
 
@@ -37,13 +78,28 @@ const handlePost = function( request, response ) {
       dataString += data 
   })
 
+  //data recieved, end event
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+    let newEntry = JSON.parse( dataString )
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    //calculate how many other poeple answered that song
+    let songCount = 1
+    for(let i =0;i < appdata.length; i++) {
+      if(appdata[i].yoursong === newEntry.yoursong) {
+        songCount +=1
+      }
+    }
+    
+    // console.log( "songCount" )
+    appdata.push( newEntry )
+
+    newEntry.count = songCount
+
+    console.log(newEntry)
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })   //send back simple value
+    response.end(JSON.stringify( appdata )) //send back to the client.. this is sending back just a test string
   })
 }
 

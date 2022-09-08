@@ -1,1 +1,39 @@
-/*Style your own assignment! This is fun! */
+/*Style your own assignment! This is fun? */
+h1{
+    text-align: center;
+}
+h2{
+    text-align: center;
+    width: 87%
+}
+body{
+    background-color: #c4c4c4fa;
+    font-family: 'Roboto Mono', monospace;
+}
+button{
+    background-color: #71ce68fa;
+    font-family: 'Roboto Mono', monospace;
+}
+input {
+    padding-right: 75%;
+    width: 25%;
+    background-color: #a19d9d;
+}
+table, th, td{
+    border: 1px solid; 
+}
+
+form, br{
+    display: inline-block;
+    padding-right: 40%;
+}
+iframe {
+    vertical-align:top;
+    display: inline-block;
+    border: 1px solid green;
+    text-align: right;
+}
+
+.container {
+    flex-flow: column wrap;
+}
