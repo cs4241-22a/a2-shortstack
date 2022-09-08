@@ -27,7 +27,9 @@ table {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+
   width: 60%;
+
   color: #599FF0;
 }
 
@@ -35,7 +37,9 @@ th, td, tr {
   border: 2px solid;
   margin: 2%;
   color: #E9DDFA;
+
   font-size: 22px;
+
 
 }
 
@@ -74,7 +78,9 @@ label {
   font-size: 18px;
 }
 
+
 h1 {
   color: #D45C50;
   font-size: 48px;
 }
+

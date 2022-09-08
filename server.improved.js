@@ -11,6 +11,7 @@ const appdata = [
   // { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   // { 'model': 'ford', 'year': 1987, 'mpg': 14}
 
+
   // Starting data
 
   {
@@ -44,6 +45,7 @@ const server = http.createServer(function (request, response) {
     handleGet(request, response);
   } else if (request.method === "POST") {
     handlePost(request, response);
+
   }
 });
 
@@ -149,6 +151,7 @@ function time_duration(start, end) {
     }
   }
 
+
   // Return
   return (
     dur_hour.toString() +
@@ -158,4 +161,3 @@ function time_duration(start, end) {
   ).toString();
 }
 
-server.listen(process.env.PORT || port);

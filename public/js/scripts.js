@@ -1,5 +1,6 @@
 // Submit button
 const submit = function (e) {
+
   // prevent default form action from being carried out
   e.preventDefault();
 
@@ -159,3 +160,4 @@ function delete_row(id) {
 
   return false;
 }
+
