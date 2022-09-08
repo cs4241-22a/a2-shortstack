@@ -1,72 +1,165 @@
-const http = require( 'http' ),
-      fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
-      mime = require( 'mime' ),
-      dir  = 'public/',
-      port = 3000
+const http = require("http"),
+  fs = require("fs"),
+  // IMPORTANT: you must run `npm install` in the directory for this assignment
+  // to install the mime library used in the following line of code
+  mime = require("mime"),
+  dir = "public/",
+  port = 3000;
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let tag2 = -1
 
-const server = http.createServer( function( request,response ) {
-  if( request.method === 'GET' ) {
-    handleGet( request, response )    
-  }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+const appdata = []
+
+const server = http.createServer(function (request, response) {
+  if (request.method === "GET") {
+    handleGet(request, response);
+  } else if (request.method === "POST") {
+    handlePost(request, response);
   }
-})
+});
 
-const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+const update_tags = function(){
+  for (let i = 0; i < appdata.length; i++) {
+    appdata[i].tag = i
   }
 }
 
-const handlePost = function( request, response ) {
-  let dataString = ''
+const handleGet = function (request, response) {
+  const filename = dir + request.url.slice(1);
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+  if (request.url === "/") {
+    sendFile(response, "public/index.html");
+  } else if (request.url === "/groceryData") {
+    response.end(JSON.stringify(appdata));
+  } else {
+    sendFile(response, filename);
+  }
+};
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+const handlePost = function (request, response) {
+  if (request.url === "/submit") {
+    addRow(request, response);
+  } else if (request.url === "/remove") {
+    delRow(request, response);
+  } else if (request.url === "/update") {
+    editRow(request, response);
+  } else if (request.url === "/clear") {
+    clearall(request, response);
+  }
+};
 
-    // ... do something with the data here!!!
+const clearall = function (request, response) {
+  let dataString = "";
+  request.on("data", function (data) {
+    dataString += data;
+  });
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
-  })
-}
+  request.on("end", function () {
+    let index = -1;
+    appdata.splice(0,appdata.length);
+    update_tags();
+    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    //response.end( JSON.stringify( appdata ) )
+    response.end();
 
-const sendFile = function( response, filename ) {
-   const type = mime.getType( filename ) 
+  });
+};
 
-   fs.readFile( filename, function( err, content ) {
+const editRow = function (request, response) {
+  update_tags();
+  let dataString = "";
+  request.on("data", function (data) {
+    dataString += data;
+  });
 
-     // if the error = null, then we've loaded the file successfully
-     if( err === null ) {
+  request.on("end", function () {
+    const data = JSON.parse(dataString);
+    let tag = data.tag;
+    let item = data.item;
+    let cost = data.cost;
+    let quan = data.quan;
+    for (let i = 0; i < appdata.length; i++) {
+      if (String(appdata[i].tag) == String(tag)) {
+        appdata[i].item = item;
+        appdata[i].quan = quan;
+        appdata[i].cost = cost;
+        appdata[i].tag = tag;
+      }
+    }
 
-       // status code: https://httpstatuses.com
-       response.writeHeader( 200, { 'Content-Type': type })
-       response.end( content )
+    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    //response.end( JSON.stringify( appdata ) )
+    response.end();
+  });
+};
 
-     }else{
+const delRow = function (request, response) {
+  update_tags();
+  let dataString = "";
+  request.on("data", function (data) {
+    dataString += data;
+  });
 
-       // file not found, error code 404
-       response.writeHeader( 404 )
-       response.end( '404 Error: File Not Found' )
+  request.on("end", function () {
+    let index = -1;
+    const data = JSON.parse(dataString);
+    let tag3 = data.tag;
+    console.log("REMOVING "  + tag2)
+    for (let i = 0; i < appdata.length; i++) {
+      if (String(appdata[i].tag) == String(tag3)) {
+        index = i;
+        break;
+      }
+    }
+    appdata.splice(index, 1);
+    const newdata = JSON.stringify(appdata);
+    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    //response.end( JSON.stringify( appdata ) )
+    response.end();
+  });
+};
 
-     }
-   })
-}
+const addRow = function (request, response) {
+  update_tags();
+  tag2 = tag2 + 1;
+  let dataString = "";
+  request.on("data", function (data) {
+    dataString += data;
+  });
 
-server.listen( process.env.PORT || port )
+  request.on("end", function () {
+    const data = JSON.parse(dataString);
+
+    const addItem = {
+      item: data.item,
+      quan: data.quan,
+      cost: data.cost,
+      tag: tag2, //
+    };
+
+    appdata.push(addItem);
+
+    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    //response.end( JSON.stringify( appdata ) )
+    response.end();
+  });
+};
+
+const sendFile = function (response, filename) {
+  const type = mime.getType(filename);
+
+  fs.readFile(filename, function (err, content) {
+    // if the error = null, then we've loaded the file successfully
+    if (err === null) {
+      // status code: https://httpstatuses.com
+      response.writeHeader(200, { "Content-Type": type });
+      response.end(content);
+    } else {
+      // file not found, error code 404
+      response.writeHeader(404);
+      response.end("404 Error: File Not Found");
+    }
+  });
+};
+
+server.listen(process.env.PORT || port);
