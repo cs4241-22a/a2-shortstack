@@ -95,7 +95,7 @@ This site provides and easy to way to build out a movie and TV watchlist. The si
 - Click on the "+ New Movie" button to expand the search function.
 - Enter a desired movie or TV show title into the search box and hit enter (or click search)
 - A list of titles matching the search query will appear below the search bar. To add one of these movies to the watch list, click the blue "+" to the right of the title.
-- The title will now appear above in the watchlist. To remove it from this list, click the red "-" button to the right of the title.
+- The title will now appear above in the watchlist. To remove it from this list, click the red "-" button to the right of the title. To change the order of the list, use the arrow buttons to the right of the "-" button.
 - Check out the IMDB page for the title by clicking the name in your watchlist.
 - The search feature can be minimized by clicking on the "+ New Movie" button again.
 - Hover over the *great* descriptor before the search bar for an easter egg :)
@@ -130,8 +130,20 @@ This site provides and easy to way to build out a movie and TV watchlist. The si
 
 ## Technical Achievements
 - **Tech Achievement 1**: This is a single page web app that always displays the current state of the internal data (current watchlist) on the server. This is done with a REST API to GET the current list, and to POST add or remove commands for specific titles. These API calls are controlled by the "+" and "-" buttons next to the titles. Sending an add or remove request returns the updated movie list and the client list is updated accordingly. Additionally, the search function uses a term provided by the user and fetches a movie list from ombapi, a movie database.
-
-### Design/Evaluation Achievements
 - **Single Page App**: The webpage updates are all done through js and do not require a reload to display the current dataset. When the client updates the server dataset through an add or remove, the server responds with an updated watchlist, which is rendered on the page by modifying the DOM. This was challenging in pure JS since DOM modification and creating elements is not intuitive or easy. By looping over each entry in the dataset and building styled elements around the information, I was able to create a good looking list of data.
 - **Search Feature**: The movie search feature is done on the serverside after the user submits a query on the client. The query is translated into an API call to ombapi which returns a JSON object with movies related to the search term. These results are passed to the client, where the results list is rendered in a similar manner to the watchlist. This task took debugging on Glitch, since it worked on local build, but not hosted. The solution was to define the version of node Glitch would use, since the fetch library did not work with the version of Node Glitch was using out of the box.
+
+### Design/Evaluation Achievements
+
+#### Evaluation #1
+1. Gabe Camacho
+2. The user did not encounter issues during the study with the website design
+3. They wished the add movie button was more blue
+4. This makes sense, since all the add buttons are blue and all the delete buttons are red. Adding movies should be consistently blue
+
+#### Evaluation #2
+1. Abby Hyde
+2. The user was minorly confused about how to add movies to the list, saying the opening button was not intuative.
+3. The user confused the list box with the entry box, saying it looks like a text field
+4. In response, I centered the text explaining how to add the first movie, and it no longer looks like a textfield at first glance. 
 
