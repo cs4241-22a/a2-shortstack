@@ -1,3 +1,8 @@
+import {IncomingMessage, ServerResponse} from "http";
+import {constants} from "os";
+import ErrnoException = NodeJS.ErrnoException;
+import {Serializer} from "v8";
+
 const http = require( 'http' ),
 	  fs   = require( 'fs' ),
 	  // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -12,7 +17,7 @@ const appdata = [
 	{ 'model': 'ford', 'year': 1987, 'mpg': 14}
 ];
 
-const server = http.createServer( function( request,response ) {
+const server = http.createServer( function( request: IncomingMessage, response: ServerResponse ) {
 	if( request.method === 'GET' ) {
 		handleGet( request, response );
 	} else if( request.method === 'POST' ){
@@ -20,8 +25,11 @@ const server = http.createServer( function( request,response ) {
 	}
 });
 
-const handleGet = function( request, response ) {
-	const filename = dir + request.url.slice( 1 );
+const handleGet = function( request: IncomingMessage, response: ServerResponse ) {
+	if (request === undefined)
+		throw new TypeError("request cannot be undefined");
+
+	const filename = dir + request.url?.slice( 1 );
 
 	if( request.url === '/' ) {
 		sendFile( response, 'public/index.html' );
@@ -30,7 +38,7 @@ const handleGet = function( request, response ) {
 	}
 }
 
-const handlePost = function( request, response ) {
+const handlePost = function( request: IncomingMessage, response: ServerResponse ) {
 	let dataString = '';
 
 	request.on( 'data', function( data ) {
@@ -47,18 +55,18 @@ const handlePost = function( request, response ) {
 	});
 }
 
-const sendFile = function( response, filename ) {
+const sendFile = function( response: ServerResponse, filename: string ) {
 	const type = mime.getType( filename )
 
-	fs.readFile( filename, function( err, content ) {
+	fs.readFile( filename, function( err: ErrnoException, content: Buffer ) {
 		// if the error = null, then we've loaded the file successfully
 		if( err === null ) {
 			// status code: https://httpstatuses.com
-			response.writeHeader( 200, { 'Content-Type': type });
+			response.writeHead( 200, { 'Content-Type': type });
 			response.end( content );
-		}else{
+		} else {
 			// file not found, error code 404
-			response.writeHeader( 404 );
+			response.writeHead( 404 );
 			response.end( '404 Error: File Not Found' );
 		}
 	})
