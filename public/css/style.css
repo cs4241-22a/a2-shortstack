@@ -1,1 +1,86 @@
 /*Style your own assignment! This is fun! */
+
+@font-face {
+  font-family: "PlayfairDisplay"; /* This is an arbitrary name -- whatever works for you */
+  src: url("https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/PlayfairDisplay.ttf?v=1662179561366")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "PlayfairDisplay-BoldItalics";
+  src: url("https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/PlayfairDisplay.ttf?v=1662179561366")
+    format("truetype");
+
+}
+
+body {
+  background-color: #e4e1fa;
+  background-image: url("https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/background.jpg?v=1662267532169");
+  background-size: cover;
+  font-family: "PlayfairDisplay", sans-serif;
+  text-align: center;
+} /*Style your own assignment! This is fun! */
+
+
+table {
+  border: 2px solid;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 60%;
+
+  color: #599FF0;
+}
+
+th, td, tr {
+  border: 2px solid;
+  margin: 2%;
+  color: #E9DDFA;
+
+  font-size: 22px;
+
+
+}
+
+.grid_container {
+  display: grid;
+  row-gap: 10px;
+  column-gap: 2px;
+  grid-gap: 10px;
+  justify-content: center;
+  padding-top: 20px;
+  padding-right: 10%;
+  grid-template-columns: 30% 40%;
+  grid-template-rows: auto;
+  margin: auto;
+}
+
+input,
+select,
+button {
+
+  font-family: "PlayfairDisplay-BoldItalics", sans-serif;
+}
+
+form {
+  font-family: "PlayfairDisplay-BoldItalics", sans-serif;
+}
+
+#activity, #date, #time_started, #time_ended, #description {
+  font-family: "PlayfairDisplay-BoldItalics", sans-serif;
+  color: #F58E8E;
+  font-size: 18px;
+}
+
+label {
+  color: #FAEEB9;
+  font-size: 18px;
+}
+
+
+h1 {
+  color: #D45C50;
+  font-size: 48px;
+}
+
