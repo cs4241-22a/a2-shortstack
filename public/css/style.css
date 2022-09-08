@@ -6,6 +6,13 @@
     format("truetype");
 }
 
+@font-face {
+  font-family: "PlayfairDisplay-BoldItalics";
+  src: url("https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/PlayfairDisplay.ttf?v=1662179561366")
+    format("truetype");
+
+}
+
 body {
   background-color: #e4e1fa;
   background-image: url("https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/background.jpg?v=1662267532169");
@@ -15,9 +22,6 @@ body {
   font-size: 1.2em;
 } /*Style your own assignment! This is fun! */
 
-.activity {
-  text-align: center;
-}
 
 table {
   border: 2px solid;
@@ -32,6 +36,7 @@ th, td, tr {
   border: 2px solid;
   margin: 2%;
   color: #E9DDFA;
+  font-size: 22px;
 
 }
 
@@ -60,7 +65,18 @@ form {
   font-family: "PlayfairDisplay", sans-serif;
 }
 
-/*
-.grid_item {
+#activity, #date, #time_started, #time_ended, #description {
+  font-family: "PlayfairDisplay-BoldItalics", sans-serif;
+  color: #F58E8E;
+  font-size: 18px;
+}
 
-} */
+label {
+  color: #FAEEB9;
+  font-size: 18px;
+}
+
+h1 {
+  color: #D45C50;
+  font-size: 48px;
+}
