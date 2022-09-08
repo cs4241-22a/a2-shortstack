@@ -29,5 +29,7 @@ Once the user decides to submit or delete the reviews, the website will automati
 Oliver Chen:
 The design is very eye-catching and the operation is smooth, but the experience when filling in the score is not very good: the system does not directly remind the user to only enter numbers, which causes the user to try to enter letters many times during the test; lack of the edit function, others are very good.
 In the future, there will be an opportunity to complete the edit function.
+
+
 Zihang Chen:
 The UI is very attractive, the basic functions are there, and the review (data) entered after the page is refreshed still exists. However, the user successfully enters a score greater than 100 (out of range) and the form will return an illegal input prompt. I would consider alerting the user via a popup window in the future when it detects that the user is trying to enter a number outside the range, and preventing this "offending" data from being uploaded to the service.
