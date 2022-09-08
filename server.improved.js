@@ -9,9 +9,9 @@ const http = require('http'),
   port = 3000
 
 const appdata = [
-  { "todo": "do dishes", "time": "2022-10-21T11:02"},
-  { "todo": "webware assignment", "time": "2022-10-22T11:02"},
-  { "todo": "clean room", "time": "2022-10-23T11:02"},
+  { "todo": "do dishes", "time": "2022-10-21T11:02", priority: '0' },
+  { "todo": "webware assignment", "time": "2022-10-22T11:02", priority: '1' },
+  { "todo": "clean room", "time": "2022-10-23T11:02" , priority: '2'},
 ];
 
 const server = http.createServer(function (request, response) {
@@ -75,19 +75,28 @@ const handlePost = function (request, response) {
     if (appdata.length > 0) {
       for (let i = 0; i < appdata.length; i++) {
         let date1 = new Date(appdata[i].time);
-        console.log(appdata)
         if (dataTime < date1) {
+          data.priority = i.toString();
           appdata.splice(i, 0, data);
-          console.log(appdata)
+          changePriorities(i);
           break;
         }
+
       }
     } else {
+      data.priority = '0';
       appdata.splice(0, 0, data);
     }
     response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
     response.end()
   })
+}
+
+function changePriorities(index){
+  for (let i = index; i < appdata.length; i++) {
+    appdata[i].priority = (i+1).toString();
+  }
+  console.log(appdata);
 }
 
 const sendFile = function (response, filename) {
