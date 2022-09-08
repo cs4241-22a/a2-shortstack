@@ -1,6 +1,5 @@
 Trang Pham
 
-
 ## Glitch Site
 https://a2-trangpham68.glitch.me/
 
@@ -20,7 +19,6 @@ a result table -> display all data with live update when data is added or delete
 form allow user to Add and delete
 Use font Sofia and Roboto
 Use a stylesheet style.css file and a javascript
-
 
 ## Technical Achievements
 - **Tech Achievement 1**: the app is a single-page app taht show the form for user to add and delete as well as the current updated state of the server-site data including the dervied data.
