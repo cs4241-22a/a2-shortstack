@@ -36,23 +36,33 @@ function renderMessage(message: Message): HTMLDivElement {
 			method: 'DELETE',
 			body
 		})
-			.then(response => rootDiv.remove());
+			.then(response => {
+				rootDiv.remove();
+				refreshMessages();
+			});
 	}
 
 	return rootDiv;
 }
 
 // Get prior messages upon page load
-fetch('/messages')
-	.then(response => response.json())
-	.then(json => {
-		console.log(json);
+function refreshMessages(entryAnimation = false) {
+	fetch('/messages')
+		.then(response => response.json())
+		.then(json => {
+			messagesElement.innerHTML = '';
 
-		for (const message of json) {
-			const newElement = renderMessage(message);
-			messagesElement.appendChild(newElement);
-		}
-	});
+			for (const message of json) {
+				const newElement = renderMessage(message);
+				if (!entryAnimation)
+					newElement.style.animation = 'none 0'
+
+				messagesElement.appendChild(newElement);
+			}
+		});
+}
+
+refreshMessages(true);
 
 // Handle sending a new message
 const submit = function (e: Event) {
@@ -76,6 +86,7 @@ const submit = function (e: Event) {
 
 			// Clear text from input
 			message.value = "";
+			refreshMessages();
 		});
 
 	return false;
@@ -99,3 +110,5 @@ setChatHeight();
 window.addEventListener('resize', ev => {
 	setChatHeight();
 });
+
+window.addEventListener('focus', () => refreshMessages())

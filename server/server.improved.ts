@@ -74,6 +74,8 @@ const handlePost = function( request: IncomingMessage, response: ServerResponse 
 		messagesDB.insert(newMessage, (err, newDoc) => {
 			response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
 			response.end(dataString);
+			console.log(`User ${request.socket.remoteAddress} posted message`);
+			console.log(newMessage);
 		});
 	});
 }
@@ -85,7 +87,9 @@ function handleDelete(request: IncomingMessage, response: ServerResponse) {
 
 		// Remove from database by sorting by date then removing index
 		messagesDB.find({}).sort({timeCreated: 1}).exec((err, docs: Message[]) => {
-			messagesDB.remove(docs[data.index])
+			messagesDB.remove(docs[data.index]);
+			console.log(`User ${request.socket.remoteAddress} deleted item`);
+			console.log(docs[data.index]);
 		});
 	})
 		.on( 'end', function() {
