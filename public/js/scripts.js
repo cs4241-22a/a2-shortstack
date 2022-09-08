@@ -10,10 +10,10 @@ let beginTime;
 let clickable = false; 
 
 function beginGame() {
-    beginTime = new Date().getTime();
     begin.style.visibility = "hidden";
     score = 0;
     clickable = true;
+    beginTime = new Date().getTime();
 
     let timerTracker = setInterval(function() {
         let count = (new Date().getTime() - beginTime) / 1000;
