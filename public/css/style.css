@@ -11,7 +11,7 @@ h1 {
   font-weight: 48;
 }
 
-body {
+html{
   background-image: url("https://cdn.glitch.global/97d0aa55-f508-4ad6-8727-a9ae2438189c/lukas-blazek-GnvurwJsKaY-unsplash.jpg?v=1662408164982");
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -24,13 +24,29 @@ img {
 
 form {
   text-align: center;
-  background-color: gray;
+  border: 2px solid #647847;
+  background-color: #fbdf9e;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+  width: 50%
 }
 
 input {
-  background-color: white;  
+  background-color: fbdf9e;
+  border: 2px solid #647847;
+  padding: 3px;
+  
 }
 
-table, tr, td{
-  background-color: brown;
+table, th, td {
+  font-family: "Caveat";
+  border-collapse: separate;
+  border: 2px solid #647847;
+  background-color: #fbdf9e;
+  text-align: center;
+  padding: 10px;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
 }
