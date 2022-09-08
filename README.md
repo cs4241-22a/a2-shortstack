@@ -6,8 +6,10 @@ Due: September 8th, by 11:59 AM.
 Student: Lena Dias
 ---
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+## a2-lenadias
+A small to-do list that fetches data from a server and displays it on-screen.
+Flexbox and justify-content: center; used for positioning.
+Accessible at https://a2-lenadias.glitch.me
 
 ## Technical Achievements
 - **Single-page app**: The submission and display of data is all handled in a single page, showing the current state of server-side data in the table.
