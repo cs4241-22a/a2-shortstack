@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Ananya Gopalan",
+  "version": "2",
+  "description": "Homework tracker ",
+  "author": "Ananya Gopalan",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.4.6"
   }
 }
