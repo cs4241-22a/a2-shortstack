@@ -11,32 +11,39 @@ body {
     color: var(--budgeteer-cream);
     overflow: hidden;
     font-family: 'Share Tech Mono', monospace;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
     background-image: url("../svg/goldPeaks.svg");
     background-position-y: bottom;
-    transition: all 1s ease;
+    height: 100vh;
+    width: 100vw;
 }
 
 .title-page {
     display: flex;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
-    transform: translateY(0);
-    transition: transform 1s ease;
-    border: 2px solid red;
+    transition: all 0.5s ease;
 }
 
 .title-page.hidden {
-    transform: translateY(-100vh);
+    height: 0px;
+    opacity: 0;
 }
 
 h1 {
     font-size: 100px;
     margin-bottom: 0px;
-    margin-top: 10px;
+    margin-top: 0px;
     user-select: none;
 }
 
@@ -56,12 +63,19 @@ button {
     opacity: 1;
     transition: opacity 1s ease, transform 0.5s ease;
     text-decoration: none;
+    margin-bottom: 20px;
 }
 
 button.dark {
     color: var(--budgeteer-cream);
     border: solid var(--budgeteer-yellow) 3px;
     background: var(--budgeteer-black1);
+}
+
+button.light {
+    color: var(--budgeteer-black2);
+    border: solid var(--budgeteer-black2) 3px;
+    background: var(--budgeteer-cream);
 }
 
 button.dark:hover {
@@ -71,6 +85,7 @@ button.dark:hover {
 
 button.large {
     font-size: 32px;
+    width: 8em;
 }
 
 button.hidden {
@@ -83,10 +98,84 @@ button:hover {
 
 .main-page {
     transition: all 0.5s ease;
-    height: 100vh;
-    border: 2px solid green;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .main-page.hidden {
     height: 0px;
+    opacity: 0;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section.top {
+    height: 30vh;
+    margin-top: 5vh;
+    margin-bottom: 0px;
+}
+
+section.bottom {
+    height: 20vh;
+    margin-bottom: 10vh;
+    margin-top: 0px;
+}
+
+section.middle {
+    height: 35vh;
+    width: 30vw;
+    border: 4px solid var(--budgeteer-cream);
+    margin-bottom: 3vh;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+section.middle.invisible {
+    opacity: 0;
+}
+
+form {
+    margin-top: 0px;
+    padding: 0;
+    margin-bottom: 2px;
+}
+
+select {
+    width: 100%;
+    background-color: var(--budgeteer-black2);
+    color: var(--budgeteer-cream);
+    border-radius: 0px;
+    border: 1px solid var(--budgeteer-cream);
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    background-color: var(--budgeteer-black2);
+    color: var(--budgeteer-cream);
+    border-radius: 0px;
+    border: 1px solid var(--budgeteer-cream);
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+input.error {
+    border: 1px solid red;
+}
+
+select.error {
+    border: 1px solid red;
 }

@@ -10,15 +10,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="title-page" class="title-page hidden">
-      <h1 class="shimmer">Budgeteer</h1>
-      <h2>How much money are you earning (or losing) every second?</h2>
-      <button id="get-started-button" class="large hidden dark">find out</button>
-    </div>
-    <div id="main-page" class="main-page hidden">
-      <h2 id="earning-losing-message">EARNING/LOSING</h2>
-      <h1 id="amount-message">AMOUNT</h1>
-      <h2>every second.</h2>
+    <div class="app-container">
+      <div id="title-page" class="title-page hidden">
+        <h1>Budgeteer</h1>
+        <h2>How much money are you earning (or losing) every second?</h2>
+        <button id="get-started-button" class="large hidden dark">find out</button>
+      </div>
+      <div id="main-page" class="main-page hidden">
+        
+        <section class="top">
+          <h2 id="earning-losing-message">EARNING/LOSING</h2>
+          <h1 id="amount-message">AMOUNT</h1>
+          <h2 id="every-second-message">EVERY SECOND</h2>
+        </section>
+
+        <section id="form" class="middle invisible">
+          <h2 id="form-title">FORM TITLE</h2>
+          <form action="">
+            <label for="title">Title:</label><br>
+            <input type="text" name="title" id="title"><br>
+            <label for="amount">Amount:</label><br>
+            <input type="text" name="amount" id="amount"><br>
+            <label for="time-unit">Time Unit:</label><br>
+            <select name="time-unit" id="time-unit">
+              <option disabled selected value> -- Choose One -- </option>
+              <option value="day">Daily</option>
+              <option value="day">Weekly</option>
+              <option value="day">Monthly</option>
+              <option value="day">Yearly</option>
+            </select><br>
+          </form>
+          <button id="submit-button" class="small dark">submit</button>
+          <div id="table"></div>
+        </section>
+
+        <section  class="bottom">
+          <button id="add-income-button" class="large light">add income</button>
+          <button id="add-expense-button" class="large light">add expense</button>
+          <button id="view-table-button" class="large light">view table</button>
+        </section>
+      </div>
     </div>
   </body>
 </html>

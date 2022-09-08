@@ -6,16 +6,74 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+const appData = [
+  {
+    positive: true,
+    amount: 100,
+    timeUnit: "day",
+  },
+  {
+    positive: true,
+    amount: 1000,
+    timeUnit: "week",
+  },
+  {
+    positive: true,
+    amount: 100,
+    timeUnit: "year",
+  },
+  {
+    positive: false,
+    amount: 200,
+    timeUnit: "day",
+  },
 ]
+
+function getDelta () {
+
+  function getMoneyPerSecond(d) {
+    let unitsPerYear = null;
+    switch (d.timeUnit) {
+      case "day":
+        unitsPerYear = 356;
+        break;
+      case "week":
+        unitsPerYear = 40;
+        break;
+      case "month":
+        unitsPerYear = 12;
+        break;
+      case "year":
+        unitsPerYear = 1;
+        break;
+      default:
+        unitsPerYear = -1;
+        break;
+    }
+    const moneyPerYear = d.amount * unitsPerYear;
+    const moneyPerDay = moneyPerYear / 365.25;
+    const moneyPerHour = moneyPerDay / 24;
+    return (moneyPerHour / 3600);
+  }
+
+  // Add up all money from data
+  let totalDelta = 0;
+  for (const dataPoint of appData) {
+    if (dataPoint.positive) {
+      totalDelta += getMoneyPerSecond(dataPoint);
+    } else {
+      totalDelta -= getMoneyPerSecond(dataPoint);
+    }
+  }
+
+  return totalDelta;
+}
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
+    console.log("Post received")
     handlePost( request, response ) 
   }
 })
@@ -38,12 +96,14 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    if (request.url === "/submit") {
+      console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+      // ... do something with the data here!!!
+  
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end()
+    }
   })
 }
 
@@ -70,3 +130,4 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+console.log("Server started!");
