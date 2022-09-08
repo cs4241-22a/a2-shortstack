@@ -7,10 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+   
 ]
+let playlistLength = 0
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -38,11 +37,19 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    console.log( JSON.parse( dataString ).duration )
 
     // ... do something with the data here!!!
 
+    let newEntry = JSON.parse(dataString)
+    newEntry.playlistDur = parseInt(newEntry.duration) + playlistLength
+    playlistLength = newEntry.playlistDur
+    console.log( newEntry )
+    appdata.push( newEntry )
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write(JSON.stringify(appdata))
+    console.log(appdata)
     response.end()
   })
 }
