@@ -14,7 +14,6 @@ html {
 #header {
     color: var(--white);
     font-size: 5rem;
-    font-family: 'Playfair Display', serif;
 }
 
 body {
@@ -23,6 +22,7 @@ body {
     align-items: center;
     height: 100%;
     background-color: var(--bg);
+    font-family: 'Comfortaa', cursive;
 }
 
 form{
@@ -44,7 +44,7 @@ form button{
     border: none;
     background-color: var(--text);
     color: var(--bg);
-    font-family: 'Playfair Display', serif;
+    font-family: 'Comfortaa', cursive;
 }
 
 form button:hover {
@@ -64,7 +64,7 @@ form input {
     padding-left: 1rem;
     padding-right: 1rem;
     border: none;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Comfortaa', cursive;
 }
 
 .edit-imgs {
@@ -91,12 +91,12 @@ img:hover{
     padding-right: 1rem;
     border-width: 0.5rem;
     border: none;
-    font-family: 'Playfair Display', serif;
 }
 
 ::placeholder {
     text-align: center;
     color: var(--bg);
+    font-family: 'Comfortaa', cursive;
 }
 
 details {
@@ -188,11 +188,6 @@ summary {
 .container h2 {
     color: var(--bg);
     font-size: 2rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.container p {
-    font-family: 'Playfair Display', serif;
 }
 
 .priority {
