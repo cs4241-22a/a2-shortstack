@@ -71,7 +71,7 @@ function updatePriority(dueDate,currDate){
   }
 
 }
-
+          
 window.onload = function () {
   const button = document.querySelector("button");
   button.onclick = submit;

@@ -59,7 +59,7 @@ const handlePost = function (request, response) {
     if(request.url === "/submit"){
       console.log("New INFO DATA: ", newInfoData);
       appdata.push(newInfoData);
-    } 
+    }
       response.writeHead(200, "OK", { "Content-Type": "text/plain" });
       response.end(JSON.stringify(appdata));
     

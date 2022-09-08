@@ -11,10 +11,10 @@ h1 {
   font-weight: 48;
 }
 
-html{
+body{
   background-image: url("https://cdn.glitch.global/97d0aa55-f508-4ad6-8727-a9ae2438189c/lukas-blazek-GnvurwJsKaY-unsplash.jpg?v=1662408164982");
+  background-color: #A69586;
   background-size: 100% auto;
-  background-repeat: no-repeat;
 }
 
 img {
@@ -45,7 +45,7 @@ table, th, td {
   border: 2px solid #647847;
   background-color: #fbdf9e;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
   width: 25%;
   margin-left: auto;
   margin-right: auto;
