@@ -1,41 +1,35 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+<head>
+	<title>CS4241 Assignment 2</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+<body>
+	<div class="logo">
+		<img src="https://www.pikpng.com/pngl/b/346-3464524_wpilogo-worcester-polytechnic-institute-wpi-logo-clipart.png"
+			alt="WPI-Logo">
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+	</div>
+	<h1> -- Todo List -- </h1>
+	<div id="task-input">
+		<form id="new-task-form">
+			<input type="text" name="new-task-input" id="new-task-input" onkeyup="success()" placeholder="What do you have planned?" />
+			<input type="datetime-local" id="new-task-time" name="new-task-time" value="2018-06-12T19:30"
+				min="2022-09-01T00:00" max="2024-09-01T00:00">
+			<input type="submit" id="new-task-submit" value="ADD" disabled/>
+			<input type="button" id="sortButton" value="Sort" />
+		</form>
+	</div>
+	<div id="tasks">
 
-    return false
-  }
+	</div>
+</body>
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+<script src="./js/scripts.js"></script>
 
-  </script>
 </html>

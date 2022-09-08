@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "todo-list",
+  "version": "0.1.0",
+  "description": "program for organizing todos",
+  "author": "Tobias Mack",
   "scripts": {
     "start": "node server.improved.js"
   },
