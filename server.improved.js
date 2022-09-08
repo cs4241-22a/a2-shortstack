@@ -7,9 +7,6 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -42,8 +39,23 @@ const handlePost = function( request, response ) {
 
     // ... do something with the data here!!!
 
+    let entry = JSON.parse( dataString)
+    if (entry.priority == '1'){
+      entry.reaction = ':)'
+    }
+    else if(entry.priority == '2'){
+      entry.reaction = ':/'
+    }
+    else(entry.reaction = ':(')
+
+    console.log(entry)
+    appdata.push(entry)
+
+    
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    console.log(appdata)
+    response.end(JSON.stringify(appdata))
   })
 }
 

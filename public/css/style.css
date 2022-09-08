@@ -1,1 +1,35 @@
-/*Style your own assignment! This is fun! */
+body
+{
+    background-color:#F8F7FF;
+    font-family: 'Maven Pro', sans-serif;
+}
+
+h1
+{
+    text-align:center;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+.flex-container > div 
+{
+    width: 100px;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+}
+
+#todo_list
+{
+    background-color: #B8B8FF;
+}
+
+#results
+{
+    text-align: center;
+    background-color: #B8B8FF;
+}
