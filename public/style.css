@@ -1,0 +1,112 @@
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f2f5ff;
+    width: 1024px;
+    height: 60px;
+    color: #465362;
+}
+
+h2 {
+    margin-top: 10px;
+}
+
+body {
+    background-color: #465362;
+    font-family: Poppins, sans-serif;
+}
+
+
+table {
+    border-collapse: collapse;
+    border: 2px solid black;
+    letter-spacing: 1px;
+}
+
+td,
+th {
+    border: 1px solid black;
+    padding: 10px;
+    color: #465362;
+}
+
+.button {
+    display: flex;
+    font-weight: bold;
+    text-decoration: none;
+    align-items: center;
+    padding: 10px;
+    height: 30px;
+}
+.addResponseButton {
+    background-color: #bf5311;
+    padding: 5px;
+    height: 30px;
+    color: #ffffff;
+    font-family: Poppins, sans-serif;
+}
+
+.deleteButton {
+    font-family: Poppins, sans-serif;
+    background-color: #bedcfe;
+}
+
+.centerText {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.autoMargin {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+select, option {
+    font-family: Poppins, sans-serif;
+}
+
+#userDataBlock {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #bedcfe;
+}
+
+#tdeeTable {
+    margin-left: 30px;
+    margin-right:30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+}
+
+.inputField {
+    padding: 20px;
+    line-height: 1.6;
+}
+#main-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 350px;
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 20px;
+    color: #f49097;
+}
+
+
+
+
