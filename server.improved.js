@@ -1,72 +1,94 @@
-const http = require( 'http' ),
-      fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
-      mime = require( 'mime' ),
-      dir  = 'public/',
-      port = 3000
+const { createServer } = require('http')
+const { readFile } = require('fs')
+const { getType } = require('mime')
+const dir = 'public/'
+const port = 3000
+const people = new Map();
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+function getPerson(id, data) {
+    const {firstName, lastName} = data || people.get(id);
+    return {id, firstName, lastName, fullName: `${firstName} ${lastName}`};
+}
 
-const server = http.createServer( function( request,response ) {
-  if( request.method === 'GET' ) {
-    handleGet( request, response )    
-  }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
-  }
+function peopleResponse (response) {
+    const data = Array.from(people.entries()).map((x) => getPerson (...x));
+    response.writeHead( 200, "OK", {'Content-Type': 'application/json'});
+    response.end(JSON.stringify(data));
+}
+
+function personResponse (response, id) {
+    response.writeHead( 200, "OK", {'Content-Type': 'application/json'});
+    response.end(JSON.stringify(getPerson(id)));
+}
+
+const server = createServer( function( request,response ) {
+    if (request.method === 'GET' ) {
+        handleGet( request, response )    
+    } else if( request.method === 'POST' ){
+        handlePost( request, response ) 
+    } else if (request.method === 'DELETE') {
+        handleDelete (request, response)
+    }
 })
 
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
-  }
+    const filename = dir + request.url.slice( 1 ) 
+    let id;
+    if( request.url === '/' ) {
+        sendFile( response, 'public/index.html' )
+    } else if (request.url === '/people') {
+        peopleResponse(response);
+    } else {
+        sendFile( response, filename )
+    }
 }
 
 const handlePost = function( request, response ) {
-  let dataString = ''
+    let dataString = '';
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+    request.on( 'data', function( data ) {
+        dataString += data;
+    })
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    request.on( 'end', function() {
+        const {id, firstName, lastName} = JSON.parse(dataString);
+        console.log(id, firstName, lastName)
 
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
-  })
+        people.set(id, {firstName, lastName});
+        personResponse(response, id);
+    })
 }
 
-const sendFile = function( response, filename ) {
-   const type = mime.getType( filename ) 
+const handleDelete = function( request, response ) {
+    let id;
+    if (id = /\/people\/([0-9]+)/g.exec(request.url)) {
+        console.log(id[1])
+        people.delete(id[1]);
+    }
+    response.writeHeader(200);
+    response.end();
+}
 
-   fs.readFile( filename, function( err, content ) {
+function sendFile(response, filename) {
+    const type = getType(filename)
 
-     // if the error = null, then we've loaded the file successfully
-     if( err === null ) {
+    readFile(filename, function(err, content) {
 
-       // status code: https://httpstatuses.com
-       response.writeHeader( 200, { 'Content-Type': type })
-       response.end( content )
+        // if the error = null, then we've loaded the file successfully
+        if (err === null) {
 
-     }else{
+            // status code: https://httpstatuses.com
+            response.writeHeader(200, { 'Content-Type': type })
+            response.end(content)
 
-       // file not found, error code 404
-       response.writeHeader( 404 )
-       response.end( '404 Error: File Not Found' )
+        } else {
 
-     }
-   })
+            // file not found, error code 404
+            response.writeHeader(404)
+            response.end('404 Error: File Not Found')
+
+        }
+    })
 }
 
 server.listen( process.env.PORT || port )
