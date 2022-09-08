@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="/js/scripts.js"></script>
+    <title>Users Page</title>
+  </head>
+  <body>
+    
+    <h1 id="Title">Hw Tracker</h1>
+    <div id="header">
+      <a href="/">Add New Assignment</a>
+    </div>
+    <table id="users">
+      <tr>
+        <th>Class</th>
+        <th>Assignment</th>
+        <th>Time estimate for Assignment</th>
+        <th>Date added</th>
+        <th>Delete</th>
+      </tr>
+    </table>
+    <script>
+      let order = {
+        username: 0,
+        password: 1,
+        time: 2,
+        dateAdded: 3,
+      };
+      function deleteItem(id) {
+        let item = document.getElementById(id);
+        fetch("/delete", {
+          method: "POST",
+          body: JSON.stringify({ id: id }),
+        }).then(function (response) {
+          if (response.status === 200) {
+            alert("Successfully removed");
+            item.remove();
+          } else {
+            alert("Was not removed successfully, try again");
+          }
+        });
+      }
+
+      function reqUsers() {
+        let userData = null;
+        let table = document.getElementById("users");
+        fetch("/userList", {
+          method: "POST",
+        })
+          .then(function (response) {
+            return response.text();
+          })
+          .then(function (txt) {
+          console.log(JSON.parse(txt))
+            JSON.parse(txt).forEach((element) => {
+              let row = table.insertRow(-1);
+              let id = element.id;
+              row.id = id;
+              for (let key in order) {
+                //console.log(key + " , ")
+                console.log(order[key]);
+                console.log(key + " : " + element[key]);
+                let cell = row.insertCell(order[key]);
+                if (element[key] === -1) {
+                  cell.innerHTML ="value";
+                 
+                } else {
+                  cell.innerHTML = element[key];
+                }
+              }
+             
+              let delButton = document.createElement("button");
+              delButton.innerText = "Finished Assignment!";
+              delButton.onclick = () => deleteItem(id);
+              let buttonCell = row.insertCell(4);
+              buttonCell.appendChild(delButton);
+            });
+          });
+      }
+      reqUsers();
+     
+    </script>
+  </body>
+</html>
