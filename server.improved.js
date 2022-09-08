@@ -6,28 +6,57 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appData = [
+let appData = [
   {
     positive: true,
-    amount: 100,
-    timeUnit: "day",
-  },
-  {
-    positive: true,
-    amount: 1000,
+    title: "Bartending on Weekends",
+    amount: 600,
     timeUnit: "week",
+    id: 1,
   },
   {
     positive: true,
-    amount: 100,
+    title: "Investments",
+    amount: 300,
     timeUnit: "year",
+    id: 2,
+  },
+  {
+    positive: true,
+    title: "Birthday Money",
+    amount: 500,
+    timeUnit: "year",
+    id: 3,
   },
   {
     positive: false,
-    amount: 200,
-    timeUnit: "day",
+    title: "Spotify Subscription",
+    amount: 5.99,
+    timeUnit: "month",
+    id: 4,
   },
-]
+  {
+    positive: false,
+    title: "Netflix Subscription",
+    amount: 14.99,
+    timeUnit: "month",
+    id: 5,
+  },
+  {
+    positive: false,
+    title: "Child Support",
+    amount: 295,
+    timeUnit: "week",
+    id: 6,
+  },
+  {
+    positive: false,
+    title: "Magazine Subscription",
+    amount: 35,
+    timeUnit: "month",
+    id: 7,
+  }
+];
 
 function getDelta () {
 
@@ -59,11 +88,7 @@ function getDelta () {
   // Add up all money from data
   let totalDelta = 0;
   for (const dataPoint of appData) {
-    if (dataPoint.positive) {
-      totalDelta += getMoneyPerSecond(dataPoint);
-    } else {
-      totalDelta -= getMoneyPerSecond(dataPoint);
-    }
+    totalDelta += getMoneyPerSecond(dataPoint);
   }
 
   return totalDelta;
@@ -73,7 +98,7 @@ const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
-    console.log("Post received")
+    console.log("POST received!")
     handlePost( request, response ) 
   }
 })
@@ -81,9 +106,15 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
+  if ( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === "/table") {
+    console.log("Table fetch received")
+    response.end(JSON.stringify({ appData: appData }))
+  } else if (request.url === "/delta") {
+    console.log("Delta fetch received")
+    response.end(JSON.stringify({delta: getDelta()}))
+  } else {
     sendFile( response, filename )
   }
 }
@@ -97,12 +128,34 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     if (request.url === "/submit") {
-      console.log( JSON.parse( dataString ) )
+      const data = JSON.parse(dataString);
 
-      // ... do something with the data here!!!
-  
-      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end()
+      const newAppData = {
+        positive: data.amount >= 0 ? true : false,
+        title: data.title,
+        amount: data.amount,
+        timeUnit: data.timeUnit,
+        id: Date.now(),
+      }
+
+      appData.push(newAppData);
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+      const body = {
+        newDelta: getDelta(),
+      }
+      response.end(JSON.stringify(body));
+    }
+
+    if (request.url === "/delete") {
+      const data = JSON.parse(dataString);
+      const idToDelete = data.id;
+
+      appData = appData.filter(a => a.id !== idToDelete);
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+      const body = {
+        appData: appData,
+      }
+      response.end(JSON.stringify(body));
     }
   })
 }
@@ -130,4 +183,4 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
-console.log("Server started!");
+console.log("Server started on port " + (process.env.PORT ? process.env.PORT : port) + "!");

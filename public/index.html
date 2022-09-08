@@ -13,6 +13,7 @@
     <div class="app-container">
       <div id="title-page" class="title-page hidden">
         <h1>Budgeteer</h1>
+        <h3>By: Joe Dobbelaar</h3>
         <h2>How much money are you earning (or losing) every second?</h2>
         <button id="get-started-button" class="large hidden dark">find out</button>
       </div>
@@ -24,24 +25,38 @@
           <h2 id="every-second-message">EVERY SECOND</h2>
         </section>
 
-        <section id="form" class="middle invisible">
-          <h2 id="form-title">FORM TITLE</h2>
-          <form action="">
-            <label for="title">Title:</label><br>
-            <input type="text" name="title" id="title"><br>
-            <label for="amount">Amount:</label><br>
-            <input type="text" name="amount" id="amount"><br>
-            <label for="time-unit">Time Unit:</label><br>
-            <select name="time-unit" id="time-unit">
-              <option disabled selected value> -- Choose One -- </option>
-              <option value="day">Daily</option>
-              <option value="day">Weekly</option>
-              <option value="day">Monthly</option>
-              <option value="day">Yearly</option>
-            </select><br>
-          </form>
-          <button id="submit-button" class="small dark">submit</button>
-          <div id="table"></div>
+        <section class="middle">
+          <div id="form" class="form-container invisible">
+            <h2 id="form-title">FORM TITLE</h2>
+            <form action="">
+              <label for="title">Title:</label><br>
+              <input type="text" name="title" id="title"><br>
+              <label for="amount">Amount:</label><br>
+              <input type="text" name="amount" id="amount"><br>
+              <label for="time-unit">Time Unit:</label><br>
+              <select name="time-unit" id="time-unit">
+                <option disabled selected value> -- Choose One -- </option>
+                <option value="day">Daily</option>
+                <option value="week">Weekly</option>
+                <option value="month">Monthly</option>
+                <option value="year">Yearly</option>
+              </select><br>
+            </form>
+            <button id="submit-button" class="small dark">submit</button>
+          </div>
+          <div id="table" class="table-container">
+            <div class="table-row">
+              <ul>
+                <li>Action</li>
+                <li>Title</li>
+                <li>Amount</li>
+                <li>Time Unit</li>
+              </ul>
+            </div>
+            <div id="table-contents" class="table-contents">
+
+            </div>
+          </div>
         </section>
 
         <section  class="bottom">
