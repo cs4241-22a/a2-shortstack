@@ -1,41 +1,64 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/scripts.js"></script>
+    
   </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+  <body onload="main()">
+    <h1 id="page_title">TO DO</h1>
+
+    <main id = "everything">
+      <section>
+        <form action="n">
+          <ul class="headings">
+           <li> <h2>Tasks</h2></li>
+          </ul>
+          <input type="text" id="to_do" placeholder="add tasks">
+        </form>
+      </section>
+  
+      <section>
+        <form action="n">
+          <ul class="headings">
+            <li><h2>Date</h2></li>
+          </ul>
+          <input type="date" id="date">
+        </form>
+      </section>
+  
+      <section>
+        <form action="n">
+          <ul class="headings">
+            <li><h2>Priority</h2></li>
+          </ul>
+          <select id="priority">
+              <option >High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+        </form>
+      </section>
+  
+     
+  
+      <section>
+          <button id="add">+</button> 
+      </section>
+    </main>
+     <div>
+        <table id="results">
+          <tr>
+          <th>Tasks</th> 
+          <th>Date</th>
+          <th>Priority</th>
+          </tr>
+        </table>
+      </div>
+      
+    
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
