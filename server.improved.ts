@@ -46,12 +46,15 @@ const handlePost = function( request: IncomingMessage, response: ServerResponse 
 	});
 
 	request.on( 'end', function() {
-		console.log( JSON.parse( dataString ) );
+		let data = {yourname: ""}
+		data = JSON.parse(dataString);
+		console.log(data);
 
 		// ... do something with the data here!!!
+		// response.write(dataString);
 
-		response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-		response.end()
+		response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+		response.end(dataString);
 	});
 }
 

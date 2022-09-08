@@ -34,10 +34,13 @@ const handlePost = function (request, response) {
         dataString += data;
     });
     request.on('end', function () {
-        console.log(JSON.parse(dataString));
+        let data = { yourname: "" };
+        data = JSON.parse(dataString);
+        console.log(data);
         // ... do something with the data here!!!
+        // response.write(dataString);
         response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
-        response.end();
+        response.end(dataString);
     });
 };
 const sendFile = function (response, filename) {
