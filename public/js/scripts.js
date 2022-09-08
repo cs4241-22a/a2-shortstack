@@ -1,14 +1,10 @@
 const submitter = function( e ) {
     e.preventDefault();
-    const title = document.getElementById( 'title' ),
-          genre = document.getElementById( 'genre' ),
-          year  = document.getElementById( 'year'  ),
-          json  = { title: title.value, genre: genre.value, year: year.value },
-          body  = JSON.stringify( json );
+    const title = document.getElementById( 'title' ), genre = document.getElementById( 'genre' ), year  = document.getElementById( 'year'  ),
+          json  = { title: title.value, genre: genre.value, year: year.value }, body  = JSON.stringify( json );
     fetch( '/submit', { method:'POST', body } ).then( response => response.json() ).then( json => { builder( json ); } );
-    getter();
     return false; };
-const getter = function() { fetch( '/get', { method:'GET', } ).then( response => response.json() ).then( json => { builder( json ); } ); };
+const init = function() { fetch( '/init', { method:'GET', } ).then( response => response.json() ).then( json => { builder( json ); } ); };
 const builder = function( json ) {
     const datatable = document.getElementById( 'datatable' );
     datatable.innerHTML = '<tr><th>title</th><th>genre</th><th>year</th><th>directed by Todd Phillips?</th><th>delete?</th></tr>';
@@ -24,24 +20,21 @@ const builder = function( json ) {
         col2.innerHTML = entry.genre.toString().toUpperCase();
         col3.innerHTML = entry.year;
         col4.innerHTML = toddcheck( entry.title, entry.year );
-        col5.innerHTML = '<button id="'+entry.title+'" onclick="deleter(this);"></button>'
+        col5.innerHTML = '<button id="'+entry.title+'" onclick="deleter(this);" style="width:18px;height:18px;"></button>'
         index++; } ); };
-const deleter = function (x)
-{
-  const json = { title: x.id.toString() },
-        body = JSON.stringify( json );
+const deleter = function (x) {
+  const json = { title: x.id.toString() }, body = JSON.stringify( json );
   fetch( '/submit', { method:'DELETE', body } ).then( response => response.json() ).then( json => { builder( json ); } );
-  $(x).parents("tr").remove();
-}
+  return false; }
 const toddcheck = function( title, year ) {
     const years = [ 2000, 2003, 2004, 2006, 2009, 2010, 2011, 2013, 2016, 2019 ];
     const titles = [ 'ROAD TRIP', 'OLD SCHOOL', 'STARSKY & HUTCH', 'SCHOOL FOR SCOUNDRELS', 'THE HANGOVER',
                      'DUE DATE', 'THE HANGOVER PART II', 'THE HANGOVER III', 'WAR DOGS', 'JOKER' ];
     const numFilms = 10;
     title = title.toString().toUpperCase();
-    for ( let i = 0 ;  i < numFilms ; i++ ) { if( year = years[ i ] && title == titles[ i ] ) { return 'YES!'; } }
+    for ( let i = 0 ;  i < numFilms ; i++ ) { if( year == years[ i ] && title == titles[ i ] ) { return 'YES!'; } }
     return 'NO!'; };
 window.onload = function() {
     const submit = document.getElementById( 'submit' );
     submit.onclick = submitter;
-    getter(); };
+    init(); };
