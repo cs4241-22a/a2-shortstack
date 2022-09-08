@@ -1,1 +1,74 @@
-/*Style your own assignment! This is fun! */
+button {
+    background-color: forestgreen;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #4C8BF5;
+}
+
+button:focus {
+    background-color: #196D19
+}
+
+table, td, th, tr {
+    border: 1px solid black;
+}
+
+body {
+    background-color: #E0E0E0;
+}
+
+h1 {
+    text-align: center;
+    font-family: "Aboreto", sans-serif;
+}
+
+h2 {
+    font-family: "Aboreto", sans-serif;
+    font-size: 20px;
+}
+
+.inputField {
+    border-radius: 10px;
+}
+
+form {
+    text-align: center;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    font-family: 'RocknRoll One', sans-serif;;
+}
+
+
+td, th{
+    padding: 10px;
+}
+
+tr:nth-child(odd){
+    background-color: #4C8BF5;
+    color: #fff;
+}
+
+tr:nth-child(even){
+    background-color: #9EC2FF;
+    color: #fff;
+}
+
+.header { grid-area: header; }
+.forms { grid-area: forms; }
+.table { grid-area: table; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'header'
+    'forms'
+    'table';
+    gap: 10px;
+    padding: 10px;
+}
