@@ -6,8 +6,6 @@ http://a2-tobias-mack.glitch.me
 ## WPI Todo List
 You can add and delete tasks that you want / need to do. You can input a due date, so that you have a countdown to better your time management.
 
-Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
-
 ## Technical Achievements
 - **single-page-application**: 
 Using a combination of server side and local js script, I achieved to basically build a single page application, because all the data is directly visualised at the user side.
@@ -42,6 +40,6 @@ Tasks to complete: add 3 todos with different times and dates. then delete some 
 3. What comments did they make that surprised you? --
 4. What would you change about the interface based on their feedback? change the order of the buttons/input and make them more responsive
 
--**design**
+- **Design**
 To make the appearance look like a WPI site, I added the official red color: #AC2B37, and worked only with the official grey white and black.
 In addition I included a WPI logo. The font is the Jetbrains Mono.
