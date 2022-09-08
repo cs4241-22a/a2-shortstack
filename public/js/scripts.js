@@ -76,6 +76,50 @@ const removeMovie = function(e) {
     }); 
 }
 
+const mvupMovie = function(e) {
+    e.preventDefault();
+
+    let idx = e['target'].id.substring(3);
+    console.log(localList[idx]);
+
+    const json = { type: "movup", 
+                   entry: localList[idx] },
+          body = JSON.stringify(json)
+
+    fetch( '/submit', {
+        method:'POST',
+        body 
+    })
+    .then(response => response.status)
+    .then(data => {
+        if (data === 200) {
+            getList();
+        }
+    }); 
+}
+
+const mvdnMovie = function(e) {
+    e.preventDefault();
+
+    let idx = e['target'].id.substring(3);
+    console.log(localList[idx]);
+
+    const json = { type: "movdn", 
+                   entry: localList[idx] },
+          body = JSON.stringify(json)
+
+    fetch( '/submit', {
+        method:'POST',
+        body 
+    })
+    .then(response => response.status)
+    .then(data => {
+        if (data === 200) {
+            getList();
+        }
+    }); 
+}
+
 const getList = function() {
     fetch('/list', {
         method: 'GET'
@@ -91,7 +135,7 @@ const getList = function() {
 
         if (data.length === 0) {
             const listEmpty = document.createElement("p")
-            const listEmptyText = document.createTextNode("Your list is empty, add movies below and start watching!");
+            const listEmptyText = document.createTextNode("Your list is empty, click New Movie below and start watching!");
             listEmpty.id = "your-list";
             listEmpty.appendChild(listEmptyText)
             movieList.appendChild(listEmpty);
@@ -130,10 +174,28 @@ const getList = function() {
             rmvBtn.id = `rmv${i}`;
             rmvBtn.addEventListener('click', removeMovie);
             rmvBtn.appendChild(rmvTxt);
+
+            const upBtn = document.createElement('button');
+            const upTxt = document.createTextNode("↑");
+            upBtn.type = 'button';
+            upBtn.className = 'btn';
+            upBtn.id = `upp${i}`;
+            upBtn.addEventListener('click', mvupMovie);
+            upBtn.appendChild(upTxt);
+
+            const dnBtn = document.createElement('button');
+            const dnTxt = document.createTextNode("↓");
+            dnBtn.type = 'button';
+            dnBtn.className = 'btn';
+            dnBtn.id = `dwn${i}`;
+            dnBtn.addEventListener('click', mvdnMovie);
+            dnBtn.appendChild(dnTxt);
             
             dEl.appendChild(imgEl);
             dEl.appendChild(aEl);
             dEl.appendChild(rmvBtn);
+            dEl.appendChild(upBtn);
+            dEl.appendChild(dnBtn);
     
             movieList.appendChild(dEl);
             i++;
@@ -146,6 +208,13 @@ const getList = function() {
 const collapse = function() {
     this.classList.toggle("active");
     let content = this.nextElementSibling;
+
+    if (this.innerText == "+ New Movie") {
+        this.innerText = "- New Movie";
+    }
+    else {
+        this.innerText = "+ New Movie";
+    }
 
     if (content.style.maxHeight){
         content.style.maxHeight = null;
@@ -214,7 +283,7 @@ const showSearchResults = function(results) {
 let wordBank = ["killer", "awesome", "jaw-dropping", "spectacular", "scary", "tear-jerking",
                 "illustrious", "sexy", "outstanding", "great", "favorite", "incredible",
                 "classic", "wonderful", "special", "insightful", "first-rate", "intriguing",
-                "riveting", "powerful", "legendary", "pretentious", "tender", "charming", "hillarious",
+                "riveting", "powerful", "legendary", "pretentious", "tender", "charming", "hilarious",
                 "clever", "absorbing", "award-winning", "awe-inspiring", "beautiful", "bold",
                 "colorful", "iconic", "controversial", "daring", "phenomenal", "engrossing"];
 let scrambler = "";

@@ -67,6 +67,27 @@ const handlePost = function( request, response ) {
       response.writeHeader(200);
       response.end();
     }
+    else if (resp['type'] === 'movup') {
+      let idx = findTitle(resp['entry']);
+      if (idx > 0) {
+        temp = appdata[idx - 1];
+        appdata[idx - 1] = appdata[idx];
+        appdata[idx] = temp;
+      }
+      response.writeHeader(200);
+      response.end();
+    }
+    else if (resp['type'] === 'movdn') {
+      let idx = findTitle(resp['entry']);
+      if (idx < appdata.length - 1) {
+        temp = appdata[idx + 1];
+        appdata[idx + 1] = appdata[idx];
+        appdata[idx] = temp;
+      }
+      response.writeHeader(200);
+      response.end();
+    }
+
   })
 }
 
