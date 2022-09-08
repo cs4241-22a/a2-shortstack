@@ -3,44 +3,22 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <h1> Name this rat!</h1>
     <img src="./assets/Rat-PNG-File.png" />
-    <form action=''>
-      <input type='text' id='ratname' placeholder="Rat name here">
-      <button>Submit</button>
+    <iframe class="hiddenFrame" width="560" height="315" src="https://www.youtube.com/watch?v=AVzCqrEn7kc&autoplay=1" frameborder="0" allow="autoplay; encrypted-media">
+    </iframe>
+    <form action="">
+      <input type="text" id="name" placeholder="Your name here">
+      <input type="text" id="ratname" placeholder="Rat name here">
+      <button id="button">Submit</button>
     </form>
+    <div class="rats" id="rats">
+      
+    </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#ratname' ),
-          json = { ratname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body:input
-    })
-    .then( response => response.json() )
-    .then( json => console.log( json ) )
-    
-    //function( response ) {
-      // do something with the reponse 
-      //console.log( response )
-    //})
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
+  <script src="js/scripts.js">
   </script>
 </html>
