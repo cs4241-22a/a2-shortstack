@@ -1,1 +1,65 @@
 /*Style your own assignment! This is fun! */
+
+*{
+  margin: 0;
+  height: auto;
+  font-family: "Roboto", sans-serif; 
+  
+}
+
+body {
+  background-color: #e7fee7;
+  width:100%;
+}
+
+.img-container{
+  background-image: url("https://cdn.glitch.global/0aa74afb-22fb-4b49-b65d-b23f93cbcb2a/5181a33c0955dee17b6e5752c09b9a3c.jpg?v=1662604141397");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  position: relative;
+  color: white;
+}
+
+.header{
+  text-align:center;
+  width: 100%;
+  color: white !important;
+
+}
+
+table, th, td{
+  text-align: center;
+  margin-left: auto;
+  margin-right:auto;
+  font-size: 1.3em;
+  border: 1px solid;
+  background-color: #7FFFD450;
+  color: #ff8093;
+
+}
+
+h1 {
+  text-align: center;
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 6em;
+  background-color: rgba(150, 200, 100, 0.6);
+
+    
+}
+
+h2{
+  margin-top: -10px;
+  font-family: "Sofia", sans-serif;
+  font-size: 2.2em;
+  text-align: center;
+  font-weight: 400; 
+  color: #91D82A;
+  
+  
+}
+
+#forms{
+  grid-area: sidebar;
+ }
