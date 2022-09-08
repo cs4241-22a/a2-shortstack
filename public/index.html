@@ -1,41 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+<head>
+    <title>Assignment 2 Webware</title>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="scripts.js"></script>
+</head>
+
+<body>
+<div id="main-header" class="autoMargin">
+    <h1>Calculate someone's Total Daily Energy Expenditure!</h1>
+</div>
+
+<h2 id="information">
+    This website is mainly for assignment purposes and does not represent an accurate calculation of your
+    Total Daily Energy Expenditure.
+    <br>
+    <br>
+    For more accurate results, please visit <a href="https://tdeecalculator.net/">https://tdeecalculator.net/</a>
+</h2>
+
+<div id="userDataBlock" class="addRating centerText autoMargin">
+    <br/>
+    <h3 class="centerText">Add a Person:</h3>
+
+    <form onsubmit="return false;">
+        <label for="age" class="inputField">How old is this person?</label>
+        <input type="text" id="age" value="" />
     </form>
-  </body>
-  <script>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+    <label for="activity" class="inputField"
+    >How active is this person?</label
+    >
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    <select id="activity">
+        <option value="1.2">Sedentary</option>
+        <option value="1.4">Lightly Active</option>
+        <option value="1.7">Moderately Active</option>
+        <option value="2.0">Very Active</option>
+        <option value="2.4">Athlete</option>
+    </select>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+    <br/>
 
-    return false
-  }
+    <label for="gender" class="inputField">What is your gender?</label>
+    <select id="gender">
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Non-binary">Non-binary</option>
+    </select>
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+    <form onsubmit="return false;">
+        <label for="weight" class="inputField">How much does this person weigh (in kg)?</label>
+        <input class= "responseAnswer" type="text" id="weight" value="" />
+    </form>
 
-  </script>
+    <form onsubmit="return false;">
+        <label for="height" class="inputField"> How tall is this person (in cm)?</label>
+        <input type="text" id="height" value="" />
+    </form>
+    <br/>
+    <button class="addResponseButton centerText" onclick="refresh()">
+        Calculate!
+    </button>
+    <br/>
+    <br/>
+</div>
+<div id="tdeeTable">
+    <br/>
+    <h2 class="centerText">TDEE Calculations:</h2>
+    <table id="previoussubms" class="centerText autoMargin">
+    </table>
+    <br/>
+    <br/>
+</div>
+
+<br/>
+</body>
 </html>
