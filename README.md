@@ -22,10 +22,11 @@ As for the server functionalities, the user is able to create, delete, and view 
     3. *What comments did they make that surprised you?*
     - She felt as though the checkbox where the user can clear a assignment from their list was not clear enough
     4. *What would you change about the interface based on their feedback?*
-    - I would tweak the UI to make it more evident that there is more at the bottom of the page either through a more apparent custom scrollbar or by hanging a little bit of the Assignment Form on the bottom of the original view so that it's clear there's more there. 
-
+    - I would tweak the UI to make it more evident that there is more at the bottom of the page either through a more apparent custom scrollbar or by hanging a little bit of the Assignment Form on the bottom of the original view so that it's clear there's more there.    
+  
+  
     1. *Provide the last name of each student you conduct the evaluation with.*
-    - Subject 1: Price
+    - Subject 2: Price
     2. *What problems did the user have with your design?*
     - Like the first subject, this subject also went in with little instruction as to how the application works but found the second half of the page with no problems. However, he too didn't understand that the leftmost checkbox in each row of the assignment table was meant for clearing the entry
     3. *What comments did they make that surprised you?*
