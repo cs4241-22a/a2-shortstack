@@ -1,3 +1,5 @@
+var taskArray = []
+var completedTaskArray = []
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -33,8 +35,16 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     if (request.url === '/addTask') {
+      taskArray.push(dataString)
+    }
+    else if (request.url === '/deleteTask') {
+      let deleting = JSON.parse(dataString)
 
     }
+    else if (request.url === '/completeTask') {
+      completedTaskArray.push(dataString)
+    }
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
 
     response.end(dataString)

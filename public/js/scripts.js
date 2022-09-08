@@ -1,6 +1,4 @@
-var taskArray = []
-var completedTaskArray = []
-
+let taskID = 0;
 // Adds a task to the list
 const addTask = function( e ) {
     // prevent default form action from being carried out
@@ -11,9 +9,10 @@ const addTask = function( e ) {
     let date = document.getElementById('dueDate').value;
     let estComplete = getEstCompletion(points);
 
-    const json = { task: task, points: points, date: date, estComplete: estComplete},
+    const json = { taskID: taskID, task: task, points: points, date: date, estComplete: estComplete},
           body = JSON.stringify( json )
-    taskArray.push(json)
+    taskID++;
+
     fetch( '/addTask', {
       method:'POST',
       body 
@@ -25,23 +24,10 @@ const addTask = function( e ) {
     return false
   }
 
-  const editTask = function() {
-    fetch( '/editTask', {
-      method:'GET',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      return true;
-    })
-
-    return false
-  }
-
   const completeTask = function() {
     fetch( '/completeTask', {
-      method:'GET',
-      body 
+      method:'POST',
+      body
     })
     .then( function( response ) {
       // do something with the reponse 
@@ -53,7 +39,7 @@ const addTask = function( e ) {
 
   const deleteTask = function() {
     fetch( '/deleteTask', {
-      method:'GET',
+      method:'POST',
       body 
     })
     .then( function( response ) {
@@ -95,28 +81,45 @@ const addTask = function( e ) {
   }
 
   // Prints the to do list to the index.html file
-  const createTable = function (data) {
+  const createTable = function (taskElement) {
     let table = document.getElementById('table-body')
     let row = table.insertRow(-1)
-    row.insertCell(0).innerHTML = taskArray[taskArray.length-1].task
-    row.insertCell(1).innerHTML = taskArray[taskArray.length-1].points
-    row.insertCell(2).innerHTML = taskArray[taskArray.length-1].date
-    row.insertCell(3).innerHTML = taskArray[taskArray.length-1].estComplete
-    row.insertCell(4).innerHTML = '<button id = "Edit' + (taskArray.length - 1).toString() + '">Edit</button>'
-    row.insertCell(5).innerHTML = '<button id = "Delete'  + (taskArray.length - 1).toString() + '">Delete</button>'
-    row.insertCell(6).innerHTML = '<button id = "Complete'  + (taskArray.length - 1).toString() + '">Complete</button>'
+    row.id = 'rowID' + taskElement.taskID.toString()
+    row.insertCell(0).innerHTML = taskElement.task
+    row.insertCell(1).innerHTML = taskElement.points
+    row.insertCell(2).innerHTML = taskElement.date
+    row.insertCell(3).innerHTML = taskElement.estComplete
+    row.insertCell(4).innerHTML = '<button id = "Edit' + taskElement.taskID.toString() + '">Edit</button>'
+    row.insertCell(5).innerHTML = '<button onclick="deleteFunction(' + parseInt(taskElement.taskID) + ')" id = "Delete'  + taskElement.taskID.toString() + '">Delete</button>'
+    row.insertCell(6).innerHTML = '<button onclick="completeFunction(' + parseInt(taskElement.taskID) + ')" id = "Complete'  + taskElement.taskID.toString() + '">Complete</button>'
   }
 
-  const createCompletedTable = function(data) {
+  const deleteFunction = function(id) {
+    var rowToDelete = document.getElementById('rowID' + id.toString())
+    rowToDelete.parentNode.removeChild(rowToDelete);
+  }
+
+  const completeFunction = function(id) {
+    let rowToComplete = document.getElementById('rowID' + id.toString())
+    let task = rowToComplete.children.item(0).textContent
+    let points = rowToComplete.children.item(1).textContent
+    let date = rowToComplete.children.item(2).textContent
+    let estComplete = getEstCompletion(points);
+    const json = { taskID: taskID, task: task, points: points, date: date, estComplete: estComplete}
+    deleteFunction(id)
+    createCompletedTable(json)
+  }
+
+  const createCompletedTable = function(completedTaskElement) {
     let table = document.getElementById('completed-table-body')
     let row = table.insertRow(-1)
-    row.insertCell(0).innerHTML = data[data.length-1].task
-    row.insertCell(1).innerHTML = data[data.length-1].points
-    row.insertCell(2).innerHTML = data[data.length-1].date
-    row.insertCell(3).innerHTML = data[data.length-1].estComplete
+    row.insertCell(0).innerHTML = completedTaskElement.task
+    row.insertCell(1).innerHTML = completedTaskElement.points
+    row.insertCell(2).innerHTML = completedTaskElement.date
+    row.insertCell(3).innerHTML = completedTaskElement.estComplete
   }
 
-  const makeVisible = function( e ) {
+  const makeVisible = function(completedTaskArray) {
     let list2 = document.getElementById("completed-table-header")
     let outerTable = document.getElementById("completed-to-do-list")
     const button3 = document.getElementById( "refresh" )
