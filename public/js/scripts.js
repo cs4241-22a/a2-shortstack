@@ -77,11 +77,11 @@
   const buildTable = function (json)
   {
     let table = document.getElementById('taskTable')
-    if(table.rows.length > 0)
+    if(table.rows.length >= 0)
     {
         for(let i = table.rows.length-1; i >= 0; i--)
         {
-            table.deleteRow(i)
+            table.removeChild(document.getElementsByTagName('tbody')[i])
         }
     }
     json.forEach(element => {
@@ -90,8 +90,6 @@
             + "<td>" + element.date + "</td>"
             + "<td>" + element.timeleft + "</td></tr>"
         })
-    
-    document.getElementsByClassName('taskTableDiv').a
     }
 
   
