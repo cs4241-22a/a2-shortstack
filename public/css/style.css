@@ -4,24 +4,55 @@
 
 body {
   background-color: #CCD6D2;
-  padding: 20px;
+  padding: 0px 30px;
   margin: 0 auto;
-  max-width: 80vw;
+}
+
+.container {
+  display: flex;
+  flex-direction: space-between;
 }
 
 form {
+  width: 200px;
+}
+
+h1 {
   text-align: center;
 }
 
-li {
-  list-style: none;
+p {
+  text-align: center;
+  margin-bottom: 2em;
 }
 
-table#entryTable {
-  width: 100%;
+button {
+  margin: 10px;
+  width: 80px;
+  color: white;
+  border-radius: 10px;
+  background-color: #65928E;
 }
 
-table, tr, th, td {
+.del {
+  margin: 0;
+  place-content: center;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  opacity: 80%;
+}
+
+#dataTable {
   border: 2px solid white;
   border-collapse: collapse;
+  width: 80%;
+}
+
+th, td, tr {
+  border: 2px solid white;
+  border-collapse: collapse;
+  height: 16px;
 }
