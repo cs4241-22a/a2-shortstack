@@ -1,1 +1,174 @@
-/*Style your own assignment! This is fun! */
+/* declaring vars */
+:root {
+    --off-white: #FAF9F6;
+    --off-black: #313639;
+    --off-gray:  #e5e4e2;
+}
+
+/* title + general elements that appear over entire page */
+body {
+    font-family: "Montserrat", sans-serif;
+    min-width: 960px;
+    width: 100%;
+    font-size: 16px;
+    color: var(--off-black);
+    background-color: var(--off-white);
+}
+
+h1 {
+    text-align: center;
+    padding: 8px 0px 0px 0px;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-break: break-all;
+    padding: 16px;
+    margin: 4px;
+    
+    border-right: 1px solid var(--off-black);
+}
+
+ul {
+    list-style: none;
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+li {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) 2fr 2fr 1fr;
+
+    margin: auto;
+    margin-bottom: 4px;
+    width: 60%;
+    padding: 4px;
+}
+
+button {
+    color: inherit;
+    background-color: var(--off-gray);
+    font: inherit;
+    border: none;
+    margin: 1px;
+}
+
+/* todo form */
+form {
+    display: grid; 
+    grid-template-areas:
+        ". label1 . . . ."
+        ". title title title title ."
+        ". label2 . label3 . ."
+        ". date1 . date2 . ."
+        ". submit submit submit submit .";
+
+    width: 60%;
+    margin: auto;
+}
+
+input {
+    margin: 4px;
+    padding: 16px;
+    border: 1px solid transparent;
+    color: inherit;
+    font-size: inherit;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid var(--off-black);
+}
+
+label:first-of-type {
+    grid-area: label1;
+}
+
+label:nth-of-type(2) {
+    grid-area: label2;
+}
+
+label:last-of-type {
+    grid-area: label3;
+}
+
+form button {
+    grid-area: submit;
+    padding: 16px 6px;
+    margin: 4px;
+    font-size: 16px;
+    border: 1px solid transparent;
+}
+
+form button:hover {
+    border: 1px solid var(--off-black);
+ }
+
+/* todo list header */
+/* bad. there's a button in the header that doesn't do anything. it's there to keep the spacing
+even because i didn't want to figure out how to do it without that button. so the not(#notbutton) 
+is just there to make sure mouse doesn't become a hand when you hover over it */
+button:not(#notbutton) { 
+    cursor:pointer;
+}
+
+#list_header li {
+    background-color: var(--off-gray);
+    text-align: center;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    
+}
+
+#list_header li p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-right: 0px;
+}
+
+/* todo list */
+#todo_item {
+    grid-area: title;
+}
+
+#todo_item_assigndate {
+    grid-area: date1;
+}
+
+#todo_item_duedate {
+    grid-area: date2;
+}
+
+li button {
+    border: none;
+    background-color: transparent;
+    height: 64px;
+    width: 64px;
+    font-size: 24px;
+    color: var(--off-black);
+    opacity: 0.5;
+    margin: auto;
+}
+
+li button:hover {
+    opacity: 1;
+}
+
+#todo_list > li > p:first-child {
+    justify-content: left;
+}
+
+.priority1 {
+    background-color: #e2fecd;
+}
+
+.priority2 {
+    background-color: #fff7cc
+}
+
+.priority3 {
+    background-color: #ffcccc
+}
