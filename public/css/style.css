@@ -1,1 +1,61 @@
 /*Style your own assignment! This is fun! */
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#main-header {
+    text-align: center;
+    padding: 5px;
+    background-color: cadetblue;
+}
+
+#main-header h1 {
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+#main-header h2 {
+    font-size: 18px;
+    margin: 0px;
+}
+
+#main-grid {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-rows: minmax(0, 1fr);
+}
+
+#top-left {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#top-right {
+    grid-column: -1;
+    grid-row: 1;
+}
+
+#bottom-left {
+    grid-column: 1;
+    grid-row: -1;
+}
+
+#bottom-right {
+    grid-column: -1;
+    grid-row: -1;
+}
+
+#center {
+    grid-column: 2;
+    grid-row: 2;
+}
