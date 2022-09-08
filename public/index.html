@@ -1,41 +1,18 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script type="text/javascript" src="./js/scripts.js"></script>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <form method="post" onsubmit="return false">
+      <input type="text" id="new_todo_item">
+      <button onclick="do_submit()">submit</button>
     </form>
+
+    <ul id="todo_list"></ul>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+  
+  
 </html>

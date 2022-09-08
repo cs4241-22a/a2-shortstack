@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
+  "name": "todo",
+  "version": "1.0",
   "description": "",
-  "author": "",
+  "author": "May Dong",
   "scripts": {
     "start": "node server.improved.js"
   },
