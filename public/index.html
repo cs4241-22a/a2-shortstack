@@ -1,46 +1,114 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  <table>
-    <thead>
-      Name
-    </thead>
-  </table>
-  </body>
-  <script>
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway">
+<head>
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8">
+</head>
+<body>
+<h1 class="title">
+  todo list
+</h1>
+<div class="container">
+  <form action="" class="todoform">
+    <label for="taskinput">Task:</label>
+    <input autofocus type="text" id="taskinput" name="task" placeholder="What do you want to do?">
+    <label for="priorityinput">Priority:</label>
+    <select id="priorityinput" name="priority">
+      <option value="Highest">Highest</option>
+      <option value="High">High</option>
+      <option value="Medium">Medium</option>
+      <option value="Low">Low</option>
+      <option value="Lowest">Lowest</option>
+    </select>
+    <label for="daysinput">Days to Complete:</label>
+    <output>1</output>
+    <input type="range" min="1" max="10" value="1" id="daysinput" name="days" oninput="this.previousElementSibling.value = this.value">
 
-  const submit = function( e ) {
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<table id="table">
+  <thead>
+  <tr>
+    <th>Task</th>
+    <th>Days to Complete</th>
+    <th>Due Date</th>
+    <th>Priority</th>
+    <th>Done?</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+</body>
+<script>
+
+  const handleSubmit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const form = e.target
+    var data = {};
+    for (var i = 0, ii = form.length; i < ii; ++i) {
+      var input = form[i];
+      if (input.name) {
+        data[input.name] = input.value;
+      }
+    }
 
-    fetch( '/submit', {
+    var date = new Date();
+    date.setDate(date.getDate() + data.days)
+    data.duedate = date.toLocaleString()
+
+    const body = JSON.stringify(data)
+    console.log(body)
+
+    fetch( '/submit/', {
       method:'POST',
-      body 
+      body
     })
-    .then( function( response ) {
-      var data = response.json()
-      console.log( data )
-    })
+            .then(async function( response ) {
+              var data = await response.json()
+              console.log( data )
+              console.log("response ^")
+              form.reset()
+              updateTable(data)
+            })
 
     return false
   }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+  const deleteData = (id) => {
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', `/delete&id=${id}`);
+    form.style.display = 'hidden';
+    document.body.appendChild(form)
+    form.submit();
   }
 
-  </script>
+  const updateTable = (dataJ) => {
+    const table = document.querySelector('tbody')
+    dataJ.map((value, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = ` <td>${value.task}</td>
+                        <td>${value.days}</td>
+                        <td>${value.duedate}</td>
+                        <td>${value.priority}</td>
+                        <td><button type="button" onclick="deleteData(${index});">DONE!</button></td>`;
+      row.dataset.ind = index;
+      table.appendChild(row);
+    });
+  }
+
+  window.onload = function() {
+    const form = document.querySelector('form');
+    form.addEventListener('submit', handleSubmit);
+
+
+  }
+
+</script>
 </html>
