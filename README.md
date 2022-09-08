@@ -1,98 +1,36 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
-===
+Serena Mower
+https://a2-serena-mower23.glitch.me/
 
-Due: September 8th, by 11:59 AM.
+I'm sorry this is late, I was having issues trying to get the VSCode to push to Git and so I had to go through and physically edit each of the files on Github. I know I should have submitted earlier but I was really trying to get the sort thing to work properly. 
 
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
+## Your Little Library
+This application is designed to allow you to record all the books you have in your library. Using whether you've read the book before, and how long ago you acquired it, the library "bookshelf" displays the number corresponding to which book you should read first, with 0 being the first book you should read. 
 
-Baseline Requirements
----
-
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
-
-Your application is required to implement the following functionalities:
-
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
-
-Your application is required to demonstrate the use of the following concepts:
-
-HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with. Alternatively, you can create a single-page app (see Technical Acheivements) but this is not a requirement.
-- All pages should [validate](https://validator.w3.org)
-- If your app contains multple pages, they should all be accessible from the homepage (index.html)
-
-CSS:
-- CSS styling of the primary visual elements in the application
-- Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
-- CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
-
-- CSS defined in a maintainable, readable form, in external stylesheets 
-
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
-
-Deliverables
----
-
-Do the following to complete this assignment and acheive a base grade of 85%:
-
-1. Fork the starting project code (make sure to fork the 2022 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
-*Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
-
-1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
-2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
-
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+NOTE: A lot of my code looks like it could have helper functions, but I wasn't sure if I was implementing them correctly so I stuck to just leaving it in the code the way it was, but I tried to add comments throughout to make it more clear what was happening. 
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: I created a single-page app that allows users to submit data and see the update state of all the data on the same page. 
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
+    NOTE: This user was unable to screen record and mic record their session, so I'm including the written feedback they gave me. 
+
+    USER1 Feedback:
+    My task given was to create a handful of books with various dates and change whether I've read them of not. Then I need to burn (delete) them all. My first observation before I even submitted any books is that I really like the design of the website, both the color scheme and the layout of the page, along with the font fitting the theme really well. I saved three books into the system, all with different dates that they were acquired on. I then burned all my books to delete them from the system. I like how it shows the ID for the book and you can easily input the ID to delete it. Something small that I think could be changed is some of the text sizes, such as heading one and maybe the text input labels. I think overall the design is good, but those are a couple spaces I can see that may be hard to read and slightly increasing the size may help make the site more accessible.  I think something that could additionally be made more clear was the "read next" field because while the number system is good, it uses zero-based indexing which may only be obvious to those in the Computer Science or tech fields, but I think outside of that it serves its intended purpose. Overall, very good job and I enjoyed testing the website! :D
+
+    My response to feedback:
+    - The last name of user1 is Panneton.
+    - The user had issues with some of the font sizing. In addition to that, the user suggested changing the start value for the Read Next position from 0 to 1 for people that aren't familiar with 0 based indexing.
+    - Honestly I was surprised they liked the color scheme because I didn't have a lot of time to play around with it
+    - I would implement both the suggestions they gave.
+
+- **Design Achievement 2**: 
+    NOTE: This user isn't in the class and is bad at specifying what exactly they like without looking at the screen to know what they're talking about. And even then it's kinda sparse.
+
+    USER2 Feedback is attached to the repo
+
+    My response to feedback:
+    - The last name of user2 is Ushman.
+    - The user didn't have any problems with the design, but did enjoy the hover effect and the fact that the bookIDs shifted when one was deleted.
+    - I was surprised they were curious whether the table would shift after deletion, but glad they the user was happy it did. 
+    - They didn't really give any feedback about problems they had, more just stuff they enjoyed. So while I would make changes, I don't really know what I could specify is based off of their feedback. 
