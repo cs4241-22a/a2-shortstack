@@ -24,7 +24,7 @@ I used CSS to automatically center the objects on the screen. There are three te
 - **Shopping Cart Banner**: Acts as a spacer to divide the title from the text entry. Only used for style.
 
 ### UX Achivements/User Testing
--**1**: Tested by A. Gopalan and N. Kuchipudi as well as a friend outside the class.
--**2**: They disliked the green color scheme, and said that the update data functionality was complicated and unintuitive.
--**3**: They really enjoyed the how-to and the manual refresh feature, and found them very useful.
--**4**: I would choose a new color palette and update how one could change data. I instead would have the text that the user wants to edit turn into text boxes, and the "remove" button turn into the new submit button once the user presses the edit button. 
+- **1**: Tested by A. Gopalan and N. Kuchipudi as well as a friend outside the class.
+- **2**: They disliked the green color scheme, and said that the update data functionality was complicated and unintuitive.
+- **3**: They really enjoyed the how-to and the manual refresh feature, and found them very useful.
+- **4**: I would choose a new color palette and update how one could change data. I instead would have the text that the user wants to edit turn into text boxes, and the "remove" button turn into the new submit button once the user presses the edit button. 
