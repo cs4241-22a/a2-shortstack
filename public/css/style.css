@@ -1,1 +1,205 @@
-/*Style your own assignment! This is fun! */
+.header {
+  padding: 100px;
+  text-align: center;
+  background: #f1dbe1;
+  color: white;
+  font-size: 30px;
+}/*Style your own assignment! This is fun! */
+
+img{
+  width: 130px;
+  height: 80px;
+  position: absolute;
+  top: 160px;
+  left: 70px;
+}
+
+
+h1{
+  padding-top: 60px;
+  padding-left: 70px;
+  font-size: 50px;
+  font-family: 'Montserrat';
+  color: #363738;
+}
+
+h2{
+  padding-left: 18px;
+  font-family: 'Montserrat';
+  color:  #75777b;
+  font-weight: 200;
+  font-size: 19px;
+  background-color: #f1f1f2;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: -10px;
+  border-radius: 8px;
+  
+}
+
+
+#bookName{
+  font-family: 'Montserrat';
+  padding: 13px;
+  width: 140px;
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: #75777b #75777b #75777b;
+  border-style: solid;
+  margin-top: 20px;
+}
+
+#totalPages{
+  font-family: 'Montserrat';
+  padding: 13px;
+  width: 140px;
+  margin-top: 0px;
+  margin-left: 10px;
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: #75777b;
+  border-style: solid;
+
+}
+
+#authorName{
+  font-family: 'Montserrat';
+  padding: 13px;
+  width: 140px;
+  margin-top: 0px;
+  margin-left: 10px;
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: #75777b;
+  border-style: solid;
+}
+
+#pagesRead{
+  font-family: 'Montserrat';
+  padding: 13px;
+  width: 140px;
+  margin-top: 0px;
+  margin-left: 10px;
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: #75777b;
+  border-style: solid;
+}
+
+#submit{
+  border-width: 0;
+  background-color: #811731;
+  color: #ffffff;
+  margin-left: 10px;
+  margin-top: 0px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+ margin-bottom:60px;
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
+#submit:hover{
+  border-width: 0;
+  background-color: #e54885;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+ margin-bottom:60px;
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
+.deleteButton{
+  border-width: 0;
+  background-color: #811731;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
+.deleteButton:hover{
+  border-width: 0;
+  background-color: #e54885;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
+
+#bookNameLabel {
+    color: #000000;
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+  margin-left: 80px;
+  }
+
+#authorNameLabel {
+    color: #000000;
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 1em;
+  font-weight: bold;
+  margin-left:  190px;
+  }
+
+#totalPagesLabel {
+    color: #000000;
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+  margin-left:  285px;
+  }
+
+
+#pagesReadLabel {
+    color: #000000;
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+  margin-left:  250px;
+  }
+
+#pagesLeftLabel {
+    color: #000000;
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 1em;  
+  font-weight: bold;
+  margin-left:  245px;
+  }
+
+.flex-container {
+  margin-left: 70px;
+}
+
+table{
+  margin-left: 0px;
+}
+
+td,
+th {
+  padding-bottom: 20px;
+  padding-right: 190px;
+  font-family: 'Montserrat';
+  color: #363738;
+}
+
+#newbook{
+  margin-left: -100px;
+}
+
