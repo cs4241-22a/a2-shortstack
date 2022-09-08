@@ -10,10 +10,11 @@ const submit = function( e ) {
   const ownername = document.querySelector( '#ownername' ).value,
         email = document.querySelector('#email').value,
         petname = document.querySelector('#petname').value,
+        petbreed = document.querySelector('#petbreed').value,
         type = document.getElementsByName("radio"),
         date = document.querySelector('#date').value,
         time = document.querySelector('#time').value,
-        servicetype = document.getElementsByName("radio"),
+        servicetype = document.getElementsByName("checkbox"),
         curdate = new Date(getDate());
 
   let typeVal = null, servicetypeVal = null, d = new Date(date)
@@ -41,22 +42,21 @@ const submit = function( e ) {
     alert("Fail to submit: Only accept appointments starting on the next day")
   } 
   // valid inputs
- 
+  else {
     const json = { ownername: ownername, email: email, petname: petname, type: typeVal, 
                     petbreed: petbreed, date: date, time: time, servicetype: servicetypeVal },
           body = JSON.stringify(json);
     fetch( '/submit', {
       method:'POST',
       body 
-    })
-    .then( function( response ) {
+    }).then( function( response ) {
       return response.text();
-    }).then(function(text) {
-      appdata.push(JSON.parse(text));
+    }).then(function(e) {
+      appdata.push(JSON.parse(e));
       updateTable();
       console.log( appdata )
     });
-
+  }
   
 
   document.querySelector('#ownername').value = "";
@@ -78,7 +78,7 @@ const submit = function( e ) {
 
 window.onload = function() {
 
-  const button = document.querySelector( '#submit' )
+  const button = document.querySelector( '#submitt' )
   button.onclick = submit
   updateTable()
 }
@@ -86,7 +86,6 @@ window.onload = function() {
 const deletee = function(e) {
 
   e.preventDefault();
-  console.log('Delete');
   appdata.splice(Number(e.target.id.substring(1)),1);
   updateTable();
 }
@@ -146,6 +145,8 @@ function updateTable() {
     for (let j = 0; j < 10; j++) {
       let td = document.createElement("td");
       let content;
+
+      console.log(appdata[i])
 
       switch (j) {
         case 0: content = document.createTextNode(appdata[i].ownername); break;
