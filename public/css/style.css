@@ -1,1 +1,58 @@
-/*Style your own assignment! This is fun! */
+.cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, serif;
+    color: #c9f3e4;
+    font-size: 2rem;
+    border: 3px solid #04d5a4;
+}
+header {
+    background-image: url("img/19.jpg");
+    background-color: antiquewhite;
+}
+body {
+    background-color: #c9f3e4;
+}
+main {
+    color: #044c44;
+    font-family: Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: normal;
+}
+.content {
+    display: flex;
+    justify-content: center;
+}
+#data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#userinput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #044c44;
+    font-size: 1rem;
+    font-family: Georgia, serif;
+}
+em {
+    color: #44d46c;
+    font-weight: bold;
+}
+table, th, td {
+    border: 2px solid #04d5a4;
+    border-collapse: collapse;
+    font-family: Georgia, serif;
+}
+th {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #044c44;
+}
+td {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #044c44;
+}

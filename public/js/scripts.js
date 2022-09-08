@@ -117,7 +117,16 @@ window.onload = function() {
     submitbutton.onclick = function(e) {
         //just in case button type=button doesn't prevent the submit action
         e.preventDefault()
-        submit()
+
+        //make sure the user filled in all the fields
+        const trail = document.querySelector( '#trailname' ).value
+        const len = document.querySelector( '#traillength' ).value
+        const elev = document.querySelector( '#trailelevation' ).value
+        if(trail === '' || len === '' || elev === '') {
+            alert("please fill in all the fields.")
+        } else {
+            submit()
+        }
     }
     clearbutton.onclick = function(e) {
         e.preventDefault()
