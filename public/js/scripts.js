@@ -8,7 +8,7 @@ let formB = document.getElementById("formButton");
 
 let duration = 10;
 let beginTime;
-let clickable = false;
+var clickable = false;
 let score = 0;
 
 function beginGame() {
