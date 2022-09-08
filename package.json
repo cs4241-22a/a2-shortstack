@@ -1,7 +1,7 @@
 {
   "name": "MovieList",
-  "version": "",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Simple movie search and list creation tool",
   "author": "Ted Clifford",
   "scripts": {
     "start": "node server.improved.js"
