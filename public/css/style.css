@@ -24,30 +24,71 @@ body {
     flex-grow: 1;
   }
 
+  .timer {
+    margin: 1em;
+    text-align: center;
+  }
+
   #clickarea {
-    display: flexbox;
+    display: flex;
     background-color: #C8B1FA;
     margin: 0px 0px;
     border: 0.2em solid #8572AD;
     padding: 20px;
     border-radius: 0.25em;
     flex-grow: 1;
+    flex-direction: row;
     justify-items: center;
+    align-items: center;
+    height: 20vh;
   }
 
   #begin{
     background-color: #FAEABE;
     border-radius: 1em;
     font-family: "Merriweather Sans", Arial, Helvetica, sans-serif;
-  }
-
-  form {
-    font-family: Helvetica, sans-serif;
-    visibility: visible;
-    padding : 0.5em 0.75em;
+    margin:auto;
   }
 
   .information {
     font-size: 1.25em;
     padding : 0.5em 0.75em;
+  }
+
+  #score {
+    background-color: #FAEABE;
+    border: 0.2em solid #77705b;
+    border-radius: 0.25em;
+    padding: 0.25em 0.75em;
+    margin: 0.25em 1em;
+    display: flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    flex-wrap: wrap;
+  }
+
+  .num {
+    border-radius: 0.25em;
+    display:inline-flex;
+    padding: auto 1em;
+    border: 0.2em solid #ccbf9c;
+  }
+
+  #result {
+    background-color: #ccbf9c;
+    border: 0.2em solid #ccbf9c;
+    margin-right: 1em;
+  }
+
+  #clicks {
+    background-color: #ccbf9c;
+    border: 0.2em solid #ccbf9c;
+  }
+
+  form {
+    font-family: Helvetica, sans-serif;
+    visibility: visible;
+    display:flex;
+    justify-self: flex-end;
+    margin-left: auto;
   }

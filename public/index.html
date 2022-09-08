@@ -10,13 +10,28 @@
     <main>
       <h1>Click Speed Tower</h1>
       <section class="information"> How many times can you click in 10 seconds? Climb the leaderboard and become the fastest.</section>
+      <div class="timer">TIME REMAINING:<span class="timer" id="timer">10.000</span></div>
       <div id="clickarea">
         <button id="begin">Click here to Begin!</button>
       </div>
-      <form action="">
-        <input type='text' id='yourname' placeholder="Your name here">
-        <button>submit</button>
-      </form>
+      <section id="score" class="information">
+        <div class="num">
+          Score:
+        </div>
+        <div class="num" id="result">
+          0
+        </div>
+        <div class="num">
+          Clicks:
+        </div>
+        <div class="num" id="clicks">
+          0
+        </div>
+        <form action="">
+          <input type='text' id='yourname' placeholder="Your name here">
+          <button>submit</button>
+        </form>
+      </section>
     </main>
   </body>
   <script>
@@ -47,4 +62,5 @@
   }
 
   </script>
+  <script src="js/scripts.js"></script>
 </html>
