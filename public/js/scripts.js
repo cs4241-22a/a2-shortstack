@@ -12,10 +12,13 @@ const submit = function (e) {
 			body,
 		})
 			.then((response) => response.json())
-			.then((json) => console.log(json))
-
-		renderTable();
-		document.querySelector("table").scrollIntoView();
+			.then((json) => {
+      renderTable();
+		  document.querySelector("table").scrollIntoView();
+      console.log("Data sent");
+      })
+    
+		
 	} else {
 		alert(
 			"All fields are required. Please fill out all fields before clicking submit."
@@ -65,7 +68,7 @@ function renderTable() {
                     <th>Gift Idea</th>
                     <th style="background-color: black;"></th>
 					<th style="background-color: black;"></th>`;
-
+        console.log(appdata);
 				for (let entries in appdata) {
 					let row = document.createElement("tr");
 					row.className = "results";
@@ -111,9 +114,12 @@ function remove(UID) {
 		body,
 	})
 		.then((response) => response.json())
-		.then((json) => console.log(json))
-
-	renderTable();
+		.then((json) => {
+    console.log("Data Sent")
+    renderTable();
+  })
+ 
+	
 }
 
 function modify(UID) {
@@ -129,9 +135,10 @@ function modify(UID) {
 			body,
 		})
 			.then((response) => response.json())
-			.then((json) => console.log(json))
+			.then((json) => {
+      console.log("Data Sent");
+      renderTable();})
 
-		renderTable();
 	} else {
 		alert(
 			"All fields are required. Please fill out all fields before clicking submit."
@@ -144,7 +151,7 @@ function convertToObj(a, b) {
 		return null;
 	}
 	let obj = {};
-	json = a.forEach((k, i) => {
+	let json = a.forEach((k, i) => {
 		obj[k] = b[i];
 	});
 	return obj;
@@ -164,7 +171,7 @@ function getForm() {
 	}
 	let table = document.querySelector("table");
 	table.focus();
-	json = convertToObj(formLabels, formInputs);
+	let json = convertToObj(formLabels, formInputs);
 	return json;
 }
 
@@ -173,7 +180,7 @@ function checkFrmValid() {
 	let valid = [];
 	for (let index = 0; index < inputIDs.length; index++) {
 		let ID = inputIDs[index];
-		input = document.querySelector(ID);
+		let input = document.querySelector(ID);
 		if (input.value === "") {
 			valid.push(false);
 		} else {
