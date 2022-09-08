@@ -3,12 +3,52 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <form action="", id = "firstPage">
+      <table class = "inputInfoTable">
+        <tr>
+          <td>Student Name: </td>
+          <td><input type = "text" id ="studentName" name = "studentName" value = "" > </td>
+        </tr>
+        <tr>
+          <td>Assignment1 Score: </td>
+          <td><input type = "number" id ="a1score" name = "a1score" value = "" min="0" max="100" > </td>
+        </tr>
+        <tr>
+          <td>Assignment2 Score: </td>
+          <td><input type = "number" id ="a2score" name = "a2score" value = "" min="0" max="100" > </td>
+        </tr>
+        <tr>
+          <td>Project Score: </td>
+          <td><input type = "number" id ="projectSc" name = "projectSc" value = "" min="0" max="100" > </td>
+        </tr>
+        <tr>
+          <td>Exam Score: </td>
+          <td><input type = "number" id ="examScore" name = "examScore" value = "" min="0" max="100" > </td>
+        </tr>
+        <!-- <tr>
+          <td>Final Grade: </td>
+          <td><input type = "hidden" id ="finalScore" name = "finalScore" value = "" > </td>
+        </tr> -->
+        <tr>
+          <td></td>
+          <td id = "submittd"><button id = "submitButton">Add the record!</button></td>
+        </tr>
+      </table>
+      <!-- <button id = "submitButton">submit</button> -->
     </form>
+
+    <table id = "storedData">
+      <!-- <tr><th>Student</th>
+        <th>Assignment1 Score</th>
+        <th>Assignment2 Score</th>
+        <th>Project Score </th>
+        <th>Exam Score</th>
+        <th>Final Grade</th> -->
+      </tr>
+    </table>
   </body>
   <script>
 
@@ -16,26 +56,102 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const firstPage = document.querySelector('#firstPage')
+    //const table = document.createElement("table")
+    //table.id = "storedData"
+    const table = document.getElementById("storedData")
+    table.innerHTML = ""
+    table.innerHTML += 
+      "<tr><th>Student</th>"
+        + "<th>Assignment1 Score</th>"
+        + "<th>Assignment2 Score</th>"
+        + "<th>Project Score </th>"
+        + "<th>Exam Score</th>"
+        + "<th>Final Grade</th>"
+        + "<th>Delete</th></tr>"
 
+    const studentName = document.querySelector('#studentName')
+          a1score = document.querySelector('#a1score')
+          a2score = document.querySelector('#a2score')
+          projectSc = document.querySelector('#projectSc')
+          examScore = document.querySelector('#examScore')
+          json = {
+            studentName: studentName.value,
+            a1score: a1score.value,
+            a2score: a2score.value,
+            projectSc: projectSc.value,
+            examScore: examScore.value
+          }
+          body = JSON.stringify( json )
+    
     fetch( '/submit', {
-      method:'POST',
-      body 
+       method:'POST',
+       body 
     })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+    .then(response => response.json())
+    .then(json => {
+      json.forEach(student => {
+        table.innerHTML += 
+          "<tr><td>" + student.studentName + "</td>"
+          + "<td>" + student.a1score + "</td>"
+          + "<td>" + student.a2score + "</td>"
+          + "<td>" + student.projectSc + "</td>"
+          + "<td>" + student.examScore + "</td>"
+          + "<td>" + student.finalScore + "</td>"
+          + "<td>" + "<button type='button' onclick='productDelete(this);' class='btn btn-default'>" +
+                     "X"+"</button>" + "</td></tr>"
+      });
     })
+    //"<span class='glyphicon glyphicon-remove' />"
+    //console.log(student.finalScore)
+    document.body.appendChild(table)
+    firstPage.reset(); // this resets the forms fields to empty
+    return false
+
+
+    // const input = document.querySelector( '#yourname' ),
+    //       json = { yourname: input.value },
+    //       body = JSON.stringify( json )
+    //   console.log(body)
+    //  fetch( '/submit', {
+    //    method:'POST',
+    //    body 
+    //  })
+    //  .then(response => response.json())
+    //  .then(json => {
+    //      json.forEach(item => {
+    //        const p = document.createElement("p")
+    //        p.innerText = JSON.stringify(item)
+    //       document.body.appendChild(p)
+    //      })
+    // })
+    // /*  .then(json => {
+    //   json.forEach(element => {
+    //     els
+    //   });
+    // }) */ 
+ 
+    // return false
+  }
+
+  const deleteRow = function (e){
+    e.preventDefault()
 
     return false
   }
 
+  
   window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+    // const sbutton = document.querySelector('button')
+    const sbutton = document.getElementById('submittd')
+    sbutton.onclick = submit
   }
+
+  function productDelete(ctl) {
+    $(ctl).parents("tr").remove();
+  }
+
+
 
   </script>
 </html>

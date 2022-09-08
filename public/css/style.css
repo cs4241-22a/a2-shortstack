@@ -1,1 +1,13 @@
 /*Style your own assignment! This is fun! */
+table, td {
+    border: 1px solid black;
+}
+
+#storedData {
+    font-family: arial, sans-serif;
+    border:1px solid black;
+    /*border-collapse: collapse;*/
+    width: 100%;
+    background-color: #f1f1c1;
+  }
+
