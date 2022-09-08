@@ -53,6 +53,8 @@ const submit = function (e) {
         console.log(json);
         const newElement = renderMessage(json);
         document.getElementById("messages")?.appendChild(newElement);
+        // Clear text from input
+        message.value = "";
     });
     return false;
 };
