@@ -12,3 +12,5 @@ A digital bookshelf that allows users to track the books they're currently readi
 - **User Testing**: 
 Gopalan:
 - She enjoyed the aesthetic of the app and found the colors/look pleasing. She found it user friendly for the tasks she was completing and had no problems with that.
+Leserman:
+- The headers to the table shift sometimes when a book is added which is annoying, I'd fix this in a future iteration so it didn't.
