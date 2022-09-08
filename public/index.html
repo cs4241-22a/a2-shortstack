@@ -1,47 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <title>Passage of Time</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <h1>Years since a day</h1>
+    <div class="text">
+      <b>
+        Enter the year, month and day of an event and I'll tell you how many
+        years since that date.
+      </b>
+      <br>
+      <a
+        >Month can be either word or numeric, needs at least month and year, day
+        is optional</a
+      >
+    </div>
+    <form id="formElems">
+      <table class="inputs">
+        <tr>
+          <td>Month</td>
+          <td>
+            <input
+              class="textBox"
+              type="text"
+              id="month"
+              name="month"
+              value=""
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Day</td>
+          <td>
+            <input class="textBox" type="text" id="day" name="day" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>Year</td>
+          <td>
+            <input class="textBox" type="text" id="year" name="year" value="" />
+          </td>
+        </tr>
+      </table>
+
+      <button type="button">submit</button>
     </form>
+    <table id="heldData"></table>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( response => {
-      debugger
-      return response.json()
-    })
-    .then( json => console.log(json))
-    
-    /* .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    }) */
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+  <script src="js/scripts.js"></script>
 </html>
