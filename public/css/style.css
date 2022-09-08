@@ -1,1 +1,129 @@
 /*Style your own assignment! This is fun! */
+/*https://colorhunt.co/palette/e9efc0b4e19783bd754e944f*/
+h1{
+    text-align: center;
+    font-family: "Open Sans";
+    padding-top: 20px;
+    font-size: 45px;
+    color: #E9EFC0;
+    line-height: 0
+}
+
+h2{
+    text-align: center;
+    font-family: "Open Sans";
+    font-size: 25px;
+    color: #EAE509;
+}
+body {
+    text-align: center;
+    background-color: #4E944F;
+}
+
+input[type="text"], textarea {
+    background-color: #E9EFC0;
+    height: 30px;
+}
+
+
+form{
+    display: inline-block;
+    font-family: "Open Sans";
+
+}
+
+::placeholder{
+    font-family: "Open Sans";
+}
+
+
+
+label {
+    display: inline-block;
+}
+
+
+table{
+  margin-left: auto;
+  margin-right: auto;
+  font-size:25px;
+  font-family: "Open Sans";
+  border-spacing: 20px;
+}
+
+
+hr.solid{
+    width:50%;
+    margin:0 auto;
+    background-color: white;
+}
+
+
+button{
+    font-size: 25px;
+    width: 20%;
+    background-color: #EAE509;
+    border-color: #E9EFC0 ;
+    font-family: "Open Sans";
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button_help2{
+    font-size: 18px;
+    width: 10%;
+    background-color: white;
+    border-color: #E9EFC0 ;
+    font-family: "Open Sans";
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button_edit{
+    font-size: 12px;
+    width: 100%;
+    background-color: white;
+    font-family: "Open Sans";
+}
+
+.button_delete{
+    font-size: 12px;
+    width: 100%;
+    background-color: #EAE509;
+    font-family: "Open Sans";
+}
+
+.button_help{
+    font-size: 18px;
+    width: 10%;
+    background-color: #E9EFC0;
+    border-color: #E9EFC0 ;
+    font-family: "Open Sans";
+    margin-left: auto;
+    margin-right: auto;
+}
+.button_help2{
+    font-size: 18px;
+    width: 10%;
+    background-color: White;
+    border-color: #E9EFC0 ;
+    font-family: "Open Sans";
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.carts {
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 0;
+  }
+
+  .bags {
+    display: block; 
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
