@@ -17,7 +17,7 @@ Think-Aloud Protocol
 Protocol Used:
 - You purchased 3 diet cokes, which cost $1 each using cash. Put it in the spreadsheet.
 - You purchased 2 apples, which cost 50 cents each using a credit card. Put it in the spreadsheet.
-- Remove apples from the spread sheet.
+- Remove apples from the spreadsheet.
 Remove diet coke from the spreadsheet.
 
 
@@ -35,5 +35,11 @@ What would you change about the interface based on their feedback?
 #### User: Cooper Dean
 
   What problems did the user have with your design?
+- When asking to put 3 diet coke into the spreadsheet, he put '3 Diet Cokes' in the item name field
+- He put a $ in the cost field
+
   What comments did they make that surprised you?
+- He commented on the correct validation of the inputs fields
+
   What would you change about the interface based on their feedback?
+- I'd put a '$' at the front, and maybe specify 'Singular Item Name'
