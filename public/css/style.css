@@ -55,6 +55,10 @@ body {
     padding : 0.5em 0.75em;
   }
 
+  #formButton {
+    visibility: hidden;
+  }
+
   #score {
     background-color: #FAEABE;
     border: 0.2em solid #77705b;
@@ -83,6 +87,7 @@ body {
   #clicks {
     background-color: #ccbf9c;
     border: 0.2em solid #ccbf9c;
+    margin-right: 1em;
   }
 
   form {

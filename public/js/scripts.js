@@ -4,6 +4,7 @@ let result = document.getElementById("clicks");
 let clicks = document.getElementById("result");
 let begin = document.getElementById("begin");
 let clickArea = document.getElementById("clickarea");
+let formB = document.getElementById("formButton");
 
 let duration = 10;
 let beginTime;
@@ -41,6 +42,7 @@ clickArea.style.backgroundColor = "#E64D43";
 setTimeout(function() {
     clickArea.style.backgroundColor = "#C8B1FA";
     begin.style.visibility = "visible";
+    formB.style.visibility = "visible";
     timer.textContent = duration.toFixed(3);
 }, 1000);
 }
