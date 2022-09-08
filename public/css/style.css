@@ -18,11 +18,15 @@ button {
     text-align: center;
     text-decoration:blue;
 }
+th, td {
+    border: 1px solid;
+}
 td {
     text-align: center;
     font-size: 90%;
 }
 table {
+    border: 2px solid;
     border-collapse: collapse;
     width: 50%;
     margin-top: 25px;

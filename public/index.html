@@ -5,19 +5,20 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <script src="./js/scripts.js"></script>
   </head>
   <body>
     <h1 class="child">To Do List Generator</h1>
-    <form class="child" action="">
+    <form class="child">
       <label>Item:</label>
       <input type="text" id="item" value="">
       <label>Date Created:</label>
-      <input type="date" id="date" value="date">
+      <input type="date" id="date" value="">
       <label>Priority?</label>
       <input type="checkbox" id="priority" name="priority">
       <button id="submit_button">Submit</button>
     </form>
-    <table class="child" id="list_table" border="2" hidden>
+    <table class="child" id="list_table" hidden>
       <tr class="bold">
         <th>Item</th>
         <th>Creation Date</th>
@@ -27,5 +28,4 @@
       </tr>
     </table>
   </body>
-  <script src="./js/scripts.js"></script>
 </html>
