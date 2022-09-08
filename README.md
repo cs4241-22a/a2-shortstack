@@ -1,6 +1,6 @@
 
 ## Counter
-
+https://immediate-fluoridated-fridge.glitch.me/
 This is a simple webpage for keeping track of numbers. A user can add or subtract numbers through the submit form, which adds a number and timestamp to the server's memory. The server keeps track of the running total. Additionally, a user can remove an index, removing the submission and timestamp from the server's memory, and subtracting the entry from the total.
 A CSS Flexbox was used to block out the webpage.
 The submit button will add any number in the left text box to the server's memory and total
