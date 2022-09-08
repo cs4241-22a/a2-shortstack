@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "cr-4241-simple-glitch",
+  "version": "0.1.0",
+  "description": "Webware Assignment 2",
+  "author": "Reagan Brunelle",
   "scripts": {
     "start": "node server.improved.js"
   },

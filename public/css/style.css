@@ -54,7 +54,7 @@ tr
 
 .flexBox
 {
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: row;
     display: flex;
 }

@@ -6,9 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-   
-]
+appdata = []
 let playlistLength = 0
 
 const server = http.createServer( function( request,response ) {
@@ -32,6 +30,12 @@ const handleGet = function( request, response ) {
 const handlePost = function( request, response ) {
   let dataString = ''
 
+  if(request.url === '/reset')
+  {
+    appdata = []
+    playlistLength = 0
+  }
+
   request.on( 'data', function( data ) {
       dataString += data 
   })
@@ -39,13 +43,11 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ).duration )
 
-    // ... do something with the data here!!!
-
-    let newEntry = JSON.parse(dataString)
-    newEntry.playlistDur = parseInt(newEntry.duration) + playlistLength
-    playlistLength = newEntry.playlistDur
-    console.log( newEntry )
-    appdata.push( newEntry )
+    let newSong = JSON.parse(dataString)
+    newSong.playlistDur = parseInt(newSong.duration) + playlistLength
+    playlistLength = newSong.playlistDur
+    console.log( newSong )
+    appdata.push( newSong )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.write(JSON.stringify(appdata))

@@ -5,23 +5,24 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
+    <script src="js/scripts.js"></script>
   </head>
   <body>
     <div class="flexBox">
-      <img src="U2.PNG" alt="U2 on Stage" style="width:175px;">
+      <img src="U2.PNG" alt="U2 on Stage" style="width:225px;">
     <h1>Music Playlist Creator</h1>
-    <img src="newsboys.PNG" alt="Newsboys on Stage" style="width:175px;">
+    <img src="newsboys.PNG" alt="Newsboys on Stage" style="width:225px;">
   </div>
     
     <form action="/server.improved.js" method="post">
       <label for="songname">Song name to add:</label><br>
-      <input type='text' id='songname' value="song name"><br><br>
+      <input type='text' onfocus="this.value=''" id='songname' value="song name"><br><br>
       <label for="artist">Artist of song:</label><br>
-      <input type='text' id='artist' value="artist"><br><br>
+      <input type='text' onfocus="this.value=''" id='artist' value="artist"><br><br>
       <label for="songduration">Duration of song:</label><br>
-      <input type='text' id='songduration' value="song duration"><br><br>
+      <input type='text' onfocus="this.value=''" id='songduration' value="song duration"><br><br>
       <label for="album">Album name:</label><br>
-      <input type='text' id='album' value="album"><br><br>
+      <input type='text' onfocus="this.value=''" id='album' value="album"><br><br>
       <button type="submit" id="submitButton">submit</button><br>
     </form><br>
 
@@ -33,7 +34,6 @@
       <th>Playlist length</th>
     </tr>
     </table>
+    <button type="reset" id="resetButton">reset</button><br>
   </body>
-  <script src="js/scripts.js">
-  </script>
 </html>

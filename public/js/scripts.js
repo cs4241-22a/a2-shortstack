@@ -1,15 +1,7 @@
-// Add some Javascript code here, to run on the front end.
-
-console.log("Welcome to assignment 2!")
 
 const submit = function(e)
 {
-    // prevent default form action from being carried out
     e.preventDefault()
-
-    /**const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )**/
 
     let songname = document.querySelector("#songname")
     let artist = document.querySelector("#artist")
@@ -24,35 +16,75 @@ const submit = function(e)
       playlistDur: 0
     }
     let body = JSON.stringify(json)
+
     fetch( '/submit', {
       method:'POST',
       body
     })
     .then( async function ( response ) {
       let newData = await response.json()
-      refreshInfo(newData)
+      addToPlaylist(newData)
       console.log( newData )
     })
-
     return false
 }
 
-function refreshInfo(newData) {
-    const board = document.getElementById("results")
-    board.innerHTML = "<tr id='firstRow'><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
+function addToPlaylist(newData) 
+{
+    const table = document.getElementById("results")
+    table.innerHTML = "<tr id='firstRow'><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
 
     newData.forEach((element, index) => {
-        board.innerHTML +=
+
+        // if(element.songname === undefined)
+        // {
+        //     ;
+        // }
+        // else
+        // {
+        table.innerHTML +=
           "<tr><td>" + element.songname + "</td><td>"
           + element.artist + "</td><td>"
           + element.duration + "</td><td>"
           + element.album + "</td><td class='tally'>"
           + element.playlistDur + "</td></tr>"
+        //}
       })
   }
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+
+//   const reset = function(e)
+//   {
+//       e.preventDefault()
+//       body = JSON.stringify("")
+
+//       fetch( '/reset', {
+//         method:'POST',
+//         body
+//       })
+//       .then(async function(response)
+//       {
+//         let emptyData = await response.json()
+//         emptyPlaylist(emptyData)
+//         console.log(emptyData)
+//       })
+//       return false
+      
+//   }
+
+  function emptyPlaylist(newData)
+  {
+    const table = document.getElementById("results")
+    table.innerHTML = "<tr id='firstRow'><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
+  }
+
+
+  window.onload = function() 
+  {
+    const submitButton = document.getElementById( 'submitButton' )
+    submitButton.onclick = submit
+
+    const resetButton = document.getElementById( 'resetButton' )
+    resetButton.onclick = reset
   }
 
