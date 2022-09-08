@@ -1,14 +1,16 @@
 ## TODO List Tracker
 Able to add tasks to do in a list to organize your responsibilities. 
+glitch link: https://a2-jrkim-wpi.glitch.me/
 
 ## Technical Achievements
-- **Tech Achievement 1**:
+**Tech Achievement 1**:
 Created a TODO list keeper page by saving the user input and creating a list of TODOs. 
 Calculated the start date and end date based on current system time and user input of how long a task is going to take.
 The user input is stored in a saparate "server db" and it keeps the list rendering from that db into the page.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+**Design Achievement 1**: 
+
 Jacob VanStyen:
 - Straight foward UI design
 - Was little hard to read black on purple
