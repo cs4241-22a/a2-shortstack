@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+<meta charset="utf-8" />
+<link rel= "stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+    <script src="js/scripts.js"></script>
+  </head>
+  
+  <body>
+<div id="mainTitle">
+      <h1>WGN - Share your Game Review !</h1>
+    </div>
+
+
+
+        <div class="card">
+    <h2 class="card-title">About this website</h2>
+    <p id="blogText">       <b>WGN</b> (with game name) is a place to share your review of video games you've played. 
+              The review of the game can not only help game developers to make the game better, 
+               but also allow you to recognize more friends. Come and share your first review!
+    </p>
+</div>
+
+
+    <div id= "buttons">
+    
+      <a href="#resultTable" >
+        See Review(s)</a>
+    </div>
+    
+
+    <div class="card" >
+      <br />
+      <h3 class="card-title">Tell Us About the game:</h3>
+<br />
+      <form onsubmit="return false;">
+        <label for="name" class="surveyQuestion">What is your name/nick name?</label>
+        <input type="text" id="name" placeholder="Enter Your Name" />
+      </form>
+
+     <br />
+      
+      <form onsubmit="return false;">
+        <label for="gameName" class="surveyQuestion">The Name of Game You Will Review:</label>
+        <input class= "responseAnswer" type="text" id="gameName" placeholder="Enter the Game Name" value="" />
+      </form>
+ <br />
+           <form onsubmit="return false;">
+        <label for="score" class="surveyQuestion">The Score You Gonna Give (Out of 100):</label>
+        <input class= "responseAnswer" type="number" id="score" placeholder="Enter the Score" max="10" />
+      </form>
+
+
+      <br />
+
+
+
+      <form onsubmit="return false;">
+        <label for="comment" class="surveyQuestion"
+          >Leave Your Comment:</label
+        >
+        <input type="text" id="comment" placeholder="This is the default text" />
+      </form>
+      <br />
+      <button class="submitButton" onclick="update()">
+        Submit your review
+      </button>
+      <br />
+      <br />
+    </div>
+    <div id="resultTable">
+      <br />
+      <h2 id= "review">   Reviews </h2>
+      <table id="responses" class="centerText autoMargin">
+      </table>
+      <br />
+      <br />
+    </div>
+
+          <br />
+  </body>
+
+</html>
