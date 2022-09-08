@@ -7,9 +7,37 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  // { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
+  // { 'model': 'honda', 'year': 2004, 'mpg': 30 },
+  // { 'model': 'ford', 'year': 1987, 'mpg': 14}
+
+    // Starting data
+
+  {
+    activity: 'Sleep',
+    date: '2022-09-07',
+    time_started: '19:15',
+    time_ended: '19:15',
+    description: 'test',
+    duration: '0 Hour  0 Minutes'
+  },
+  {
+    activity: 'Food',
+    date: '2022-09-07',
+    time_started: '20:15',
+    time_ended: '21:15',
+    description: 'test',
+    duration: '1 Hour  0 Minutes'
+  },
+  {
+    activity: 'Work',
+    date: '2022-09-07',
+    time_started: '07:00',
+    time_ended: '19:50',
+    description: 'test',
+    duration: '12 Hour  50 Minutes'
+  }
+
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -31,20 +59,45 @@ const handleGet = function( request, response ) {
 }
 
 const handlePost = function( request, response ) {
-  let dataString = ''
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+  if (request.url === "/submit") {
+    // appdata = []
+    let dataString = ''
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    request.on('data', function (data) {
+      dataString += data
+    })
 
-    // ... do something with the data here!!!
+    request.on('end', function () {
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end( JSON.stringify({ test:"a" }))
-  })
+
+      let data = JSON.parse(dataString);
+      data.duration = time_duration(data.time_started, data.time_ended)
+      appdata.push(data)
+      console.log(JSON.stringify(appdata))
+      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+      response.end(JSON.stringify(appdata))
+    })
+  }
+  else if (request.url === "/delete"){
+    console.log(response)
+    let dataString = ''
+
+    request.on('data', function (data) {
+      dataString += data
+    })
+
+    request.on('end', function () {
+
+
+      let data = JSON.parse(dataString);
+      data.duration = time_duration(data.time_started, data.time_ended)
+      appdata.pop(data)
+      console.log(JSON.stringify(appdata))
+      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+      response.end(JSON.stringify(appdata))
+    })
+  }
 }
 
 const sendFile = function( response, filename ) {
@@ -67,6 +120,49 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+function time_duration(start, end) {
+
+  let start_hour = parseInt(start.split(":")[0]);
+  let start_min = parseInt(start.split(":")[1]);
+
+  let end_hour = parseInt(end.split(":")[0]);
+  let end_min = parseInt(end.split(":")[1]);
+
+  let dur_hour;
+  let dur_min;
+
+  if (end_hour > start_hour) {
+
+    if (end_min >= start_min) {
+      dur_min = end_min - start_min;
+      dur_hour = end_hour - start_hour;
+    } else {
+      dur_hour = end_hour - start_hour - 1;
+      dur_min = (end_min + 60) - start_min;
+    }
+  }
+  if (end_hour == start_hour) {
+
+    if (end_min >= start_min) {
+      dur_min = end_min - start_min;
+      dur_hour = 0;
+    } else {
+      dur_hour = 23;
+      dur_min = (end_min + 60) - start_min;
+    }
+  } else {
+    if (end_min >= start_min) {
+      dur_min = end_min - start_min;
+      dur_hour = (end_hour + 24) - start_hour;
+    } else {
+      dur_hour = (end_hour + 24) - start_hour - 1;
+      dur_min = (end_min + 60) - start_min;
+    }
+  }
+  return ((dur_hour.toString() + " Hours  " + dur_min.toString() + " Minutes")).toString();
+
 }
 
 server.listen( process.env.PORT || port )

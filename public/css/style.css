@@ -20,18 +20,25 @@ body {
 }
 
 table {
-  border: 2px;
+  border: 2px solid;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  width: 40%;
-  color: #b929d9;
+  width: 50%;
+  color: #599FF0;
+}
+
+th, td, tr {
+  border: 2px solid;
+  margin: 2%;
+  color: #E9DDFA;
+
 }
 
 .grid_container {
   display: grid;
   row-gap: 10px;
-  column-gap: auto;
+  column-gap: 2px;
   grid-gap: 10px;
   justify-content: center;
   padding-top: 20px;
@@ -53,7 +60,7 @@ form {
   font-family: "PlayfairDisplay", sans-serif;
 }
 
-/* 
+/*
 .grid_item {
-  
+
 } */
