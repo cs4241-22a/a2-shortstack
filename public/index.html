@@ -1,41 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    
+    <h1>
+      WPI Food Rating
+    </h1>
+    
     <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+      <input type="text" id="yourname" placeholder="your name here" />
+      <input
+        type="num"
+        id="yourgradyear"
+        placeholder="your graduation year here"
+      />
+      <select name="foodoptions" id="food">
+        <option value="DAKA">DAKA</option>
+        <option value="CC">CC</option>
+        <option value="Joy Empanadas">Joy Empanadas</option>
+        <option value="Goat's head">Goat's Head</option>
+        <option value="Dunks">Dunkin Donuts</option>
+        <option value="Starbucks">Starbucks</option>
+        <option value="South Village">South Village</option>
+      </select>
+      <button>Submit</button>
+      <!--<button>Delete</button> -->
     </form>
+    <table id="resulttable">
+      <tr>
+        <th>Name</th>
+        <th>Graduation Year</th>
+        <th>Food Choice</th>
+        <th>Class</th>
+      </tr>
+    </table>
+    <table id="actualResultTable"></table>
   </body>
   <script>
+     const submit = function (e) {
+       // prevent default form action from being carried out
+       e.preventDefault();
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+       let name = document.querySelector("#yourname");
+       let yourgradyear = document.querySelector("#yourgradyear");
+       let food = document.querySelector("#food");
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+       if ((yourgradyear.value >= 2023) & (yourgradyear.value <= 2026)) {
+       } else {
+         alert("Not a valid graduation year!");
+         return;
+       }
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+       let json = {
+         name: yourname.value,
+         yourgradyear: yourgradyear.value,
+         food: food.value,
+         class: "",
+       };
 
-    return false
-  }
+       let body = JSON.stringify(json);
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+       fetch("/submit", {
+         method: "POST",
+         body,
+       }).then(async function (response) {
+         // do something with the reponse
+         let newTableInfo = await response.json();
+         updateTable(newTableInfo);
 
+         console.log(response);
+       });
+
+       return false;
+     };
+
+
+     function updateTable(newTableInfo) {
+       const table = document.getElementById("actualResultTable");
+       table.innerHTML = "";
+
+       newTableInfo.forEach((element, index) => {
+         table.innerHTML +=
+           "<tr><td>" +
+           element.name +
+           "</td><td>" +
+           element.yourgradyear +
+           "</td><td>" +
+           element.food +
+           "</td><td>" +
+           element.class +
+           "</td></tr>";
+       });
+     }
+
+    /*
+     let json = {
+         name: "",
+         yourgradyear: "",
+         food: "",
+         class: "",
+       };
+     const body = JSON.stringify(json)
+
+    fetch('/delete', {
+       method: 'POST',
+       body
+     }).then (function(response) {
+        let newTableInfo2 = await response.json();
+         updateTable(newTableInfo2);    }
+
+             )
+*/
+
+
+     window.onload = function () {
+       const button = document.querySelector("button");
+       button.onclick = submit;
+     };
   </script>
 </html>
