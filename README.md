@@ -12,7 +12,7 @@ I used CSS to automatically center the objects on the screen. There are three te
 - **Manual Refresh**: If the server fails to load, or falls behind, a manual reset calls the function to redraw the table that contains the data.
 - **Remove Entries**: When data is entered into the table, the JavaScript function assigns it a tag. This allows for easy indexing when attempting to edit or deleting data. I ran into trouble when removing tags, as the tags would reset back to the number of the tag that was deleted. (I.E. 0,1,2,3,4,5) would go to (0,1,2,4,5,3,4,5) if you deleted entry 3 and added two more entries. This would result in overlapping tags, and therefore errors.
 - **Tag Indexer**: This would ensure that the same tag is not used twice, and that the tags would be re-assigned every time an entry is deleted. Using the same example as above, if we remove entry 3, (0,1,2,3,4,5) would become (0,1,2,3,4).
--**Edit Entries**: Using the same tag system, entries could be updated by entering data to the top, and hitting update to the row the user wishes to update.
+- **Edit Entries**: Using the same tag system, entries could be updated by entering data to the top, and hitting update to the row the user wishes to update.
 - **Clear Entries**: This resets the server data at the push of a button.
 - **Total Price Calculator**: The total price is calculated by multiplying the unit price by the number of units, displaying this data in a new column on the table.
 
