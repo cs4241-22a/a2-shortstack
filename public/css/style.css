@@ -72,9 +72,6 @@ fieldset{
     margin-left: 7%;
 }
 
-
-
-/* change these */
 table {
     font-family: 'Montserrat', sans-serif;
     color: rgb(255, 245, 233);
@@ -85,5 +82,4 @@ table {
 table,th,td {
     border: 1px solid rgb(52, 44, 35);
     text-align: center;
-    vertical-align: middle;
 }
