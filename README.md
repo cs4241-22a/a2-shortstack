@@ -16,3 +16,14 @@ Pradhan
     He liked the title
 3: What would you change about the interface based on their feedback?
     There's a lot of things I would change given more time. I would fix a few quality of life things such as clearing the inputs when submitting new data. Also making the Ui a little more consistent overall. I would also have liked to add the ability to edit or remove items by line instead of only clearing the whole thing
+
+
+
+    Brunelle
+1: What problems did the user have with your design?
+    no problems,
+2: What comments did they make that surprised you?
+ Liked the calender picker for the date and clear all button
+3: What would you change about the interface based on their feedback?
+    Would love to make it possible to delete each line individually
+
