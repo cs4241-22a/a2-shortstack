@@ -3,9 +3,18 @@
 body{
     background-color: #000000;
     display: flex;
+    height:100vh;
     justify-content: center;
     align-items: center;
-    height:100vh;
+}
+
+h1{
+    font-family: 'VT323', monospace;
+    border: solid black 0.5px;
+    font-size: 2em;
+    color: #3BD424;
+    display: flex;
+    margin-right: 0.5em;
 }
 
 .main{
@@ -52,6 +61,8 @@ input:active[type=button] {
 .hisDiv{
     display: flex;
     box-sizing: border-box;
+    border: solid #2b821d 5px;
+    margin-left: 1em;
 }
 
 .hisTable {
