@@ -1,29 +1,54 @@
 body {
-    background-color: #d2f7f8;
+    background-color: #b8f3f5;
+    font-family: 'Merriweather', serif;
 }
 
 h1 {
-    font-size: 20px;
+    font-size: 40px;
     text-align: center;
 }
 
-button {
-    border-style: bold;
+table {
+    text-align: left;
+    background-color: #a3d9e0;
+    border-radius: 15px;
+    padding: 1em;
+    color: black;
+    font-size: 32px;
 }
 
-#form label {
-    font-size:16px;
-    font-weight:bold;
-    text-align:right;
+input[type=text] {
+    background: white;
+    border: 1px solid #000000;
+    font-family: 'Merriweather', serif;
+    font-size: 32px;
 }
+
+input[type=date] {
+    background: white;
+    border: 1px solid #000000;
+    font-family: 'Merriweather', serif;
+    font-size: 32px;
+}
+
+button {
+    transition-duration: 0.4s;
+    border-radius: 5px;
+    border-color: transparent;
+    font-size: 24px;
+  }  
 
 #form input {
     display: block;
-    font-size:16px;
+    font-size:20px;
     padding:4px 2px;
     border:solid 1px #aacfe4;
-    width:120px;
+    width:160px;
     margin:2px 0 20px 10px;
+}
+
+.grid-container {
+    display: inline-grid;
 }
 
 .bookReserve {
@@ -36,7 +61,7 @@ button {
     margin-right: auto;
 }
 
-#reserveData:hover {
+#reserveData tr:hover {
     background-color: #EEE;
     cursor: pointer;
 }
