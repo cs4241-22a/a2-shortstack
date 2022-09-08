@@ -2,6 +2,8 @@ import {IncomingMessage, ServerResponse} from "http";
 import {constants} from "os";
 import ErrnoException = NodeJS.ErrnoException;
 import {Serializer} from "v8";
+import {DataStoreOptions} from "nedb";
+const Datastore = require('nedb')
 
 const http = require( 'http' ),
 	  fs   = require( 'fs' ),
@@ -19,6 +21,9 @@ interface Message {
 	color: HEX;
 	message: string;
 }
+
+// Create message database
+const messagesDB: Nedb = new Datastore({ filename: './messages.json', autoload: true });
 
 const messages: Message[] = [
 	{ timeCreated: new Date(), color: "#ffffff", message: "Test" }
@@ -47,7 +52,11 @@ const handleGet = function( request: IncomingMessage, response: ServerResponse )
 		request.on('data', (data) => console.log(data))
 			.on( 'end', function() {
 			response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-			response.end(JSON.stringify(messages));
+
+			// Sort database then send JSON
+			messagesDB.find({}).sort({timeCreated: 1}).exec((err, docs: Message[]) => {
+				response.end(JSON.stringify(docs));
+			});
 		});
 	}	else {
 		sendFile( response, filename );
@@ -64,16 +73,32 @@ const handlePost = function( request: IncomingMessage, response: ServerResponse 
 	request.on( 'end', function() {
 		const data: Message = JSON.parse(dataString);
 
+		// Update timecreated to server time
 		data.timeCreated = new Date();
-		messages.push(data);
 
-		response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-		response.end(dataString);
+		messagesDB.insert(data, (err, newDoc) => {
+			response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+			response.end(dataString);
+
+			// Notify
+		});
 	});
 }
 
 function handleDelete(request: IncomingMessage, response: ServerResponse) {
+	if (request.url === '/remove')
+	request.on('data', (dataString) => {
+		const data = <{index: number}>JSON.parse(dataString);
 
+		// Remove from database by sorting by date then removing index
+		messagesDB.find({}).sort({timeCreated: 1}).exec((err, docs: Message[]) => {
+			messagesDB.remove(docs[data.index])
+		});
+	})
+		.on( 'end', function() {
+		response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+		response.end();
+	});
 }
 
 const sendFile = function( response: ServerResponse, filename: string ) {

@@ -7,7 +7,9 @@
     "start": "node server/server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "@types/nedb": "^1.8.12",
+    "mime": "^2.4.4",
+    "nedb": "^1.8.0"
   },
   "devDependencies": {
     "@types/filesystem": "^0.0.32",

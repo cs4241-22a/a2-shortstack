@@ -7,6 +7,8 @@ interface Message {
 	message: string;
 }
 
+const messagesElement = <HTMLDivElement>document.getElementById("messages");
+
 /**
  * Renders a message to an HTML element displaying the message, when it was posted, and a delete button
  * @param message
@@ -26,9 +28,16 @@ function renderMessage(message: Message): HTMLDivElement {
 	`;
 
 	const deleteButton = <HTMLButtonElement>rootDiv.getElementsByClassName('delete-button')[0];
-	// deleteButton.onclick = {
-	//
-	// }
+	deleteButton.onclick = (ev) => {
+		const messageIndex = Array.from(messagesElement.children).indexOf(rootDiv);
+		const body = JSON.stringify({index: messageIndex});
+
+		fetch('/remove', {
+			method: 'DELETE',
+			body
+		})
+			.then(response => rootDiv.remove());
+	}
 
 	return rootDiv;
 }
@@ -41,7 +50,7 @@ fetch('/messages')
 
 		for (const message of json) {
 			const newElement = renderMessage(message);
-			document.getElementById("messages")?.appendChild(newElement);
+			messagesElement.appendChild(newElement);
 		}
 	});
 

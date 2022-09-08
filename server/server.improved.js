@@ -1,9 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const Datastore = require('nedb');
 const http = require('http'), fs = require('fs'), 
 // IMPORTANT: you must run `npm install` in the directory for this assignment
 // to install the mime library used in the following line of code
 mime = require('mime'), dir = 'public/', port = 3000;
+// Create message database
+const messagesDB = new Datastore({ filename: './messages.json', autoload: true });
 const messages = [
     { timeCreated: new Date(), color: "#ffffff", message: "Test" }
 ];
@@ -30,7 +33,10 @@ const handleGet = function (request, response) {
         request.on('data', (data) => console.log(data))
             .on('end', function () {
             response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
-            response.end(JSON.stringify(messages));
+            // Sort database then send JSON
+            messagesDB.find({}).sort({ timeCreated: 1 }).exec((err, docs) => {
+                response.end(JSON.stringify(docs));
+            });
         });
     }
     else {
@@ -44,13 +50,28 @@ const handlePost = function (request, response) {
     });
     request.on('end', function () {
         const data = JSON.parse(dataString);
+        // Update timecreated to server time
         data.timeCreated = new Date();
-        messages.push(data);
-        response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
-        response.end(dataString);
+        messagesDB.insert(data, (err, newDoc) => {
+            response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
+            response.end(dataString);
+            // Notify
+        });
     });
 };
 function handleDelete(request, response) {
+    if (request.url === '/remove')
+        request.on('data', (dataString) => {
+            const data = JSON.parse(dataString);
+            // Remove from database by sorting by date then removing index
+            messagesDB.find({}).sort({ timeCreated: 1 }).exec((err, docs) => {
+                messagesDB.remove(docs[data.index]);
+            });
+        })
+            .on('end', function () {
+            response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
+            response.end();
+        });
 }
 const sendFile = function (response, filename) {
     const type = mime.getType(filename);
