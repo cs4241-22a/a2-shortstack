@@ -45,22 +45,20 @@ const handleDelete = function(request, response) {
     // ... do something with the data here!!!
     //data string gives a parsible string with the response
     let entryToDelete = JSON.parse( dataString )
-
+    let song
     for(let i =0;i < appdata.length; i++) {
       if(appdata[i].yourname === entryToDelete.delete) {
+        song = appdata[i].yoursong
         appdata.splice(i,1)
       }
     }
 
     //DECREMENT calculate how many other poeple answered that song 
-    for(let i =0;i < appdata.length; i++) {
-
-      if(appdata[i].yoursong === entryToDelete.yoursong) {
-        console.log("HEREEEE")
-        console.log(appdata[i].count)
-        appdata[i].count = appdata[i].count - 1
-        console.log("After")
-        console.log(appdata[i].count)
+    for(let j =0;j < appdata.length; j++) {
+      if(appdata[j].yoursong === song) {
+        if(appdata[j].count > 1) {
+          appdata[j].count = appdata[j].count - 1
+        } 
       }
     }
     
