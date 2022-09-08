@@ -18,7 +18,8 @@ const appdata = [
     date: '2022-09-07',
     time_started: '19:15',
     time_ended: '19:15',
-    description: 'test'
+    description: 'test',
+    duration: '0 Hour  0 Minutes'
   }
 
 ]
@@ -42,22 +43,44 @@ const handleGet = function( request, response ) {
 }
 
 const handlePost = function( request, response ) {
-  let dataString = ''
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+  if (request.url === "/submit") {
+    let dataString = ''
 
-  request.on( 'end', function() {
+    request.on('data', function (data) {
+      dataString += data
+    })
+
+    request.on('end', function () {
 
 
-    let data = JSON.parse(dataString);
-    appdata.push(data)
-    console.log(JSON.stringify(appdata))
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    // response.write(JSON.stringify(dataString))
-    response.end(JSON.stringify(appdata))
-  })
+      let data = JSON.parse(dataString);
+      data.duration = time_duration(data.time_started, data.time_ended)
+      appdata.push(data)
+      console.log(JSON.stringify(appdata))
+      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+      response.end(JSON.stringify(appdata))
+    })
+  }
+  else if (request.url === "/delete"){
+    console.log(response)
+    let dataString = ''
+
+    request.on('data', function (data) {
+      dataString += data
+    })
+
+    request.on('end', function () {
+
+
+      let data = JSON.parse(dataString);
+      data.duration = time_duration(data.time_started, data.time_ended)
+      appdata.pop(data)
+      console.log(JSON.stringify(appdata))
+      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+      response.end(JSON.stringify(appdata))
+    })
+  }
 }
 
 const sendFile = function( response, filename ) {
@@ -80,6 +103,49 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+function time_duration(start, end) {
+
+  let start_hour = parseInt(start.split(":")[0]);
+  let start_min = parseInt(start.split(":")[1]);
+
+  let end_hour = parseInt(end.split(":")[0]);
+  let end_min = parseInt(end.split(":")[1]);
+
+  let dur_hour;
+  let dur_min;
+
+  if (end_hour > start_hour) {
+
+    if (end_min >= start_min) {
+      dur_min = end_min - start_min;
+      dur_hour = end_hour - start_hour;
+    } else {
+      dur_hour = end_hour - start_hour - 1;
+      dur_min = (end_min + 60) - start_min;
+    }
+  }
+  if (end_hour == start_hour) {
+
+    if (end_min >= start_min) {
+      dur_min = end_min - start_min;
+      dur_hour = 0;
+    } else {
+      dur_hour = 23;
+      dur_min = (end_min + 60) - start_min;
+    }
+  } else {
+    if (end_min >= start_min) {
+      dur_min = end_min - start_min;
+      dur_hour = (end_hour + 24) - start_hour;
+    } else {
+      dur_hour = (end_hour + 24) - start_hour - 1;
+      dur_min = (end_min + 60) - start_min;
+    }
+  }
+  return ((dur_hour.toString() + " Hours  " + dur_min.toString() + " Minutes")).toString();
+
 }
 
 server.listen( process.env.PORT || port )
