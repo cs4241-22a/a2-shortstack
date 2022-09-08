@@ -14,11 +14,11 @@ Below are suggested technical and design achievements. You can use these to help
 
 *Design/UX*
 ###### User-Testing 1
-* Tester last name: Zhu
+  * Tester last name: Zhu
 He did find that my server does the order of to do list with specific order. He thought probably it would be better if I could make it ordering as somehow like alphabetic, ungency etc. Actually I did not change to exactly what he said. Instead, I organized them with classifier.
 
 ###### User-Testing 2
-* Tester last name: Zhang
+  * Tester last name: Zhang
 She thought my overall color is great, and the design is what she likes. She thought it would be better to distinct clear and delete since I originally have clear stuff as delete button which did confuse users. Obviously I changed it :)
 
 ###### Styling and functionality
