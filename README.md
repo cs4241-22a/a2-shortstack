@@ -1,7 +1,7 @@
 Reagan Brunelle
 https://a2-rmbrunelle.glitch.me/
 
-## Your Web Application Title
+## Music Playlist Creator
 Summary: Music Playlist Creator. My project is a pretend music playlist. The user can add songs with specific name, artist, duration, and album, and see the playlist length in minutes on the right after each song. This way the user can know at what point in the playlist a song will play.
 
 Special Instructions: You must enter a number in the "Duration of song" field for it to work properly. It will round down to nearest integer.
