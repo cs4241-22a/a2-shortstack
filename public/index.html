@@ -2,31 +2,49 @@
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
+    <link rel="stylesheet" href="css/style.css"/>
     <meta charset="utf-8">
   </head>
   <body>
+    <h1>
+        Pokémon Monotype Info
+    </h1>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <input type="text" id="yourmon" placeholder="Your Pokémon here" value="">
+      <input type="text" id="type" placeholder="Your Pokémon type here" value="">
       <button>submit</button>
     </form>
+    
+    <table id="datatable">
+      <tr>
+        <th> Name </th>
+        <th> Type </th>
+        <th> Strong Against </th>
+        <th> Weak To </th>
+      </tr>
+    </table>
   </body>
   <script>
-
+    let currentId = 0;
   const submit = function( e ) {
     // prevent default form action from being carried out
+    let bob = e
+    debugger
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input1 = document.querySelector( '#yourmon' ),
+          input2 = document.querySelector( '#type' ),
+          json = { yourmon: input1.value, type: input2.value, },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
       body 
     })
-    .then( function( response ) {
+    .then(async function( response ) {
       // do something with the reponse 
-      console.log( response )
+      let data = await response.json()
+      addRow(data.yourmon, data.type, data.str, data.wk)
     })
 
     return false
@@ -36,6 +54,38 @@
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
-
+    
+  const addRow = function( name, type, str, wk ) {
+    const table = document.getElementById('datatable')
+    const row = table.insertRow()
+    row.id = currentId.toString()
+    const nameCell = row.insertCell(0)
+    const typeCell = row.insertCell(1)
+    const strCell = row.insertCell(2)
+    const wkCell = row.insertCell(3)
+    const delCell  = row.insertCell(4)
+    nameCell.innerHTML = name
+    typeCell.innerHTML = type
+    typeCell.className = type.toLowerCase()
+    strCell.innerHTML  = str
+    wkCell.innerHTML   = wk
+    
+    
+    const delButton = document.createElement('input')
+    delButton.type  = "button"
+    delButton.value = "remove"
+    delButton.onclick = function() { delRow( row.id ) }
+    delCell.appendChild(delButton)
+    
+    currentId++
+  }
+  
+  const delRow = function( id ){
+    const table = document.getElementById('datatable')
+    table.deleteRow( document.getElementById( id ).rowIndex )
+  }
+  
+  
+  
   </script>
 </html>
