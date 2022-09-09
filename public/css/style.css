@@ -5,6 +5,7 @@ body {
   text-align: center;
   background-color: lightblue;
   font-family: 'Courier Prime', monospace;
+  font-size: 20px;
 }
 
 table {
@@ -19,7 +20,7 @@ table {
 input[type=text] {
   background:transparent;
   border: none;
-  border-bottom: 1px solid #000000;
+  border-bottom: 2px solid #000000;
 }
 
 button {
@@ -71,3 +72,5 @@ button:hover {
   border: 20px;
   border-collapse:collapse;
 }
+
+
