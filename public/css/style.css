@@ -1,1 +1,51 @@
 /*Style your own assignment! This is fun! */
+body{
+  background-color: #D3D3D3;
+     font-family: "Antonio",sans-serif;
+}
+.res{
+   margin: auto;
+  width: 50%;
+ 
+  padding: 10px;
+}
+p{
+  color:#2F4F4F
+}
+table, th, td {
+  background-color:lightgray;
+
+  table-layout: auto;
+  width: 180px;
+}
+
+
+.flex {
+  margin-right:auto;
+  margin-left:auto;
+    
+  
+}
+.pm {
+  text-align: center;
+  
+}
+button:hover{
+  background-color:green
+}
+#submitButton {
+  background-color: #2F4F4F; 
+  border-radius: 5px;
+  color: white;
+  padding: 10px 16px;
+  text-align: center;
+  display: inline-block;
+  font-size: 11px;
+  margin-left:50%;
+    
+  
+  
+}
+#submitButton:hover{
+  background-color:black
+} 
