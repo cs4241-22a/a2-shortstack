@@ -34,15 +34,26 @@ const handlePost = function( request, response ) {
 
   request.on( 'data', function( data ) {
       dataString += data 
+      console.log("-----------")
+      console.log(dataString)
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    if(request.url === "/submit"){
+      //console.log( JSON.parse( dataString ) )
 
-    let newStudent = JSON.parse(dataString)
-    newStudent.finalScore = finalGrade(newStudent.a1score, newStudent.a2score, newStudent.projectSc, newStudent.examScore)
+      let newStudent = JSON.parse(dataString)
+      newStudent.finalScore = finalGrade(newStudent.a1score, newStudent.a2score, newStudent.projectSc, newStudent.examScore)
 
-    appdata.push(newStudent)
+      appdata.push(newStudent)
+
+    } else if (request.url === '/delete'){
+      let i = JSON.parse( dataString ).index
+      appdata.splice( i, 1 )
+      //console.log(appdata)
+    }
+
+  
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(appdata))
   })
