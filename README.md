@@ -38,3 +38,14 @@ animations for most elements.
 - **ID Selectors**: ID selectors are used for referencing individual sections in the webpage.
 - **Class selectors**: Several classes are used to style messages and organize site content
 - **Google Font**: _Roboto_ was taken from Google Fonts and used for all text content on the site.
+
+### Evaluations
+- Aaron Waldman
+  - He stress-tested the apps to figure out if exotic ascii characters could be used
+  - He wanted more frequent refreshes from the database
+  - Based on his feedback, I implemented full updates from the database whenever a change was made or whenever the
+  lost then gained focus
+- Michael O'Connor
+  - Michael tested how long the strings that could be input were
+  - He found that long single-word messages would push the delete button off-screen
+  - In response, I enabled wrapping single-word strings to the next line in messages
