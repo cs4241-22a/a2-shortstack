@@ -56,18 +56,28 @@ const submit = function( e ) {
     // then is a callback function
     // javascript promise: value that is unknown now, it is called when it is received by the server?
     .then(  // when the rewsponse to the server comes, do this
-      function(  response ) { // body is in here
+      function(  response ) { // this is the response from the server
       // do something with the reponse 
       // try putting the TABLE HERE
       //  console.log( response.json() )
         return response.json() // extracts json and returns it
+        
       }
     )
+    //json was returned from the previous ".then"
     .then( function(json){ // promise
       // do something with res 
-      console.log(json)
-      
-      
+
+      console.log(json) // console logs to teh CHrome DevTools
+      console.log(JSON.stringify(json))
+      console.log("do you see me in Chrome Dev Tools?" ) // why doe this happen in Chrome Dev Tools instead of the Terminal?
+    //////////////
+         // testing to see if you can show data to console
+         const testThen  = document.querySelector("#testThen")
+         testThenP = document.createElement("p")
+         testThenP.innerText = JSON.stringify(json)
+          testThen.appendChild(testThenP)
+    //////////////
     })
 
     return false
@@ -132,6 +142,6 @@ const submit = function( e ) {
    */
 
   /**
-   * StoredTasks
+   * ViewStoredTasks
    * gets data form server and puts it on page
   */

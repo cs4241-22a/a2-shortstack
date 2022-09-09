@@ -2,11 +2,11 @@
 
 //http://localhost:3000/ 
 const http = require( 'http' ),
+
 // gives access to file system
 fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
-
       //mime is a way of saying what type of data you have
       mime = require( 'mime' ), 
       //directory ( no need to put in .create server)
