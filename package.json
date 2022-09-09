@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "a2-poz123",
   "version": "",
   "description": "",
-  "author": "",
+  "author": "Noah Goodman",
   "scripts": {
     "start": "node server.improved.js"
   },
