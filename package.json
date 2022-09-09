@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "todepend",
+  "version": "0.1.0",
+  "description": "A simple TODO app with a different approach",
+  "author": "Gabriel M. Buonomano",
   "scripts": {
     "start": "node server.improved.js"
   },
