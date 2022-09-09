@@ -23,10 +23,6 @@ const appdata = [
 ]
 
 const server = http.createServer( function( request,response ) {
-  //added
-  //sendFile() treansfers the file at the given path and sets the response HTTP header field based on the file extension
-
-  //
   if( request.method === 'GET' ) { // used to retrieve information from a server
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
@@ -38,6 +34,7 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
+ 
   if( request.url === '/' ) {
     //sendFile() treansfers the file at the given path and sets the response HTTP header field based on the file extension
     sendFile( response, 'public/index.html' )
@@ -50,6 +47,7 @@ const handlePost = function( request, response ) {
   let dataString = '' 
 
   // gets all of the data for the request object
+   
   request.on( 'data', function( data ) {
       dataString += data 
     }
@@ -58,18 +56,15 @@ const handlePost = function( request, response ) {
   // when I have received all of the data
   request.on( 'end', function() {
    // console.log( JSON.parse( dataString ) )
-    
     // ... do something with the data here!!!
     dataJson = JSON.parse(dataString)
-
     //Server Logic
      let field2 = dataJson.Difficulty;
      let field3 = dataJson.Year;
      // Derived Field
      dataJson.DerivedSemester = field2 + '/' + field3
 
-    // dataJson.note = "completed"
-    console.log(dataJson)
+    // console.log(dataJson)
 
     // check to see if you can print AppData
     appdata.push(dataJson)
@@ -92,17 +87,9 @@ const handlePost = function( request, response ) {
   //     
 //////////////////////
     console.log(appdata)
-    
-// // this attempt didnt work due to document class not being in node js
-// const Test1 = document.querySelector("#testServerI")
-// let TaskServer = document.createElement('p')
-// TaskServer.innerText = "This Server is working :D"
-// /////////////////////Test Server
-// Test1.appendChild(TaskServer)
-// //     /////////////////////
-
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(dataJson)) 
+    //response.end(JSON.stringify(dataJson))  // sends data back to the client
+    response.end(JSON.stringify(appdata))  // sends appdata back to the client
   })
 }
 
