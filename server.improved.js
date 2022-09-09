@@ -46,80 +46,22 @@ const handlePost = function( request, response ) {
   request.on( "end", function() {
     console.log( JSON.parse( dataString ) )
     let newSubmission = JSON.parse( dataString )
+    console.log("newSubmission.readYet: " + newSubmission.readYet)
     
     //make a new book submission to the library data
     newSubmission.bookID = bookCount
     bookCount++
-    const newDate = new Date(newSubmission.acquiredDate)
     const bookID = newSubmission.bookID
     
     //Below is supposed to sort and update readOrder and appdata
+    //It mostly works
     
-    // newSubmission.readNextPos = bookID
-    // appdata.push( newSubmission )
+    newSubmission.readNextPos = bookID
+    appdata.push( newSubmission )
     readOrder.push(bookID)
     console.log( newSubmission )
     
-    let lastEl = -1
-      if(appdata.length > 0) {
-        let newRY = newSubmission.readYet
-        let newAD = newSubmission.acquiredDate
-        for(let y = 0; y < appdata.length; y++) {
-          let ROElem = readOrder[y]
-          console.log("Read Order El: " + ROElem)
-          let oldElement = appdata[ROElem]
-          let oldElRY = oldElement.readYet
-          let oldElAD = oldElement.acquiredDate
-          if (oldElRY === "No") {
-            if (newRY === "No") {
-              if ((oldElAD - newAD) > 0) {
-                let newEl = newSubmission.bookID
-                for (let x = y; x < readOrder.length; x++) {
-                  let oldEl = readOrder[x]
-                  readOrder[x] = newEl
-                  let temp = oldEl
-                  oldEl = newEl
-                  lastEl = temp
-                }
-              }
-            }
-          } 
-          else {
-            if (newRY === "No") {
-              let newEl = newSubmission.bookID
-              for (let x = y; x < readOrder.length; x++) {
-                let oldEl = readOrder[x]
-                readOrder[x] = newEl
-                let temp = oldEl
-                oldEl = newEl
-                lastEl = temp
-              }
-            }
-            else {
-              if ((oldElAD - newAD) > 0) {
-                let newEl = newSubmission.bookID
-                for (let x = y; x < readOrder.length; x++) {
-                  let oldEl = readOrder[x]
-                  readOrder[x] = newEl
-                  let temp = oldEl
-                  oldEl = newEl
-                  lastEl = temp
-                }
-              }
-            }
-          }
-        }
-      } 
-    else {
-      lastEl = bookID
-    }
-    let lastElIndex = readOrder.length - 1
-    readOrder[lastElIndex] = lastEl
-    console.log("Last El: " + lastEl)
-    //readOrder.push(lastEl)
-    console.log("ReadORDER[lastel]: " + readOrder[lastEl])
-    //newSubmission.readNextPos = readOrder[lastEl]
-    appdata.push( newSubmission )
+    readOrder = sort(readOrder, appdata)
     
     //puts the changed readNextPos into the appdata
     readOrder.forEach((element, index) => {
@@ -128,255 +70,6 @@ const handlePost = function( request, response ) {
       oldElement.bookID = element
       appdata[element] = oldElement
     })
-    
-    
-    //this is supposed to sort the books based on their readOrder
-    //I know it's horrendous and I'm not proud of it, but I didn't have time to perfect it
-    //It's also not fully correct and the updating of Book IDs goes poorly at some points
-//     if (bookCount > 3) {
-//       let min = 0
-//       let index = 0
-//       let temp = 0
-//       for (let i = 0; i < readOrder.length; i++) {
-//         for (let j=i+1; j < readOrder.length; j++) {
-//           let element0 = appdata[i]
-//           let element1 = appdata[j]
-//           let smallest = 0
-//           let largest = 1
-      
-//           if (element0.readYet === "No") {
-//             if (element1.readYet === "No") {
-//               if ( (element0.acquiredDate - element1.acquiredDate) < 0 ) {
-//                 smallest = element0
-//                 largest = element1
-//               }
-//               else {
-//                 smallest = element1
-//                 largest = element0
-//               }  
-//             }
-//             else {
-//               smallest = element0
-//               largest = element1
-//             }
-//           } else if (element1.readYet === "No") {
-//             smallest = element1
-//             largest = element0
-//           }
-//           else {
-//             if ((element0.acquiredDate - element1.acquiredDate) < 0) {
-//               smallest = element0
-//               largest = element1
-//             }  
-//             else {
-//               smallest = element1
-//               largest = element0
-//             }
-//           }
-//           readOrder[i] = smallest.bookID
-//           readOrder[j] = largest.bookID
-//         }
-//       }
-//     }
-//     else if (bookCount === 3) {
-//       let smallest = 0
-//       let middle = 1
-//       let largest = 2
-      
-//       let element0 = appdata[0]
-//       let element1 = appdata[1]
-//       let element2 = appdata[2]
-      
-//       if (element0.readYet === "No") {
-//         if (element1.readYet === "No") {
-//           if (element2.readYet === "No") {
-//             if ((element0.acquiredDate - element1.acquiredDate) < 0) {
-//               if ((element0.acquiredDate - element2.acquiredDate) < 0) {
-//                 smallest = element0
-//                 if ((element1.acquiredDate - element2.acquired) < 0) {
-//                   middle = element1
-//                   largest = element2
-//                 }
-//                 else {
-//                   middle = element2
-//                   largest = element1
-//                 }
-//               }
-//               else {
-//                 smallest = element2
-//                 middle = element0 
-//                 largest = element1
-//               }
-//             } else if ((element1.acquiredDate - element2.acquiredDate) < 0) {
-//               smallest = element1
-//               if ((element2.acquiredDate - element0.acquiredDate) < 0) {
-//                 middle = element2
-//                 largest = element0
-//               }
-//               else {
-//                 middle = element0
-//                 largest = element2
-//               }
-//             }
-//           }
-//           largest = element2
-//           if ((element0.acquiredDate - element1.acquiredDate) < 0) {
-//             smallest = element0
-//             middle = element1
-//           }
-//           else {
-//             smallest = element1
-//             middle = element0
-//           }
-//         } else if (element2.readYet === "No") {
-//           largest = element1
-//           if ((element0.acquiredDate - element2.acquiredDate) < 0) {
-//             smallest = element0
-//             middle = element2
-//           }
-//           else {
-//             smallest = element2
-//             middle = element0
-//           }
-//         } else {
-//           smallest = element0
-//           if ((element1.acquiredDate - element2.acquiredDate) < 0) {
-//             middle = element1
-//             largest = element2
-//           }
-//           else {
-//             middle = element2
-//             largest = element1
-//           }
-//         }
-//       } 
-//       else if (element1.readYet === "No") {
-//         if (element2.readYet === "No") {
-//           largest = element0
-//           if ((element1.acquiredDate - element2.acquiredDate) < 0) {
-//             smallest = element1
-//             middle = element2
-//           }
-//           else {
-//             smallest = element2
-//             middle = element1
-//           }
-//         }
-//         else {
-//           smallest = element1
-//           if ((element0.acquiredDate - element2.acquiredDate) < 0) {
-//             middle = element0
-//             largest = element2
-//           }
-//           else {
-//             middle = element2
-//             largest = element0
-//           }
-//         }
-//       }
-//       else if (element2.readYet === "No") {
-//         smallest = element2
-//         if ((element0.acquiredDate - element1.acquiredDate) < 0) {
-//           middle = element0
-//           largest = element2
-//         }
-//         else {
-//           middle = element2
-//           largest = element0
-//         }
-//       }
-//       else {
-//         if ((element0.acquiredDate - element1.acquired1) < 0) {
-//           if ((element0.acquiredDate - element2.acquired) < 0) {
-//             smallest = element0
-//             if ((element1.acquiredDate - element2.acquiredDate) < 0) {
-//               middle = element1
-//               largest = element2
-//             }
-//             else {
-//               middle = element2
-//               largest = element1
-//             }
-//           }
-//           else {
-//             smallest = element2
-//             middle = element0
-//             largest = element1
-//           }
-//         }
-//         else if ((element1.acquiredDate - element2.acquiredDate) < 0) {
-//           smallest = element1
-//           if ((element0.acquiredDate - element2.acquiredDate) < 0) {
-//             middle = element0
-//             largest = element2
-//           }
-//           else {
-//             middle = element2
-//             largest = element0
-//           }
-//         }
-//         else {
-//           smallest = element2
-//           middle = element1
-//           largest = element0
-//         }
-//       }
-//       readOrder[0] = smallest.bookID
-//       readOrder[1] = middle.bookID
-//       readOrder[2] = largest.bookID
-//     }
-//     else if (bookCount === 2) {
-//       let smallest = 0
-//       let largest = 1
-      
-//       let element0 = appdata[0]
-//       let element1 = appdata[1]
-      
-//       if (element0.readYet === "No") {
-//         if (element1.readYet === "No") {
-//           if ( (element0.acquiredDate - element1.acquiredDate) < 0 ) {
-//             smallest = element0
-//             largest = element1
-//           }
-//           else {
-//             smallest = element1
-//             largest = element0
-//           }  
-//         }
-//         else {
-//           smallest = element0
-//           largest = element1
-//         }
-//       } else if (element1.readYet === "No") {
-//         smallest = element1
-//         largest = element0
-//       }
-//       else {
-//         if ((element0.acquiredDate - element1.acquiredDate) < 0) {
-//           smallest = element0
-//           largest = element1
-//         }
-//         else {
-//           smallest = element1
-//           largest = element0
-//         }
-//       }
-//       readOrder[0] = smallest.bookID
-//       readOrder[1] = largest.bookID
-//     } 
-//     else if (bookCount === 1) {
-//         let element0 = appdata[0]
-//         readOrder[0] = element0.bookID
-//     }
-//     //I told you it was horrendous
-    
-//     //puts the changed readNextPos into the appdata
-//     readOrder.forEach((element, index) => {
-//       let oldElement = appdata[element]
-//       oldElement.readNextPos = index
-//       oldElement.bookID = element
-//       appdata[element] = oldElement
-//     })
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.write( JSON.stringify( appdata ))
@@ -395,7 +88,8 @@ const handleDelete = function ( request, response ) {
   request.on( "end", function() {
     console.log( JSON.parse( dataString ) )
     let deleteRequest = JSON.parse( dataString )
-    const deletedBookID = deleteRequest.bookID
+    const deletedBookID = deleteRequest.bookID - 1
+    deleteRequest.bookID = deletedBookID
     const readOrderIndex = deleteRequest.readNextPos
     if (!(bookCount == 0)) {
       bookCount--
@@ -446,6 +140,8 @@ const handleDelete = function ( request, response ) {
       readOrder.push(element)
     })
     
+    readOrder = sort(readOrder, appdata)
+    
     //puts the changed readNextPos into the appdata
     readOrder.forEach((element, index) => {
       let oldElement = appdata[element]
@@ -480,6 +176,111 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+//sort function 
+const sort = function(arr, arr2) {
+  for(let i = 1; i < arr2.length; i++) {
+    for(let j = i-1; j > -1; j--) {
+      let jPlus = j+1
+      let returned = compareElems(jPlus, j, arr2)
+      console.log("Returned: " + returned + ", j+1: " + jPlus)
+      if (returned === j+1) {
+        [arr[j+1],arr[j]] = [arr[j],arr[j+1]]  
+      }
+    }
+  }
+  return arr
+}
+
+//helping sort function to compare whether ReadYet? is true and then calls compareDates
+const compareElems = function( first, second, arr ) {
+  let firstEl = arr[first]
+  let firstRY = firstEl.readYet
+  let firstAD = firstEl.acquiredDate
+  let correctAD = firstAD
+  
+  let secondEl = arr[second]
+  let secondRY = secondEl.readYet
+  let secondAD = secondEl.acquiredDate
+  
+  if (firstRY === "No") {
+    if (secondRY === "No") {
+      console.log("Both No")
+      correctAD = compareDates(firstAD, secondAD)
+    }
+    else if (secondRY === "Yes") {
+      console.log("First No")
+      return first
+    }
+  }
+  else if (firstRY === "Yes") {
+    if (secondRY === "No") {
+      console.log("Second No")
+      return second
+    }
+    else if (secondRY === "Yes") {
+      console.log("Both Yes")
+      correctAD = compareDates(firstAD, secondAD)
+    }
+  }
+  console.log("CorrectAD: " + correctAD)
+  if (correctAD === firstAD) {
+    return first
+  }
+  else if (correctAD === secondAD) {
+    return second
+  }
+}
+
+//compares the Dates
+const compareDates = function( first, second ) { //yyyy-mm-dd
+  const firstYear = first.substring(0,4)
+  const firstY = parseInt(firstYear)
+  const firstMonth = first.substring(5,7)
+  const firstM = parseInt(firstMonth)
+  const firstDay = first.substring(8,10)
+  const firstD = parseInt(firstDay)
+
+  const secondYear = second.substring(0,4)
+  const secondY = parseInt(secondYear)
+  const secondMonth = second.substring(5,7)
+  const secondM = parseInt(secondMonth)
+  const secondDay = second.substring(8,10)
+  const secondD = parseInt(secondDay)
+  
+  if (firstY < secondY) {
+    console.log("FirstY: " + firstY)
+    return first
+  } 
+  else if (secondY < firstY) {
+    console.log("SecondY: " + secondY)
+    return second  
+  }
+  else if (firstY === secondY) {
+    if (firstM < secondM) {
+      console.log("FirstM: " + firstM)
+      return first
+    }
+    else if (secondM < firstM) {
+      console.log("SecondM: " + secondM)
+      return second
+    }
+    else if (firstM === secondM) {
+      if (firstD < secondD) {
+        console.log("FirstD: " + firstD)
+        return first
+      }
+      else if (secondD < firstD) {
+        console.log("SecondD: " + secondD)
+        return second
+      }
+      else if (firstD === secondD) {
+        console.log("FirstD: " + firstD + "by default")
+        return first
+      }
+    }
+  }
 }
 
 server.listen( process.env.PORT || port )
