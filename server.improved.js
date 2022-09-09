@@ -6,7 +6,7 @@ const http = require( 'http' ),
     dir  = 'public/',
     port = 3000
 
-const appdata = []
+let appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -50,17 +50,19 @@ const handlePost = function( request, response ) {
       response.end()
     })
   }
-  else if (request.url === '/delete/'){
-    let dataString = ''
+  else if (request.url.includes('delete')){
+    let dataString = new URL(request.headers.origin + request.url).searchParams.get('id')
+    console.log("Data: " + dataString)
 
     request.on( 'data', function( data ) {
-      dataString += data
     })
 
     request.on( 'end', function() {
-      var data = JSON.parse( dataString );
-      console.log(data);
-      delete appdata[data.id]
+      console.log(appdata)
+      var index = parseInt(dataString)
+      console.log(index)
+      if (index === 0 && appdata.length == 1) appdata = []
+      else appdata.splice(index, index)
 
       response.writeHead(200, "OK", {'Content-Type': 'text/plain' })
       response.write(JSON.stringify(appdata))
