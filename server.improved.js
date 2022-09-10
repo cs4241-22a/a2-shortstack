@@ -80,7 +80,7 @@ const handlePost = function( request, response ) {
       //   }
       // }
 
-       appdata = appdata.filter(function (f){
+       appdata = appdata.filter(function (f){ // for some reason !== does not work, but == does
        return f.Task == dataJson.Task &&
        f.ToDoType == dataJson.ToDoType &&
        f.Difficulty == dataJson.Difficulty &&

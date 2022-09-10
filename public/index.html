@@ -1,109 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <!-- from google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link rel="stylesheet"  href = "/css/style.css">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <!-- `action` specifies where to send the form-data 
      <form action = "/server.improved.js" method= "post"> -->
-    <form >
-      <h1> To Do  List</h1>
+    <form>
+      <h1>To Do List</h1>
 
-<p class = "guides">
-  To make a new task, enter in the fields below
-</p>
+      <p class="guides">To make a new task, enter in the fields below</p>
 
-    <div class = "inputsAndButtonsTWO">
-      <main id = "inputs" class = "inputsAndButtons">
-      <label for="newTask">New Task:</label>
-      <input type='text' id='newTask' placeholder="sample task">  
-      <div id = "dropDowns"> 
-        <select id="ToDoType" >
-          <option value="School">School </option>
-          <option value="Work">Work </option>
-          <option value="Other">Other </option>
-        </select>
+      <div class="inputsAndButtonsTWO">
+        <div id="inputs" class="inputsAndButtons">
+          <label for="newTask">New Task:</label>
+          <input type="text" id="newTask" placeholder="sample task" />
+          <div id="dropDowns">
+            <select id="ToDoType">
+              <option value="School">School</option>
+              <option value="Work">Work</option>
+              <option value="Other">Other</option>
+            </select>
 
-        <select id="Difficulty" >
-          <option value="Easy">Easy </option>
-          <option value="Medium">Medium </option>
-          <option value="Hard">Hard </option>
-        </select>
+            <select id="Difficulty">
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
 
-        <select id="Semester" >
-          <option value="Fall">Fall </option>
-          <option value="Spring">Spring </option>
-          <option value="Summer">Summer </option>
-        </select>
+            <select id="Semester">
+              <option value="Fall">Fall</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+            </select>
 
-        <select id="Year" >
-          <option value="2022">2022 </option>
-          <option value="2023">2023 </option>
-          <option value="2024">2024 </option>
-          <option value="2025">2025 </option>
-        </select>
- 
- 
-      
-      </main>
-    
-    </div class = "inputsAndButtonsTWO">
-      <br>
-      <div id = "buttons" class = "inputsAndButtons">
-        <button id = "submitButton">submit</button>
-        <!-- <button id = "taskNewButton">plus</button> -->
-        <button id = "deleteButton">Delete</button>
+            <select id="Year">
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+            </select>
+          </div>
+        </div>
 
+        <div class="inputsAndButtonsTWO">
+          <br />
+          <div id="buttons" class="inputsAndButtons">
+            <button id="submitButton">submit</button>
+            <!-- <button id = "taskNewButton">plus</button> -->
+            <button id="deleteButton">Delete</button>
+          </div>
+          <p class="guides">
+            Click 'Submit' look at all of your task ( 1 task is already premade
+            for you)
+
+            <br />
+            <br />
+
+            Click 'Delete' will delete the task identitcal to the one that you
+            have in your field.
+          </p>
+
+          <div class="toDoList" id="toDoList">
+            <h1><u>Tasks to Complete</u></h1>
+            <hr />
+          </div>
+        </div>
       </div>
-      <p class = "guides">
-      Click 'Submit' look at all of your task ( 1 task is already premade for you)
-      
-        <br>
-        <br>
-        
-        Click 'Delete' will delete the task identitcal to the one that you have in your field. 
-      
-      </p>
-      
-      <div class="toDoList" id="toDoList">
-       <h1> <u>Tasks to Complete</u></h2>
-        <hr>
-    </div> 
+    </form>
 
- 
-   
-
-
-    </div>
-    </form>  
-
-    <br>
-    <table id = TaskTable>
+    <br />
+    <table id="TaskTable">
       <!-- header for the table -->
       <tr>
-        <th> Task </th>
-        <th> ToDoType </th>
-        <th> Difficulty </th>
-        <th> Year </th>
-        <th> DerivedSemester </th>
+        <th>Task</th>
+        <th>ToDoType</th>
+        <th>Difficulty</th>
+        <th>Year</th>
+        <th>DerivedSemester</th>
       </tr>
     </table>
 
-    <Table id = "TaskBase"> 
-
-    </Table> 
-
-
-   
+    <table id="TaskBase"></table>
 
     <script src="/js/scripts.js"></script>
-    </body>
-    
-
+  </body>
 </html>
