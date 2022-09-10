@@ -1,1 +1,104 @@
 /*Style your own assignment! This is fun! */
+
+body {
+  background-color: #ffeacf; /* same as #ffcc99 */
+}
+
+h1 {
+  color: #7b6a5c;
+  text-align: center;
+  font-size: 60px;
+  font-family: "IM Fell DW Pica", serif;
+  font-style: italic;
+  font-weight: bold;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+  color: #b38b56;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  font-family: "IM Fell DW Pica", serif;
+}
+
+h3 {
+  color: #2b8c5f;
+  text-align: center;
+  background-color: #c6d9c1;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
+  font-family: "IM Fell DW Pica", serif;
+}
+
+h4 {
+  color: #2b8c5f;
+  text-align: center;
+  background-color: #fdd17c;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%;
+  font-family: "IM Fell DW Pica", serif;
+}
+
+h5 {
+  color: #2b8c5f;
+  text-align: center;
+  background-color: #44120f;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 75%;
+  font-family: "IM Fell DW Pica", serif;
+}
+
+button {
+  color: #44120f;
+  text-align: center;
+  font-family: "IM Fell DW Pica", serif;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  text-align: center;
+  border: 3px solid #44120f;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 75%;
+  font-family: "IM Fell DW Pica", serif;
+
+}
+
+label {
+  color: grey;
+  font-family: "IM Fell DW Pica", serif;
+}
+
+div {
+  color: #2b8c5f;
+  text-align: center;
+  background-color: #c6d9c1;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
+  font-family: "IM Fell DW Pica", serif;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  background-color: #7b6a5c;
+   
+gap: 12px;
+ 
+}
+
+.flex-gap > table {
+  margin: 10px;
+}
