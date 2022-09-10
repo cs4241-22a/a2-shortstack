@@ -65,23 +65,23 @@ const handlePost = function (request, response) {
       console.log(jsonData); //debug
       appdata.push(jsonData); //pushing/adding data to appdata
     }
-   
-      
+
     let index = 0;
     let toBeRemoved = [];
     let needToDelete = false;
     // REMOVES BOOK FROM LIB
     appdata.forEach((entry) => {
-      if (jsonData.book_title == entry.book_title && jsonData.author_name == entry.author_name) {
+      if (
+        jsonData.book_title == entry.book_title &&
+        jsonData.author_name == entry.author_name
+      ) {
         needToDelete = true;
         toBeRemoved.push(index);
         console.log("toBeRemoved: ", toBeRemoved);
-      } 
-      
-      else {
+      } else {
         index++;
       }
-    })
+    });
     if (toBeRemoved) {
       toBeRemoved.forEach((entryToRemove) => {
         appdata.splice(entryToRemove, 1);
@@ -89,14 +89,11 @@ const handlePost = function (request, response) {
         console.log(jsonData + "2");
       });
     }
-    
 
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });
     response.end(JSON.stringify(appdata));
   });
 };
-
-
 
 const sendFile = function (response, filename) {
   const type = mime.getType(filename);
