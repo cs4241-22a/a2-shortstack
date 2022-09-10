@@ -43,9 +43,13 @@
         </select>
     </div>
       <br>
-      <button id = "submitButton">submit</button>
-      <button id = "taskNewButton">plus</button>
-      <button id = "ViewTasks"> ViewTasks</button>  <!--shows database info -->
+      <div id = "buttons">
+        <button id = "submitButton">submit</button>
+        <button id = "taskNewButton">plus</button>
+        <button id = "deleteButton">Delete</button>
+
+      </div>
+      
       <div class="toDoList" id="toDoList">
        <h2> <u>Tasks to Complete</u></h2>
       <br>
@@ -57,14 +61,10 @@
     </p>
     <hr>
 
-    <p id = "testServerI">
-      <!-- test for server -->
-    </p>
+
 
     <p id = "testThen">
-      <!-- test for .then promise -->
-
-    </p>
+      <!-- test for .then promise -->    </p>
     
     </div>
     </form>  
@@ -81,6 +81,10 @@
 
     </table>
 
+
+    <p id = "TaskBase"> 
+
+    </p> 
 
     <script src="/js/scripts.js"></script>
     </body>

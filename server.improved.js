@@ -55,6 +55,7 @@ const handlePost = function( request, response ) {
 
   // when I have received all of the data
   request.on( 'end', function() {
+    if ( request.url === "/submit"){
    // console.log( JSON.parse( dataString ) )
     // ... do something with the data here!!!
     dataJson = JSON.parse(dataString)
@@ -63,30 +64,47 @@ const handlePost = function( request, response ) {
      let field3 = dataJson.Year;
      // Derived Field
      dataJson.DerivedSemester = field2 + '/' + field3
-
-    // console.log(dataJson)
-
-    // check to see if you can print AppData
     appdata.push(dataJson)
+    }
+
+    if ( request.url === "/delete"){
+      dataJson = JSON.parse(dataString)
+      let field2 = dataJson.Difficulty;
+     let field3 = dataJson.Year;
+     // Derived Field
+    
+     dataJson.DerivedSemester = field2 + '/' + field3
+      appdata.filter(function (f){ return f !== `${dataJson}`})
+      // for (let i of appdata){
+      // if (i = dataJson){
+      //     appdata.splice(i,i);
+      //   }
+      // }
+       
+  }
+    console.log(dataJson)
+    // console.log(appdata)
+    // console.log(appdata)
+
     //deleting an object in appdata attempt
-////////////////////////////////////////
-  //     function findIndexOfTask(Json){
-  //       for (let i of appdata){
-  //         if(appdata.Task == Json.Task 
-  //           && appdata.ToDoType == Json.ToDoType
-  //           && appdata.Difficulty == Json.Difficulty
-  //           && appdata.Year == Json.Year
-  //           && appdata.DerivedSemester == Json.DerivedSemester){
-  //             i = index
-  //           }
-  //           return index;
-  //     }}
-  // testObject = { 'model': 'honda', 'year': 2004, 'mpg': 30 }
-  //     var index = findIndexOfTask(testObject);
-  //     appdata.splice(index, index + 1);
-  //     
-//////////////////////
-    console.log(appdata)
+      ////////////////////////////////////////
+        //     function findIndexOfTask(Json){
+        //       for (let i of appdata){
+        //         if(appdata.Task == Json.Task 
+        //           && appdata.ToDoType == Json.ToDoType
+        //           && appdata.Difficulty == Json.Difficulty
+        //           && appdata.Year == Json.Year
+        //           && appdata.DerivedSemester == Json.DerivedSemester){
+        //             i = index
+        //           }
+        //           return index;
+        //     }}
+        // testObject = { 'model': 'honda', 'year': 2004, 'mpg': 30 }
+        //     var index = findIndexOfTask(testObject);
+        //     appdata.splice(index, index + 1);
+        //     
+      //////////////////////
+  
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     //response.end(JSON.stringify(dataJson))  // sends data back to the client
     response.end(JSON.stringify(appdata))  // sends appdata back to the client

@@ -44,24 +44,21 @@ const submit = function( e ) {
     })
   })
 
-//     //json was returned from the previous ".then"
-//     .then( function(json){ // promise
-//  // why doe this happen in Chrome Dev Tools instead of the Terminal?
-//     ////////////// displays when  using 'response.end(JSON.stringify(dataJson)) in server'
-//          // testing to see if you can show data to console
-//          console.log(json) // console logs to teh CHrome DevTools
-//          console.log(JSON.stringify(json))
-//          console.log("do you see me in Chrome Dev Tools?" )
-//          const testThen  = document.querySelector("#testThen")
-//          testThenP = document.createElement("p")
-//          testThenP.innerText = JSON.stringify(json)
-//           testThen.appendChild(testThenP)
-//     //////////////
-//     })
+// //json was returned from the previous ".then"
+    /* .then( function(json){ // promise
+ // why doe this happen in Chrome Dev Tools instead of the Terminal?
+    ////////////// displays when  using 'response.end(JSON.stringify(dataJson)) in server'
+         // testing to see if you can show data to console
+         console.log(json) // console logs to teh CHrome DevTools
+         console.log(JSON.stringify(json))
+         console.log("do you see me in Chrome Dev Tools?" )
+         const testThen  = document.querySelector("#testThen")
+         testThenP = document.createElement("p")
+         testThenP.innerText = JSON.stringify(json)
+          testThen.appendChild(testThenP)
+    //////////////
+    })*/
     ///////////////
-
-    
-
     return false // stops default submission behavior
   }
  // makes sure what's inside function does not run until everything on the page has loaded
@@ -73,13 +70,58 @@ const submit = function( e ) {
     const button1 = document.querySelector( '#taskNewButton' )
     button1.onclick = plus
     
-    const button2 = document.querySelector( '#ViewTasks')
-    button2.onclick = TaskAppData
+    const button2 = document.querySelector('#deleteButton')
+    button2.onclick = deleteTask
 
 
   }
 
+  const deleteTask = function( e ) {
+    
+    e.preventDefault()
+    
 
+     const TaskBase = document.querySelector("#TaskBase") 
+    
+
+    const input = document.querySelector( '#newTask' ) 
+    const field1 = document.querySelector( '#ToDoType')
+    const field2 = document.querySelector('#Difficulty')
+    const field3= document.querySelector("#Semester")
+    const Year = document.querySelector("#Year"),
+ 
+          json  = { Task: input.value, ToDoType: field1.value, Difficulty: field2.value, Year: field3.value},
+          body = JSON.stringify( json )
+    fetch( '/delete', { 
+      method:'POST',
+      body 
+    })
+    .then(response=> response.json())
+    .then( json => { 
+      json.forEach( item =>{
+      // const p = document.createElement('p')
+      var p = document.createElement('p')
+      p.innerText = JSON.stringify(item)
+      
+      // jsonToDelete  = { Task: input.value, ToDoType: field1.value, Difficulty: field2.value, Year: field3.value}
+      // if(JSON.stringify(item) == JSON.stringify(jsonToDelete) ){
+      // p.innerText == JSON.stringify(item);
+      // }
+      //  document.body.appendChild(p)
+      TaskBase.appendChild(p)
+      ////////////////// not needd below
+      // json1  = { Task: input.value, ToDoType: field1.value, Difficulty: field2.value, Year: field3.value},
+      // jsonString = JSON.stringify( json )
+      // TaskBase.forEach(para){
+      //   if(para ==jsonString ){
+      //     TaskBase.removeChild(para)
+      //   }
+      // }
+      /////////////////
+    })
+    
+  })
+}
 
   const plus = function(e){
     e.preventDefault()
@@ -111,36 +153,25 @@ const submit = function( e ) {
         Test.appendChild(TaskTable)   
 
   }
-
     /*
    - get rid of old appdata when you hit submit again 
-    
     */
 
   /** Delete
    * get the response from the server
    * show all data except what is being deleted]
-
    */
 
   /** Results/ Update?
    * shows all data as is
-   * 
-   * 
+
    */
 
   /** submit/add
    * adds data 
-   * 
-   * 
-   * 
+
   */
  /*
  *ViewStoredTasks
    * gets data form server and puts it on page
- /*
-
-const TaskAppData = function(e){
-  e.preventDefault()
-
-}*/
+ /*/
