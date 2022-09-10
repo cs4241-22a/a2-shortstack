@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'classname': 'Calculus 1', 'classnumber': 1999, 'classlevel': 1 },
+  { 'classname': 'Databases 1', 'classnumber': 2004, 'classlevel': 2 },
+  { 'classname': 'Intro to Art History', 'classnumber': 1987, 'classlevel': 1} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -34,16 +34,45 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
+      dataString += data
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    //console.log( JSON.parse( dataString ) )
+    dataString = JSON.parse( dataString )
 
     // ... do something with the data here!!!
+    const classname = dataString.classname
+    const classnumber = dataString.classnumber
+    const classlevel = parseInt(dataString.classnumber/1000)
+    
+    // if classnumber already exists, change name
+    let doesExist = false
+    for (const elt of appdata) {
+      if (elt.classnumber == classnumber) { 
+        elt.classname = classname
+        doesExist = true
+      }
+    }
+    // else, appdata.push
+    if (!doesExist) {
+      appdata.push({ 'classname': classname, 'classnumber': classnumber, 'classlevel': classlevel})
+    }
+    //appdata.push({ 'classname': classname, 'classnumber': classnumber, 'classlevel': classlevel})
+    
+    // testing
+    //console.log(appdata)
+    
+    //console.log(classlevel + " " + classnumber + " " + classname)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    
+    response.end( JSON.stringify(appdata))
+    /*
+    response.end( JSON.stringify({ classlevel: classlevel,
+                                  classname: classname, 
+                                  classnumber: classnumber })) // sends back this?
+    */
   })
 }
 
