@@ -3,36 +3,112 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
+    <div class="box">
+          <h1>Class Data Manager</h1>
+          <p id="para1">
+          Welcome to the Class Data Manager, where you can maintain
+          and update a list of your classes.
+          </p>
+    </div>
+    <p class="center">
+      DIRECTIONS: Input your class name and number and press submit to see results. If you enter
+      a new class name with the same class number, we will update that class's name
+      in the server.
+    </p>
+    <form action="" method="post">
+      <input type="text" id="classname" value="class name here" font-family="Sofia">
+      <input type="text" id="classnumber" value="class number here" font-family="Sofia">
       <button>submit</button>
     </form>
+  
   </body>
   <script>
+    
+  const loadData = function( e ) {
+    e.preventDefault()
+    
+    fetch( '/submit', { // url to send it to
+      method:'GET',
+      body 
+    })
+    .then( response => {
+      return response.json() 
+    })
+    .then( json => {
+      json.forEach( item => {
+      //   debugger
+        
+        const p = document.createElement('p')
+        p.innerText = "Class Level: " + json.classlevel
+        p.innerText += ", Class Name: " + json.classname
+        p.innerText += ", Class Number: " + json.classnumber
+        document.body.appendChild( p )
+      
+      }) 
+    }) //what he has
+    .then( function( response ) {
+      // do something with the reponse // started with these lines
+      // alert("Here")
+      //console.log( response )
+    })
+  }
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
+    //alert("Button clicked")
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const inputClassname = document.querySelector( '#classname' )
+    const inputClassnumber = document.querySelector ('#classnumber'),
+          
+          json = { "classname": inputClassname.value, 
+                  "classnumber": inputClassnumber.value},
+          
           body = JSON.stringify( json )
 
-    fetch( '/submit', {
+    fetch( '/submit', { // url to send it to
       method:'POST',
       body 
     })
+    .then( response => {
+      //debugger //DEBUGGER
+      return response.json() 
+    }) //what he has
+    .then( json => {
+      //json.forEach( item => {
+      //   debugger
+        //document.body.appendChild("Updated Data:")
+      
+        const po = document.createElement('p')
+        //p.innerText = "Updated Data: `\n`"
+        po.innerText += "Updated Data: "
+        document.body.appendChild( po )
+      
+      json.forEach( item => {
+        const p = document.createElement('p')
+        //p.innerText = "Updated Data: `\n`"
+        p.innerText += "Class Level: " + item.classlevel
+        p.innerText += ", Class Name: " + item.classname
+        p.innerText += ", Class Number: " + item.classnumber
+        document.body.appendChild( p )
+      })
+      //}) 
+    }) //what he has
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+      // do something with the reponse // started with these lines
+      // alert("Here")
+      //console.log( response )
+      
     })
 
     return false
   }
 
   window.onload = function() {
+    
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
