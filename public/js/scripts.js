@@ -4,6 +4,10 @@ const submit = function( e ) {
     // prevent default from trying to go to another page
     e.preventDefault()
 
+    const TaskBase = document.querySelector("#TaskBase")
+    // clears values on client side each time submit is pressed
+    TaskBase.innerText = " "
+
 // references first with attribute inside parenthesis ( ~ to getElementById but more general )
     const input = document.querySelector( '#newTask' ) 
     const field1 = document.querySelector( '#ToDoType')
@@ -24,7 +28,6 @@ const submit = function( e ) {
     // javascript promise: value that is unknown now, it is called when it is received by the server?
 
     // then is a callback function
-    
     .then(  // when the rewsponse to the server comes, do this
       function(  response ) { // this is the response from the server
       // do something with the reponse 
@@ -38,9 +41,9 @@ const submit = function( e ) {
     .then( json => { // the 
       json.forEach( item =>{
       //////////MAKE initial elements in a div clear before adding new data
-      const p = document.createElement('p')
-      p.innerText = JSON.stringify(item)
-      document.body.appendChild(p)
+      let tr = document.createElement('tr')
+      tr.innerText = JSON.stringify(item)
+      TaskBase.appendChild(tr)
     })
   })
 
@@ -67,8 +70,8 @@ const submit = function( e ) {
     const button = document.querySelector( '#submitButton' )
     button.onclick = submit
 
-    const button1 = document.querySelector( '#taskNewButton' )
-    button1.onclick = plus
+    // const button1 = document.querySelector( '#taskNewButton' )
+    // button1.onclick = plus
     
     const button2 = document.querySelector('#deleteButton')
     button2.onclick = deleteTask
@@ -80,8 +83,8 @@ const submit = function( e ) {
     
     e.preventDefault()
     
-
      const TaskBase = document.querySelector("#TaskBase") 
+    TaskBase.innerText = " "
     
 
     const input = document.querySelector( '#newTask' ) 
@@ -100,15 +103,15 @@ const submit = function( e ) {
     .then( json => { 
       json.forEach( item =>{
       // const p = document.createElement('p')
-      var p = document.createElement('p')
-      p.innerText = JSON.stringify(item)
+      let tr = document.createElement('tr')
+      tr.innerText = JSON.stringify(item)
       
       // jsonToDelete  = { Task: input.value, ToDoType: field1.value, Difficulty: field2.value, Year: field3.value}
       // if(JSON.stringify(item) == JSON.stringify(jsonToDelete) ){
       // p.innerText == JSON.stringify(item);
       // }
       //  document.body.appendChild(p)
-      TaskBase.appendChild(p)
+      TaskBase.appendChild(tr)
       ////////////////// not needd below
       // json1  = { Task: input.value, ToDoType: field1.value, Difficulty: field2.value, Year: field3.value},
       // jsonString = JSON.stringify( json )
@@ -123,36 +126,36 @@ const submit = function( e ) {
   })
 }
 
-  const plus = function(e){
-    e.preventDefault()
+  // const plus = function(e){
+  //   e.preventDefault()
 
-    const input = document.querySelector( '#newTask' ) 
-    const field1 = document.querySelector( '#ToDoType')
-    const field2 = document.querySelector('#Difficulty')
-    const field3= document.querySelector("#Semester")
-    const Year = document.querySelector("#Year")
+  //   const input = document.querySelector( '#newTask' ) 
+  //   const field1 = document.querySelector( '#ToDoType')
+  //   const field2 = document.querySelector('#Difficulty')
+  //   const field3= document.querySelector("#Semester")
+  //   const Year = document.querySelector("#Year")
 
-    // table
+  //   // table
 
-    const Test = document.querySelector("#test")
-    let TaskTable = document.createElement('table')
+  //   const Test = document.querySelector("#test")
+  //   let TaskTable = document.createElement('table')
     
-        // TaskTable.innerText =  input.value + " " + field1.value + " " + field2.value + " " + field3.value + " " + Year.value + " " 
-        //TaskTable.innerHTML = `<h1> ${input.value} </h1>` + "new"
-        TaskTable.innerHTML = 
-        `<tr>
-        <td> ${input.value} </td>
-        <td> ${field1.value} </td>
-        <td> ${field2.value} </td>
-        <td> ${field3.value}</td>
-        <td> ${Year.value}</td>
-        <td> ${field2.value} / ${Year.value} </td>
-      </tr>`
-      // add a button in inner.HTML for delete?
+  //       // TaskTable.innerText =  input.value + " " + field1.value + " " + field2.value + " " + field3.value + " " + Year.value + " " 
+  //       //TaskTable.innerHTML = `<h1> ${input.value} </h1>` + "new"
+  //       TaskTable.innerHTML = 
+  //       `<tr>
+  //       <td> ${input.value} </td>
+  //       <td> ${field1.value} </td>
+  //       <td> ${field2.value} </td>
+  //       <td> ${field3.value}</td>
+  //       <td> ${Year.value}</td>
+  //       <td> ${field2.value} / ${Year.value} </td>
+  //     </tr>`
+  //     // add a button in inner.HTML for delete?
         
-        Test.appendChild(TaskTable)   
+  //       Test.appendChild(TaskTable)   
 
-  }
+  // }
     /*
    - get rid of old appdata when you hit submit again 
     */

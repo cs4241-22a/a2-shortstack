@@ -3,6 +3,9 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <!-- from google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link rel="stylesheet"  href = "/css/style.css">
     
   </head>
@@ -12,8 +15,12 @@
     <form >
       <h1> To Do  List</h1>
 
+<p class = "guides">
+  To make a new task, enter in the fields below
+</p>
 
-    <div>
+    <div class = "inputsAndButtonsTWO">
+      <main id = "inputs" class = "inputsAndButtons">
       <label for="newTask">New Task:</label>
       <input type='text' id='newTask' placeholder="sample task">  
       <div id = "dropDowns"> 
@@ -41,33 +48,41 @@
           <option value="2024">2024 </option>
           <option value="2025">2025 </option>
         </select>
-    </div>
+ 
+ 
+      
+      </main>
+    
+    </div class = "inputsAndButtonsTWO">
       <br>
-      <div id = "buttons">
+      <div id = "buttons" class = "inputsAndButtons">
         <button id = "submitButton">submit</button>
-        <button id = "taskNewButton">plus</button>
+        <!-- <button id = "taskNewButton">plus</button> -->
         <button id = "deleteButton">Delete</button>
 
       </div>
+      <p class = "guides">
+      Click 'Submit' look at all of your task ( 1 task is already premade for you)
+      
+        <br>
+        <br>
+        
+        Click 'Delete' will delete the task identitcal to the one that you have in your field. 
+      
+      </p>
       
       <div class="toDoList" id="toDoList">
-       <h2> <u>Tasks to Complete</u></h2>
-      <br>
+       <h1> <u>Tasks to Complete</u></h2>
+        <hr>
     </div> 
 
-    <p id = "test">
-      <!-- test for plus -->
-
-    </p>
-    <hr>
+ 
+   
 
 
-
-    <p id = "testThen">
-      <!-- test for .then promise -->    </p>
-    
     </div>
     </form>  
+
     <br>
     <table id = TaskTable>
       <!-- header for the table -->
@@ -78,13 +93,14 @@
         <th> Year </th>
         <th> DerivedSemester </th>
       </tr>
-
     </table>
 
+    <Table id = "TaskBase"> 
 
-    <p id = "TaskBase"> 
+    </Table> 
 
-    </p> 
+
+   
 
     <script src="/js/scripts.js"></script>
     </body>

@@ -1,14 +1,76 @@
 h1{
-    color: red
+    color: blue;
+    display: flex;
+    justify-content: center;
+
+    background: #9DBBF2;
+    border-radius:25px
+
 }
 
-body{
-    background-color: grey;
-}
 
-td{
-    color: cyan
+body {
+    font-family: "Alumni Sans Pinstripe", sans-serif;
+    font-family: "Roboto", sans-serif;
+    background-color: #274170;
+    color: #EDFAF1;
+    font-size: 30;
+
 }
 #TaskBase{
-    color: indigo
+    color: mintcream
+}
+
+#text{
+    color: green
+
+}
+
+.inputsAndButtons{
+    display: flex;
+background-color: #495770;
+  padding: 12px ;
+  border: 8px;
+  box-sizing: border-box;
+
+}
+#inputs{
+
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+#buttons{
+
+    justify-content:center;
+   
+
+}
+
+#TaskBase{
+    background-color: #495770;
+    border-radius: 10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+tr{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #495770;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.guides{
+    display:flex;
+    justify-content: center;
+    background-color: #426DBD;
+    padding: 5px;
+    border-radius: 5px;
+    
+    
 }

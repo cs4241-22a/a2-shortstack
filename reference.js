@@ -33,3 +33,37 @@
 //     })
 // })
 
+
+
+
+
+// const plus = function(e){
+//     e.preventDefault()
+
+//     const input = document.querySelector( '#newTask' ) 
+//     const field1 = document.querySelector( '#ToDoType')
+//     const field2 = document.querySelector('#Difficulty')
+//     const field3= document.querySelector("#Semester")
+//     const Year = document.querySelector("#Year")
+
+//     // table
+
+//     const Test = document.querySelector("#test")
+//     let TaskTable = document.createElement('table')
+    
+//         // TaskTable.innerText =  input.value + " " + field1.value + " " + field2.value + " " + field3.value + " " + Year.value + " " 
+//         //TaskTable.innerHTML = `<h1> ${input.value} </h1>` + "new"
+//         TaskTable.innerHTML = 
+//         `<tr>
+//         <td> ${input.value} </td>
+//         <td> ${field1.value} </td>
+//         <td> ${field2.value} </td>
+//         <td> ${field3.value}</td>
+//         <td> ${Year.value}</td>
+//         <td> ${field2.value} / ${Year.value} </td>
+//       </tr>`
+//       // add a button in inner.HTML for delete?
+        
+//         Test.appendChild(TaskTable)   
+
+//   }

@@ -16,10 +16,9 @@ fs   = require( 'fs' ),
 
 // created when the server runs
 // after you restart server -> any data that the client has added will be deleted
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let appdata = [
+  { "Task":"MathExam","ToDoType":"Work","Difficulty":"Hard","Year":"Spring","DerivedSemester":"Easy/Fall"}
+  
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -58,7 +57,7 @@ const handlePost = function( request, response ) {
     if ( request.url === "/submit"){
    // console.log( JSON.parse( dataString ) )
     // ... do something with the data here!!!
-    dataJson = JSON.parse(dataString)
+    let dataJson = JSON.parse(dataString)
     //Server Logic
      let field2 = dataJson.Difficulty;
      let field3 = dataJson.Year;
@@ -68,22 +67,40 @@ const handlePost = function( request, response ) {
     }
 
     if ( request.url === "/delete"){
-      dataJson = JSON.parse(dataString)
+      let dataJson = JSON.parse(dataString)
       let field2 = dataJson.Difficulty;
      let field3 = dataJson.Year;
      // Derived Field
     
      dataJson.DerivedSemester = field2 + '/' + field3
-      appdata.filter(function (f){ return f !== `${dataJson}`})
+    //  let newAppData = appdata.filter(function (f){ return f == dataJson})
       // for (let i of appdata){
       // if (i = dataJson){
       //     appdata.splice(i,i);
       //   }
       // }
-       
+
+       appdata = appdata.filter(function (f){
+       return f.Task == dataJson.Task &&
+       f.ToDoType == dataJson.ToDoType &&
+       f.Difficulty == dataJson.Difficulty &&
+       f.Year == dataJson.Year &&
+       f.DerivedSemester == dataJson.DerivedSemester
+      })
+
+
+       // return f != `${dataJson}`})
+       // for (let i of appdata){
+       // if (i = dataJson){
+       //     appdata.splice(i,i);
+       //   }
+      // }
+ 
+  // console.log("yello")
+
   }
-    console.log(dataJson)
-    // console.log(appdata)
+
+
     // console.log(appdata)
 
     //deleting an object in appdata attempt
