@@ -1,1 +1,45 @@
 /*Style your own assignment! This is fun! */
+@import url('https://fonts.googleapis.com/css?family=Sofia')
+
+body {
+  background-color: coral;
+  color: blue;
+  font-family: "Sofia";
+}
+
+h1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: darkblue;
+  size: 2em;
+}
+
+p {
+  color: darkblue;
+}
+
+button {
+  color: darkblue;
+  font-family: "Sofia";
+  background: lightblue;
+}
+
+#para1 {
+  color: orange;
+}
+
+p.center {
+  color: teal;
+}
+
+.box {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  border-width: 100px;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10px;
+}
