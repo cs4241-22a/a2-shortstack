@@ -7,11 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
-
+  // { 'studentName': 'Roopsa', 'a1score': 90, 'a2score': 90, 'Project Score': 91, 'Exam Score': 'A'},
+  // { 'studentName': 'Hota', 'a1score': 82, 'a2score': 82, 'Project Score': 81, 'Exam Score': 'B'},
+  // { 'studentName': 'Sahana', 'a1score': 75, 'a2score': 75, 'Project Score':751, 'Exam Score': 'C'} 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -35,15 +34,28 @@ const handlePost = function( request, response ) {
 
   request.on( 'data', function( data ) {
       dataString += data 
+      console.log("-----------")
+      console.log(dataString)
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    if(request.url === "/submit"){
+      //console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+      let newStudent = JSON.parse(dataString)
+      newStudent.finalScore = finalGrade(newStudent.a1score, newStudent.a2score, newStudent.projectSc, newStudent.examScore)
 
+      appdata.push(newStudent)
+
+    } else if (request.url === '/delete'){
+      let i = JSON.parse( dataString ).index
+      appdata.splice( i, 1 )
+      //console.log(appdata)
+    }
+
+  
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
@@ -67,6 +79,31 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+
+function finalGrade(a1,a2,project,exam){
+  console.log(a1,a2,project,exam)
+  let score =0;
+  console.log(((parseInt(a1) + parseInt(a2))/2)* 0.55,((project) * 0.35),((exam)*0.1))
+  score = ((parseInt(a1) + parseInt(a2))/2)* 0.55 + (parseInt(project)) * 0.35 + (parseInt(exam))*0.1;
+  //score = (+a1 + +a2)*0.55 + +project*0.35 + +exam*0.1
+  let grade =""
+  
+  if(score > 90.0 ){
+    grade = "A"
+    console.log(score);
+  }
+  else if(score > 80.0){
+    grade = "B"
+  }
+  else if(score > 70.0 ){
+    grade = "C"
+  }
+  else{
+    grade = "NR"
+  }
+  return grade;
 }
 
 server.listen( process.env.PORT || port )
