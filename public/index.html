@@ -1,15 +1,24 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Michroma&effect=shadow-multiple">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <form action="", id = "firstPage">
-      <table class = "inputInfoTable">
+    <div class = "grid-container">
+    <div class ="item1"> <h1>Grade Calculator</h1> </div>
+    <div class ="item5"> <p>Hey! You want to calculate your grade? Here is your grade calculator. </p>
+    <p>Just type in your scores and you will be able to recieve your grade in seconds! Above 90% would be an A, > 80% = B, >70% = C and anything less than 70% would give you NR</p> </div>
+    <div class ="item2"><form action="", id = "firstPage">
+      <table id = "inputTable" class = "inputInfoTable">
         <tr>
-          <td>Student Name: </td>
+          <td>Class: </td>
           <td><input type = "text" id ="studentName" name = "studentName" value = "" > </td>
         </tr>
         <tr>
@@ -38,10 +47,11 @@
         </tr>
       </table>
       <!-- <button id = "submitButton">submit</button> -->
-    </form>
-
-    <table id = "storedData">
-    </table>
+    </form> </div>
+    
+    <div class = "index3"> <table id = "storedData"></table></div>
+    </div>
+    <div class = "index4"> <p></p></div>
   </body>
   <script>
 
@@ -55,7 +65,7 @@
     const table = document.getElementById("storedData")
     table.innerHTML = ""
     table.innerHTML += 
-      "<tr><th>Student</th>"
+      "<tr><th>Class</th>"
         + "<th>Assignment1 Score</th>"
         + "<th>Assignment2 Score</th>"
         + "<th>Project Score </th>"
@@ -173,7 +183,7 @@
       table.innerHTML = ""
       //let table = 
       table.innerHTML += 
-        "<tr><th>Student</th>"
+        "<tr><th>Class</th>"
           + "<th>Assignment1 Score</th>"
           + "<th>Assignment2 Score</th>"
           + "<th>Project Score </th>"
