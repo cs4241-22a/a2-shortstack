@@ -1,8 +1,8 @@
 * { animation: cursor-change 500ms infinite; }
 body {
     font-family: 'Rammetto One', cursive;
-    background: #ABCDEF;
-    animation: shadow-change 100ms infinite; }
+    background: #ABCDEF; }
+#form { animation: shadow-change 100ms infinite; }
 h2 {animation: slider 8000ms infinite; }
 h3 {
     font: 1.2em 'Montserrat', cursive;
@@ -34,6 +34,9 @@ td {
 button {
     font: 1em 'Montserrat', cursive;
     animation: button 1000ms infinite }
+div.column { 
+  animation: column-change 1500ms infinite;
+}
 @keyframes shadow-change {
     from{ text-shadow: 5px 15px 1px #FFFFFF; }
     to{ text-shadow: 5px 15px 8px #FFFFFF; } }
@@ -55,3 +58,7 @@ button {
     050% { cursor: url('../cursors/cursor2.png'), auto; }
     075% { cursor: url('../cursors/cursor3.png'), auto; }
     100% { cursor: url('../cursors/cursor4.png'), auto; } }
+@keyframes column-change {
+  0% 100% { font: 1.1em 'Rammetto One', cursive; }
+  50%     { font: 0.5em 'Rammetto One', cursive; }
+}
