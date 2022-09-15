@@ -6,78 +6,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300&display=swap" rel="stylesheet">
-    <style>
-
-      table{
-        border-style:dotted;
-        align-items: center;
-        border-color: firebrick
-      }
-
-
-      img{border: "2" dotted firebrick; width: 300px; align-items: center;
-}
-
-
-
-      body{
-        background-color: gainsboro;
-    font-family: 'Catamaran', sans-serif;
-    min-width: 600px
-
-              }
-
-
-      h1{
-               color:navy;
-            }
-
-      
-      h2{
-        font-size:smaller
-      }
-
-    </style>
-
+    <link rel="stylesheet" href="css/style.css" class="stylesheet">x
   </head>
-  <body font-family>
-    <table border="4" >
+  <body class="container">
+    <table>
       <tr>
         <td>
-          <img src="/car.jpeg" >
+          <img src="car.jpeg">
         </td>
       </tr>
     </table>
-   
-    <h1>
-      Kurtz's Cars!
-    </h1>
-    <p>
-      Automobiles for admirers of the road
-    </p>
-
-    <br>
-    <h2>
-      Enter your vehicle information here:
-    </h2>
+    <h1>Kurtz's Cars!</h1>
+    <h2>Automobiles for admirers of the road</h2>
+    <h2>Enter your vehicle information here:</h2>
 
     <form action="">
-      <div class ='main'>
+      <div class='main'>
         <input type="text" placeholder="enter year" id="year">
         <input type="text" placeholder="enter make and model" id="model">
         <input type="text" placeholder="enter mileage count" id="mileage">
-        <button type="submit" class="button" id="add">
-          go!
-        </button>
+        <button type="submit" class="button" id="add">go!</button>
       </div>
-     <ul id="outT"></ul>
+      <div>
+        <ul id="outT"></ul>
+      </div>
       </form>
   <script>
-
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
-    console.log("HI")
+    //console.log("HI")
     var userId = e.target.getAttribute("id")
 
     var jsonCopy = {action: "na", year: 00000, model: "Unknown", mileage: 00000}
@@ -97,7 +55,7 @@
       }
     }
     if(userId == "delete"){
-      console.log("I am here")
+      //console.log("I am here")
       jsonCopy.action = "delete"
       var index = e.target.getAttribute("index")
       jsonCopy.index = index
@@ -124,15 +82,16 @@
       }
       for(f = 0; f<data.length; f++){
         var element = document.createElement("li")
-        var bt = document.createElement("BUTTON")
+        var bt = document.createElement("button")
         bt.setAttribute("id","delete")
         bt.setAttribute("index", f)
         bt.setAttribute("value","Delete")
+        bt.setAttribute("class","button");
         bt.textContent = "Delete Entry"
-        bt.addEventListener("click" ,submit)
+        bt.addEventListener("click",submit)
         var derivedField = data[f].mileage / ((new Date().getFullYear()) - data[f].year)
         const theYear = new Date().getFullYear()
-        console.log(theYear)
+        //console.log(theYear)
         element.innerHTML = "A " + data[f].year + " " + data[f].model + " with " + data[f].mileage + " miles. Miles driven per year:  " + data[f].milesPerYear + "   "
         element.appendChild(bt)
         mt.appendChild(element)
@@ -154,13 +113,13 @@
 
     bilbos = document.getElementsByClassName("button")
     for(var i = 0; i<bilbos.length; i++){
-      console.log(bilbos[i])
+      //console.log(bilbos[i])
       bilbos[i].addEventListener("click",submit)
       var id = bilbos[i].id
-      console.log(id)
+      //console.log(id)
     }
     
   }
   </script>
-</body>
+  </body>
 </html>
