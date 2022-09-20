@@ -22,7 +22,9 @@ const server = http.createServer( function( request,response ) {
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
+  
 
+  
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
@@ -32,7 +34,7 @@ const handleGet = function( request, response ) {
 
 const handlePost = function( request, response ) {
   let dataString = ''
-
+  
   request.on( 'data', function( data ) {
       dataString += data 
   })
@@ -41,9 +43,12 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    
+   let dataJson = JSON.parse(dataString)
+    dataJson.remark = "never mind"
+   
+    response.writeHead( 200, "All good!", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(dataJson))
   })
 }
 

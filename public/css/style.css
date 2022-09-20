@@ -1,1 +1,35 @@
-/*Style your own assignment! This is fun! */
+  body {
+        background-color: #88A5F5;
+      display: grid;
+    grid-template-columns: 25% 75%;
+    font-family: "Trirong", serif;
+      }
+img{
+  grid-column: 1;
+  
+}
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
+}
+p, h1{
+  grid-column-start: 2;
+  font-family: "Sofia", sans-serif;
+  font-family: "Trirong", serif;
+}
+#results{
+    grid-column-start: 2;
+}
+.column1{
+  margin: auto;
+  width: 50%;
+  
+}
