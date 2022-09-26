@@ -1,41 +1,81 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+<head>
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+</head>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+<body>
+  <h1>Moene's Guest Book</h1>
+  <img src="images/banner.jpg" alt="morgan hall">
+  <h2 id="jswarning-h2">Warning: Javascript Disabled!</h2>
+  <p id="jswarning-p">Seems like you disabled JavaScript in your browser settings or your browser does not support
+    JavaScript.<br>
+      Please consult your browser's documentation or ask your administrator for assistant.</p>
+    <div class="maingrid">
+      <div class="nav-grid">
+        <div id="nav-area">
+          <a href="#" onclick="showNew()">Add</a> <a href="#" onclick="showMessages()">View/Edit</a> &nbsp; &nbsp;<div
+            id="serv-conn" href="#">Please wait...</div>
+        </div>
+      </div>
+      <div class="policy-grid">
+        <h2>Policy</h2>
+        <p>Avoid blame, speculation, and inflammatory language</p>
+        <p>Do not mention someone else unless you have their permission</p>
+        <p>Do not spam messages</p>
+        <p>Absolutely no sexist, raciest, etc. messages.</p>
+      </div>
+      <div class="data-grid">
+        <div id="entry-area" style="display: none;">
+          <h2>Guest Book Entry</h2>
+          <p>Thank you for visiting!</p>
+          <p>Please sign my guest book before you leave.</p>
+          <form action="">
+            Name: <input title="Name" style="width: 60%;" type='text' id='name' value=""><br>
+            Message: <input title="Message" style="width:60%;" type='text' id='message' value=""><br>
+            <button id="newsub">submit</button>
+          </form>
+        </div>
+        <div id="edit-area" style="display: none;">
+          <h2>Entry Edit</h2>
+          <p>Made a mistake? No worry! Edit your entry here.</p>
+          <form action="">
+            Name: <input title="Name" style="width: 60%;" type='text' id='edit-name' value=""><br>
+            Message: <input title="Message" style="width:60%;" type='text' id='edit-message' value=""><br>
+            <input style="display: none;" type="number" id='edit-mid' value=0>
+            <button id="editsub">submit</button>
+            <button id="editcan">cancel</button>
+          </form>
+        </div>
+        <div id="delete-area" style="display: none;">
+          <h2>Entry Delete</h2>
+          <p>This message will be deleted permanently! Are you sure?</p>
+          <form action="">
+            <input style="display: none;" type="number" id='del-mid' value=0>
+            <button id="delsub">delete</button>
+            <button id="delcan">cancel</button>
+          </form>
+        </div>
+        <div id="view-area" style="display: none;">
+          <h2>Guest Messages</h2>
+          <p>These are messages that leaved by my guests.<span id="wordcountsp"></span></p>
+          <div id="msglist" class="typewriter">
+          </div>
+        </div>
+      </div>
+    </div>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
 
-    return false
-  }
+</body>
+<script src="js/scripts.js">
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
 
-  </script>
+</script>
+
 </html>

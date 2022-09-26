@@ -1,1 +1,65 @@
-/*Style your own assignment! This is fun! */
+/*
+* KMoene Common CSS
+*/
+html, body {
+	min-height: 100%;
+	background: #ffffff;
+	color: #000;
+    font-family: "PT Sans";
+}
+
+div {
+    display: inline
+}
+
+#nav-area {
+    font-family: "PT Sans";
+}
+
+.maingrid {  display: grid;
+    grid-template-columns: 1fr 0.8fr 1.2fr;
+    grid-template-rows: 0.1fr 1fr 1fr;
+    gap: 5px 5px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "a a a"
+      "b c c"
+      "b c c";
+  }
+  
+  .nav-grid { grid-area: a; }
+  
+  .policy-grid { grid-area: b; }
+  
+  .data-grid { grid-area: c; }
+  
+
+body {
+	font-size: 1.3rem;
+	text-rendering: optimizeLegibility;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: #ffffff;
+}
+
+h1 {
+    font-family: "Playfair Display";
+    background-color: #900;
+    color: #ffffff;
+}
+
+h2 {
+    background-color: #656565;
+    color: #ffffff;
+}
+li {
+    color: #CE5050;
+}
+
+.typewriter {
+    font-family: 'IBM Plex Mono';
+}
+
+img {
+    max-width: 100%;
+}
