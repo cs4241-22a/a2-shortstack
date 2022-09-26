@@ -7,19 +7,14 @@ const submit = function (e) {
   const nameInput = document.getElementById("yourname").value,
     dateInput = document.getElementById("currDate").value,
     duedateInput = document.getElementById("dueDate").value,
-    subjectInput = document.getElementById( 'subjectList' ).value,
     assignmentInput = document.getElementById("assignment").value;
   
   updatePriority(duedateInput, dateInput);
 
-  var ind;
-  
-      
   let json = {
       yourname: nameInput,
       currDate: dateInput,
       dueDate: duedateInput,
-      subjectList: subjectInput,
       assignment: assignmentInput,
       priority: priorityLevel
     },
@@ -39,20 +34,17 @@ const submit = function (e) {
 
     let name = row.insertCell(0);
     let date = row.insertCell(1);
-    let subject = row.insertCell(2);
-    let assignment = row.insertCell(3);
-    let duedate = row.insertCell(4);
-    let priority = row.insertCell(5);
-    let modify = row.insertCell(6);
-    let del = row.insertCell(7);
-    ind++;
+    let assignment = row.insertCell(2);
+    let duedate = row.insertCell(3);
+    let priority = row.insertCell(4);
+    let update = row.insertCell(5);
 
     name.innerHTML = json.yourname;
     date.innerHTML = json.currDate;
-    subject.innerHTML = json.subjectList;
     assignment.innerHTML = json.assignment;
     duedate.innerHTML  = json.dueDate;
     priority.innerHTML = json.priority;
+    update.innerHTML = "<button onclick='update()' class='dropbtn'>Dropdown</button>"
 
   });
 });
@@ -61,6 +53,10 @@ const submit = function (e) {
 
 function deleteFirstRow(){
   document.getElementById("dataTable").deleteRow(1);
+}
+
+function update() {
+  document.getElementById("myDropdown").classList.toggle("show");
 }
 
 function updatePriority(dueDate,currDate){
@@ -78,7 +74,20 @@ function updatePriority(dueDate,currDate){
   } else {
     priorityLevel = "High"
   }
+  
+}
 
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
 }
 
 window.onload = function () {

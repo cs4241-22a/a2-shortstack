@@ -13,7 +13,7 @@ let collection = null
 client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
-    return client.db( 'Cluster0' ).collection( 'XXXtodos' )
+    return client.db( 'Cluster0' ).collection( 'userDB.loginInfo' )
   })
   .then( __collection => {
     // store reference to collection
@@ -62,20 +62,12 @@ const handleGet = function (request, response) {
   const filename = dir + request.url.slice(1);
 
   if (request.url === "/") {
-    sendFile(response, "public/index.html");
+    sendFile(response, "public/authenticate.html");
   } else if (request.url === "/getFormData"){
     response.writeHeader(200, {"Content-Type": "text/plain"});
     response.end(JSON.stringify(appdata));
   } else {
     const html =
-      /*`
-    <html>
-    <body>
-      ${ appdata.map( item => JSON.stringify(item) ) } 
-    </body>
-    </html>
-    `
-    response.end( html )*/
       sendFile(response, filename);
   }
 };
