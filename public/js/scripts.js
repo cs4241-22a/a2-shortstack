@@ -11,6 +11,8 @@ const submit = function (e) {
     assignmentInput = document.getElementById("assignment").value;
   
   updatePriority(duedateInput, dateInput);
+
+  var ind;
   
       
   let json = {
@@ -41,6 +43,9 @@ const submit = function (e) {
     let assignment = row.insertCell(3);
     let duedate = row.insertCell(4);
     let priority = row.insertCell(5);
+    let modify = row.insertCell(6);
+    let del = row.insertCell(7);
+    ind++;
 
     name.innerHTML = json.yourname;
     date.innerHTML = json.currDate;
@@ -48,11 +53,15 @@ const submit = function (e) {
     assignment.innerHTML = json.assignment;
     duedate.innerHTML  = json.dueDate;
     priority.innerHTML = json.priority;
-    
+
   });
 });
   return false;
 };
+
+function deleteFirstRow(){
+  document.getElementById("dataTable").deleteRow(1);
+}
 
 function updatePriority(dueDate,currDate){
     var dueDate = new Date(dueDate);
@@ -71,7 +80,7 @@ function updatePriority(dueDate,currDate){
   }
 
 }
-          
+
 window.onload = function () {
   const button = document.querySelector("button");
   button.onclick = submit;
