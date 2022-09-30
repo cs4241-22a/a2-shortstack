@@ -38,7 +38,6 @@ const server = http.createServer(function (request, response) {
 
 const handleGet = function (request, response) {
     const filename = dir + request.url.slice(1);
-
     if (request.url === "/") {
         sendFile(response, "public/index.html");
     } else {

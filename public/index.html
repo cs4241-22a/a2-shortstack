@@ -70,6 +70,7 @@
                     method: "POST",
                     body,
                 }).then(function (response) {
+                    console.log("Type of response: " + typeof(response));
                     res = response.json(); // read as JSON
                     const checkPromise = () => {
                         res.then((result) => {
