@@ -1,1 +1,155 @@
-/*Style your own assignment! This is fun! */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&family=Libre+Franklin:wght@400;500;600;700;800&display=swap');
+
+body {
+    background-color: #0C376E;
+}
+
+h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #FEFCFD;
+  font-size: 4.5em;
+  text-align: left;
+  margin-top: 2%;
+  margin-bottom: 0%;
+}
+
+h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  color: #BFCDE0;
+  font-size: 1.26em;
+  text-align: left;
+  margin-top: 0%;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  color: #0C376E;
+  font-size: 1.2em;
+  text-align: left;
+
+  display: inline-block;
+  border: #BFCDE0 solid 1px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #BFCDE0;
+  margin-bottom: 0px;
+  padding: 5px 10px 0px 10px;
+}
+
+.prev {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 500;
+  color: #0C376E;
+  font-size: 1em;
+  text-align: left;
+
+  margin-bottom: 5px;
+  padding: 1em;
+  background-color: #BFCDE0;
+  width: 300px;
+  height: 175px;
+  border: #BFCDE0 solid 0px;
+  border-radius: 0 10px 10px 10px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-flow: row wrap;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  border: #0C376E solid 10px;
+  border-radius: 10px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.head {
+  margin: 5px 5px 5px 12px;
+  height: 16px;
+  width: 16px;
+  background-color: #0C376E;
+  border-radius: 50%;
+}
+
+.basicInfo {
+  height: 60px;
+  width: 220px;
+
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  justify-content: space-evenly;
+  margin-left: 10px;
+}
+
+.prev p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.body {
+  margin: 0px 5px 5px 8px;
+  height: 24px;
+  width: 24px;
+  background-color: #0C376E;
+  border-radius: 25%;
+}
+
+.aboutInfo {
+  height: 100px;
+  padding-top: 10px;
+  padding-left: 70px;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.topText {
+  font-weight: 700;
+}
+
+.createProf {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 500;
+  color: #0C376E;
+  font-size: 1em;
+  text-align: left;
+
+  margin-bottom: 5px;
+  padding: 1em;
+  background-color: #BFCDE0;
+  width: 300px;
+  height: 350px;
+  border: #BFCDE0 solid 0px;
+  border-radius: 0 10px 10px 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-flow: row wrap;
+}
+
+.profInput {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profInputButton {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 5px;
+}
+
+/* @media (min-width: 1200px) {
+ 
+} */
