@@ -7,10 +7,17 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+  {Name: "Jordan Wecler", 
+  Pronouns: "He/Him", 
+  Age: "19 years old", 
+  Email: "name@gmail.com", 
+  Phone: "123-456-7890", 
+  Education: "WPI Class of 2024", 
+  Major: "Computer Science Major", 
+  Like: "Likes Photography",
+  Primary: "#0C376E",
+  Secondary: "#BFCDE0"},
+];
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
