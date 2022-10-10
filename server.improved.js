@@ -7,16 +7,17 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {Name: "Jordan Wecler", 
-  Pronouns: "He/Him", 
-  Age: "19 years old", 
-  Email: "name@gmail.com", 
-  Phone: "123-456-7890", 
-  Education: "WPI Class of 2024", 
-  Major: "Computer Science Major", 
-  Like: "Likes Photography",
-  Primary: "#0C376E",
-  Secondary: "#BFCDE0"},
+  {Name: "", 
+  Pronouns: "", 
+  Age: "", 
+  Email: "", 
+  Phone: "", 
+  Hometown: "",
+  Education: "", 
+  Job: "",
+  Like: "",
+  Primary: "",
+  Secondary: ""},
 ];
 
 const server = http.createServer( function( request,response ) {
@@ -46,10 +47,31 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
+    let newEntry = JSON.parse( dataString );
+    newEntry.Age = ageCalculator(newEntry.Birthday);
+    newEntry.Hometown += "From " + newEntry.Hometown;
+    newEntry.Job = "Works as a " + newEntry.Job;
+    newEntry.Like += "Likes " + newEntry.Like;
+    newEntry.Primary = primaryColorizer(newEntry.Primary);
+    newEntry.Secondary = secondaryColorizer(newEntry.Secondary);
+    if(request.url === "/preview") {
+      appdata.splice(0, 1, newEntry);
+    } else {
+      let newEmail = true;
+      for (let i = 0; i < appdata.length; i++) {
+        if (appdata[i].Email === newEntry.Email) {
+          appdata.splice(i, 1, newEntry);
+          newEmail = false;
+          break;
+        }
+      }
+      if (newEmail) {
+        appdata.push(newEntry);
+      }
+    }
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write( JSON.stringify( appdata ) )
+    console.log(appdata)
     response.end()
   })
 }
@@ -77,3 +99,75 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+
+function ageCalculator(bday) {
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0');
+  let yyyy = today.getFullYear();
+
+  let bdayDD = bday.substring(8,10);
+  let bdayMM = bday.substring(5,7);
+  let bdayYYYY = bday.substring(0,4);
+
+  let age = yyyy - bdayYYYY;
+  if(bdayMM > mm || (bdayMM == mm && bdayDD > dd)) {
+    age--;
+  }
+
+  if(age < 0) {
+    return "Born sometime in the future?";
+  }
+
+  age = age + " years old";
+
+  return age;
+}
+
+function primaryColorizer(prim) {
+  let color = "";
+  if (prim.toLowerCase() === "red") {
+    color = "#6E0C0C";
+  } else if (prim.toLowerCase() === "orange") {
+    color = "#6E300C";  //22
+  } else if (prim.toLowerCase() === "yellow") {
+    color = "#6E570C";  //46
+  } else if (prim.toLowerCase() === "green") { 
+    color = "#0C6E0C";  //120
+  } else if (prim.toLowerCase() === "cyan") {
+    color = "#0C6E6E";  //180
+  } else if (prim.toLowerCase() === "blue") {
+    color = "#0C376E";  //214
+  } else if (prim.toLowerCase() === "purple") {
+    color = "#330C6E";  //264
+  } else if (prim.toLowerCase() === "black") {
+    color = "#000000";
+  } else {
+    color = "#2B2B2B";
+  }
+  return color;
+}
+
+function secondaryColorizer(sec) {
+  let color = "";
+  if (prim.toLowerCase() === "red") {
+    color = "#E0BFBF";
+  } else if (prim.toLowerCase() === "orange") {
+    color = "#E0CBBF";
+  } else if (prim.toLowerCase() === "yellow") {
+    color = "#E0D9BF";
+  } else if (prim.toLowerCase() === "green") { 
+    color = "#BFE0BF";
+  } else if (prim.toLowerCase() === "cyan") {
+    color = "#BFE0E0";
+  } else if (prim.toLowerCase() === "blue") {
+    color = "#BFCDE0";
+  } else if (prim.toLowerCase() === "purple") {
+    color = "#CCBFE0";
+  } else if (prim.toLowerCase() === "white") {
+    color = "#FFFFFF";
+  } else {
+    color = "#CCCCCC";
+  }
+  return color;
+}
