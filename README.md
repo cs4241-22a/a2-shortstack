@@ -6,6 +6,7 @@ Due: September 8th, by 11:59 AM.
 This assignment aims to introduce you to creating a prototype two-tiered web application. 
 Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
 
+<<<<<<< Updated upstream
 Baseline Requirements
 ---
 
@@ -84,15 +85,26 @@ You'll need to use sometype of collaborative software that will enable you both 
 4. What would you change about the interface based on their feedback?
 
 *You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
+=======
+Link-https://a2-joevolpato.glitch.me/ 
+>>>>>>> Stashed changes
 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
 ## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+Gamer Den
+able to make a list of games and when you bough and completed 
 
 ## Technical Achievements
 - **Tech Achievement 1**: Using a combination of...
 
 ### Design/Evaluation Achievements
+<<<<<<< Updated upstream
 - **Design Achievement 1**: 
+=======
+- **Design Achievement 1**: made headings green and big
+- **Design Achievement 2**: added a dragon to it
+- **Design Achievement 3**: have div text be aqua colored with no background color
+- **Design Achievement 4**: made background gray
+>>>>>>> Stashed changes
