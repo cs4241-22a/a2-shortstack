@@ -1,34 +1,34 @@
 // Add some Javascript code here, to run on the front end.
 
 refreshPreview();
-const preview = function(e) {
+const preview = function (e) {
   // prevent default form action from being carried out
-  e.preventDefault()
+  e.preventDefault();
 
-  const name = document.querySelector( '#name' ),
-    pronouns = document.querySelector( '#pronouns' ),
-    birthday = document.querySelector( '#birthday' ),
-    email = document.querySelector( '#email' ),
-    phone = document.querySelector( '#phone' ),
-    hometown = document.querySelector( '#hometown' ),
-    education = document.querySelector( '#education' ),
-    job = document.querySelector( '#job' ),
-    likes = document.querySelector( '#likes' ),
-    primary = document.querySelector( '#primary' ),
-    secondary = document.querySelector( '#secondary' );
-  let json = { 
-    Name: name.value,
-    Pronouns: pronouns.value,
-    Birthday: birthday.value,
-    Age: 0,
-    Email: email.value,
-    Phone: phone.value,
-    Hometown: hometown.value,
-    Education: education.value,
-    Job: job.value,
-    Likes: likes.value,
-    Primary: primary.value,
-    Secondary: secondary.value,
+  const name = document.querySelector("#name"),
+    pronouns = document.querySelector("#pronouns"),
+    birthday = document.querySelector("#birthday"),
+    email = document.querySelector("#email"),
+    phone = document.querySelector("#phone"),
+    hometown = document.querySelector("#hometown"),
+    education = document.querySelector("#education"),
+    job = document.querySelector("#job"),
+    likes = document.querySelector("#likes"),
+    primary = document.querySelector("#primary"),
+    secondary = document.querySelector("#secondary");
+  let json = {
+      Name: name.value,
+      Pronouns: pronouns.value,
+      Birthday: birthday.value,
+      Age: 0,
+      Email: email.value,
+      Phone: phone.value,
+      Hometown: hometown.value,
+      Education: education.value,
+      Job: job.value,
+      Likes: likes.value,
+      Primary: primary.value,
+      Secondary: secondary.value,
     },
     body = JSON.stringify(json);
 
@@ -45,19 +45,18 @@ const preview = function(e) {
     secondary.value == ""
   ) {
     alert("Please fill out all fields");
-    fetch( '/preview', {
-      method:'POST',
-      body, 
-    })
-    .then( async function ( response ) {
-      let newPreview = await response.json()
-      refreshPreview(newPreview)
-      console.log( response )
+    fetch("/preview", {
+      method: "POST",
+      body,
+    }).then(async function (response) {
+      let newPreview = await response.json();
+      refreshPreview(newPreview);
+      console.log(response);
     });
   }
 
-  return false
-};
+  return false;
+}
 
 // const submit = function(e) {
 //   // prevent default form action from being carried out
@@ -74,7 +73,7 @@ const preview = function(e) {
 //     likes = document.querySelector( '#likes' ),
 //     primary = document.querySelector( '#primary' ),
 //     secondary = document.querySelector( '#secondary' );
-//   let json = { 
+//   let json = {
 //     Name: name.value,
 //     Pronouns: pronouns.value,
 //     Birthday: birthday.value,
@@ -105,10 +104,10 @@ const preview = function(e) {
 //     alert("Please fill out all fields");
 //     fetch( '/submit', {
 //       method:'POST',
-//       body, 
+//       body,
 //     })
 //     .then(function(response ) {
-//       // DO something with the reponse 
+//       // DO something with the reponse
 //       console.log( response )
 //     });
 //   }
@@ -116,30 +115,38 @@ const preview = function(e) {
 //   return false
 // };
 
-window.onload = function() {
-  const pButton = document.querySelector("previewButton")
-  const sButton = document.querySelector("submitButton")
-  const cButton = document.querySelector("clearButton")
-  pbutton.onclick = preview;
-  //sbutton.onclick = submit;
-  //cbutton.onclick = clear;
+function refreshPreview(newPreview) {
+  const preview = document.getElementsByClassName("prev");
+  preview.innerHTML = '<div class="icon"><div class="head"></div><div class="body"></div></div><div class="basicInfo">';
+  preview.innerHTML +=
+    '<p class="topText">' +
+    newPreview[0].Age +
+    "</p><p>" +
+    newPreview[0].Pronouns +
+    "</p><p>" +
+    newPreview[0].Age +
+    '</p><p class="topText">Contact:</p><p>' +
+    newPreview[0].Phone +
+    "</p><p>" +
+    newPreview[0].Email +
+    '</p></div><div class="aboutInfo"><p class="topText">About:</p><p>' +
+    newPreview[0].Hometown +
+    "</p><p>" +
+    newPreview[0].Education +
+    "</p><p>" +
+    newPreview[0].Job +
+    "</p><p>" +
+    newPreview[0].Likes +
+    "</p>";
+  preview.innerHTML += "</div></div>";
 }
 
-function refreshPreview(newPreview) {
-    const preview = document.getElementsByClassName("prev");
-    preview.innerHTML = '<div class="icon"><div class="head"></div><div class="body"></div></div><div class="basicInfo">';
-
-    newPreview.forEach((element, index) => {
-        preview.innerHTML += '<p class="topText">' + element.Name +
-        '</p><p>' + element.Pronouns +
-        '</p><p>' + element.Age + 
-        '</p><p class="topText">Contact:</p><p>' +
-        element.Phone + '</p><p>' + element.Email + 
-        '</p></div><div class="aboutInfo"><p class="topText">About:</p><p>' + 
-        element.Hometown + 
-        '</p><p>' + element.Education + 
-        '</p><p>' + element.Job +
-        '</p><p>' + element.Likes + '</p>';
-    })
-    preview.innerHTML += '</div></div>';
+window.onload = function () {
+  const pButton = document.getElementsById("previewButton");
+  //const sButton = document.querySelector("submitButton");
+  //const cButton = document.querySelector("clearButton");
+  pButton.onclick = console.log("Hello");
+  pButton.onclick = preview;
+  //sbutton.onclick = submit;
+  //cbutton.onclick = clear;
 }

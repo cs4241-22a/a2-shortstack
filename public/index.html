@@ -8,69 +8,35 @@
   <body>
     <h1>FlexBook</h1>
     <h2>CS4241 Assignment #2</h2>
-    <h3>Preview</h3>
-    <div class="prev" id="preview">
-      <div class="icon">
-        <div class="head"></div>
-        <div class="body"></div>
-      </div>
-      <div class="basicInfo">
-        <p class="topText">Jordan Wecler</p>
-        <p>He/Him</p>
-        <p>19 years old</p>
-        <p class="topText">Contact:</p>
-        <p>123-456-7890</p>
-        <p>name@email.com</p>
-      </div>
-      <div class="aboutInfo">
-        <p class="topText">About:</p>
-        <p>From Some Where, NJ</p>
-        <p>WPI Class of 2024</p>
-        <p>Works as a Media Assistant</p>
-        <p>Likes Photography</p>
-      </div>
-    </div>
     <h3>Create Profile</h3>
-    <div class="createProf">
-      <div class="profInput">
+    <div id="createProfile">
+      <form>
+        <label for="user">Username:</label>
+        <input type="text" class="inputText" id="user" placeholder="jdoe" required size="15">
+      </form>
+      <form>
+        <label for="pass">Password:</label>
+        <input type="text" class="inputText" id="pass" placeholder="soccer123" required size="15">
+      </form>
+      <form>
         <label for="name">Name:</label>
         <input type="text" class="inputText" id="name" placeholder="John Doe" required size="20">
-      </div>
-      <div class="profInput">
-        <label for="Pronouns">Pronouns:</label>
+      </form>
+      <form>
+        <label for="pronouns">Pronouns:</label>
         <input type="text" class="inputText" id="pronouns" placeholder="He/Him" required size="20">
-      </div>
-      <div class="profInput">
-        <label for="Birthday">Birthday:</label>
+      </form>
+      <form>
+        <label for="birthday">Birthday:</label>
         <input type="date" class="inputText" id="birthday">
-      </div>
-      <div class="profInput">
-        <label for="email">Email:</label>
-        <input type="text" class="inputText" id="email" placeholder="jdoe@email.com" required size="20">
-      </div>
-      <div class="profInput">
-        <label for="phone">Phone:</label>
-        <input type="text" class="inputText" id="phone" placeholder="123-456-7890" required size="20">
-      </div>
-      <div class="profInput">
-        <label for="Hometown">Hometown:</label>
-        <input type="text" class="inputText" id="hometown" placeholder="Los Angeles, CA"  required size="20">
-      </div>
-      <div class="profInput">
-        <label for="Education">Education:</label>
-        <input type="text" class="inputText" id="education" placeholder="Harvard Class of 2024" required size="20">
-      </div>
-      <div class="profInput">
-        <label for="Job">Job:</label>
-        <input type="text" class="inputText" id="job" placeholder="Office Assistant" required size="20">
-      </div>
-      <div class="profInput">
-        <label for="Likes">Likes:</label>
-        <input type="text" class="inputText" id="likes" placeholder="Photography" required size="20">
-      </div>
-      <div class="profInput">
-        <label for="Primary Color">Primary Color:</label>
-        <select class="inputText" id="primary">
+      </form>
+      <form>
+        <label for="bio">Bio:</label>
+        <input type="text" class="inputText" id="bio" placeholder="I like photography" required size="20">
+      </form>
+      <form>
+        <label for="Profile Color">Profile Color:</label>
+        <select class="inputText" id="color">
           <option></option>
           <option value="red">Red</option>
           <option value="orange">Orange</option>
@@ -79,29 +45,13 @@
           <option value="cyan">Cyan</option>
           <option value="blue">Blue</option>
           <option value="purple">Purple</option>
-          <option value="black">Black</option>
-          <option value="white">Grey</option>
+          <option value="b&w">Black</option>
         </select>
-      </div>
-      <div class="profInput">
-        <label for="Secondary Color">Secondary Color:</label>
-        <select class="inputText" id="secondary">
-          <option></option>
-          <option value="red">Red</option>
-          <option value="orange">Orange</option>
-          <option value="yellow">Yellow</option>
-          <option value="green">Green</option>
-          <option value="cyan">Cyan</option>
-          <option value="blue">Blue</option>
-          <option value="purple">Purple</option>
-          <option value="black">White</option>
-          <option value="white">Grey</option>
-        </select>
-      </div>
+      </form>
       <div class="profInputButton">
-        <button type="button" class="button" id="previewButton">Preview</button>
-        <button type="button" class="button" id="submitButton">Submit</button>
-        <button type="button" class="button" id="clearButton">Clear</button>
+        <button id="previewButton" type="button" class="button">Preview</button>
+        <button id="submitButton" type="button" class="button" >Submit</button>
+        <button id="clearButton" type="button" class="button">Clear</button>
       </div>
     </div>
   </body>
