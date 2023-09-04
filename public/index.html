@@ -1,41 +1,264 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>DoGrid</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <!--Disable mobile zooming-->
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <header id="main-header">
+      <h1>DoGrid</h1>
+      <h2>A simple TODO app, in grid style!</h2>
+    </header>
+    <div id="main-content">
+      <div id="main-grid">
+        <div id="top-left"></div>
+        <div id="top-right"><h2>Add/Remove</h2><br/><button id="addHeader" onclick="addHeader()">+</button><button id="removeHeader" onclick="removeHeader()">-</button></div>
+        <div id="bottom-left"><h2>Add/Remove</h2><br/><button id="addDate" onclick="addDate()">+</button><button id="removeDate" onclick="removeDate()">-</button></div>
+        <div id="bottom-right"></div>
+        <div id="center">Loading...</div>
+      </div>
+    </div>
+    <footer id="main-footer">
+      <form action="" id="form">
+        <h1>New Event</h1>
+        <input type='text' id='newTitle' placeholder="Study Session">
+        <textarea id="newDescription" placeholder="Description goes here"></textarea>
+        <input type='text' id='newDate' placeholder="Month Day Year">
+        <select id="newSubject">
+          <option value="Math">Math</option>
+          <option value="English">English</option>
+          <option value="Science">Science</option>
+          <option value="History">History</option>
+        </select>
+        <button id="button">Submit</button>
+      </form>
+    </footer>
   </body>
   <script>
+    const submit = function(e) {
+      // prevent default form action from being carried out
+      e.preventDefault()
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+      const title = document.querySelector( '#newTitle' ),
+            description = document.querySelector( '#newDescription' ),
+            date = document.querySelector( '#newDate' ),
+            subject = document.querySelector( '#newSubject' ),
+            json = {
+              title: title.value,
+              description: description.value,
+              date: (Date.parse(date.value)||Date.now()),
+              subject: subject.value
+            },
+            body = JSON.stringify(json);
+      console.log(body);
+      fetch( '/submit', {
+        method:'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body 
+      })
+      .then( function( response ) {
+        window.location.reload(); //Refresh the page to see changes; applying them on the fly is more difficult and could lead to weird states bc I programmed this website badly lol
+      });
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+      return false;
+    }
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+    window.onload = async function() {
+      document.querySelector('#button').onclick = submit;
+      document.querySelector('#form').onsubmit = (e)=>{e.preventDefault();};
+      
+      //Load dummy data
+      var data = {
+        headers: ["Math","English","Science","History"],
+        events: [
+          {
+            title: "Event",
+            description: "An event",
+            date: Date.parse('08 Sept 2022 00:00:00 EST'),
+            subject: "Math",
+          color: "#FFAAAA"
+          },
+          {
+            title: "Event2 ",
+            description: "An event... 2!",
+            date: Date.parse('10 Sept 2022 00:00:00 EST'),
+            subject: "English",
+          color: "#AAFFAA"
+          }
+        ]
+      };
 
-    return false
-  }
+      //Fetch real data
+      var response = await fetch('/getdata');
+      data = await response.json();
+      console.log(data);
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+      /*
+      document.addEventListener("dragstart", function(event){
+        event.dataTransfer.setData("elementID", event.target.id);
+        event.target.style.opacity = "0.4";
+        console.log(event.dataTransfer);
+      });
+      document.addEventListener("dragend", function(event){
+        event.target.style.opacity = "1";
+      });
+      document.addEventListener("dragover", function(event) {
+        event.preventDefault();
+      });
+      document.addEventListener("drop", function(event){
+        event.preventDefault();
+        if(Array.from(event.target.classList).indexOf("blank") != -1){
+          //If dropping into a blank square
+          var elementID = event.dataTransfer.getData("elementID");
+          var eventElement = document.getElementById(elementID);
+          var eventParent = eventElement.parentNode;
+          var blankElement = event.target;
+          blankElement.parentNode.appendChild(eventElement);
+          eventParent.appendChild(blankElement);
+        }
+      });
+      */
 
+      initializeGrid(data);
+    }
+
+    function initializeGrid(data){
+      var grid = document.getElementById("main-grid");
+      var loadingText = document.getElementById("center");
+      loadingText.parentNode.removeChild(loadingText);
+
+      //Initialize headers
+      for(var i=0; i<data.headers.length; i++){
+        var headerElement = document.createElement("div");
+        headerElement.style.gridColumn = i+2; //+1 because they're 1-indexed, +1 because of the date column. A rare double off-by-one error correction!
+        headerElement.style.gridRow = 1;
+        headerElement.innerHTML = `<h2>${data.headers[i]}</h2>`;
+        grid.appendChild(headerElement);
+      }
+
+      //Calculate and store dates
+      data.events = data.events.sort((a,b)=>(a.date-b.date)); //Sort in ascending order of dates/times
+      var startDate = data.events[0] ? new Date(data.events[0].date) : new Date(Date.now());
+      startDate.setHours(0, 0, 0, 0); //Set time of start date to midnight
+      //console.log("StartDate: "+startDate);
+      var endDate = data.events[data.events.length-1] ? data.events[data.events.length-1].date : new Date(Date.now());
+      //console.log(getFormattedDate(startDate));
+      //console.log(getFormattedDate(endDate));
+      var dates = [new Date(startDate.getTime())]; //Clone startDate as the first date
+      var curDate = new Date(startDate.getTime());
+      for(var i=0; i<100; i++){
+        curDate.setDate(curDate.getDate()+1); //Increment date by 1, accounting for months/timezones/etc.
+        //console.log(curDate.getTime());
+        //console.log(startDate.getTime());
+        if((curDate > endDate) && (curDate.getTime() - startDate.getTime() > (7*24*60*60*1000))){ //Until endDate, min=7 days max=100 days
+          break;
+        }
+        dates.push(new Date(curDate.getTime())); //Clone the next day and store it
+      }
+      //console.log(dates);
+
+      //Initialize dates
+      for(var i=0; i<dates.length; i++){
+        var sidebarElement = document.createElement("div");
+        sidebarElement.style.gridColumn = 1;
+        sidebarElement.style.gridRow = i+2; //Same deal as the headers
+        sidebarElement.innerHTML = `<h2>${getFormattedDate(dates[i])}</h2>`;
+        grid.appendChild(sidebarElement);
+      }
+
+      //Initialize events
+      for(var i=0; i<data.events.length; i++){
+        var eventElement = makeEvent(data.events[i], data, dates);
+        grid.appendChild(eventElement);
+      }
+
+      //Initialize corners
+      var curCols = data.headers.length+1;
+      var curRows = dates.length+1;
+      //console.log(curCols);
+      //console.log(curRows);
+      document.getElementById("top-right").style.gridRow = 1;
+      document.getElementById("top-right").style.gridColumn = curCols+1;
+      document.getElementById("bottom-left").style.gridRow = curRows+1;
+      document.getElementById("bottom-left").style.gridColumn = 1;
+      document.getElementById("bottom-right").style.gridRow = curRows+1;
+      document.getElementById("bottom-right").style.gridColumn = curCols+1;
+    
+      //Initialize blank squares
+      for(var i=0; i<data.headers.length+1; i++){
+        for(var j=0; j<dates.length+1; j++){
+          var blankElement = document.createElement("div");
+          blankElement.style.gridColumn = i+2+" / auto";
+          blankElement.style.gridRow = j+2+" / auto";
+          blankElement.classList += "blank";
+          if(Array.from(document.getElementsByClassName("event")).filter(event=>{
+            return (event.id.split("-")[1] == i+2 && event.id.split("-")[2] == j+2);
+          }).length == 0){
+            grid.appendChild(blankElement);
+          }
+        }
+      }
+    }
+
+    function getFormattedDate(date){
+      return date.toLocaleString('en-US', { month: 'long', day: 'numeric' });
+    }
+
+    function makeEvent(event, data, dates){
+      var eventElement = document.createElement("div");
+      eventElement.classList += "event";
+      eventElement.style.gridColumn = getEventColumn(event, data)+2;
+      eventElement.style.gridRow = getEventRow(event, dates)+2;
+      eventElement.style.backgroundColor = event.color;
+      eventElement.id = "event-"+getEventColumn(event, data)+2+"-"+getEventRow(event, dates)+2;
+      //eventElement.draggable = true;
+      eventElement.innerHTML = 
+        `<h2>${event.title}</h2>
+        <p>${event.description}</p>
+        <span>${getFormattedDate(new Date(event.date))}</span>`;
+      return eventElement;
+    }
+
+    function getEventColumn(event, data){
+      return data.headers.indexOf(event.subject);
+    }
+
+    function getEventRow(event, dates){
+      return dates.findIndex((date) => {
+        var nextDate = new Date(date.getTime());
+        nextDate.setDate(date.getDate()+1);
+        /*
+        console.log(date);
+        console.log(nextDate);
+        console.log(new Date(event.date));
+        console.log(event.date >= date);
+        console.log(event.date < nextDate);
+        */
+        return (event.date >= date && event.date < nextDate);
+      });
+    }
+
+    function addHeader(){
+      alert("Coming soon!");
+    }
+
+    function removeHeader(){
+      alert("Coming soon!");
+    }
+
+    function addDate(){
+      alert("Coming soon!");
+    }
+
+    function removeDate(){
+      alert("Coming soon!");
+    }
   </script>
 </html>
